@@ -299,10 +299,10 @@ $(document).ready(function () {
                     console.log(returnPoint);
 
                     // محاسبه کرایه با توجه به نقاط
-                    const fare = calculateFare(startPoint, endPoint, returnPoint, distance, duration,false,false);
+                    const fare = calculateFare(startPoint, endPoint, returnPoint, distance, duration, false, false);
                     console.log(`مبلغ کرایه: ${fare} تومان`);
 
-                    
+
                     $(".factor").append('<tr><td class="no">0' + no + '</td><td class="text-left" colspan="2">راننده سرویس</td><td class="unit">' + driver_name + ' </td></tr>');
 
                 });
@@ -347,6 +347,7 @@ $(document).ready(function () {
         returnPoint = null; // ریست نقطه برگشت
 
         $(".factor").empty();
+        $("tfoot").empty();
         no = 0;
     }
 
@@ -414,129 +415,132 @@ $(document).ready(function () {
         `);
     }
 
-   // تابع محاسبه کرایه
-function calculateFare(startPoint, endPoint, returnPoint, distance, duration, isCancelled, isHourly) {
-    const morningRate = 135000; // کرایه روز
-    const nightRate = 150000; // کرایه شب
-    const minuteRateDay = 8500; // کرایه هر دقیقه روز
-    const minuteRateNight = 9500; // کرایه هر دقیقه شب
-    const kmRateOutsideDayOneWay = 24000; // هر کیلومتر خارج از شهر (یکطرفه)
-    const kmRateOutsideDayRoundTrip = 20000; // هر کیلومتر خارج از شهر (رفت و برگشت)
-    const cancellationFee = 55000; // هزینه کنسلی
-    const hourlyRate = 350000; // کارکرد ساعتی
-    const urbanAreaLimit = 50; // محدوده شهری به کیلومتر
+    // تابع محاسبه کرایه
+    function calculateFare(startPoint, endPoint, returnPoint, distance, duration, isCancelled, isHourly) {
+        const kmRateDay = 8500; // کرایه هر کیلومتر از ساعت 6 صبح الی 22 شب
+        const kmRateNight = 9500; // کرایه هر کیلومتر از ساعت 22 شب الی 6 صبح
+        const kmRateOutsideDayOneWay = 24000; // کرایه هر کیلومتر خارج از شهر (یکطرفه)
+        const kmRateOutsideDayRoundTrip = 20000; // کرایه هر کیلومتر خارج از شهر (رفت و برگشت)
+        const cancellationFee = 55000; // هزینه کنسلی
+        const hourlyRate = 350000; // کارکرد ساعتی
+        const urbanAreaLimit = 50; // محدوده شهری به کیلومتر
+        const returnDistanceThreshold = 5; // 500 متر معادل 0.5 کیلومتر
 
-    let totalFare = 0;
+        let totalFare = 0;
 
-    // زمان کنونی
-    const now = new Date();
-    const currentHours = now.getHours();
+        // زمان کنونی
+        const now = new Date();
+        const currentHours = now.getHours();
 
-    // محاسبه کرایه بر اساس زمان
-    const isDayTime = currentHours >= 6 && currentHours < 22;
+        // محاسبه کرایه بر اساس زمان (تشخیص روز یا شب)
+        const isDayTime = currentHours >= 6 && currentHours < 22;
 
-    // در صورتی که سفر کنسل شده باشد
-    if (isCancelled) {
-        totalFare += cancellationFee;
-        console.log("مسیر کنسل شده است. مبلغ: " + cancellationFee + " تومان");
-        return totalFare; // فقط هزینه کنسلی برگردانده می‌شود
-    }
+        // پاک کردن مقادیر قبلی در tfoot
+        $("tfoot").empty();
 
-    // در صورتی که کارکرد بصورت ساعتی باشد
-    if (isHourly) {
-        totalFare += hourlyRate; // هزینه کارکرد ساعتی
-        console.log("کارکرد بصورت ساعتی محاسبه شده است. مبلغ: " + hourlyRate + " تومان");
-        $("tfoot").append('<tr><td colspan="2"></td><td colspan="1">کارکرد ساعتی</td><td>'+formatFare(hourlyRate) + 'ریال</td></tr>');
+        // در صورتی که سفر کنسل شده باشد
+        if (isCancelled) {
+            totalFare += cancellationFee;
+            $("tfoot").append('<tr><td colspan="2"></td><td colspan="1">کنسلی</td><td>' + formatFare(cancellationFee) + ' ریال</td></tr>');
+            return totalFare; // فقط هزینه کنسلی برگردانده می‌شود
+        }
 
-        return totalFare; // فقط هزینه کارکرد ساعتی برگردانده می‌شود
-    }
+        // در صورتی که کارکرد بصورت ساعتی باشد
+        if (isHourly) {
+            totalFare += hourlyRate; // هزینه کارکرد ساعتی
+            $("tfoot").append('<tr><td colspan="2"></td><td colspan="1">کارکرد ساعتی</td><td>' + formatFare(hourlyRate) + ' ریال</td></tr>');
+            return totalFare; // فقط هزینه کارکرد ساعتی برگردانده می‌شود
+        }
 
-    // محاسبه کرایه
-    totalFare += (isDayTime ? morningRate : nightRate);
-    console.log("کرایه پایه: " + (isDayTime ? morningRate : nightRate) + " تومان");
+        // محاسبه کرایه براساس کیلومتر
+        const kmRate = isDayTime ? kmRateDay : kmRateNight;
 
-    $("tfoot").append('<tr><td colspan="2"></td><td colspan="1">کرایه پایه</td><td>'+formatFare(isDayTime ? morningRate : nightRate) + 'ریال</td></tr>');
-    
-    totalFare += (isDayTime ? duration * minuteRateDay : duration * minuteRateNight);
-    console.log("کرایه زمان: " + (isDayTime ? duration * minuteRateDay : duration * minuteRateNight) + " تومان");
+        // بررسی فاصله بین نقطه سوم و نقطه اول
+        let isReturnTrip = false;
+        if (returnPoint) {
+            const returnDistance = calculateDistance(startPoint, returnPoint); // محاسبه فاصله بین نقطه اول و سوم
+            isReturnTrip = returnDistance <= returnDistanceThreshold; // اگر فاصله کمتر از 500 متر باشد
+        }
 
-    $("tfoot").append('<tr><td colspan="2"></td><td colspan="1">کرایه زمان</td><td>'+formatFare(isDayTime ? duration * minuteRateDay : duration * minuteRateNight) + 'ریال</td></tr>');
+        // بررسی فاصله برای نقاط دوم و سوم
+        const isEndPointOutsideUrban = distance > urbanAreaLimit; // بررسی نقطه دوم
 
-
-    // بررسی فاصله برای نقطه دوم و سوم
-    const isEndPointOutsideUrban = distance > urbanAreaLimit; // بررسی نقطه دوم
-    const isReturnPointOutsideUrban = returnPoint && (calculateDistance(startPoint, returnPoint) > urbanAreaLimit); // بررسی نقطه سوم
-
-    // محاسبه کرایه بر اساس نقاط
-    if (returnPoint) {
-        // اگر هر دو نقطه خارج از محدوده شهری باشند
-        if (isEndPointOutsideUrban && isReturnPointOutsideUrban) {
-            totalFare += (distance * kmRateOutsideDayRoundTrip);
-            console.log("کرایه رفت و برگشت خارج از شهر محاسبه شده است: " + (distance * kmRateOutsideDayRoundTrip) + " تومان");
-
-
-            $("tfoot").append('<tr><td colspan="2"></td><td colspan="1">کرایه رفت و برگشت خارج از شهر</td><td>'+formatFare((distance * kmRateOutsideDayRoundTrip)) + 'ریال</td></tr>');
-
-
-
-        } else if (isEndPointOutsideUrban) {
-            totalFare += (distance * kmRateOutsideDayOneWay);
-            console.log("کرایه یک طرفه خارج از شهر محاسبه شده است: " + (distance * kmRateOutsideDayOneWay) + " تومان");
-            $("tfoot").append('<tr><td colspan="2"></td><td colspan="1">کرایه یک طرفه خارج از شهر</td><td>'+formatFare((distance * kmRateOutsideDayOneWay)) + 'ریال</td></tr>');
-
-        } else if (isReturnPointOutsideUrban) {
-            totalFare += (calculateDistance(startPoint, returnPoint) * kmRateOutsideDayRoundTrip);
-            console.log("کرایه رفت و برگشت به نقطه برگشت خارج از شهر محاسبه شده است: " + (calculateDistance(startPoint, returnPoint) * kmRateOutsideDayRoundTrip) + " تومان");
-            $("tfoot").append('<tr><td colspan="2"></td><td colspan="1">کرایه رفت و برگشت به نقطه برگشت خارج از شهر</td><td>'+formatFare((calculateDistance(startPoint, returnPoint) * kmRateOutsideDayRoundTrip)) + 'ریال</td></tr>');
-
+        // محاسبه کرایه بر اساس نقاط
+        let distanceFare = 0;
+        if (isReturnTrip) {
+            // مسیر برگشت (راننده به نقطه شروع برمی‌گردد)
+            if (isEndPointOutsideUrban) {
+                distanceFare = 2 * distance * kmRateOutsideDayRoundTrip; // رفت و برگشت خارج از شهر
+                $("tfoot").append('<tr><td colspan="2"></td><td colspan="1">کرایه رفت و برگشت خارج از شهر</td><td>' + formatFare(distanceFare) + ' ریال</td></tr>');
+            } else {
+                distanceFare = 2 * distance * kmRate; // رفت و برگشت داخل شهر
+                $("tfoot").append('<tr><td colspan="2"></td><td colspan="1">کرایه رفت و برگشت داخل شهر</td><td>' + formatFare(distanceFare) + ' ریال</td></tr>');
+            }
         } else {
-            totalFare += (distance * kmRateOutsideDayRoundTrip);
-            console.log("کرایه رفت و برگشت داخل شهر محاسبه شده است: " + (distance * kmRateOutsideDayRoundTrip) + " تومان");
-            $("tfoot").append('<tr><td colspan="2"></td><td colspan="1">کرایه رفت و برگشت داخل شهر</td><td>'+formatFare((distance * kmRateOutsideDayRoundTrip)) + 'ریال</td></tr>');
-
+            // مسیر یک‌طرفه
+            if (isEndPointOutsideUrban) {
+                distanceFare = distance * kmRateOutsideDayOneWay; // یک‌طرفه خارج از شهر
+                $("tfoot").append('<tr><td colspan="2"></td><td colspan="1">کرایه یک طرفه خارج از شهر</td><td>' + formatFare(distanceFare) + ' ریال</td></tr>');
+            } else {
+                distanceFare = distance * kmRate; // یک‌طرفه داخل شهر
+                $("tfoot").append('<tr><td colspan="2"></td><td colspan="1">کرایه یک طرفه داخل شهر</td><td>' + formatFare(distanceFare) + ' ریال</td></tr>');
+            }
         }
-    } else {
-        // فقط یک نقطه وجود دارد
-        if (isEndPointOutsideUrban) {
-            totalFare += (distance * kmRateOutsideDayOneWay);
-            console.log("کرایه یک طرفه خارج از شهر محاسبه شده است: " + (distance * kmRateOutsideDayOneWay) + " تومان");
-            $("tfoot").append('<tr><td colspan="2"></td><td colspan="1">کرایه یک طرفه خارج از شهر</td><td>'+formatFare((distance * kmRateOutsideDayOneWay)) + 'ریال</td></tr>');
 
-        }
+        totalFare += distanceFare;
+
+        // بازگشت کل کرایه
+        $("tfoot").append('<tr><td colspan="2"></td><td colspan="1">مجموع کرایه</td><td>' + formatFare(totalFare) + ' ریال</td></tr>');
+
+        return totalFare;
+    }
+
+    // تابع محاسبه فاصله بین دو نقطه بر حسب کیلومتر
+    function calculateDistance(point1, point2) {
+        const R = 6371; // شعاع زمین به کیلومتر
+        const dLat = toRadians(point2[1] - point1[1]);
+        const dLng = toRadians(point2[0] - point1[0]);
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(toRadians(point1[1])) * Math.cos(toRadians(point2[1])) *
+            Math.sin(dLng / 2) * Math.sin(dLng / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c; // فاصله به کیلومتر
+    }
+
+    // تبدیل درجه به رادیان
+    function toRadians(degree) {
+        return degree * (Math.PI / 180);
     }
 
 
-    $("tfoot").append('<tr><td colspan="2"></td><td colspan="1">کل کرایه</td><td>'+formatFare((totalFare)) + 'ریال</td></tr>');
 
 
-    return totalFare;
-}
 
-// تابع محاسبه فاصله بین دو نقطه
-function calculateDistance(pointA, pointB) {
-    const lat1 = pointA[1];
-    const lon1 = pointA[0];
-    const lat2 = pointB[1];
-    const lon2 = pointB[0];
+    // تابع محاسبه فاصله بین دو نقطه
+    function calculateDistance(pointA, pointB) {
+        const lat1 = pointA[1];
+        const lon1 = pointA[0];
+        const lat2 = pointB[1];
+        const lon2 = pointB[0];
 
-    const R = 6371; // شعاع زمین به کیلومتر
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
+        const R = 6371; // شعاع زمین به کیلومتر
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
 
-    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-              Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-    return R * c; // فاصله بر حسب کیلومتر
-}
+        return R * c; // فاصله بر حسب کیلومتر
+    }
 
 
-function formatFare(amount) {
-    precision = 1000;
-    amount = Math.ceil(amount / precision) * precision;
-    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
+    function formatFare(amount) {
+        precision = 1000;
+        amount = Math.ceil(amount / precision) * precision;
+        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
 
 

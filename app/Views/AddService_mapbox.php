@@ -278,7 +278,7 @@
 
 
                             <div class="row">
-                                <div class="col-lg-9">
+                                <div class="col-lg-7">
                                     <div class="card bg-white border-0 rounded-10 mb-4">
                                         <div class="card-body p-4">
                                             <h3 class="fs-18 mb-4 border-bottom pb-20 mb-20">ایجاد سرویس</h3>
@@ -416,7 +416,7 @@
 
 
 
-                                <div class="col-lg-3">
+                                <div class="col-lg-5">
 
 
 
@@ -457,10 +457,10 @@
                                                             <div class="row">
 
                                                                 <div class="col company-details">
-                                                                    <h2 class="name" style="text-align: right;">
+                                                                    <h3 class="name" style="text-align: right;">
                                                                         خلاصه سرویس
 
-                                                                    </h2>
+                                                                    </h3>
 
                                                                 </div>
                                                             </div>
@@ -482,6 +482,12 @@
                                                                   
 
                                                                 </tbody>
+                                                               
+                                                            </table>
+
+
+                                                            <table >
+                                                            
                                                                 <tfoot>
                                                                    
                                                                 </tfoot>
@@ -515,32 +521,6 @@
 
 
 
-                                    <div class="card bg-white border-0 rounded-10 mb-4">
-                                        <div class="card-body p-4">
-                                            <h3 class="fs-18 mb-4 border-bottom pb-20 mb-20">خلاصه سرویس</h3>
-                                            <div class="form-group"> <label class="label">مسافر</label>
-                                                <div class="form-group position-relative">
-
-                                                    <div style="padding-top: 17px;" class="form-control text-gray-light h-58 ps-5 main_passenger"> </div>
-                                                    <i class="ri-user position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
-                                                </div>
-                                            </div>
-
-
-                                            <br />
-
-                                            <div class="form-group driver_holder"> <label class="label">راننده</label>
-                                                <div class="form-group position-relative" style="text-align: center;">
-
-                                                    <img src="" class="driver_photo wh-110 rounded-circle border border-2 border-color-white" alt="user" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="جردن استیونسون">
-
-                                                    <div style="padding-top: 17px;text-align: right;" class=" form-control text-gray-light h-58 ps-5 main_driver"> </div>
-                                                    <i class="ri-user position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
 
 
 
@@ -605,14 +585,6 @@
 
 <style>
 
-td{
-    width: 100px !important; /* عرض ثابت برای سلول‌ها */
-    word-wrap: break-word !important; /* شکستن کلمات طولانی */
-    overflow-wrap: break-word !important; /* شکستن کلمات طولانی */
-    border: 1px solid #000; /* برای مشاهده مرز سلول‌ها */
-    padding: 5px; /* برای کمی فاصله درون سلول‌ها */
-
-}
 
 
 </style>
