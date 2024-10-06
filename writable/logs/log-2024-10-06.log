@@ -1,0 +1,572 @@
+ERROR - 2024-10-06 11:08:28 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php:186
+Stack trace:
+#0 D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php(186): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'taxi', 3306, '', 0)
+#1 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 D:\xampp\htdocs\taxi\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Handlers\DatabaseHandler.php(186): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Handlers\DatabaseHandler.php(51): CodeIgniter\Settings\Handlers\DatabaseHandler->hydrate(NULL)
+#6 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Settings.php(59): CodeIgniter\Settings\Handlers\DatabaseHandler->has('Config\\Auth', 'sessionConfig', NULL)
+#7 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Helpers\setting_helper.php(25): CodeIgniter\Settings\Settings->get('Auth.sessionCon...')
+#8 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(685): setting('Auth.sessionCon...')
+#9 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(703): CodeIgniter\Shield\Authentication\Authenticators\Session->getSessionUserInfo()
+#10 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(390): CodeIgniter\Shield\Authentication\Authenticators\Session->getSessionUserKey('id')
+#11 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(374): CodeIgniter\Shield\Authentication\Authenticators\Session->checkUserState()
+#12 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Auth.php(191): CodeIgniter\Shield\Authentication\Authenticators\Session->loggedIn()
+#13 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Collectors\Auth.php(76): CodeIgniter\Shield\Auth->__call('loggedIn', Array)
+#14 D:\xampp\htdocs\taxi\system\Debug\Toolbar\Collectors\BaseCollector.php(228): CodeIgniter\Shield\Collectors\Auth->display()
+#15 D:\xampp\htdocs\taxi\system\Debug\Toolbar.php(96): CodeIgniter\Debug\Toolbar\Collectors\BaseCollector->getAsArray()
+#16 D:\xampp\htdocs\taxi\system\Debug\Toolbar.php(391): CodeIgniter\Debug\Toolbar->run(1728212904.2386, 0.0899, Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+#17 D:\xampp\htdocs\taxi\system\Filters\DebugToolbar.php(43): CodeIgniter\Debug\Toolbar->prepare(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+#18 D:\xampp\htdocs\taxi\system\Filters\Filters.php(241): CodeIgniter\Filters\DebugToolbar->after(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), NULL)
+#19 D:\xampp\htdocs\taxi\system\Filters\Filters.php(291): CodeIgniter\Filters\Filters->runAfter(Array)
+#20 D:\xampp\htdocs\taxi\system\CodeIgniter.php(409): CodeIgniter\Filters\Filters->runRequired('after')
+#21 D:\xampp\htdocs\taxi\system\CodeIgniter.php(372): CodeIgniter\CodeIgniter->runRequiredAfterFilters(Object(CodeIgniter\Filters\Filters))
+#22 D:\xampp\htdocs\taxi\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
+#23 D:\xampp\htdocs\taxi\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#24 D:\xampp\htdocs\taxi\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#25 D:\xampp\htdocs\taxi\system\rewrite.php(44): require_once('D:\\xampp\\htdocs...')
+#26 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 D:\xampp\htdocs\taxi\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Handlers\DatabaseHandler.php(186): CodeIgniter\Database\BaseBuilder->get()
+#4 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Handlers\DatabaseHandler.php(51): CodeIgniter\Settings\Handlers\DatabaseHandler->hydrate(NULL)
+#5 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Settings.php(59): CodeIgniter\Settings\Handlers\DatabaseHandler->has('Config\\Auth', 'sessionConfig', NULL)
+#6 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Helpers\setting_helper.php(25): CodeIgniter\Settings\Settings->get('Auth.sessionCon...')
+#7 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(685): setting('Auth.sessionCon...')
+#8 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(703): CodeIgniter\Shield\Authentication\Authenticators\Session->getSessionUserInfo()
+#9 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(390): CodeIgniter\Shield\Authentication\Authenticators\Session->getSessionUserKey('id')
+#10 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(374): CodeIgniter\Shield\Authentication\Authenticators\Session->checkUserState()
+#11 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Auth.php(191): CodeIgniter\Shield\Authentication\Authenticators\Session->loggedIn()
+#12 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Collectors\Auth.php(76): CodeIgniter\Shield\Auth->__call('loggedIn', Array)
+#13 D:\xampp\htdocs\taxi\system\Debug\Toolbar\Collectors\BaseCollector.php(228): CodeIgniter\Shield\Collectors\Auth->display()
+#14 D:\xampp\htdocs\taxi\system\Debug\Toolbar.php(96): CodeIgniter\Debug\Toolbar\Collectors\BaseCollector->getAsArray()
+#15 D:\xampp\htdocs\taxi\system\Debug\Toolbar.php(391): CodeIgniter\Debug\Toolbar->run(1728212904.2386, 0.0899, Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+#16 D:\xampp\htdocs\taxi\system\Filters\DebugToolbar.php(43): CodeIgniter\Debug\Toolbar->prepare(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+#17 D:\xampp\htdocs\taxi\system\Filters\Filters.php(241): CodeIgniter\Filters\DebugToolbar->after(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), NULL)
+#18 D:\xampp\htdocs\taxi\system\Filters\Filters.php(291): CodeIgniter\Filters\Filters->runAfter(Array)
+#19 D:\xampp\htdocs\taxi\system\CodeIgniter.php(409): CodeIgniter\Filters\Filters->runRequired('after')
+#20 D:\xampp\htdocs\taxi\system\CodeIgniter.php(372): CodeIgniter\CodeIgniter->runRequiredAfterFilters(Object(CodeIgniter\Filters\Filters))
+#21 D:\xampp\htdocs\taxi\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
+#22 D:\xampp\htdocs\taxi\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#23 D:\xampp\htdocs\taxi\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#24 D:\xampp\htdocs\taxi\system\rewrite.php(44): require_once('D:\\xampp\\htdocs...')
+#25 {main}
+CRITICAL - 2024-10-06 11:08:28 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+[Method: GET, Route: /]
+in SYSTEMPATH\Database\BaseConnection.php on line 467.
+ 1 SYSTEMPATH\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `settings`
+WHERE `context` IS NULL', [], false)
+ 3 VENDORPATH\codeigniter4\settings\src\Handlers\DatabaseHandler.php(186): CodeIgniter\Database\BaseBuilder->get()
+ 4 VENDORPATH\codeigniter4\settings\src\Handlers\DatabaseHandler.php(51): CodeIgniter\Settings\Handlers\DatabaseHandler->hydrate(null)
+ 5 VENDORPATH\codeigniter4\settings\src\Settings.php(59): CodeIgniter\Settings\Handlers\DatabaseHandler->has('Config\\Auth', 'sessionConfig', null)
+ 6 VENDORPATH\codeigniter4\settings\src\Helpers\setting_helper.php(25): CodeIgniter\Settings\Settings->get('Auth.sessionConfig')
+ 7 VENDORPATH\codeigniter4\shield\src\Authentication\Authenticators\Session.php(685): setting('Auth.sessionConfig')
+ 8 VENDORPATH\codeigniter4\shield\src\Authentication\Authenticators\Session.php(703): CodeIgniter\Shield\Authentication\Authenticators\Session->getSessionUserInfo()
+ 9 VENDORPATH\codeigniter4\shield\src\Authentication\Authenticators\Session.php(390): CodeIgniter\Shield\Authentication\Authenticators\Session->getSessionUserKey('id')
+10 VENDORPATH\codeigniter4\shield\src\Authentication\Authenticators\Session.php(374): CodeIgniter\Shield\Authentication\Authenticators\Session->checkUserState()
+11 VENDORPATH\codeigniter4\shield\src\Auth.php(191): CodeIgniter\Shield\Authentication\Authenticators\Session->loggedIn()
+12 VENDORPATH\codeigniter4\shield\src\Collectors\Auth.php(76): CodeIgniter\Shield\Auth->__call('loggedIn', [])
+13 SYSTEMPATH\Debug\Toolbar\Collectors\BaseCollector.php(228): CodeIgniter\Shield\Collectors\Auth->display()
+14 SYSTEMPATH\Debug\Toolbar.php(96): CodeIgniter\Debug\Toolbar\Collectors\BaseCollector->getAsArray()
+15 SYSTEMPATH\Debug\Toolbar.php(391): CodeIgniter\Debug\Toolbar->run(1728212904.238622, 0.0899, Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+16 SYSTEMPATH\Filters\DebugToolbar.php(43): CodeIgniter\Debug\Toolbar->prepare(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+17 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\DebugToolbar->after(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), null)
+18 SYSTEMPATH\Filters\Filters.php(291): CodeIgniter\Filters\Filters->runAfter([...])
+19 SYSTEMPATH\CodeIgniter.php(409): CodeIgniter\Filters\Filters->runRequired('after')
+20 SYSTEMPATH\CodeIgniter.php(372): CodeIgniter\CodeIgniter->runRequiredAfterFilters(Object(CodeIgniter\Filters\Filters))
+21 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+22 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+23 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+24 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+ERROR - 2024-10-06 11:11:51 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php:186
+Stack trace:
+#0 D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php(186): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'taxi', 3306, '', 0)
+#1 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 D:\xampp\htdocs\taxi\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Handlers\DatabaseHandler.php(186): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Handlers\DatabaseHandler.php(51): CodeIgniter\Settings\Handlers\DatabaseHandler->hydrate(NULL)
+#6 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Settings.php(59): CodeIgniter\Settings\Handlers\DatabaseHandler->has('Config\\Auth', 'sessionConfig', NULL)
+#7 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Helpers\setting_helper.php(25): CodeIgniter\Settings\Settings->get('Auth.sessionCon...')
+#8 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(685): setting('Auth.sessionCon...')
+#9 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(703): CodeIgniter\Shield\Authentication\Authenticators\Session->getSessionUserInfo()
+#10 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(390): CodeIgniter\Shield\Authentication\Authenticators\Session->getSessionUserKey('id')
+#11 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(374): CodeIgniter\Shield\Authentication\Authenticators\Session->checkUserState()
+#12 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Auth.php(191): CodeIgniter\Shield\Authentication\Authenticators\Session->loggedIn()
+#13 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Collectors\Auth.php(76): CodeIgniter\Shield\Auth->__call('loggedIn', Array)
+#14 D:\xampp\htdocs\taxi\system\Debug\Toolbar\Collectors\BaseCollector.php(228): CodeIgniter\Shield\Collectors\Auth->display()
+#15 D:\xampp\htdocs\taxi\system\Debug\Toolbar.php(96): CodeIgniter\Debug\Toolbar\Collectors\BaseCollector->getAsArray()
+#16 D:\xampp\htdocs\taxi\system\Debug\Toolbar.php(391): CodeIgniter\Debug\Toolbar->run(1728213107.6216, 0.0815, Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+#17 D:\xampp\htdocs\taxi\system\Filters\DebugToolbar.php(43): CodeIgniter\Debug\Toolbar->prepare(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+#18 D:\xampp\htdocs\taxi\system\Filters\Filters.php(241): CodeIgniter\Filters\DebugToolbar->after(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), NULL)
+#19 D:\xampp\htdocs\taxi\system\Filters\Filters.php(291): CodeIgniter\Filters\Filters->runAfter(Array)
+#20 D:\xampp\htdocs\taxi\system\CodeIgniter.php(409): CodeIgniter\Filters\Filters->runRequired('after')
+#21 D:\xampp\htdocs\taxi\system\CodeIgniter.php(372): CodeIgniter\CodeIgniter->runRequiredAfterFilters(Object(CodeIgniter\Filters\Filters))
+#22 D:\xampp\htdocs\taxi\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
+#23 D:\xampp\htdocs\taxi\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#24 D:\xampp\htdocs\taxi\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#25 D:\xampp\htdocs\taxi\system\rewrite.php(44): require_once('D:\\xampp\\htdocs...')
+#26 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 D:\xampp\htdocs\taxi\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Handlers\DatabaseHandler.php(186): CodeIgniter\Database\BaseBuilder->get()
+#4 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Handlers\DatabaseHandler.php(51): CodeIgniter\Settings\Handlers\DatabaseHandler->hydrate(NULL)
+#5 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Settings.php(59): CodeIgniter\Settings\Handlers\DatabaseHandler->has('Config\\Auth', 'sessionConfig', NULL)
+#6 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Helpers\setting_helper.php(25): CodeIgniter\Settings\Settings->get('Auth.sessionCon...')
+#7 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(685): setting('Auth.sessionCon...')
+#8 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(703): CodeIgniter\Shield\Authentication\Authenticators\Session->getSessionUserInfo()
+#9 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(390): CodeIgniter\Shield\Authentication\Authenticators\Session->getSessionUserKey('id')
+#10 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(374): CodeIgniter\Shield\Authentication\Authenticators\Session->checkUserState()
+#11 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Auth.php(191): CodeIgniter\Shield\Authentication\Authenticators\Session->loggedIn()
+#12 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Collectors\Auth.php(76): CodeIgniter\Shield\Auth->__call('loggedIn', Array)
+#13 D:\xampp\htdocs\taxi\system\Debug\Toolbar\Collectors\BaseCollector.php(228): CodeIgniter\Shield\Collectors\Auth->display()
+#14 D:\xampp\htdocs\taxi\system\Debug\Toolbar.php(96): CodeIgniter\Debug\Toolbar\Collectors\BaseCollector->getAsArray()
+#15 D:\xampp\htdocs\taxi\system\Debug\Toolbar.php(391): CodeIgniter\Debug\Toolbar->run(1728213107.6216, 0.0815, Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+#16 D:\xampp\htdocs\taxi\system\Filters\DebugToolbar.php(43): CodeIgniter\Debug\Toolbar->prepare(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+#17 D:\xampp\htdocs\taxi\system\Filters\Filters.php(241): CodeIgniter\Filters\DebugToolbar->after(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), NULL)
+#18 D:\xampp\htdocs\taxi\system\Filters\Filters.php(291): CodeIgniter\Filters\Filters->runAfter(Array)
+#19 D:\xampp\htdocs\taxi\system\CodeIgniter.php(409): CodeIgniter\Filters\Filters->runRequired('after')
+#20 D:\xampp\htdocs\taxi\system\CodeIgniter.php(372): CodeIgniter\CodeIgniter->runRequiredAfterFilters(Object(CodeIgniter\Filters\Filters))
+#21 D:\xampp\htdocs\taxi\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
+#22 D:\xampp\htdocs\taxi\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#23 D:\xampp\htdocs\taxi\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#24 D:\xampp\htdocs\taxi\system\rewrite.php(44): require_once('D:\\xampp\\htdocs...')
+#25 {main}
+CRITICAL - 2024-10-06 11:11:51 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+[Method: GET, Route: /]
+in SYSTEMPATH\Database\BaseConnection.php on line 467.
+ 1 SYSTEMPATH\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `settings`
+WHERE `context` IS NULL', [], false)
+ 3 VENDORPATH\codeigniter4\settings\src\Handlers\DatabaseHandler.php(186): CodeIgniter\Database\BaseBuilder->get()
+ 4 VENDORPATH\codeigniter4\settings\src\Handlers\DatabaseHandler.php(51): CodeIgniter\Settings\Handlers\DatabaseHandler->hydrate(null)
+ 5 VENDORPATH\codeigniter4\settings\src\Settings.php(59): CodeIgniter\Settings\Handlers\DatabaseHandler->has('Config\\Auth', 'sessionConfig', null)
+ 6 VENDORPATH\codeigniter4\settings\src\Helpers\setting_helper.php(25): CodeIgniter\Settings\Settings->get('Auth.sessionConfig')
+ 7 VENDORPATH\codeigniter4\shield\src\Authentication\Authenticators\Session.php(685): setting('Auth.sessionConfig')
+ 8 VENDORPATH\codeigniter4\shield\src\Authentication\Authenticators\Session.php(703): CodeIgniter\Shield\Authentication\Authenticators\Session->getSessionUserInfo()
+ 9 VENDORPATH\codeigniter4\shield\src\Authentication\Authenticators\Session.php(390): CodeIgniter\Shield\Authentication\Authenticators\Session->getSessionUserKey('id')
+10 VENDORPATH\codeigniter4\shield\src\Authentication\Authenticators\Session.php(374): CodeIgniter\Shield\Authentication\Authenticators\Session->checkUserState()
+11 VENDORPATH\codeigniter4\shield\src\Auth.php(191): CodeIgniter\Shield\Authentication\Authenticators\Session->loggedIn()
+12 VENDORPATH\codeigniter4\shield\src\Collectors\Auth.php(76): CodeIgniter\Shield\Auth->__call('loggedIn', [])
+13 SYSTEMPATH\Debug\Toolbar\Collectors\BaseCollector.php(228): CodeIgniter\Shield\Collectors\Auth->display()
+14 SYSTEMPATH\Debug\Toolbar.php(96): CodeIgniter\Debug\Toolbar\Collectors\BaseCollector->getAsArray()
+15 SYSTEMPATH\Debug\Toolbar.php(391): CodeIgniter\Debug\Toolbar->run(1728213107.6216, 0.0815, Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+16 SYSTEMPATH\Filters\DebugToolbar.php(43): CodeIgniter\Debug\Toolbar->prepare(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+17 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\DebugToolbar->after(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), null)
+18 SYSTEMPATH\Filters\Filters.php(291): CodeIgniter\Filters\Filters->runAfter([...])
+19 SYSTEMPATH\CodeIgniter.php(409): CodeIgniter\Filters\Filters->runRequired('after')
+20 SYSTEMPATH\CodeIgniter.php(372): CodeIgniter\CodeIgniter->runRequiredAfterFilters(Object(CodeIgniter\Filters\Filters))
+21 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+22 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+23 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+24 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+ERROR - 2024-10-06 11:12:06 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php:186
+Stack trace:
+#0 D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php(186): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'taxi', 3306, '', 0)
+#1 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 D:\xampp\htdocs\taxi\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Handlers\DatabaseHandler.php(186): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Handlers\DatabaseHandler.php(51): CodeIgniter\Settings\Handlers\DatabaseHandler->hydrate(NULL)
+#6 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Settings.php(59): CodeIgniter\Settings\Handlers\DatabaseHandler->has('Config\\Auth', 'sessionConfig', NULL)
+#7 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Helpers\setting_helper.php(25): CodeIgniter\Settings\Settings->get('Auth.sessionCon...')
+#8 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(685): setting('Auth.sessionCon...')
+#9 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(703): CodeIgniter\Shield\Authentication\Authenticators\Session->getSessionUserInfo()
+#10 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(390): CodeIgniter\Shield\Authentication\Authenticators\Session->getSessionUserKey('id')
+#11 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(374): CodeIgniter\Shield\Authentication\Authenticators\Session->checkUserState()
+#12 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Auth.php(191): CodeIgniter\Shield\Authentication\Authenticators\Session->loggedIn()
+#13 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Collectors\Auth.php(76): CodeIgniter\Shield\Auth->__call('loggedIn', Array)
+#14 D:\xampp\htdocs\taxi\system\Debug\Toolbar\Collectors\BaseCollector.php(228): CodeIgniter\Shield\Collectors\Auth->display()
+#15 D:\xampp\htdocs\taxi\system\Debug\Toolbar.php(96): CodeIgniter\Debug\Toolbar\Collectors\BaseCollector->getAsArray()
+#16 D:\xampp\htdocs\taxi\system\Debug\Toolbar.php(391): CodeIgniter\Debug\Toolbar->run(1728213122.5779, 0.0426, Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+#17 D:\xampp\htdocs\taxi\system\Filters\DebugToolbar.php(43): CodeIgniter\Debug\Toolbar->prepare(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+#18 D:\xampp\htdocs\taxi\system\Filters\Filters.php(241): CodeIgniter\Filters\DebugToolbar->after(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), NULL)
+#19 D:\xampp\htdocs\taxi\system\Filters\Filters.php(291): CodeIgniter\Filters\Filters->runAfter(Array)
+#20 D:\xampp\htdocs\taxi\system\CodeIgniter.php(409): CodeIgniter\Filters\Filters->runRequired('after')
+#21 D:\xampp\htdocs\taxi\system\CodeIgniter.php(372): CodeIgniter\CodeIgniter->runRequiredAfterFilters(Object(CodeIgniter\Filters\Filters))
+#22 D:\xampp\htdocs\taxi\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
+#23 D:\xampp\htdocs\taxi\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#24 D:\xampp\htdocs\taxi\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#25 D:\xampp\htdocs\taxi\system\rewrite.php(44): require_once('D:\\xampp\\htdocs...')
+#26 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 D:\xampp\htdocs\taxi\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Handlers\DatabaseHandler.php(186): CodeIgniter\Database\BaseBuilder->get()
+#4 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Handlers\DatabaseHandler.php(51): CodeIgniter\Settings\Handlers\DatabaseHandler->hydrate(NULL)
+#5 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Settings.php(59): CodeIgniter\Settings\Handlers\DatabaseHandler->has('Config\\Auth', 'sessionConfig', NULL)
+#6 D:\xampp\htdocs\taxi\vendor\codeigniter4\settings\src\Helpers\setting_helper.php(25): CodeIgniter\Settings\Settings->get('Auth.sessionCon...')
+#7 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(685): setting('Auth.sessionCon...')
+#8 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(703): CodeIgniter\Shield\Authentication\Authenticators\Session->getSessionUserInfo()
+#9 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(390): CodeIgniter\Shield\Authentication\Authenticators\Session->getSessionUserKey('id')
+#10 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Authentication\Authenticators\Session.php(374): CodeIgniter\Shield\Authentication\Authenticators\Session->checkUserState()
+#11 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Auth.php(191): CodeIgniter\Shield\Authentication\Authenticators\Session->loggedIn()
+#12 D:\xampp\htdocs\taxi\vendor\codeigniter4\shield\src\Collectors\Auth.php(76): CodeIgniter\Shield\Auth->__call('loggedIn', Array)
+#13 D:\xampp\htdocs\taxi\system\Debug\Toolbar\Collectors\BaseCollector.php(228): CodeIgniter\Shield\Collectors\Auth->display()
+#14 D:\xampp\htdocs\taxi\system\Debug\Toolbar.php(96): CodeIgniter\Debug\Toolbar\Collectors\BaseCollector->getAsArray()
+#15 D:\xampp\htdocs\taxi\system\Debug\Toolbar.php(391): CodeIgniter\Debug\Toolbar->run(1728213122.5779, 0.0426, Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+#16 D:\xampp\htdocs\taxi\system\Filters\DebugToolbar.php(43): CodeIgniter\Debug\Toolbar->prepare(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+#17 D:\xampp\htdocs\taxi\system\Filters\Filters.php(241): CodeIgniter\Filters\DebugToolbar->after(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), NULL)
+#18 D:\xampp\htdocs\taxi\system\Filters\Filters.php(291): CodeIgniter\Filters\Filters->runAfter(Array)
+#19 D:\xampp\htdocs\taxi\system\CodeIgniter.php(409): CodeIgniter\Filters\Filters->runRequired('after')
+#20 D:\xampp\htdocs\taxi\system\CodeIgniter.php(372): CodeIgniter\CodeIgniter->runRequiredAfterFilters(Object(CodeIgniter\Filters\Filters))
+#21 D:\xampp\htdocs\taxi\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
+#22 D:\xampp\htdocs\taxi\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#23 D:\xampp\htdocs\taxi\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#24 D:\xampp\htdocs\taxi\system\rewrite.php(44): require_once('D:\\xampp\\htdocs...')
+#25 {main}
+CRITICAL - 2024-10-06 11:12:06 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+[Method: GET, Route: /]
+in SYSTEMPATH\Database\BaseConnection.php on line 467.
+ 1 SYSTEMPATH\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `settings`
+WHERE `context` IS NULL', [], false)
+ 3 VENDORPATH\codeigniter4\settings\src\Handlers\DatabaseHandler.php(186): CodeIgniter\Database\BaseBuilder->get()
+ 4 VENDORPATH\codeigniter4\settings\src\Handlers\DatabaseHandler.php(51): CodeIgniter\Settings\Handlers\DatabaseHandler->hydrate(null)
+ 5 VENDORPATH\codeigniter4\settings\src\Settings.php(59): CodeIgniter\Settings\Handlers\DatabaseHandler->has('Config\\Auth', 'sessionConfig', null)
+ 6 VENDORPATH\codeigniter4\settings\src\Helpers\setting_helper.php(25): CodeIgniter\Settings\Settings->get('Auth.sessionConfig')
+ 7 VENDORPATH\codeigniter4\shield\src\Authentication\Authenticators\Session.php(685): setting('Auth.sessionConfig')
+ 8 VENDORPATH\codeigniter4\shield\src\Authentication\Authenticators\Session.php(703): CodeIgniter\Shield\Authentication\Authenticators\Session->getSessionUserInfo()
+ 9 VENDORPATH\codeigniter4\shield\src\Authentication\Authenticators\Session.php(390): CodeIgniter\Shield\Authentication\Authenticators\Session->getSessionUserKey('id')
+10 VENDORPATH\codeigniter4\shield\src\Authentication\Authenticators\Session.php(374): CodeIgniter\Shield\Authentication\Authenticators\Session->checkUserState()
+11 VENDORPATH\codeigniter4\shield\src\Auth.php(191): CodeIgniter\Shield\Authentication\Authenticators\Session->loggedIn()
+12 VENDORPATH\codeigniter4\shield\src\Collectors\Auth.php(76): CodeIgniter\Shield\Auth->__call('loggedIn', [])
+13 SYSTEMPATH\Debug\Toolbar\Collectors\BaseCollector.php(228): CodeIgniter\Shield\Collectors\Auth->display()
+14 SYSTEMPATH\Debug\Toolbar.php(96): CodeIgniter\Debug\Toolbar\Collectors\BaseCollector->getAsArray()
+15 SYSTEMPATH\Debug\Toolbar.php(391): CodeIgniter\Debug\Toolbar->run(1728213122.577859, 0.0426, Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+16 SYSTEMPATH\Filters\DebugToolbar.php(43): CodeIgniter\Debug\Toolbar->prepare(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+17 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\DebugToolbar->after(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), null)
+18 SYSTEMPATH\Filters\Filters.php(291): CodeIgniter\Filters\Filters->runAfter([...])
+19 SYSTEMPATH\CodeIgniter.php(409): CodeIgniter\Filters\Filters->runRequired('after')
+20 SYSTEMPATH\CodeIgniter.php(372): CodeIgniter\CodeIgniter->runRequiredAfterFilters(Object(CodeIgniter\Filters\Filters))
+21 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+22 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+23 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+24 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-10-06 11:12:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:12:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:14:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:14:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:14:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:14:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:14:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:17:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:17:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:17:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:17:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:17:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:17:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:17:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:17:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:17:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:17:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:18:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:18:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:18:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:18:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:18:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:18:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:19:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:20:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:22:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:22:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:23:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:23:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:23:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:23:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:23:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:23:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:30:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:30:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:33:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:33:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:34:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:34:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:34:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:34:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:34:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 11:34:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-10-06 12:01:33 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "<"
+[Method: POST, Route: Service/%3C]
+in SYSTEMPATH\Router\Router.php on line 737.
+ 1 SYSTEMPATH\Router\Router.php(204): CodeIgniter\Router\Router->checkDisallowedChars('Service/<')
+ 2 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Service/<')
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-10-06 12:05:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 12:05:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-10-06 12:05:16 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "<"
+[Method: POST, Route: Service/%3C]
+in SYSTEMPATH\Router\Router.php on line 737.
+ 1 SYSTEMPATH\Router\Router.php(204): CodeIgniter\Router\Router->checkDisallowedChars('Service/<')
+ 2 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Service/<')
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-10-06 12:43:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 12:43:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 13:47:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 13:47:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 13:48:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 13:48:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-10-06 13:48:23 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "<"
+[Method: POST, Route: Service/%3C]
+in SYSTEMPATH\Router\Router.php on line 737.
+ 1 SYSTEMPATH\Router\Router.php(204): CodeIgniter\Router\Router->checkDisallowedChars('Service/<')
+ 2 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Service/<')
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-10-06 13:48:27 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "<"
+[Method: POST, Route: Service/%3C]
+in SYSTEMPATH\Router\Router.php on line 737.
+ 1 SYSTEMPATH\Router\Router.php(204): CodeIgniter\Router\Router->checkDisallowedChars('Service/<')
+ 2 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Service/<')
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-10-06 13:48:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-10-06 13:48:37 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "<"
+[Method: POST, Route: Service/%3C]
+in SYSTEMPATH\Router\Router.php on line 737.
+ 1 SYSTEMPATH\Router\Router.php(204): CodeIgniter\Router\Router->checkDisallowedChars('Service/<')
+ 2 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Service/<')
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-10-06 14:01:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:01:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-10-06 14:01:46 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "<"
+[Method: POST, Route: Service/%3C]
+in SYSTEMPATH\Router\Router.php on line 737.
+ 1 SYSTEMPATH\Router\Router.php(204): CodeIgniter\Router\Router->checkDisallowedChars('Service/<')
+ 2 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Service/<')
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-10-06 14:02:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:02:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-10-06 14:02:11 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "<"
+[Method: POST, Route: Service/%3C]
+in SYSTEMPATH\Router\Router.php on line 737.
+ 1 SYSTEMPATH\Router\Router.php(204): CodeIgniter\Router\Router->checkDisallowedChars('Service/<')
+ 2 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Service/<')
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-10-06 14:04:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:04:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:04:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:09:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:09:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:10:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:10:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:12:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:12:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:13:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:14:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:14:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:16:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:16:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:19:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:19:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:22:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:22:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:23:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:23:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:27:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:27:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:28:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:28:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:34:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:34:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:34:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:34:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:35:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:35:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:36:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:36:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:36:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:41:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:41:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:43:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:43:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:44:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:44:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:44:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:44:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:45:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:45:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:53:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:53:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:54:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:54:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:56:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:56:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:58:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:58:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:58:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 14:58:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:00:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:00:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:00:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:00:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:02:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:06:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:06:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:06:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:07:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:07:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:07:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:07:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:07:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:07:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:09:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:09:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:09:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:09:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:09:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:09:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:09:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:09:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:09:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:09:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:10:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:10:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:10:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:10:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:10:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:10:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:11:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:12:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:12:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:12:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:12:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:12:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:12:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:12:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:13:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:13:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:13:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:14:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:14:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:14:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:16:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:16:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:16:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:17:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:17:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:17:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:17:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:17:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:18:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:18:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:18:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:18:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:20:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:20:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:20:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:20:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:20:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:21:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:33:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:33:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:36:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:36:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:38:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:38:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:39:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:39:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:40:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:40:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:55:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:55:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:56:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:56:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:57:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:57:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:58:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 15:58:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:00:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:00:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:02:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:02:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:09:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:09:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:11:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:13:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:13:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:15:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:15:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:17:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:17:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:18:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:18:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:18:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:19:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:19:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:19:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:19:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:23:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:23:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:24:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:24:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:25:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:26:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:26:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:26:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:28:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:28:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:31:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:31:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:35:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:35:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:36:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:36:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:37:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:37:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:38:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:38:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:38:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-10-06 16:38:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

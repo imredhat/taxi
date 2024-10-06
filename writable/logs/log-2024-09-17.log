@@ -1,0 +1,988 @@
+INFO - 2024-09-17 04:33:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 04:34:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 04:34:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 04:34:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 04:34:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 04:34:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 04:37:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 04:37:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 04:37:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 04:37:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 04:37:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 04:39:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 04:39:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2024-09-17 04:39:11 --> mysqli_sql_exception: Column 'scan_car_id' cannot be null in D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `ca...', 0)
+#1 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ca...')
+#2 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ca...')
+#3 D:\xampp\htdocs\taxi\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ca...', Array, false)
+#4 D:\xampp\htdocs\taxi\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 D:\xampp\htdocs\taxi\system\BaseModel.php(840): CodeIgniter\Model->doInsert(Array)
+#6 D:\xampp\htdocs\taxi\system\Model.php(802): CodeIgniter\BaseModel->insert(Array, true)
+#7 D:\xampp\htdocs\taxi\app\Controllers\Drivers.php(298): CodeIgniter\Model->insert(Array)
+#8 D:\xampp\htdocs\taxi\system\CodeIgniter.php(933): App\Controllers\Drivers->OneStep()
+#9 D:\xampp\htdocs\taxi\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+#10 D:\xampp\htdocs\taxi\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 D:\xampp\htdocs\taxi\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
+#12 D:\xampp\htdocs\taxi\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 D:\xampp\htdocs\taxi\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 D:\xampp\htdocs\taxi\system\rewrite.php(44): require_once('D:\\xampp\\htdocs...')
+#15 {main}
+CRITICAL - 2024-09-17 04:39:11 --> CodeIgniter\Database\Exceptions\DatabaseException: Column 'scan_car_id' cannot be null
+[Method: POST, Route: OneStep]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `cars` (`driver_id`, `iran`, `pelak`, `pelak_last`, `harf`, `fuel`, `type`, `vin`, `motor`, `shasi`, `scan_car_id`, `pic_back`, `pic_front`, `pic_in_back`, `pic_in_front`) VALUES (:driver_id:, :iran:, :pelak:, :pelak_last:, :harf:, :fuel:, :type:, :vin:, :motor:, :shasi:, :scan_car_id:, :pic_back:, :pic_front:, :pic_in_back:, :pic_in_front:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(840): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(802): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\Drivers.php(298): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Drivers->OneStep()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-17 04:39:11 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Column 'scan_car_id' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `cars` (`driver_id`, `iran`, `pelak`, `pelak_last`, `harf`, `fuel`, `type`, `vin`, `motor`, `shasi`, `scan_car_id`, `pic_back`, `pic_front`, `pic_in_back`, `pic_in_front`) VALUES (8, \'55\', \'5555\', \'55\', \'الف\', \'بنزینی\', \'سواری\', \'\', \'\', \'\', NULL, NULL, \'Screenshot 2024-06-16 160124_1.png\', NULL, NULL)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `cars` (`driver_id`, `iran`, `pelak`, `pelak_last`, `harf`, `fuel`, `type`, `vin`, `motor`, `shasi`, `scan_car_id`, `pic_back`, `pic_front`, `pic_in_back`, `pic_in_front`) VALUES (8, \'55\', \'5555\', \'55\', \'الف\', \'بنزینی\', \'سواری\', \'\', \'\', \'\', NULL, NULL, \'Screenshot 2024-06-16 160124_1.png\', NULL, NULL)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `cars` (`driver_id`, `iran`, `pelak`, `pelak_last`, `harf`, `fuel`, `type`, `vin`, `motor`, `shasi`, `scan_car_id`, `pic_back`, `pic_front`, `pic_in_back`, `pic_in_front`) VALUES (:driver_id:, :iran:, :pelak:, :pelak_last:, :harf:, :fuel:, :type:, :vin:, :motor:, :shasi:, :scan_car_id:, :pic_back:, :pic_front:, :pic_in_back:, :pic_in_front:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(840): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(802): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\Drivers.php(298): CodeIgniter\Model->insert([...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Drivers->OneStep()
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-17 04:39:11 --> [Caused by] mysqli_sql_exception: Column 'scan_car_id' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `cars` (`driver_id`, `iran`, `pelak`, `pelak_last`, `harf`, `fuel`, `type`, `vin`, `motor`, `shasi`, `scan_car_id`, `pic_back`, `pic_front`, `pic_in_back`, `pic_in_front`) VALUES (8, \'55\', \'5555\', \'55\', \'الف\', \'بنزینی\', \'سواری\', \'\', \'\', \'\', NULL, NULL, \'Screenshot 2024-06-16 160124_1.png\', NULL, NULL)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `cars` (`driver_id`, `iran`, `pelak`, `pelak_last`, `harf`, `fuel`, `type`, `vin`, `motor`, `shasi`, `scan_car_id`, `pic_back`, `pic_front`, `pic_in_back`, `pic_in_front`) VALUES (8, \'55\', \'5555\', \'55\', \'الف\', \'بنزینی\', \'سواری\', \'\', \'\', \'\', NULL, NULL, \'Screenshot 2024-06-16 160124_1.png\', NULL, NULL)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `cars` (`driver_id`, `iran`, `pelak`, `pelak_last`, `harf`, `fuel`, `type`, `vin`, `motor`, `shasi`, `scan_car_id`, `pic_back`, `pic_front`, `pic_in_back`, `pic_in_front`) VALUES (8, \'55\', \'5555\', \'55\', \'الف\', \'بنزینی\', \'سواری\', \'\', \'\', \'\', NULL, NULL, \'Screenshot 2024-06-16 160124_1.png\', NULL, NULL)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `cars` (`driver_id`, `iran`, `pelak`, `pelak_last`, `harf`, `fuel`, `type`, `vin`, `motor`, `shasi`, `scan_car_id`, `pic_back`, `pic_front`, `pic_in_back`, `pic_in_front`) VALUES (:driver_id:, :iran:, :pelak:, :pelak_last:, :harf:, :fuel:, :type:, :vin:, :motor:, :shasi:, :scan_car_id:, :pic_back:, :pic_front:, :pic_in_back:, :pic_in_front:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(840): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(802): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\Drivers.php(298): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Drivers->OneStep()
+10 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+11 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-09-17 04:40:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 04:40:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 04:40:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 04:57:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 04:57:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 05:35:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 05:35:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2024-09-17 05:40:11 --> mysqli_sql_exception: Unknown column 'brand.deleted_at' in 'where clause' in D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 D:\xampp\htdocs\taxi\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\xampp\htdocs\taxi\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\xampp\htdocs\taxi\system\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+#6 D:\xampp\htdocs\taxi\app\Controllers\Drivers.php(39): CodeIgniter\BaseModel->findAll()
+#7 D:\xampp\htdocs\taxi\system\CodeIgniter.php(933): App\Controllers\Drivers->AddDriver()
+#8 D:\xampp\htdocs\taxi\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+#9 D:\xampp\htdocs\taxi\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 D:\xampp\htdocs\taxi\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
+#11 D:\xampp\htdocs\taxi\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 D:\xampp\htdocs\taxi\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 D:\xampp\htdocs\taxi\system\rewrite.php(44): require_once('D:\\xampp\\htdocs...')
+#14 {main}
+CRITICAL - 2024-09-17 05:40:11 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'brand.deleted_at' in 'where clause'
+[Method: GET, Route: add-driver]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\Drivers.php(39): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Drivers->AddDriver()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-17 05:40:11 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'brand.deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\Drivers.php(39): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Drivers->AddDriver()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-17 05:40:11 --> [Caused by] mysqli_sql_exception: Unknown column 'brand.deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\Drivers.php(39): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Drivers->AddDriver()
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+ERROR - 2024-09-17 05:40:12 --> mysqli_sql_exception: Unknown column 'brand.deleted_at' in 'where clause' in D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 D:\xampp\htdocs\taxi\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\xampp\htdocs\taxi\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\xampp\htdocs\taxi\system\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+#6 D:\xampp\htdocs\taxi\app\Controllers\Drivers.php(39): CodeIgniter\BaseModel->findAll()
+#7 D:\xampp\htdocs\taxi\system\CodeIgniter.php(933): App\Controllers\Drivers->AddDriver()
+#8 D:\xampp\htdocs\taxi\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+#9 D:\xampp\htdocs\taxi\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 D:\xampp\htdocs\taxi\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
+#11 D:\xampp\htdocs\taxi\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 D:\xampp\htdocs\taxi\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 D:\xampp\htdocs\taxi\system\rewrite.php(44): require_once('D:\\xampp\\htdocs...')
+#14 {main}
+CRITICAL - 2024-09-17 05:40:12 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'brand.deleted_at' in 'where clause'
+[Method: GET, Route: add-driver]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\Drivers.php(39): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Drivers->AddDriver()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-17 05:40:12 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'brand.deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\Drivers.php(39): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Drivers->AddDriver()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-17 05:40:12 --> [Caused by] mysqli_sql_exception: Unknown column 'brand.deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\Drivers.php(39): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Drivers->AddDriver()
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+ERROR - 2024-09-17 05:41:34 --> mysqli_sql_exception: Unknown column 'brand.deleted_at' in 'where clause' in D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 D:\xampp\htdocs\taxi\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\xampp\htdocs\taxi\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\xampp\htdocs\taxi\system\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+#6 D:\xampp\htdocs\taxi\app\Controllers\Drivers.php(39): CodeIgniter\BaseModel->findAll()
+#7 D:\xampp\htdocs\taxi\system\CodeIgniter.php(933): App\Controllers\Drivers->AddDriver()
+#8 D:\xampp\htdocs\taxi\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+#9 D:\xampp\htdocs\taxi\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 D:\xampp\htdocs\taxi\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
+#11 D:\xampp\htdocs\taxi\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 D:\xampp\htdocs\taxi\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 D:\xampp\htdocs\taxi\system\rewrite.php(44): require_once('D:\\xampp\\htdocs...')
+#14 {main}
+CRITICAL - 2024-09-17 05:41:34 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'brand.deleted_at' in 'where clause'
+[Method: GET, Route: add-driver]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\Drivers.php(39): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Drivers->AddDriver()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-17 05:41:34 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'brand.deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\Drivers.php(39): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Drivers->AddDriver()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-17 05:41:34 --> [Caused by] mysqli_sql_exception: Unknown column 'brand.deleted_at' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `brand`
+WHERE `brand`.`deleted_at` IS NULL', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\Drivers.php(39): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Drivers->AddDriver()
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-17 05:48:11 --> Error: Call to undefined function App\Controllers\object()
+[Method: GET, Route: add-driver]
+in APPPATH\Controllers\Drivers.php on line 42.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Drivers->AddDriver()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-09-17 05:49:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 05:49:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 05:53:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 05:53:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 05:54:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 05:54:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 05:55:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 05:55:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 05:58:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 05:58:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 05:59:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 05:59:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:05:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:05:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:05:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:06:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:06:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:06:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:06:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:06:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:06:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:07:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:07:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:08:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:08:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:09:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:09:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:09:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:09:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:22:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:22:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:23:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:23:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:24:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:24:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:27:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:27:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:33:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 06:33:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:31:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:31:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:31:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:31:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:31:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-09-17 09:31:56 --> Exception: The table name does not exist. Please check you database and try again.
+[Method: GET, Route: Brands]
+in APPPATH\Libraries\GroceryCrud.php on line 4971.
+ 1 APPPATH\Libraries\GroceryCrud.php(4450): App\Libraries\GroceryCrud->get_table()
+ 2 APPPATH\Libraries\GroceryCrud.php(4467): App\Libraries\GroceryCrud->pre_render()
+ 3 APPPATH\Controllers\Cars.php(54): App\Libraries\GroceryCrud->render()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Cars->Brands()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cars))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-17 09:32:39 --> Exception: The table name does not exist. Please check you database and try again.
+[Method: GET, Route: Brands]
+in APPPATH\Libraries\GroceryCrud.php on line 4971.
+ 1 APPPATH\Libraries\GroceryCrud.php(4450): App\Libraries\GroceryCrud->get_table()
+ 2 APPPATH\Libraries\GroceryCrud.php(4467): App\Libraries\GroceryCrud->pre_render()
+ 3 APPPATH\Controllers\Cars.php(49): App\Libraries\GroceryCrud->render()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Cars->Brands()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cars))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-09-17 09:32:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:32:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-09-17 09:35:02 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "grocerycrud.php"
+[Method: GET, Route: Company]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('grocerycrud.php')
+ 2 SYSTEMPATH\Common.php(1169): CodeIgniter\View\View->render('grocerycrud', [], true)
+ 3 APPPATH\Controllers\User.php(42): view('grocerycrud', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\User->Company()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-17 09:35:18 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "grocerycrud.php"
+[Method: GET, Route: Company]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('grocerycrud.php')
+ 2 SYSTEMPATH\Common.php(1169): CodeIgniter\View\View->render('grocerycrud', [], true)
+ 3 APPPATH\Controllers\User.php(42): view('grocerycrud', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\User->Company()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-09-17 09:35:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:35:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:36:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:36:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:40:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:40:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:54:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:54:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:54:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:54:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:57:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:57:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:58:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 09:58:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:24:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:24:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-09-17 10:24:27 --> ErrorException: preg_match(): Compilation failed: missing closing parenthesis at offset 16
+[Method: GET, Route: http:/localhost:8080/assets/images/favicon.png]
+in SYSTEMPATH\Router\Router.php on line 432.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'preg_match(): Compilation failed: missing closing parenthesis at offset 16', 'D:\\xampp\\htdocs\\taxi\\system\\Router\\Router.php', 432)
+ 2 SYSTEMPATH\Router\Router.php(432): preg_match('#^AllUser/(/(.*)$#u', 'http:/localhost:8080/assets/images/favicon.png', [])
+ 3 SYSTEMPATH\Router\Router.php(210): CodeIgniter\Router\Router->checkRoutes('http:/localhost:8080/assets/images/favicon.png')
+ 4 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('http:/localhost:8080/assets/images/favicon.png')
+ 5 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-09-17 10:26:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:26:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-09-17 10:26:12 --> ErrorException: preg_match(): Compilation failed: missing closing parenthesis at offset 17
+[Method: GET, Route: http:/localhost:8080/assets/images/favicon.png]
+in SYSTEMPATH\Router\Router.php on line 432.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'preg_match(): Compilation failed: missing closing parenthesis at offset 17', 'D:\\xampp\\htdocs\\taxi\\system\\Router\\Router.php', 432)
+ 2 SYSTEMPATH\Router\Router.php(432): preg_match('#^Contacts/(/(.*)$#u', 'http:/localhost:8080/assets/images/favicon.png', [])
+ 3 SYSTEMPATH\Router\Router.php(210): CodeIgniter\Router\Router->checkRoutes('http:/localhost:8080/assets/images/favicon.png')
+ 4 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('http:/localhost:8080/assets/images/favicon.png')
+ 5 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-17 10:26:14 --> ErrorException: preg_match(): Compilation failed: missing closing parenthesis at offset 17
+[Method: GET, Route: Contacts]
+in SYSTEMPATH\Router\Router.php on line 432.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'preg_match(): Compilation failed: missing closing parenthesis at offset 17', 'D:\\xampp\\htdocs\\taxi\\system\\Router\\Router.php', 432)
+ 2 SYSTEMPATH\Router\Router.php(432): preg_match('#^Contacts/(/(.*)$#u', 'Contacts', [])
+ 3 SYSTEMPATH\Router\Router.php(210): CodeIgniter\Router\Router->checkRoutes('Contacts')
+ 4 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Contacts')
+ 5 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-09-17 10:26:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:26:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:27:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:27:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:27:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:27:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:29:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:29:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-09-17 10:31:03 --> ErrorException: Cannot use positional argument after named argument
+[Method: GET, Route: Contacts/add]
+in APPPATH\Controllers\User.php on line 102.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+INFO - 2024-09-17 10:37:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:37:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:37:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:37:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:37:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:37:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-09-17 10:40:34 --> Error: Call to undefined method App\Libraries\GroceryCrud::setDefaultValue()
+[Method: GET, Route: Contacts/success/1]
+in APPPATH\Controllers\User.php on line 115.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\User->AllUser('success', '1')
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-17 10:42:53 --> Error: Call to undefined function App\Controllers\NOW()
+[Method: GET, Route: Contacts/success/1]
+in APPPATH\Controllers\User.php on line 116.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\User->AllUser('success', '1')
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-17 10:43:06 --> ArgumentCountError: date() expects at least 1 argument, 0 given
+[Method: GET, Route: Contacts/success/1]
+in APPPATH\Controllers\User.php on line 116.
+ 1 APPPATH\Controllers\User.php(116): date()
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\User->AllUser('success', '1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-09-17 10:43:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:43:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:43:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:43:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:43:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:43:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:44:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:44:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:44:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:44:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:44:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:44:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 10:44:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:06:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:06:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:07:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:07:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:07:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:07:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:07:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:07:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-09-17 12:07:55 --> Error: Class "App\Models\BrandModel" not found
+[Method: GET, Route: add-driver]
+in APPPATH\Controllers\Drivers.php on line 40.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Drivers->AddDriver()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-17 12:08:49 --> Error: Class "App\Models\BrandModel" not found
+[Method: GET, Route: add-driver]
+in APPPATH\Controllers\Drivers.php on line 40.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Drivers->AddDriver()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-09-17 12:09:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:09:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-09-17 12:09:19 --> Error: Class "App\Models\DriverModel" not found
+[Method: POST, Route: OneStep]
+in APPPATH\Controllers\Drivers.php on line 278.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Drivers->OneStep()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-09-17 12:14:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:14:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:14:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:15:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:15:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:15:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:15:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:15:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:15:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:15:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:15:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:16:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:16:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:16:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:16:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:16:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:16:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:16:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:16:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:16:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:16:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:59:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 12:59:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-09-17 14:17:07 --> ErrorException: Undefined variable $Brands
+[Method: GET, Route: /]
+in APPPATH\Views\driver_add.php on line 212.
+ 1 APPPATH\Views\driver_add.php(212): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $Brands', 'D:\\xampp\\htdocs\\taxi\\app\\Views\\driver_add.php', 212)
+ 2 SYSTEMPATH\View\View.php(234): include('D:\\xampp\\htdocs\\taxi\\app\\Views\\driver_add.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1169): CodeIgniter\View\View->render('driver_add', [], true)
+ 5 APPPATH\Controllers\Drivers.php(30): view('driver_add')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Drivers->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-17 14:19:34 --> ErrorException: Undefined variable $Brands
+[Method: GET, Route: /]
+in APPPATH\Views\driver_add.php on line 212.
+ 1 APPPATH\Views\driver_add.php(212): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $Brands', 'D:\\xampp\\htdocs\\taxi\\app\\Views\\driver_add.php', 212)
+ 2 SYSTEMPATH\View\View.php(234): include('D:\\xampp\\htdocs\\taxi\\app\\Views\\driver_add.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1169): CodeIgniter\View\View->render('driver_add', [], true)
+ 5 APPPATH\Controllers\Drivers.php(30): view('driver_add')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Drivers->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Drivers))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-09-17 14:20:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 14:20:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-09-17 14:37:29 --> ErrorException: Undefined variable $Brands
+[Method: GET, Route: /]
+in APPPATH\Views\driver_add.php on line 212.
+ 1 APPPATH\Views\driver_add.php(212): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $Brands', 'D:\\xampp\\htdocs\\taxi\\app\\Views\\driver_add.php', 212)
+ 2 SYSTEMPATH\View\View.php(234): include('D:\\xampp\\htdocs\\taxi\\app\\Views\\driver_add.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1169): CodeIgniter\View\View->render('driver_add', [], true)
+ 5 APPPATH\Controllers\User.php(20): view('driver_add')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\User->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\User))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-09-17 15:01:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:01:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:02:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:02:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:03:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:03:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:04:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:04:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:29:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:29:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:29:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:29:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:30:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:30:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:33:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:33:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:34:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:34:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:34:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:34:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:45:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:45:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:47:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:47:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:47:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:47:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:48:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:48:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:49:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:49:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:49:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:49:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:53:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:53:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:53:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:53:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:53:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:53:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:54:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:54:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:54:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:54:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:54:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:54:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:55:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:55:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:56:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:56:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:56:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:56:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:56:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:56:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:56:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:56:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:57:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:57:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:57:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:57:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:57:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:57:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:57:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 15:57:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:34:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:34:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:34:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:34:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:35:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:35:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2024-09-17 16:35:20 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' ''),'',COALESCE(pelak, ''),'&nbsp;',COALESCE(harf, ''),'&nbsp;',COALESCE(pel...' at line 1 in D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT cars.cid...', 0)
+#1 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT cars.cid...')
+#2 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT cars.cid...')
+#3 D:\xampp\htdocs\taxi\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT cars.cid...', Array, false)
+#4 D:\xampp\htdocs\taxi\app\Models\GroceryCrudModel.php(280): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(652): App\Models\GroceryCrudModel->get_relation_array('car_id', 'cars', '{\xD8\xA7\xDB\x8C\xD8\xB1\xD8\xA7\xD9\x86-}{p...', NULL, NULL, NULL)
+#6 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(2432): App\Libraries\grocery_CRUD_Model_Driver->get_relation_array(Array)
+#7 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), NULL)
+#8 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), NULL)
+#9 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+#10 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+#11 D:\xampp\htdocs\taxi\app\Controllers\Service.php(70): App\Libraries\GroceryCrud->render()
+#12 D:\xampp\htdocs\taxi\system\CodeIgniter.php(933): App\Controllers\Service->AllServices('add')
+#13 D:\xampp\htdocs\taxi\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Service))
+#14 D:\xampp\htdocs\taxi\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#15 D:\xampp\htdocs\taxi\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
+#16 D:\xampp\htdocs\taxi\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#17 D:\xampp\htdocs\taxi\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#18 D:\xampp\htdocs\taxi\system\rewrite.php(44): require_once('D:\\xampp\\htdocs...')
+#19 {main}
+CRITICAL - 2024-09-17 16:35:20 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' ''),'',COALESCE(pelak, ''),'&nbsp;',COALESCE(harf, ''),'&nbsp;',COALESCE(pel...' at line 1
+[Method: GET, Route: Service/add]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT cars.cid, CONCAT(\'\',COALESCE(ایران-, \'\'),\'\',COALESCE(pelak, \'\'),\'&nbsp;\',COALESCE(harf, \'\'),\'&nbsp;\',COALESCE(pelak_last, \'\'),\'\') as scf8b1f8d
+FROM `cars`
+ORDER BY `scf8b1f8d`', [], false)
+ 2 APPPATH\Models\GroceryCrudModel.php(280): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Libraries\GroceryCrud.php(652): App\Models\GroceryCrudModel->get_relation_array('car_id', 'cars', '{ایران-}{pelak}&nbsp;{harf}&nbsp;{pelak_last}', null, null, null)
+ 4 APPPATH\Libraries\GroceryCrud.php(2432): App\Libraries\grocery_CRUD_Model_Driver->get_relation_array([...])
+ 5 APPPATH\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), null)
+ 6 APPPATH\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), null)
+ 7 APPPATH\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+ 8 APPPATH\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+ 9 APPPATH\Controllers\Service.php(70): App\Libraries\GroceryCrud->render()
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Service->AllServices('add')
+11 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Service))
+12 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+16 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-17 16:35:20 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' ''),'',COALESCE(pelak, ''),'&nbsp;',COALESCE(harf, ''),'&nbsp;',COALESCE(pel...' at line 1
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT cars.cid, CONCAT(\'\',COALESCE(ایران-, \'\'),\'\',COALESCE(pelak, \'\'),\'&nbsp;\',COALESCE(harf, \'\'),\'&nbsp;\',COALESCE(pelak_last, \'\'),\'\') as scf8b1f8d
+FROM `cars`
+ORDER BY `scf8b1f8d`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT cars.cid, CONCAT(\'\',COALESCE(ایران-, \'\'),\'\',COALESCE(pelak, \'\'),\'&nbsp;\',COALESCE(harf, \'\'),\'&nbsp;\',COALESCE(pelak_last, \'\'),\'\') as scf8b1f8d
+FROM `cars`
+ORDER BY `scf8b1f8d`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT cars.cid, CONCAT(\'\',COALESCE(ایران-, \'\'),\'\',COALESCE(pelak, \'\'),\'&nbsp;\',COALESCE(harf, \'\'),\'&nbsp;\',COALESCE(pelak_last, \'\'),\'\') as scf8b1f8d
+FROM `cars`
+ORDER BY `scf8b1f8d`', [], false)
+ 4 APPPATH\Models\GroceryCrudModel.php(280): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Libraries\GroceryCrud.php(652): App\Models\GroceryCrudModel->get_relation_array('car_id', 'cars', '{ایران-}{pelak}&nbsp;{harf}&nbsp;{pelak_last}', null, null, null)
+ 6 APPPATH\Libraries\GroceryCrud.php(2432): App\Libraries\grocery_CRUD_Model_Driver->get_relation_array([...])
+ 7 APPPATH\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), null)
+ 8 APPPATH\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), null)
+ 9 APPPATH\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+10 APPPATH\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+11 APPPATH\Controllers\Service.php(70): App\Libraries\GroceryCrud->render()
+12 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Service->AllServices('add')
+13 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Service))
+14 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+15 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+16 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+17 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+18 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-17 16:35:20 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' ''),'',COALESCE(pelak, ''),'&nbsp;',COALESCE(harf, ''),'&nbsp;',COALESCE(pel...' at line 1
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT cars.cid, CONCAT(\'\',COALESCE(ایران-, \'\'),\'\',COALESCE(pelak, \'\'),\'&nbsp;\',COALESCE(harf, \'\'),\'&nbsp;\',COALESCE(pelak_last, \'\'),\'\') as scf8b1f8d
+FROM `cars`
+ORDER BY `scf8b1f8d`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT cars.cid, CONCAT(\'\',COALESCE(ایران-, \'\'),\'\',COALESCE(pelak, \'\'),\'&nbsp;\',COALESCE(harf, \'\'),\'&nbsp;\',COALESCE(pelak_last, \'\'),\'\') as scf8b1f8d
+FROM `cars`
+ORDER BY `scf8b1f8d`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT cars.cid, CONCAT(\'\',COALESCE(ایران-, \'\'),\'\',COALESCE(pelak, \'\'),\'&nbsp;\',COALESCE(harf, \'\'),\'&nbsp;\',COALESCE(pelak_last, \'\'),\'\') as scf8b1f8d
+FROM `cars`
+ORDER BY `scf8b1f8d`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT cars.cid, CONCAT(\'\',COALESCE(ایران-, \'\'),\'\',COALESCE(pelak, \'\'),\'&nbsp;\',COALESCE(harf, \'\'),\'&nbsp;\',COALESCE(pelak_last, \'\'),\'\') as scf8b1f8d
+FROM `cars`
+ORDER BY `scf8b1f8d`', [], false)
+ 5 APPPATH\Models\GroceryCrudModel.php(280): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Libraries\GroceryCrud.php(652): App\Models\GroceryCrudModel->get_relation_array('car_id', 'cars', '{ایران-}{pelak}&nbsp;{harf}&nbsp;{pelak_last}', null, null, null)
+ 7 APPPATH\Libraries\GroceryCrud.php(2432): App\Libraries\grocery_CRUD_Model_Driver->get_relation_array([...])
+ 8 APPPATH\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), null)
+ 9 APPPATH\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), null)
+10 APPPATH\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+11 APPPATH\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+12 APPPATH\Controllers\Service.php(70): App\Libraries\GroceryCrud->render()
+13 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Service->AllServices('add')
+14 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Service))
+15 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+16 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+17 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+18 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+19 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-09-17 16:35:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:35:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:35:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:35:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:36:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:36:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:42:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:42:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:42:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:42:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:45:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:45:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:45:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:45:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:45:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:45:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:46:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:46:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:46:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:46:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:48:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:48:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:48:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:48:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:48:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:48:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:48:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:48:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:48:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:48:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:48:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:48:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:48:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:48:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:49:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:49:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:49:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:49:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:49:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:49:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:49:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:49:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:49:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:49:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:49:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:49:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:49:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:49:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:49:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:49:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:49:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:50:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:50:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-09-17 16:51:01 --> ErrorException: include(assets/grocery_crud/languages/fa.php): Failed to open stream: No such file or directory
+[Method: GET, Route: Service]
+in APPPATH\Libraries\GroceryCrud.php on line 3979.
+ 1 APPPATH\Libraries\GroceryCrud.php(3979): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(assets/grocery_crud/languages/fa.php): Failed to open stream: No such file or directory', 'D:\\xampp\\htdocs\\taxi\\app\\Libraries\\GroceryCrud.php', 3979)
+ 2 APPPATH\Libraries\GroceryCrud.php(3979): include()
+ 3 APPPATH\Libraries\GroceryCrud.php(4443): App\Libraries\GroceryCrud->_load_language()
+ 4 APPPATH\Libraries\GroceryCrud.php(4467): App\Libraries\GroceryCrud->pre_render()
+ 5 APPPATH\Controllers\Service.php(71): App\Libraries\GroceryCrud->render()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Service->AllServices()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Service))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-09-17 16:53:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:53:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:53:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:53:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:57:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:57:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:57:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:57:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:58:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:58:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:59:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:59:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:59:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:59:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 16:59:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:00:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:00:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:00:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:00:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:01:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:01:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:01:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:01:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:01:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:01:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:01:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:01:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:01:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:01:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:01:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:01:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:01:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-09-17 17:02:14 --> ErrorException: include(assets/grocery_crud/themes/bootstrap00/config.php): Failed to open stream: No such file or directory
+[Method: GET, Route: Service]
+in APPPATH\Libraries\GroceryCrud.php on line 2731.
+ 1 APPPATH\Libraries\GroceryCrud.php(2731): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(assets/grocery_crud/themes/bootstrap00/config.php): Failed to open stream: No such file or directory', 'D:\\xampp\\htdocs\\taxi\\app\\Libraries\\GroceryCrud.php', 2731)
+ 2 APPPATH\Libraries\GroceryCrud.php(2731): include()
+ 3 APPPATH\Libraries\GroceryCrud.php(4490): App\Libraries\grocery_CRUD_Layout->setThemeBasics()
+ 4 APPPATH\Controllers\Service.php(71): App\Libraries\GroceryCrud->render()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Service->AllServices()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Service))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-09-17 17:03:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:03:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:03:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:03:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:04:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:04:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:04:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:04:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:04:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:04:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:04:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:04:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:04:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:04:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:04:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:04:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:04:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:04:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:04:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:04:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:07:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:07:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:07:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:07:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:07:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:07:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:07:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:07:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:07:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:07:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:07:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:07:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:07:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:07:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:08:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:08:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:18:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:18:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:18:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:19:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:21:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:21:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:21:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:23:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:23:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:25:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:25:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:26:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:26:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:34:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-17 17:34:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

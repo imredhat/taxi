@@ -1,0 +1,526 @@
+INFO - 2024-09-15 04:55:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 04:55:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 04:55:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 04:55:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2024-09-15 04:56:58 --> mysqli_sql_exception: Table 'taxi.drivers' doesn't exist in D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT COUNT(*)...', 0)
+#1 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 D:\xampp\htdocs\taxi\system\Database\BaseBuilder.php(1728): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 D:\xampp\htdocs\taxi\app\Models\GroceryCrudModel.php(303): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(661): App\Models\GroceryCrudModel->get_relation_total_rows('driver_id', 'drivers', 'id', NULL)
+#6 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(2412): App\Libraries\grocery_CRUD_Model_Driver->get_relation_total_rows(Array)
+#7 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), NULL)
+#8 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), NULL)
+#9 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+#10 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+#11 D:\xampp\htdocs\taxi\app\Controllers\Cars.php(103): App\Libraries\GroceryCrud->render()
+#12 D:\xampp\htdocs\taxi\system\CodeIgniter.php(933): App\Controllers\Cars->Cars('add')
+#13 D:\xampp\htdocs\taxi\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cars))
+#14 D:\xampp\htdocs\taxi\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#15 D:\xampp\htdocs\taxi\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
+#16 D:\xampp\htdocs\taxi\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#17 D:\xampp\htdocs\taxi\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#18 D:\xampp\htdocs\taxi\system\rewrite.php(44): require_once('D:\\xampp\\htdocs...')
+#19 {main}
+CRITICAL - 2024-09-15 04:56:58 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'taxi.drivers' doesn't exist
+[Method: GET, Route: Cars/add]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1728): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `drivers`', [], false)
+ 2 APPPATH\Models\GroceryCrudModel.php(303): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 3 APPPATH\Libraries\GroceryCrud.php(661): App\Models\GroceryCrudModel->get_relation_total_rows('driver_id', 'drivers', 'id', null)
+ 4 APPPATH\Libraries\GroceryCrud.php(2412): App\Libraries\grocery_CRUD_Model_Driver->get_relation_total_rows([...])
+ 5 APPPATH\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), null)
+ 6 APPPATH\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), null)
+ 7 APPPATH\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+ 8 APPPATH\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+ 9 APPPATH\Controllers\Cars.php(103): App\Libraries\GroceryCrud->render()
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Cars->Cars('add')
+11 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cars))
+12 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+16 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-15 04:56:58 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'taxi.drivers' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `drivers`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `drivers`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1728): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `drivers`', [], false)
+ 4 APPPATH\Models\GroceryCrudModel.php(303): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 5 APPPATH\Libraries\GroceryCrud.php(661): App\Models\GroceryCrudModel->get_relation_total_rows('driver_id', 'drivers', 'id', null)
+ 6 APPPATH\Libraries\GroceryCrud.php(2412): App\Libraries\grocery_CRUD_Model_Driver->get_relation_total_rows([...])
+ 7 APPPATH\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), null)
+ 8 APPPATH\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), null)
+ 9 APPPATH\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+10 APPPATH\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+11 APPPATH\Controllers\Cars.php(103): App\Libraries\GroceryCrud->render()
+12 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Cars->Cars('add')
+13 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cars))
+14 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+15 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+16 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+17 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+18 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-15 04:56:58 --> [Caused by] mysqli_sql_exception: Table 'taxi.drivers' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `drivers`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `drivers`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `drivers`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1728): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `drivers`', [], false)
+ 5 APPPATH\Models\GroceryCrudModel.php(303): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 6 APPPATH\Libraries\GroceryCrud.php(661): App\Models\GroceryCrudModel->get_relation_total_rows('driver_id', 'drivers', 'id', null)
+ 7 APPPATH\Libraries\GroceryCrud.php(2412): App\Libraries\grocery_CRUD_Model_Driver->get_relation_total_rows([...])
+ 8 APPPATH\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), null)
+ 9 APPPATH\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), null)
+10 APPPATH\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+11 APPPATH\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+12 APPPATH\Controllers\Cars.php(103): App\Libraries\GroceryCrud->render()
+13 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Cars->Cars('add')
+14 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cars))
+15 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+16 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+17 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+18 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+19 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+ERROR - 2024-09-15 04:57:14 --> mysqli_sql_exception: Unknown column 'driver.id' in 'field list' in D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT driver.d...', 0)
+#1 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT driver.d...')
+#2 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT driver.d...')
+#3 D:\xampp\htdocs\taxi\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT driver.d...', Array, false)
+#4 D:\xampp\htdocs\taxi\app\Models\GroceryCrudModel.php(280): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(652): App\Models\GroceryCrudModel->get_relation_array('driver_id', 'driver', 'id', NULL, NULL, NULL)
+#6 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(2432): App\Libraries\grocery_CRUD_Model_Driver->get_relation_array(Array)
+#7 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), NULL)
+#8 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), NULL)
+#9 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+#10 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+#11 D:\xampp\htdocs\taxi\app\Controllers\Cars.php(103): App\Libraries\GroceryCrud->render()
+#12 D:\xampp\htdocs\taxi\system\CodeIgniter.php(933): App\Controllers\Cars->Cars('add')
+#13 D:\xampp\htdocs\taxi\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cars))
+#14 D:\xampp\htdocs\taxi\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#15 D:\xampp\htdocs\taxi\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
+#16 D:\xampp\htdocs\taxi\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#17 D:\xampp\htdocs\taxi\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#18 D:\xampp\htdocs\taxi\system\rewrite.php(44): require_once('D:\\xampp\\htdocs...')
+#19 {main}
+CRITICAL - 2024-09-15 04:57:14 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'driver.id' in 'field list'
+[Method: GET, Route: Cars/add]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT driver.did, driver.id as s17565772
+FROM `driver`
+ORDER BY `s17565772`', [], false)
+ 2 APPPATH\Models\GroceryCrudModel.php(280): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Libraries\GroceryCrud.php(652): App\Models\GroceryCrudModel->get_relation_array('driver_id', 'driver', 'id', null, null, null)
+ 4 APPPATH\Libraries\GroceryCrud.php(2432): App\Libraries\grocery_CRUD_Model_Driver->get_relation_array([...])
+ 5 APPPATH\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), null)
+ 6 APPPATH\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), null)
+ 7 APPPATH\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+ 8 APPPATH\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+ 9 APPPATH\Controllers\Cars.php(103): App\Libraries\GroceryCrud->render()
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Cars->Cars('add')
+11 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cars))
+12 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+16 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-15 04:57:14 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'driver.id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT driver.did, driver.id as s17565772
+FROM `driver`
+ORDER BY `s17565772`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT driver.did, driver.id as s17565772
+FROM `driver`
+ORDER BY `s17565772`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT driver.did, driver.id as s17565772
+FROM `driver`
+ORDER BY `s17565772`', [], false)
+ 4 APPPATH\Models\GroceryCrudModel.php(280): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Libraries\GroceryCrud.php(652): App\Models\GroceryCrudModel->get_relation_array('driver_id', 'driver', 'id', null, null, null)
+ 6 APPPATH\Libraries\GroceryCrud.php(2432): App\Libraries\grocery_CRUD_Model_Driver->get_relation_array([...])
+ 7 APPPATH\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), null)
+ 8 APPPATH\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), null)
+ 9 APPPATH\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+10 APPPATH\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+11 APPPATH\Controllers\Cars.php(103): App\Libraries\GroceryCrud->render()
+12 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Cars->Cars('add')
+13 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cars))
+14 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+15 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+16 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+17 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+18 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-15 04:57:14 --> [Caused by] mysqli_sql_exception: Unknown column 'driver.id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT driver.did, driver.id as s17565772
+FROM `driver`
+ORDER BY `s17565772`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT driver.did, driver.id as s17565772
+FROM `driver`
+ORDER BY `s17565772`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT driver.did, driver.id as s17565772
+FROM `driver`
+ORDER BY `s17565772`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT driver.did, driver.id as s17565772
+FROM `driver`
+ORDER BY `s17565772`', [], false)
+ 5 APPPATH\Models\GroceryCrudModel.php(280): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Libraries\GroceryCrud.php(652): App\Models\GroceryCrudModel->get_relation_array('driver_id', 'driver', 'id', null, null, null)
+ 7 APPPATH\Libraries\GroceryCrud.php(2432): App\Libraries\grocery_CRUD_Model_Driver->get_relation_array([...])
+ 8 APPPATH\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), null)
+ 9 APPPATH\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), null)
+10 APPPATH\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+11 APPPATH\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+12 APPPATH\Controllers\Cars.php(103): App\Libraries\GroceryCrud->render()
+13 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Cars->Cars('add')
+14 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cars))
+15 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+16 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+17 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+18 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+19 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-09-15 04:57:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 04:57:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 04:57:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 04:57:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 04:58:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 04:58:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2024-09-15 04:59:05 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'as s17565772
+FROM `driver`
+ORDER BY `s17565772`' at line 1 in D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT driver.d...', 0)
+#1 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT driver.d...')
+#2 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT driver.d...')
+#3 D:\xampp\htdocs\taxi\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT driver.d...', Array, false)
+#4 D:\xampp\htdocs\taxi\app\Models\GroceryCrudModel.php(280): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(652): App\Models\GroceryCrudModel->get_relation_array('driver_id', 'driver', 'name lname', NULL, NULL, NULL)
+#6 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(2432): App\Libraries\grocery_CRUD_Model_Driver->get_relation_array(Array)
+#7 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), NULL)
+#8 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), NULL)
+#9 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+#10 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+#11 D:\xampp\htdocs\taxi\app\Controllers\Cars.php(103): App\Libraries\GroceryCrud->render()
+#12 D:\xampp\htdocs\taxi\system\CodeIgniter.php(933): App\Controllers\Cars->Cars('add')
+#13 D:\xampp\htdocs\taxi\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cars))
+#14 D:\xampp\htdocs\taxi\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#15 D:\xampp\htdocs\taxi\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
+#16 D:\xampp\htdocs\taxi\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#17 D:\xampp\htdocs\taxi\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#18 D:\xampp\htdocs\taxi\system\rewrite.php(44): require_once('D:\\xampp\\htdocs...')
+#19 {main}
+CRITICAL - 2024-09-15 04:59:05 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'as s17565772
+FROM `driver`
+ORDER BY `s17565772`' at line 1
+[Method: GET, Route: Cars/add]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT driver.did, driver.name lname as s17565772
+FROM `driver`
+ORDER BY `s17565772`', [], false)
+ 2 APPPATH\Models\GroceryCrudModel.php(280): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Libraries\GroceryCrud.php(652): App\Models\GroceryCrudModel->get_relation_array('driver_id', 'driver', 'name lname', null, null, null)
+ 4 APPPATH\Libraries\GroceryCrud.php(2432): App\Libraries\grocery_CRUD_Model_Driver->get_relation_array([...])
+ 5 APPPATH\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), null)
+ 6 APPPATH\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), null)
+ 7 APPPATH\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+ 8 APPPATH\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+ 9 APPPATH\Controllers\Cars.php(103): App\Libraries\GroceryCrud->render()
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Cars->Cars('add')
+11 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cars))
+12 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+16 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-15 04:59:05 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'as s17565772
+FROM `driver`
+ORDER BY `s17565772`' at line 1
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT driver.did, driver.name lname as s17565772
+FROM `driver`
+ORDER BY `s17565772`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT driver.did, driver.name lname as s17565772
+FROM `driver`
+ORDER BY `s17565772`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT driver.did, driver.name lname as s17565772
+FROM `driver`
+ORDER BY `s17565772`', [], false)
+ 4 APPPATH\Models\GroceryCrudModel.php(280): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Libraries\GroceryCrud.php(652): App\Models\GroceryCrudModel->get_relation_array('driver_id', 'driver', 'name lname', null, null, null)
+ 6 APPPATH\Libraries\GroceryCrud.php(2432): App\Libraries\grocery_CRUD_Model_Driver->get_relation_array([...])
+ 7 APPPATH\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), null)
+ 8 APPPATH\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), null)
+ 9 APPPATH\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+10 APPPATH\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+11 APPPATH\Controllers\Cars.php(103): App\Libraries\GroceryCrud->render()
+12 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Cars->Cars('add')
+13 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cars))
+14 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+15 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+16 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+17 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+18 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-15 04:59:05 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'as s17565772
+FROM `driver`
+ORDER BY `s17565772`' at line 1
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT driver.did, driver.name lname as s17565772
+FROM `driver`
+ORDER BY `s17565772`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT driver.did, driver.name lname as s17565772
+FROM `driver`
+ORDER BY `s17565772`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT driver.did, driver.name lname as s17565772
+FROM `driver`
+ORDER BY `s17565772`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT driver.did, driver.name lname as s17565772
+FROM `driver`
+ORDER BY `s17565772`', [], false)
+ 5 APPPATH\Models\GroceryCrudModel.php(280): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Libraries\GroceryCrud.php(652): App\Models\GroceryCrudModel->get_relation_array('driver_id', 'driver', 'name lname', null, null, null)
+ 7 APPPATH\Libraries\GroceryCrud.php(2432): App\Libraries\grocery_CRUD_Model_Driver->get_relation_array([...])
+ 8 APPPATH\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), null)
+ 9 APPPATH\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), null)
+10 APPPATH\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+11 APPPATH\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+12 APPPATH\Controllers\Cars.php(103): App\Libraries\GroceryCrud->render()
+13 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Cars->Cars('add')
+14 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cars))
+15 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+16 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+17 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+18 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+19 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+ERROR - 2024-09-15 04:59:32 --> mysqli_sql_exception: Unknown column 'driver.name.lname' in 'field list' in D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 D:\xampp\htdocs\taxi\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT driver.d...', 0)
+#1 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT driver.d...')
+#2 D:\xampp\htdocs\taxi\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT driver.d...')
+#3 D:\xampp\htdocs\taxi\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT driver.d...', Array, false)
+#4 D:\xampp\htdocs\taxi\app\Models\GroceryCrudModel.php(280): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(652): App\Models\GroceryCrudModel->get_relation_array('driver_id', 'driver', 'name.lname', NULL, NULL, NULL)
+#6 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(2432): App\Libraries\grocery_CRUD_Model_Driver->get_relation_array(Array)
+#7 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), NULL)
+#8 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), NULL)
+#9 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+#10 D:\xampp\htdocs\taxi\app\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+#11 D:\xampp\htdocs\taxi\app\Controllers\Cars.php(103): App\Libraries\GroceryCrud->render()
+#12 D:\xampp\htdocs\taxi\system\CodeIgniter.php(933): App\Controllers\Cars->Cars('add')
+#13 D:\xampp\htdocs\taxi\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cars))
+#14 D:\xampp\htdocs\taxi\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#15 D:\xampp\htdocs\taxi\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
+#16 D:\xampp\htdocs\taxi\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#17 D:\xampp\htdocs\taxi\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#18 D:\xampp\htdocs\taxi\system\rewrite.php(44): require_once('D:\\xampp\\htdocs...')
+#19 {main}
+CRITICAL - 2024-09-15 04:59:32 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'driver.name.lname' in 'field list'
+[Method: GET, Route: Cars/add]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT driver.did, driver.name.lname as s17565772
+FROM `driver`
+ORDER BY `s17565772`', [], false)
+ 2 APPPATH\Models\GroceryCrudModel.php(280): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Libraries\GroceryCrud.php(652): App\Models\GroceryCrudModel->get_relation_array('driver_id', 'driver', 'name.lname', null, null, null)
+ 4 APPPATH\Libraries\GroceryCrud.php(2432): App\Libraries\grocery_CRUD_Model_Driver->get_relation_array([...])
+ 5 APPPATH\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), null)
+ 6 APPPATH\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), null)
+ 7 APPPATH\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+ 8 APPPATH\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+ 9 APPPATH\Controllers\Cars.php(103): App\Libraries\GroceryCrud->render()
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Cars->Cars('add')
+11 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cars))
+12 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+16 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-15 04:59:32 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'driver.name.lname' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT driver.did, driver.name.lname as s17565772
+FROM `driver`
+ORDER BY `s17565772`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT driver.did, driver.name.lname as s17565772
+FROM `driver`
+ORDER BY `s17565772`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT driver.did, driver.name.lname as s17565772
+FROM `driver`
+ORDER BY `s17565772`', [], false)
+ 4 APPPATH\Models\GroceryCrudModel.php(280): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Libraries\GroceryCrud.php(652): App\Models\GroceryCrudModel->get_relation_array('driver_id', 'driver', 'name.lname', null, null, null)
+ 6 APPPATH\Libraries\GroceryCrud.php(2432): App\Libraries\grocery_CRUD_Model_Driver->get_relation_array([...])
+ 7 APPPATH\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), null)
+ 8 APPPATH\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), null)
+ 9 APPPATH\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+10 APPPATH\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+11 APPPATH\Controllers\Cars.php(103): App\Libraries\GroceryCrud->render()
+12 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Cars->Cars('add')
+13 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cars))
+14 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+15 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+16 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+17 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+18 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+CRITICAL - 2024-09-15 04:59:32 --> [Caused by] mysqli_sql_exception: Unknown column 'driver.name.lname' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT driver.did, driver.name.lname as s17565772
+FROM `driver`
+ORDER BY `s17565772`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT driver.did, driver.name.lname as s17565772
+FROM `driver`
+ORDER BY `s17565772`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT driver.did, driver.name.lname as s17565772
+FROM `driver`
+ORDER BY `s17565772`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT driver.did, driver.name.lname as s17565772
+FROM `driver`
+ORDER BY `s17565772`', [], false)
+ 5 APPPATH\Models\GroceryCrudModel.php(280): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Libraries\GroceryCrud.php(652): App\Models\GroceryCrudModel->get_relation_array('driver_id', 'driver', 'name.lname', null, null, null)
+ 7 APPPATH\Libraries\GroceryCrud.php(2432): App\Libraries\grocery_CRUD_Model_Driver->get_relation_array([...])
+ 8 APPPATH\Libraries\GroceryCrud.php(231): App\Libraries\grocery_CRUD_Layout->get_relation_input(Object(stdClass), null)
+ 9 APPPATH\Libraries\GroceryCrud.php(2548): App\Libraries\grocery_CRUD_Field_Types->get_field_input(Object(stdClass), null)
+10 APPPATH\Libraries\GroceryCrud.php(1765): App\Libraries\grocery_CRUD_Layout->get_add_input_fields()
+11 APPPATH\Libraries\GroceryCrud.php(4513): App\Libraries\grocery_CRUD_Layout->showAddForm()
+12 APPPATH\Controllers\Cars.php(103): App\Libraries\GroceryCrud->render()
+13 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Cars->Cars('add')
+14 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cars))
+15 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+16 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+17 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+18 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+19 SYSTEMPATH\rewrite.php(44): require_once('D:\\xampp\\htdocs\\taxi\\public\\index.php')
+INFO - 2024-09-15 04:59:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 04:59:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 05:00:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 05:00:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 05:00:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 05:00:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 05:01:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 05:01:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 05:01:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 05:01:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 05:01:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 05:01:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 06:14:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 06:14:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 06:15:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 06:15:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 06:15:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 06:15:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 07:53:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 07:53:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 07:54:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 07:54:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 07:54:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 07:54:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 07:57:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 07:57:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 07:57:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 07:57:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:00:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:00:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:00:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:00:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:00:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:00:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:00:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:00:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:00:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:00:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:00:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:00:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:04:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:04:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:04:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:04:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:04:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:04:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:04:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:04:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:04:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:04:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:04:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:04:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:05:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:05:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:05:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:05:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:05:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:05:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:05:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:05:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:05:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:05:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:05:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:06:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:06:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:06:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:06:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:06:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:06:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:06:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:06:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:06:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:06:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:06:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:06:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:06:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:07:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:07:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:07:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:07:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:07:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:07:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:08:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:08:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:08:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:08:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:08:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:08:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:08:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:08:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:08:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:08:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:08:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:08:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:10:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:10:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:10:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:10:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:10:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:10:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:10:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:10:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:10:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:10:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:10:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:10:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:10:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:10:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:10:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:10:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:11:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:11:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:11:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:11:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:11:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:11:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:11:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:11:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:11:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:11:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:11:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:11:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:12:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-09-15 08:12:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
