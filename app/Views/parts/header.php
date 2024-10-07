@@ -1,4 +1,11 @@
+<?php
 
+
+$session = service('session');
+$name =  $session -> user_name;;
+
+
+        ?>
 <!DOCTYPE html>
 <html class="rtl">
 <head>
@@ -111,7 +118,7 @@
                                                     <div class="d-none d-xxl-block"> <span
                                                             class="degeneration">مدیر</span>
                                                         <div class="d-flex align-content-center">
-                                                            <h3>جان اسمیت</h3>
+                                                            <h3><?= $name; ?></h3>
                                                             <div class="down"> <i data-feather="chevron-down"></i>
                                                             </div>
                                                         </div>

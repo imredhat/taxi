@@ -14,7 +14,7 @@ class Service extends BaseController
     function __construct()
     {
         $session = service('session');
-        
+
         // echo($session -> user_id);
         if (!$session->has('user_id')) {
             return redirect()->to('auth');
@@ -122,5 +122,76 @@ class Service extends BaseController
         echo json_encode($Cars);
 
         // return (new CarModel())->GetDriverCars($id);
+    }
+
+    public function createOrder()
+    {
+        $orderModel = new ServiceModel();
+
+        // Retrieve the request data (array format)
+        $data = $this->request->getPost();
+
+        if($data['isReturnTrip']){
+            $serviceType = "Sweep";
+        }else{
+            $serviceType = "OneWay";
+        }
+
+        $serviceNumber = $this -> generateRandomNumber();
+        
+        
+        // Prepare the data for insertion
+        $orderData = [
+            'passenger_id'     => $data['passenger'],
+            'passenger_type'   => 'P', // Assuming 'P' for regular passenger, modify as per logic
+            'extraPassenger'   => 0, // Modify according to your logic
+            'driver_id'        => $data['driver'],
+            'car_id'           => $data['car'],
+            'service_type'     => $serviceType, // Assuming one-way for now
+            'service_status'   => 'Confirm', // Assuming it's in call status
+            'category'         => 'exclusive', // Modify as per your logic
+            'call_date'        => $data['callDate'],
+            'trip_date'        => $data['tripDate'],
+            'start_location'   => implode(',', $data['startPoint']), // Convert array to string, comma-separated
+            'end_location'     => implode(',', $data['endPoint']),   // Convert array to string, comma-separated
+            'price'            => $data['fareDetails']['fare'],
+            'factor_status'    => $data['isFactor'] ? 'Yes' : 'No',
+            'isPaid'           => $data['isPaid'] ? 'Yes' : 'No',
+            'isTax'            => $data['isTax'] ? 'Yes' : 'No',
+            'extra'            => $data['desc'], // Extra data like description
+            'service_id'       => $serviceNumber
+        ];
+
+        // Insert the data into the database
+        $orderModel->insert($orderData);
+
+        return $this->response->setJSON(['status' => 'success', 'message' => 'Order created successfully!']);
+    }
+
+
+    function generateRandomNumber() {
+        // تولید چهار رقم رندوم
+        $randomFourDigits = rand(1000, 9999);
+        
+        // ترکیب دو رقم اول 10 با چهار رقم رندوم
+        $randomSixDigits = '10' . $randomFourDigits;
+        
+        return $randomSixDigits;
+    }
+    
+    // استفاده از تابع
+    
+
+
+    public function getOrder($id)
+    {
+        $orderModel = new ServiceModel();
+        $order = $orderModel->find($id);
+
+        if ($order) {
+            return $this->response->setJSON($order);
+        } else {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Order not found']);
+        }
     }
 }

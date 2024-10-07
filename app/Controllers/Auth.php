@@ -44,7 +44,8 @@ class Auth extends BaseController
 
         if ($user && password_verify($password, $user['pass'])) {
             $this->session->set('user_id', $user['id']);
-            return redirect()->to('Cars');
+            $this->session->set('user_name', $user['name']);
+            return redirect()->to(base_url());
         } else {
             return redirect()->back()->with('error', 'نام کاربری یا رمز عبور اشتباه است');
         }
@@ -81,6 +82,6 @@ class Auth extends BaseController
     public function logout()
     {
         $this->session->destroy();
-        return redirect()->to('/auth/login')->with('success', 'Logged out successfully');
+        return redirect()->to('/auth')->with('success', 'Logged out successfully');
     }
 }

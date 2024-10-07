@@ -38,13 +38,14 @@
 </head>
 
 <body>
-    <div class="preloader" id="preloader">
-        <div class="preloader">
-            <div class="waviy position-relative"> <span class="d-inline-block">F</span> <span
-                    class="d-inline-block">A</span> <span class="d-inline-block">R</span> <span
-                    class="d-inline-block">O</span> <span class="d-inline-block">L</span> </div>
+<div class="preloader" id="preloader">
+    <div class="preloader">
+        <div>
+            <img src="
+                <?= base_url() ?>assets/images/loader.gif" />
         </div>
     </div>
+</div>
     <div class="container-fluid">
         <div class="main-content d-flex flex-column px-0">
             <div class="m-auto mw-510 py-5">

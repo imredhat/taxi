@@ -1,3 +1,22 @@
+
+// آرایه گلوبال برای ذخیره اطلاعات مهم
+let tripData = {
+    startPoint: null,
+    endPoint: null,
+    returnPoint: null,
+    isReturnTrip: null,
+    fareDetails: {
+        distance: null,
+        duration: null,
+        fare: null,
+    },
+    passenger: null,
+    driver: null,
+    car: null
+};
+
+
+
 $(document).ready(function () {
 
 
@@ -21,6 +40,15 @@ $(document).ready(function () {
 
 
 
+    $("#Cars").on('change', function () {
+        var car = $(this).find('option:selected').data('name');
+        no = no + 1;
+        $(".factor").append('<tr><td class="no">0' + no + '</td><td class="text-left" colspan="2">راننده سرویس</td><td class="unit">' + car + ' </td></tr>');
+
+    });
+
+
+
 
     $("#driver").on('change', function () {
         var driverId = $(this).val();
@@ -32,20 +60,13 @@ $(document).ready(function () {
             },
             success: function (data) {
                 var carsHtml = '';
-                data = JSON.parse(data)
+                data = JSON.parse(data);
+                carsHtml += '<option value=""></option>';
                 $.each(data, function (index, car) {
-                    carsHtml += '<option value="' + car.cid + '">' + car.car_brand + ' | ایران ' + car.iran + car.harf + car.pelak + car.pelak_last + '</option>';
+                    carsHtml += '<option data-name="' + car.car_brand + ' | ایران ' + car.iran + car.harf + car.pelak + car.pelak_last + '" value="' + car.cid + '"> ' + car.car_brand + ' | ایران ' + car.iran + car.harf + car.pelak + car.pelak_last + '</option>';
                 });
 
-                console.log(data.length);
 
-                if (data.length == 1) {
-
-                    no = no + 1;
-                    $(".factor").append('<tr><td class="no">0' + no + '</td><td class="text-left" colspan="2"> خودرو</td><td class="unit">' + data[0].car_brand + ' | ایران ' + data[0].iran + data[0].harf + data[0].pelak + data[0].pelak_last + ' </td></tr>');
-
-
-                }
                 $('#Cars').html(carsHtml);
                 $('#Cars').trigger('chosen:updated');
             }
@@ -53,14 +74,18 @@ $(document).ready(function () {
     });
 
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoicmVkaGF0NSIsImEiOiJjazV1cDdramoweDQwM2hsbzdqeGg2eXJwIn0.rE2Vf8qf_hAr3ZN2uAlQuw';
 
-    // فعال کردن پلاگین RTL
-    mapboxgl.setRTLTextPlugin(
-        "https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js",
-        null,
-        true
-    );
+
+
+
+
+
+
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoicmVkaGF0NSIsImEiOiJjazV1cDdramoweDQwM2hsbzdqeGg2eXJwIn0.rE2Vf8qf_hAr3ZN2uAlQuw';
+    if (mapboxgl.getRTLTextPluginStatus !== 'loaded') {
+        mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.0/mapbox-gl-rtl-text.js');
+    }
 
     // ایجاد نقشه
     const map = new mapboxgl.Map({
@@ -90,7 +115,7 @@ $(document).ready(function () {
     function addDraggableMarker(lngLat, color, isStartPoint, isReturnPoint = false) {
         const marker = new mapboxgl.Marker({
             color: color,
-            draggable: true
+            draggable: false
         })
             .setLngLat(lngLat)
             .addTo(map);
@@ -120,6 +145,7 @@ $(document).ready(function () {
             if (startMarker) startMarker.remove();
             startPoint = coordinates;
             startMarker = addDraggableMarker(startPoint, 'green', true);
+            tripData.startPoint = coordinates; // ذخیره در آرایه گلوبال
 
 
             no = no + 1;
@@ -131,6 +157,8 @@ $(document).ready(function () {
             if (endMarker) endMarker.remove();
             endPoint = coordinates;
             endMarker = addDraggableMarker(endPoint, 'red', false);
+            tripData.endPoint = coordinates; // ذخیره در آرایه گلوبال
+
 
             no = no + 1;
             getAddress(endPoint, "نقطه پایان", no);
@@ -143,6 +171,8 @@ $(document).ready(function () {
                 returnPoint = startPoint; // برگشت به نقطه اول
                 if (returnMarker) returnMarker.remove();
                 returnMarker = addDraggableMarker(returnPoint, 'blue', true, true); // مارکر نقطه برگشت
+                tripData.returnPoint = coordinates; // ذخیره در آرایه گلوبال
+
                 console.log(`نقطه برگشت انتخاب شد: ${returnPoint} (به نقطه شروع برگشت)`);
 
                 no = no + 1;
@@ -296,14 +326,19 @@ $(document).ready(function () {
                         padding: 20
                     });
 
-                    console.log(returnPoint);
+
 
                     // محاسبه کرایه با توجه به نقاط
-                    const fare = calculateFare(startPoint, endPoint, returnPoint, distance, duration, false, false);
-                    console.log(`مبلغ کرایه: ${fare} تومان`);
+                    calculateFare(startPoint, endPoint, returnPoint, distance, duration, false, false);
 
 
-                    $(".factor").append('<tr><td class="no">0' + no + '</td><td class="text-left" colspan="2">راننده سرویس</td><td class="unit">' + driver_name + ' </td></tr>');
+
+                    // Push Data to array
+
+
+
+
+
 
                 });
         }
@@ -426,6 +461,8 @@ $(document).ready(function () {
         const urbanAreaLimit = 50; // محدوده شهری به کیلومتر
         const returnDistanceThreshold = 5; // 500 متر معادل 0.5 کیلومتر
 
+
+
         let totalFare = 0;
 
         // زمان کنونی
@@ -462,6 +499,8 @@ $(document).ready(function () {
             isReturnTrip = returnDistance <= returnDistanceThreshold; // اگر فاصله کمتر از 500 متر باشد
         }
 
+
+
         // بررسی فاصله برای نقاط دوم و سوم
         const isEndPointOutsideUrban = distance > urbanAreaLimit; // بررسی نقطه دوم
 
@@ -491,6 +530,14 @@ $(document).ready(function () {
 
         // بازگشت کل کرایه
         $("tfoot").append('<tr><td colspan="2"></td><td colspan="1">مجموع کرایه</td><td>' + formatFare(totalFare) + ' ریال</td></tr>');
+
+
+
+        tripData.fareDetails.distance = distance;
+        tripData.fareDetails.duration = duration;
+        tripData.fareDetails.fare = totalFare;
+        tripData.isReturnTrip = isReturnTrip;
+
 
         return totalFare;
     }
@@ -541,6 +588,52 @@ $(document).ready(function () {
         amount = Math.ceil(amount / precision) * precision;
         return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
+
+
+
+
+
+    $("#addService").on('click', function () {
+
+        var btn = $(this);
+
+        tripData.passenger = $("#passenger").val();
+        tripData.driver    = $("#driver").val();
+        tripData.car       = $("#Cars").val();
+        tripData.callDate  = $('input[name="call_date"]').val();
+        tripData.tripDate  = $('input[name="trip_date"]').val();
+        tripData.desc      = $('textarea[name="desc"]').val();
+        tripData.isFactor  = $('input[name="isFactor"]:checked').val() ? true : false;
+        tripData.isPaid    = $('input[name="isPaid"]:checked').val() ? true : false;
+        tripData.isTax     = $('input[name="isTax"]:checked').val() ? true : false;
+
+
+       // console.log(tripData);
+
+        $(".spinner-border").fadeIn();
+        // $(this).attr("disabled" , "disabled");
+
+
+        $.ajax({
+            type: "POST",
+            url: base + "Service/createOrder",
+            data: tripData,
+            success: function (data) {
+                // console.log(data)
+
+                if(data.status =="success"){
+                    window.location.replace(base + 'Service/');
+                    return false;
+
+                }else{
+                    btn.attr("disabled" , "");
+                }
+            }
+        });
+       
+
+    });
+
 
 
 

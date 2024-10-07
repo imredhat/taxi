@@ -1,7 +1,5 @@
 <style>
-
-    
-#map {
+    #map {
         width: 100%;
         height: 800px;
         margin: 0 auto;
@@ -26,7 +24,7 @@
     #reset-btn:hover {
         background-color: #ff1a1a;
     }
-    
+
     .driver_holder {
         display: none;
     }
@@ -57,6 +55,7 @@
         margin-top: 10px;
         margin-right: 5px;
     }
+
     #invoice {
         padding: 0px;
     }
@@ -344,55 +343,47 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">
-                                                        <div class="form-group mb-4"> <label class="label">تاریخ شروع پروژه</label>
-                                                            <div class="form-group position-relative"> <input type="text" class="form-control text-gray-light h-58" placeholder="روز/ماه/سال" data-jdp=""> </div>
+                                                        <div class="form-group mb-4"> <label class="label">تاریخ تماس</label>
+                                                            <div class="form-group position-relative"> <input name="call_date" type="text" class="form-control text-gray-light h-58" placeholder="روز/ماه/سال" data-jdp=""> </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">
-                                                        <div class="form-group mb-4"> <label class="label">تاریخ پایان پروژه</label>
-                                                            <div class="form-group position-relative"> <input type="text" class="form-control text-gray-light h-58" placeholder="روز/ماه/سال" data-jdp=""> </div>
+                                                        <div class="form-group mb-4"> <label class="label">تاریخ سفر</label>
+                                                            <div class="form-group position-relative"> <input name="trip_date" type="text" class="form-control text-gray-light h-58" placeholder="روز/ماه/سال" data-jdp=""> </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-12">
-                                                        <div class="form-group mb-4"> <label class="label">شرح پروژه</label>
-                                                            <div class="form-group position-relative"> <textarea class="form-control ps-5 text-dark" placeholder="چند متن دمو ... " cols="30" rows="5"></textarea> <i class="ri-information-line position-absolute top-0 start-0 fs-20 text-gray-light ps-20 pt-2"></i> </div>
+                                                        <div class="form-group mb-4"> <label class="label">سایر توضیحات</label>
+                                                            <div class="form-group position-relative"> <textarea name="desc" class="form-control ps-5 text-dark" placeholder="توضیحات ... " cols="30" rows="5"></textarea> <i class="ri-information-line position-absolute top-0 start-0 fs-20 text-gray-light ps-20 pt-2"></i> </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group mb-4"> <label class="label">بودجه</label>
-                                                            <div class="form-group position-relative"> <input type="text" class="form-control text-dark h-58 ps-5" placeholder="مقدار را وارد کنید"> <i class="ri-briefcase-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i> </div>
-                                                        </div>
+
+
+                                                    <div class="col-sm-12">
+                                                        <input name="isFactor" value="Yes" type="checkbox" class="btn btn-toggle">فاکتور
+                                                        <input name="isPaid" value="Yes" type="checkbox" class="btn btn-toggle">پرداخت شده
+                                                        <input name="isTax" value="Yes" type="checkbox" class="btn btn-toggle">مالیات
+
                                                     </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group mb-4"> <label class="label">زمان فاکتور</label>
-                                                            <div class="form-group position-relative"> <select class="form-select form-control text-gray-light h-58 ps-5" aria-label="Default select example">
-                                                                    <option selected="">30 روز</option>
-                                                                    <option value="1">25 روز</option>
-                                                                    <option value="2">20 روز</option>
-                                                                    <option value="3">15 روز</option>
-                                                                </select> <i class="ri-calendar-2-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i> </div>
-                                                        </div>
+
+
+                                                    <div class="col-sm-12">
+
+
+                                                        <br />
                                                     </div>
+
+
+
+
                                                     <div class="col-lg-12">
-                                                        <div class="form-group mb-4 p-4 bg-border-gray-light d-sm-flex justify-content-between align-items-center rounded-10">
-                                                            <div class="d-sm-flex align-items-center mb-3 mb-sm-0 me-lg-3">
-                                                                <div class="me-md-5 pe-xxl-5 mb-3 mb-sm-0">
-                                                                    <h4 class="body-font fs-15 fw-semibold text-body">آواتار پروژه</h4>
-                                                                    <p>این روی آواتار پروژه شما نمایش داده می شود.</p>
-                                                                </div> <img src="assets/images/product-11.jpg" class="rounded-4 wh-78 ms-3 ms-lg-0" alt="product">
-                                                            </div>
-                                                            <div class="d-flex ms-sm-3 ms-md-0"> <button class="btn bg-danger bg-opacity-10 text-danger fw-semibold">حذف</button> <button class="btn bg-primary bg-opacity-10 text-primary fw-semibold ms-3">بروزرسانی</button> </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group mb-4"> <label class="label">فایل های پیوست</label>
-                                                            <div class="form-control h-100 text-center position-relative p-4 p-lg-5">
-                                                                <div class="product-upload"> <label for="file-upload" class="file-upload mb-0"> <i class="ri-upload-cloud-2-line fs-2 text-gray-light"></i> <span class="d-block fw-semibold text-body">فایل ها را آپلود کلیک کنید</span> </label> <input id="file-upload" type="file"> </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group"> <button type="submit" class="btn btn-primary py-3 px-5 fw-semibold text-white">ایجاد پروژه</button> </div>
+                                                        <div class="form-group"> <button id="addService" type="button" class="btn btn-primary py-3 px-5 fw-semibold text-white">                                                 
+                                                        
+                                                        ایجاد سرویس
+                                                        <div style="zoom: 0.5; display:none" class="spinner-border text-light" role="status"> </div>
+                                                    
+                                                    
+                                                    </button> </div>
                                                     </div>
                                                 </div>
                                             </form>
@@ -405,48 +396,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
                                 <div class="col-lg-5">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                     <div class="card">
                                         <div class="card-body">
                                             <div id="invoice">
@@ -467,10 +417,10 @@
                                                         </header>
                                                         <main>
                                                             <div class="row contacts" style="text-align: right;">
-                                                                
+
 
                                                             </div>
-                                                            <table >
+                                                            <table>
                                                                 <thead>
                                                                     <tr>
                                                                         <th>#</th>
@@ -479,24 +429,23 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody class="factor">
-                                                                  
+
 
                                                                 </tbody>
-                                                               
+
                                                             </table>
 
 
-                                                            <table >
-                                                            
+                                                            <table>
+
                                                                 <tfoot>
-                                                                   
+
                                                                 </tfoot>
                                                             </table>
 
                                                             <div class="notices">
-                                                                <div>NOTICE:</div>
-                                                                <div class="notice">A finance charge of 1.5% will be made on unpaid balances after
-                                                                    30 days.</div>
+                                                                <div>نکته مهم:</div>
+                                                                <div class="notice"> در انتخاب مبدا و مقصد دقت کنید</div>
                                                             </div>
                                                         </main>
                                                         <!-- <footer>Invoice was created on a computer and is valid without the signature and seal.
@@ -537,29 +486,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     </div>
 
 
@@ -575,8 +501,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-
-    var base = "<?=base_url()?>";
+    var base = "<?= base_url() ?>";
 </script>
 <script src="<?= base_url() ?>assets/js/custom/my.js"></script>
 <script src="<?= base_url() ?>assets/chosen/chosen.jquery.min.js"></script>
@@ -602,3 +527,23 @@
 
 
 
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css">
+<script type="text/javascript" src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"></script>
+
+<script>
+    jalaliDatepicker.startWatch();
+</script>
+
+<style>
+    input.btn.btn-toggle {
+        margin: 4px 0 0;
+        line-height: normal;
+        width: 40px;
+        height: 30px;
+    }
+
+    ّ
+</style>

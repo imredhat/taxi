@@ -8,22 +8,21 @@ class User extends BaseController
 {
 
 
-    function __construct()
+    public function checkLogin()
     {
         $session = service('session');
-
-        // echo($session -> user_id);
         if (!$session->has('user_id')) {
             return redirect()->to('auth');
         }
     }
 
+    
+
     public function index()
     {
+        $this -> checkLogin();
 
-        // $Brand = new BrandModel();
-        // $data['Brands'] = $Brand ->orderBy('brand')->withDeleted()->findAll();
-
+        
         echo view('parts/header');
         echo view('parts/side');
         echo view('Home');

@@ -10,8 +10,10 @@ class AdminModel extends Model
     protected $primaryKey = 'id';
     protected $allowedFields = [
         'id',
+        'name',
         'user', 
-        'pass'
+        'pass',
+        'pic'
     ];
     protected $skipValidation = false;
 }
