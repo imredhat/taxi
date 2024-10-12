@@ -310,6 +310,7 @@
                         <button type="button" id="calculate-btn">محاسبه کرایه</button>
 
                         <div class="fare"></div>
+                        <div class="total"></div>
                     </div>
 
 
@@ -317,7 +318,7 @@
 
 
 
-                    <div style="height: 850px;position: relative;" id="map"></div>
+                    <div style="height: 600px;position: relative;" id="map"></div>
 
 
 

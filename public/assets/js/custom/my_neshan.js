@@ -112,7 +112,7 @@ $(document).ready(function () {
     let startMarker, endMarker;
 
 
-    map.on('click', function(e) {
+    map.on('click', function (e) {
         if (!tripData.startPoint) {
             // انتخاب نقطه شروع
             tripData.startPoint = [e.latlng.lat, e.latlng.lng];
@@ -123,17 +123,16 @@ $(document).ready(function () {
             tripData.endPoint = [e.latlng.lat, e.latlng.lng];
             endMarker = L.marker(tripData.endPoint).addTo(map);
             console.log(`نقطه پایان انتخاب شد: ${tripData.endPoint}`);
-            
-            // محاسبه مسافت و زمان رسیدن
-            calculateDistanceAndTime();
-            
+
+
+
             // رسم مسیر بین دو نقطه با استفاده از API نشان
             drawRouteWithAPI();
         } else {
             console.log("نمی‌توانید نقطه دیگری اضافه کنید.");
         }
     });
-    
+
 
 
 
@@ -142,69 +141,63 @@ $(document).ready(function () {
     // تابع دریافت آدرس متنی از مختصات
     function getAddressFromCoordinates(coordinates, label) {
         const [lat, lng] = coordinates;
-    
+
         const url = `https://api.neshan.org/v1/reverse?lat=${lat}&lng=${lng}`;
-        
+
         fetch(url, {
             method: 'GET',
             headers: {
                 'Api-Key': `service.89629a97053c4dd3bd06adb146db6886` // کلید API خود را اینجا قرار دهید
             }
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log(`${label} آدرس: ${data.address}`);
-        })
-        .catch(error => console.error('Error:', error));
-    }
-    
-
-
-        // تابع محاسبه مسافت و زمان رسیدن
-        function calculateDistanceAndTime() {
-            const distance = map.distance(L.latLng(tripData.startPoint), L.latLng(tripData.endPoint)) / 1000; // فاصله به کیلومتر
-            const avgSpeed = 60; // سرعت میانگین در کیلومتر بر ساعت
-            const travelTime = distance / avgSpeed * 60; // زمان به دقیقه
-    
-            tripData.distance = distance;
-            tripData.travelTime = travelTime;
-    
-            console.log(`مسافت: ${distance.toFixed(2)} کیلومتر`);
-            console.log(`زمان تقریبی رسیدن: ${travelTime.toFixed(2)} دقیقه`);
-        }
-
-
-
-         // تابع رسم خط مسیر
-         function drawRouteWithAPI() {
-            const [startLat, startLng] = tripData.startPoint;
-            const [endLat, endLng] = tripData.endPoint;
-        
-            // ساخت URL برای درخواست مسیر با اطلاعات جدید
-
-
-            const url = `https://api.neshan.org/v4/direction?type=car&origin=${startLat},${startLng}&destination=${endLat},${endLng}&avoidTrafficZone=false&avoidOddEvenZone=false&alternative=false&bearing=`;
-        
-            fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Api-Key': `service.89629a97053c4dd3bd06adb146db6886` // کلید API شما
-                }
-            })
             .then(response => response.json())
             .then(data => {
-                console.log(data.routes[0].legs[0].distance.text); // برای بررسی ساختار پاسخ
-                console.log(data.routes[0].legs[0].duration.text); // برای بررسی ساختار پاسخ
-        
+                console.log(`${label} آدرس: ${data.address}`);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+
+
+
+    // تابع رسم خط مسیر
+    function drawRouteWithAPI() {
+        const [startLat, startLng] = tripData.startPoint;
+        const [endLat, endLng] = tripData.endPoint;
+
+        // ساخت URL برای درخواست مسیر با اطلاعات جدید
+
+
+        const url = `https://api.neshan.org/v4/direction?type=car&origin=${startLat},${startLng}&destination=${endLat},${endLng}&avoidTrafficZone=false&avoidOddEvenZone=false&alternative=false&bearing=`;
+
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Api-Key': `service.89629a97053c4dd3bd06adb146db6886` // کلید API شما
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.routes[0].legs[0].distance); // برای بررسی ساختار پاسخ
+                console.log(data.routes[0].legs[0].duration); // برای بررسی ساختار پاسخ
+
+                tripData.distance = data.routes[0].legs[0].distance.value/1000;
+                tripData.travelTime = data.routes[0].legs[0].duration.text;
+
+                // محاسبه مسافت و زمان رسیدن
+                $(".fare").append(`مسافت: ${data.routes[0].legs[0].distance.value/1000} <br/>`);
+                $(".fare").append(`زمان تقریبی رسیدن: ${tripData.travelTime}  <br/>`);
+
+
                 // بررسی وجود routes و دسترسی به آن
                 if (data.routes && data.routes.length > 0) {
                     const polylinePoints = data.routes[0].overview_polyline.points;
                     const coordinates = polyline.decode(polylinePoints).map(coord => [coord[0], coord[1]]);
-                    
+
                     // رسم خط مسیر
                     routeLine = L.polyline(coordinates, { color: 'blue' }).addTo(map);
                     map.fitBounds(routeLine.getBounds()); // زوم و مرکز کردن نقشه به خط مسیر
-        
+
                     // دریافت آدرس متنی با استفاده از API نشان
                     getAddressFromCoordinates(tripData.startPoint, "نقطه شروع");
                     getAddressFromCoordinates(tripData.endPoint, "نقطه پایان");
@@ -213,103 +206,107 @@ $(document).ready(function () {
                 }
             })
             .catch(error => console.error('Error:', error));
-        }
-        
-        
-    
-        // تابع محاسبه کرایه
-        function calculateFare() {
-            const distance = tripData.distance;
-            const toll = getRandomToll(); // دریافت مبلغ عوارض
-            const isHoliday = checkIfHoliday(); // چک کردن تعطیلی
-            const weather = document.getElementById('weather').value;
-            const roadCondition = document.getElementById('roadCondition').value;
-            const carType = document.getElementById('carType').value;
-    
-            let baseRate = 20000; // قیمت پایه هر کیلومتر
+    }
 
-            baseRate = baseRate + baseRate*isHoliday + baseRate*weather + baseRate*roadCondition + baseRate*carType;
-    
-            // تغییر نرخ براساس وضعیت جوی
-            // switch (weather) {
-            //     case 'rainy':
-            //         baseRate *= 1.1; // 10% افزایش در بارانی
-            //         break;
-            //     case 'snowy':
-            //         baseRate *= 1.25; // 25% افزایش در برفی
-            //         break;
-            // }
-    
-            // // تغییر نرخ براساس وضعیت جاده
-            // switch (roadCondition) {
-            //     case 'bad_highway':
-            //         baseRate *= 1.2; // 20% افزایش در اتوبان با جاده بد
-            //         break;
-            //     case 'normal':
-            //         baseRate *= 1.1; // 10% افزایش در جاده عادی
-            //         break;
-            //     case 'bad_dirt':
-            //         baseRate *= 1.3; // 30% افزایش در جاده خاکی بد
-            //         break;
-            // }
-    
-            // // تغییر نرخ براساس نوع خودرو
-            // switch (carType) {
-            //     case 'eco+':
-            //         baseRate *= 1.1; // 10% افزایش
-            //         break;
-            //     case 'vip':
-            //         baseRate *= 1.2; // 20% افزایش
-            //         break;
-            //     case 'vip+':
-            //         baseRate *= 1.3; // 30% افزایش
-            //         break;
-            //     case 'vip suv':
-            //         baseRate *= 1.5; // 50% افزایش
-            //         break;
-            // }
-    
-            // // تغییر نرخ برای روزهای تعطیل
-            // if (isHoliday) {
-            //     baseRate *= 1.2; // 20% افزایش در روزهای تعطیل
-            // }
 
-            console.log(baseRate);
-    
-            // محاسبه کرایه نهایی
-            const fare = (distance * baseRate) + toll;
 
-            $(".fare").html(`کرایه نهایی: ${formatFare(fare.toFixed(0))} تومان`)
+    // تابع محاسبه کرایه
+    function calculateFare() {
+        const distance = tripData.distance;
+        const toll = getRandomToll(); // دریافت مبلغ عوارض
+        const isHoliday = checkIfHoliday(); // چک کردن تعطیلی
+        const weather = document.getElementById('weather').value;
+        const roadCondition = document.getElementById('roadCondition').value;
+        const carType = document.getElementById('carType').value;
+
+        let baseRate = 20000; // قیمت پایه هر کیلومتر
+
+        console.log(distance);
+
+        baseRate = baseRate * weather * roadCondition * carType;
+
+        // تغییر نرخ براساس وضعیت جوی
+        // switch (weather) {
+        //     case 'rainy':
+        //         baseRate *= 1.1; // 10% افزایش در بارانی
+        //         break;
+        //     case 'snowy':
+        //         baseRate *= 1.25; // 25% افزایش در برفی
+        //         break;
+        // }
+
+        // // تغییر نرخ براساس وضعیت جاده
+        // switch (roadCondition) {
+        //     case 'bad_highway':
+        //         baseRate *= 1.2; // 20% افزایش در اتوبان با جاده بد
+        //         break;
+        //     case 'normal':
+        //         baseRate *= 1.1; // 10% افزایش در جاده عادی
+        //         break;
+        //     case 'bad_dirt':
+        //         baseRate *= 1.3; // 30% افزایش در جاده خاکی بد
+        //         break;
+        // }
+
+        // // تغییر نرخ براساس نوع خودرو
+        // switch (carType) {
+        //     case 'eco+':
+        //         baseRate *= 1.1; // 10% افزایش
+        //         break;
+        //     case 'vip':
+        //         baseRate *= 1.2; // 20% افزایش
+        //         break;
+        //     case 'vip+':
+        //         baseRate *= 1.3; // 30% افزایش
+        //         break;
+        //     case 'vip suv':
+        //         baseRate *= 1.5; // 50% افزایش
+        //         break;
+        // }
+
+        // // تغییر نرخ برای روزهای تعطیل
+        if (isHoliday) {
+            baseRate *= 1.2; // 20% افزایش در روزهای تعطیل
         }
-    
-        // تابع تولید عوارض جاده
-        function getRandomToll() {
-            const toll = Math.floor(Math.random() * (100000 - 10000 + 1)) + 10000;
-            tripData.toll = toll;
-            return toll;
-        }
-    
-        // تابع بررسی تعطیلی
-        function checkIfHoliday() {
-            const today = new Date();
-            const day = today.getDay();
-            // در ایران روز جمعه (day=5) تعطیل است
-            return day === 5;
-        }
-    
-        // دکمه ریست کردن نقاط و مسیر
-        document.getElementById('reset').addEventListener('click', function() {
-            if (startMarker) startMarker.remove();
-            if (endMarker) endMarker.remove();
-            if (routeLine) map.removeLayer(routeLine); // حذف خط مسیر
-            tripData.startPoint = null;
-            tripData.endPoint = null;
-            console.log("نقاط و مسیر ریست شد.");
-        });
-    
-        // دکمه محاسبه کرایه
-        document.getElementById('calculate-btn').addEventListener('click', calculateFare);
-    
+
+        console.log(baseRate);
+
+        // محاسبه کرایه نهایی
+        const fare = (distance * baseRate) + toll;
+
+        $(".total").html(`<b>کرایه نهایی: ${formatFare(fare.toFixed(0))} تومان </b>`)
+    }
+
+    // تابع تولید عوارض جاده
+    function getRandomToll() {
+        const toll = Math.floor(Math.random() * (100000 - 10000 + 1)) + 10000;
+        tripData.toll = toll;
+        return toll;
+    }
+
+    // تابع بررسی تعطیلی
+    function checkIfHoliday() {
+        const today = new Date();
+        const day = today.getDay();
+        // در ایران روز جمعه (day=5) تعطیل است
+        return day === 5;
+    }
+
+    // دکمه ریست کردن نقاط و مسیر
+    document.getElementById('reset').addEventListener('click', function () {
+        if (startMarker) startMarker.remove();
+        if (endMarker) endMarker.remove();
+        if (routeLine) map.removeLayer(routeLine); // حذف خط مسیر
+        tripData.startPoint = null;
+        tripData.endPoint = null;
+        $(".fare").empty();
+        $(".total").empty();
+        console.log("نقاط و مسیر ریست شد.");
+    });
+
+    // دکمه محاسبه کرایه
+    document.getElementById('calculate-btn').addEventListener('click', calculateFare);
+
 
 
 

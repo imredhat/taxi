@@ -111,7 +111,9 @@ class Option extends BaseController
 
         // Update isHoliday rate
         $data1 = ["rate" => $holiday_rate];
+
         $model->where("option", "isHoliday")->set($data1)->update();
+
 
         // Update price per km
         $data2 = ["rate" => $price_per_km];
