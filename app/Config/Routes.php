@@ -86,4 +86,7 @@ $routes->post('Service/createOrder', 'Service::createOrder');
 
 
 
+$routes->get('Option', 'Option::index');
+$routes->post('Option/saveSettings', 'Option::saveSettings');
+
 service('auth')->routes($routes);

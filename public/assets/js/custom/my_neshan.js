@@ -183,7 +183,7 @@ $(document).ready(function () {
             // ساخت URL برای درخواست مسیر با اطلاعات جدید
 
 
-            const url = `https://api.neshan.org/v1/routing?type=car&origin=${startLng},${startLat}&destination=${endLng},${endLat}&avoidTrafficZone=false&avoidOddEvenZone=false&alternative=false&bearing=`;
+            const url = `https://api.neshan.org/v4/direction?type=car&origin=${startLat},${startLng}&destination=${endLat},${endLng}&avoidTrafficZone=false&avoidOddEvenZone=false&alternative=false&bearing=`;
         
             fetch(url, {
                 method: 'GET',
@@ -193,12 +193,13 @@ $(document).ready(function () {
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data); // برای بررسی ساختار پاسخ
+                console.log(data.routes[0].legs[0].distance.text); // برای بررسی ساختار پاسخ
+                console.log(data.routes[0].legs[0].duration.text); // برای بررسی ساختار پاسخ
         
                 // بررسی وجود routes و دسترسی به آن
                 if (data.routes && data.routes.length > 0) {
                     const polylinePoints = data.routes[0].overview_polyline.points;
-                    const coordinates = polyline.decode(polylinePoints).map(coord => [coord[1], coord[0]]);
+                    const coordinates = polyline.decode(polylinePoints).map(coord => [coord[0], coord[1]]);
                     
                     // رسم خط مسیر
                     routeLine = L.polyline(coordinates, { color: 'blue' }).addTo(map);
@@ -225,55 +226,60 @@ $(document).ready(function () {
             const roadCondition = document.getElementById('roadCondition').value;
             const carType = document.getElementById('carType').value;
     
-            let baseRate = 10000; // قیمت پایه هر کیلومتر
+            let baseRate = 20000; // قیمت پایه هر کیلومتر
+
+            baseRate = baseRate + baseRate*isHoliday + baseRate*weather + baseRate*roadCondition + baseRate*carType;
     
             // تغییر نرخ براساس وضعیت جوی
-            switch (weather) {
-                case 'rainy':
-                    baseRate *= 1.1; // 10% افزایش در بارانی
-                    break;
-                case 'snowy':
-                    baseRate *= 1.25; // 25% افزایش در برفی
-                    break;
-            }
+            // switch (weather) {
+            //     case 'rainy':
+            //         baseRate *= 1.1; // 10% افزایش در بارانی
+            //         break;
+            //     case 'snowy':
+            //         baseRate *= 1.25; // 25% افزایش در برفی
+            //         break;
+            // }
     
-            // تغییر نرخ براساس وضعیت جاده
-            switch (roadCondition) {
-                case 'bad_highway':
-                    baseRate *= 1.2; // 20% افزایش در اتوبان با جاده بد
-                    break;
-                case 'normal':
-                    baseRate *= 1.1; // 10% افزایش در جاده عادی
-                    break;
-                case 'bad_dirt':
-                    baseRate *= 1.3; // 30% افزایش در جاده خاکی بد
-                    break;
-            }
+            // // تغییر نرخ براساس وضعیت جاده
+            // switch (roadCondition) {
+            //     case 'bad_highway':
+            //         baseRate *= 1.2; // 20% افزایش در اتوبان با جاده بد
+            //         break;
+            //     case 'normal':
+            //         baseRate *= 1.1; // 10% افزایش در جاده عادی
+            //         break;
+            //     case 'bad_dirt':
+            //         baseRate *= 1.3; // 30% افزایش در جاده خاکی بد
+            //         break;
+            // }
     
-            // تغییر نرخ براساس نوع خودرو
-            switch (carType) {
-                case 'eco+':
-                    baseRate *= 1.1; // 10% افزایش
-                    break;
-                case 'vip':
-                    baseRate *= 1.2; // 20% افزایش
-                    break;
-                case 'vip+':
-                    baseRate *= 1.3; // 30% افزایش
-                    break;
-                case 'vip suv':
-                    baseRate *= 1.5; // 50% افزایش
-                    break;
-            }
+            // // تغییر نرخ براساس نوع خودرو
+            // switch (carType) {
+            //     case 'eco+':
+            //         baseRate *= 1.1; // 10% افزایش
+            //         break;
+            //     case 'vip':
+            //         baseRate *= 1.2; // 20% افزایش
+            //         break;
+            //     case 'vip+':
+            //         baseRate *= 1.3; // 30% افزایش
+            //         break;
+            //     case 'vip suv':
+            //         baseRate *= 1.5; // 50% افزایش
+            //         break;
+            // }
     
-            // تغییر نرخ برای روزهای تعطیل
-            if (isHoliday) {
-                baseRate *= 1.2; // 20% افزایش در روزهای تعطیل
-            }
+            // // تغییر نرخ برای روزهای تعطیل
+            // if (isHoliday) {
+            //     baseRate *= 1.2; // 20% افزایش در روزهای تعطیل
+            // }
+
+            console.log(baseRate);
     
             // محاسبه کرایه نهایی
             const fare = (distance * baseRate) + toll;
-            console.log(`کرایه نهایی: ${formatFare(fare.toFixed(0))} تومان`);
+
+            $(".fare").html(`کرایه نهایی: ${formatFare(fare.toFixed(0))} تومان`)
         }
     
         // تابع تولید عوارض جاده
@@ -292,7 +298,7 @@ $(document).ready(function () {
         }
     
         // دکمه ریست کردن نقاط و مسیر
-        document.getElementById('reset-btn').addEventListener('click', function() {
+        document.getElementById('reset').addEventListener('click', function() {
             if (startMarker) startMarker.remove();
             if (endMarker) endMarker.remove();
             if (routeLine) map.removeLayer(routeLine); // حذف خط مسیر

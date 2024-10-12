@@ -7,6 +7,7 @@ use App\Models\CarModel;
 use App\Models\DriverModel;
 use App\Models\ServiceModel;
 use App\Models\UserModel;
+use App\Models\FareModel;
 
 class Service extends BaseController
 {
@@ -102,6 +103,7 @@ class Service extends BaseController
 
         $data['Users']      = (new UserModel())->findAll();
         $data['Drivers']    = (new DriverModel())->withDeleted()->findAll();
+        $data['options']    = (new FareModel())->findAll();
 
         // print_r($data['Drivers']);
         // die();
@@ -109,7 +111,7 @@ class Service extends BaseController
 
         echo view('parts/header');
         echo view('parts/side');
-        echo view('AddService_mapbox', $data);
+        echo view('AddService_neshan', $data);
         echo view('parts/footer');
     }
 
@@ -131,15 +133,15 @@ class Service extends BaseController
         // Retrieve the request data (array format)
         $data = $this->request->getPost();
 
-        if($data['isReturnTrip']){
+        if ($data['isReturnTrip']) {
             $serviceType = "Sweep";
-        }else{
+        } else {
             $serviceType = "OneWay";
         }
 
-        $serviceNumber = $this -> generateRandomNumber();
-        
-        
+        $serviceNumber = $this->generateRandomNumber();
+
+
         // Prepare the data for insertion
         $orderData = [
             'passenger_id'     => $data['passenger'],
@@ -169,18 +171,19 @@ class Service extends BaseController
     }
 
 
-    function generateRandomNumber() {
+    function generateRandomNumber()
+    {
         // تولید چهار رقم رندوم
         $randomFourDigits = rand(1000, 9999);
-        
+
         // ترکیب دو رقم اول 10 با چهار رقم رندوم
         $randomSixDigits = '10' . $randomFourDigits;
-        
+
         return $randomSixDigits;
     }
-    
+
     // استفاده از تابع
-    
+
 
 
     public function getOrder($id)
