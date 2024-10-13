@@ -191,6 +191,7 @@ $(document).ready(function () {
 
                 // بررسی وجود routes و دسترسی به آن
                 if (data.routes && data.routes.length > 0) {
+
                     const polylinePoints = data.routes[0].overview_polyline.points;
                     const coordinates = polyline.decode(polylinePoints).map(coord => [coord[0], coord[1]]);
 
@@ -223,7 +224,7 @@ $(document).ready(function () {
 
         console.log(distance);
 
-        baseRate = baseRate * weather * roadCondition * carType;
+        
 
         // تغییر نرخ براساس وضعیت جوی
         // switch (weather) {
@@ -272,7 +273,7 @@ $(document).ready(function () {
         console.log(baseRate);
 
         // محاسبه کرایه نهایی
-        const fare = (distance * baseRate) + toll;
+        const fare = (distance * baseRate* weather * roadCondition * carType) + toll;
 
         $(".total").html(`<b>کرایه نهایی: ${formatFare(fare.toFixed(0))} تومان </b>`)
     }
