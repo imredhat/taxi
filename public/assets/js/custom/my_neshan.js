@@ -220,7 +220,6 @@ $(document).ready(function () {
         const roadCondition = document.getElementById('roadCondition').value;
         const carType = document.getElementById('carType').value;
 
-        let baseRate = 20000; // قیمت پایه هر کیلومتر
 
         console.log(distance);
 

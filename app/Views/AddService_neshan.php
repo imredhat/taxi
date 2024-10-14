@@ -251,7 +251,53 @@
 </style>
 
 
+<?php 
 
+$array['options'] = $options;
+
+// echo "<pre>";
+// print_r($array);
+// die();
+
+function findRateByKey($array, $key)
+{
+
+
+    // Loop through the main options array
+    foreach ($array['options'] as $option) {
+        // Handle level 1 elements like 'pp_km' and 'isHoliday'
+        if (in_array($option['option'], ['pp_km', 'isHoliday'])) {
+            if ($option['option'] === $key) {
+                return $option['rate']; // Return the value directly from the 'rate' field
+            }
+        }
+
+        // Handle level 2 elements where 'rate' is a JSON string
+        if (isset($option['rate'])) {
+            // Try to decode the 'rate' if it's a JSON string
+            $rates = json_decode($option['rate'], true);
+
+            // If decoding is successful and it is an array
+            if (is_array($rates) && array_key_exists($key, $rates)) {
+                return $rates[$key];
+                // Return the value of the matching key
+            }
+        }
+    }
+
+
+    // If the key was not found
+    return "Key not found.";
+}
+
+
+?>
+
+<script>
+
+let baseRate = <?=findRateByKey($array , "pp_km");?>; // قیمت پایه هر کیلومتر
+
+</script>
 
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
 
