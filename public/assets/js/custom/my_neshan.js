@@ -152,7 +152,12 @@ $(document).ready(function () {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(`${label} آدرس: ${data.address}`);
+                console.log(data);
+
+                $(".fare").append(`${label} آدرس: ${data.state} - ${data.city} - ${data.address} <br/>`);
+
+
+
             })
             .catch(error => console.error('Error:', error));
     }
@@ -202,6 +207,8 @@ $(document).ready(function () {
                     // دریافت آدرس متنی با استفاده از API نشان
                     getAddressFromCoordinates(tripData.startPoint, "نقطه شروع");
                     getAddressFromCoordinates(tripData.endPoint, "نقطه پایان");
+
+
                 } else {
                     console.error('مسیر یافت نشد یا داده‌ها معتبر نیستند:', data);
                 }
