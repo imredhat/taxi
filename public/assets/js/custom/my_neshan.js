@@ -11,8 +11,13 @@ let tripData = {
     driver: null,
     car: null,
     startAdd: null,
-    endAdd: null
+    endAdd: null,
+    roadCondition: null,
+    weather: null,
+    carType: null
 };
+
+let no = 0;
 
 
 
@@ -20,7 +25,7 @@ $(document).ready(function () {
 
     $("body").attr("sidebar-data-theme", "sidebar-hide");
 
-    let no = 0;
+
     height = self.innerHeight - 170
     $("#map").css("height", height);
 
@@ -115,6 +120,7 @@ $(document).ready(function () {
             console.log(`نقطه پایان انتخاب شد: ${tripData.endPoint}`);
             getAddressFromCoordinates(point, 'end');
             drawRouteWithAPI(); // رسم مسیر پس از انتخاب نقاط
+            
         } else {
             console.log("نمی‌توانید نقطه دیگری اضافه کنید.");
         }
@@ -176,14 +182,12 @@ $(document).ready(function () {
                     tripData.distance = data.routes[0].legs[0].distance.value / 1000;
                     tripData.travelTime = data.routes[0].legs[0].duration.text;
 
-
-                    // console.log(data.routes[0].legs[0].distance); // برای بررسی ساختار پاسخ
-                    // console.log(data.routes[0].legs[0].duration); // برای بررسی ساختار پاسخ
-
-
                     // رسم مسیر
                     routeLine = L.polyline(coordinates, { color: 'blue' }).addTo(map);
                     map.fitBounds(routeLine.getBounds());
+
+
+                    calculateFare();
 
                 } else {
                     console.error("مسیر یافت نشد.");
@@ -200,58 +204,19 @@ $(document).ready(function () {
 
     // تابع محاسبه کرایه
     function calculateFare() {
+
+        // $("#map_holder").attr("class" , "col-lg-9");
+        // $("#factor_holder").slideToggle();
+
         const distance = tripData.distance;
-        const toll = getRandomToll(); // دریافت مبلغ عوارض
+        const weather = tripData.weather;
+        const roadCondition = tripData.roadCondition;
+        const carType = tripData.carType;
+        // const toll = getRandomToll(); // دریافت مبلغ عوارض
+        const toll = 0; // دریافت مبلغ عوارض
         const isHoliday = checkIfHoliday(); // چک کردن تعطیلی
-        const weather = document.getElementById('weather').value;
-        const roadCondition = document.getElementById('roadCondition').value;
-        const carType = document.getElementById('carType').value;
 
 
-        console.log(distance);
-
-
-
-        // تغییر نرخ براساس وضعیت جوی
-        // switch (weather) {
-        //     case 'rainy':
-        //         baseRate *= 1.1; // 10% افزایش در بارانی
-        //         break;
-        //     case 'snowy':
-        //         baseRate *= 1.25; // 25% افزایش در برفی
-        //         break;
-        // }
-
-        // // تغییر نرخ براساس وضعیت جاده
-        // switch (roadCondition) {
-        //     case 'bad_highway':
-        //         baseRate *= 1.2; // 20% افزایش در اتوبان با جاده بد
-        //         break;
-        //     case 'normal':
-        //         baseRate *= 1.1; // 10% افزایش در جاده عادی
-        //         break;
-        //     case 'bad_dirt':
-        //         baseRate *= 1.3; // 30% افزایش در جاده خاکی بد
-        //         break;
-        // }
-
-        // // تغییر نرخ براساس نوع خودرو
-        // switch (carType) {
-        //     case 'eco+':
-        //         baseRate *= 1.1; // 10% افزایش
-        //         break;
-        //     case 'vip':
-        //         baseRate *= 1.2; // 20% افزایش
-        //         break;
-        //     case 'vip+':
-        //         baseRate *= 1.3; // 30% افزایش
-        //         break;
-        //     case 'vip suv':
-        //         baseRate *= 1.5; // 50% افزایش
-        //         break;
-        // }
-
-        // // تغییر نرخ برای روزهای تعطیل
         if (isHoliday) {
             baseRate *= 1.2; // 20% افزایش در روزهای تعطیل
         }
@@ -259,11 +224,15 @@ $(document).ready(function () {
         // محاسبه کرایه نهایی
         const fare = (distance * baseRate * weather * roadCondition * carType) + toll;
 
-        $(".total").html(`<b>کرایه نهایی: ${formatFare(fare.toFixed(0))} تومان </b>`);
+        tripData.fare = fare;
+
 
         $("#submit").fadeIn();
 
-        CreateFactor();
+
+        $(".fareHolder").html(formatFare(fare.toFixed(0)) + 'تومان').fadeIn();
+
+        
     }
 
     function formatFare(amount) {
@@ -294,30 +263,61 @@ $(document).ready(function () {
         if (routeLine) map.removeLayer(routeLine); // حذف خط مسیر
         tripData.startPoint = null;
         tripData.endPoint = null;
-        $(".fare").empty();
-        $(".total").empty();
         $("#submit").fadeOut();
         $(".factor").empty();
         no = 0;
         console.log("نقاط و مسیر ریست شد.");
+
+        $(".fareHolder").empty().hide();
+        // $(".fareHolder").hide();
     });
 
     // دکمه محاسبه کرایه
     document.getElementById('calculate-btn').addEventListener('click', calculateFare);
 
 
-    function CreateFactor() {
-        ap = '<tr><td class="no">0' + no + 1 + '</td><td class="text-left" colspan="2">مسافت</td><td class="unit">' + data.routes[0].legs[0].distance.value / 1000 + ' کیلومتر</td></tr>';
-        $(".factor").append(ap);
-
-        ap = '<tr><td class="no">0' + no + 1 + '</td><td class="text-left" colspan="2">زمان تقریبی رسیدن</td><td class="unit">' + tripData.travelTime + '</td></tr>';
-        $(".factor").append(ap);
-     
-        start = '<tr><td class="no">0' + no+1 + '</td><td class="text-left" colspan="2">' + label + '</td><td class="unit">' + tripData.startAdd + '</td></tr>';
-        $(".factor").append(start);
-
-        end = '<tr><td class="no">0' + no+1 + '</td><td class="text-left" colspan="2">' + label + '</td><td class="unit">' + tripData.endAdd + '</td></tr>';
-        $(".factor").append(end);
+    function CreateFactor(lable, data, last) {
+        no = no + 1;
+        row = '<tr><td class="no">0' + no + '</td><td class="text-left" colspan="2">' + lable + '</td><td class="unit">' + data + ' ' + last + ' </td></tr>';
+        $(".factor").append(row);
     }
+
+
+
+    $('.dropdown-item').on('click', function () {
+        var selectedText = $(this).text();
+        $('.nav-link.show').text(selectedText);
+
+        var name = $(this).data('name');
+        var value = $(this).data('value');
+
+        tripData[name] = value;
+
+        $(".factor").empty();
+        no = 0;
+        calculateFare();
+    });
+
+
+    $("#submit").click(function(){
+
+        $(".fareHolder").hide();
+
+        $("#map_holder").attr("class" , "col-lg-9");
+        $("#factor_holder").fadeIn();
+
+        CreateFactor('مسافت', tripData.distance, 'کیلومتر');
+        CreateFactor('زمان تقریبی رسیدن', tripData.travelTime, '');
+        CreateFactor('مبدا', tripData.startAdd, '');
+        CreateFactor('مقصد', tripData.endAdd, '');
+        CreateFactor('کرایه', formatFare(tripData.fare.toFixed(0)), 'تومان');
+        // CreateFactor('عوارض', formatFare(toll), 'تومان');
+        // CreateFactor('روز تعطیل', isHoliday ? "بله":"خیر", '');
+
+
+        
+    });
+
+
 
 });

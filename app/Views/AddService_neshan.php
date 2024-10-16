@@ -1,4 +1,8 @@
 <style>
+    #factor_holder {
+        display: none;
+    }
+
     #map {
         width: 100%;
         height: 800px;
@@ -248,6 +252,20 @@
         background: #e7f2ff;
         padding: 10px;
     }
+
+    .fareHolder {
+        width: auto;
+        height: 50px;
+        z-index: 9;
+        bottom: 40%;
+        position: fixed;
+        background: white;
+        padding: 10px;
+        left: 0;
+        box-shadow: 1px 1px 60px;
+        display: none;
+        font-size: x-large;
+    }
 </style>
 
 
@@ -300,13 +318,13 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="row">
-        <div class="col-lg-9 map_holder">
+        <div class="col-lg-12" id="map_holder">
             <div style="height: 500px;position: relative;" id="map"></div>
 
         </div>
 
 
-        <div class="col-lg-3 factor_holder">
+        <div class="col-lg-3" id="factor_holder">
             <div class="card">
                 <div class="card-body">
                     <div id="invoice">
@@ -369,6 +387,7 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
     </div>
 
 
+    <div class="fareHolder"></div>
 
     <footer class="footer-area bg-white text-center rounded-top-10">
 
@@ -397,13 +416,13 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
                                     <li class="nav-item dropdown">
                                         <?= ${$O['option']}; ?>
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <?= $O['name'] ?> </a>
+                                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <?= $O['name'] ?> </a>
                                         <ul class="dropdown-menu">
 
 
                                             <?php $i = 0;
                                             foreach ($OI as $OIO => $VAL): ?>
-                                                <li><a data-<?= $O['option'] ?>="<?= $VAL ?>" class="dropdown-item"><?= $VA[$i] ?></a></li>
+                                                <li><a data-value="<?= $VAL ?>" data-name="<?= $O['option'] ?>" class="dropdown-item"><?= $VA[$i] ?></a></li>
                                             <?php $i++;
                                             endforeach; ?>
 
@@ -542,9 +561,18 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 <script>
     var Dropdowns = function() {
 
-        $('.dropdown-item').on('click', function() {
-            var selectedText = $(this).text();
-            $('.nav-link.show').text(selectedText);
+        $('.nav-item.dropdown').each(function() {
+            var firstItem = $(this).find('ul.dropdown-menu li:first');
+
+            var firstItemText = $(this).find('ul.dropdown-menu li:first a').text();
+
+            var name = $(this).find('ul.dropdown-menu li:first a').data("name");
+            var value = $(this).find('ul.dropdown-menu li:first a').data("value");
+
+            tripData[name] = value
+
+            // Set the text of the dropdown-toggle to the first item's text
+            $(this).find('a.dropdown-toggle').text(firstItemText);
         });
 
 
