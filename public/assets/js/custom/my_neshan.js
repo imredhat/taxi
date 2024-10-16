@@ -24,6 +24,8 @@ let no = 0;
 $(document).ready(function () {
 
     $("body").attr("sidebar-data-theme", "sidebar-hide");
+    $(".leaflet-control-container").next("div").hide();
+    $(".leaflet-bottom.leaflet-right").hide();
 
 
     height = self.innerHeight - 170
