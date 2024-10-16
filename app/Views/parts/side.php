@@ -8,7 +8,7 @@
 </div>
 <div class="sidebar-area" id="sidebar-area">
     <div class="logo position-relative">
-        <a href="<?=base_url()?>" class="d-block text-decoration-none">
+        <a href="<?= base_url() ?>" class="d-block text-decoration-none">
             <img src="<?= base_url() ?>assets/images/logo-icon.png" alt="logo-icon">
             <span class="logo-text fw-bold text-dark">پویش تاکسی</span>
         </a>
@@ -64,7 +64,7 @@
             <li class="menu-item">
                 <a href="<?= base_url() ?>add-driver" class="menu-link">
                     <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-                    <svg style="margin-left: 15px;" height="30" width="30" version="1.1" id="Layer_1"
+                    <svg class="feather feather-dollar-sign menu-icon tf-icons" style="margin-left: 15px;" height="30" width="30" version="1.1" id="Layer_1"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                         viewBox="0 0 508 508" xml:space="preserve">
                         <circle style="fill:#324A5E;" cx="254" cy="254" r="254" />
@@ -112,7 +112,7 @@
 
 
             <li class="menu-item" style="">
-                <a href="javascript:void(0);" class="menu-link menu-toggle active"> <svg style="margin-left: 10px;;" class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <a href="javascript:void(0);" class="menu-link menu-toggle active"> <svg class="feather feather-dollar-sign menu-icon tf-icons" style="margin-left: 10px;;" class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 6H10m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4m16 6h-2m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4m16 6H10m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4" />
                     </svg>
 
@@ -130,7 +130,7 @@
 
             <li class="menu-item">
                 <a href="<?= base_url() ?>Cars" class="menu-link">
-                    <svg style="margin-left: 15px;" fill="#000000" height="800px" width="800px" version="1.1"
+                    <svg class="feather feather-dollar-sign menu-icon tf-icons" style="margin-left: 15px;" fill="#000000" height="800px" width="800px" version="1.1"
                         id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                         viewBox="0 0 229.98 229.98" xml:space="preserve">
                         <path
@@ -169,7 +169,7 @@
 
             <li class="menu-item">
                 <a href="<?= base_url() ?>Service" class="menu-link">
-                    <svg style="margin-left: 10px;" class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <svg class="feather feather-dollar-sign menu-icon tf-icons" style="margin-left: 10px;" class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M12 2a7 7 0 0 0-7 7 3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1a1 1 0 0 0 1-1V9a5 5 0 1 1 10 0v7.083A2.919 2.919 0 0 1 14.083 19H14a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h1a2 2 0 0 0 1.732-1h.351a4.917 4.917 0 0 0 4.83-4H19a3 3 0 0 0 3-3v-2a3 3 0 0 0-3-3 7 7 0 0 0-7-7Zm1.45 3.275a4 4 0 0 0-4.352.976 1 1 0 0 0 1.452 1.376 2.001 2.001 0 0 1 2.836-.067 1 1 0 1 0 1.386-1.442 4 4 0 0 0-1.321-.843Z" clip-rule="evenodd" />
                     </svg>
 
@@ -181,22 +181,22 @@
 
             <li class="menu-item">
                 <a href="<?= base_url() ?>Service/Add" class="menu-link">
-                    <svg style="margin-left: 10px;" class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    <svg class="feather feather-dollar-sign menu-icon tf-icons" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24">
+                        <path d="m12,13c0,1.657-2.686,3-6,3S0,14.657,0,13s2.686-3,6-3,6,1.343,6,3Zm0,5.5v2c0,1.995-2.579,3.5-6,3.5s-6-1.505-6-3.5v-2c0,1.971,2.5,3.5,6,3.5s6-1.529,6-3.5Zm0-4v2c0,1.995-2.579,3.5-6,3.5s-6-1.505-6-3.5v-2c0,1.971,2.5,3.5,6,3.5s6-1.529,6-3.5Zm6-8.5h-8v2h8v-2Zm1-6h-10c-2.757,0-5,2.243-5,5v3.139c.633-.091,1.302-.139,2-.139s1.367.048,2,.139v-2.139c0-1.103.897-2,2-2h8c1.103,0,2,.897,2,2v2c0,1.103-.897,2-2,2h-5.469c.655.574,1.112,1.25,1.328,2h1.14c.553,0,1,.448,1,1v1c0,.552-.447,1-1,1h-1v2h5c.553,0,1,.448,1,1s-.447,1-1,1h-5v1.5c0,1.365-.617,2.569-1.687,3.5h6.687c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm1,14c0,.552-.447,1-1,1s-1-.448-1-1v-1c0-.552.447-1,1-1s1,.448,1,1v1Z" />
                     </svg>
 
 
 
 
 
-                    <span class="title">افزودن سرویس </span>
+                    <span class="title">استعلام کرایه </span>
                 </a>
             </li>
 
 
             <li class="menu-item">
                 <a href="<?= base_url() ?>Contacts" class="menu-link">
-                    <svg style="margin-left: 10px;" class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <svg class="feather feather-dollar-sign menu-icon tf-icons" style="margin-left: 10px;" class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 6H5m2 3H5m2 3H5m2 3H5m2 3H5m11-1a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2M7 3h11a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm8 7a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" />
                     </svg>
 
@@ -208,9 +208,9 @@
 
             <li class="menu-item">
                 <a href="<?= base_url() ?>auth/logout" class="menu-link">
-                <svg style="margin-left: 10px;" width="1024px" height="1024px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="icon">
-  <path d="M868 732h-70.3c-4.8 0-9.3 2.1-12.3 5.8-7 8.5-14.5 16.7-22.4 24.5a353.84 353.84 0 0 1-112.7 75.9A352.8 352.8 0 0 1 512.4 866c-47.9 0-94.3-9.4-137.9-27.8a353.84 353.84 0 0 1-112.7-75.9 353.28 353.28 0 0 1-76-112.5C167.3 606.2 158 559.9 158 512s9.4-94.2 27.8-137.8c17.8-42.1 43.4-80 76-112.5s70.5-58.1 112.7-75.9c43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 7.9 7.9 15.3 16.1 22.4 24.5 3 3.7 7.6 5.8 12.3 5.8H868c6.3 0 10.2-7 6.7-12.3C798 160.5 663.8 81.6 511.3 82 271.7 82.6 79.6 277.1 82 516.4 84.4 751.9 276.2 942 512.4 942c152.1 0 285.7-78.8 362.3-197.7 3.4-5.3-.4-12.3-6.7-12.3zm88.9-226.3L815 393.7c-5.3-4.2-13-.4-13 6.3v76H488c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z"/>
-</svg>
+                    <svg class="feather feather-dollar-sign menu-icon tf-icons" style="margin-left: 10px;" width="1024px" height="1024px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="icon">
+                        <path d="M868 732h-70.3c-4.8 0-9.3 2.1-12.3 5.8-7 8.5-14.5 16.7-22.4 24.5a353.84 353.84 0 0 1-112.7 75.9A352.8 352.8 0 0 1 512.4 866c-47.9 0-94.3-9.4-137.9-27.8a353.84 353.84 0 0 1-112.7-75.9 353.28 353.28 0 0 1-76-112.5C167.3 606.2 158 559.9 158 512s9.4-94.2 27.8-137.8c17.8-42.1 43.4-80 76-112.5s70.5-58.1 112.7-75.9c43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 7.9 7.9 15.3 16.1 22.4 24.5 3 3.7 7.6 5.8 12.3 5.8H868c6.3 0 10.2-7 6.7-12.3C798 160.5 663.8 81.6 511.3 82 271.7 82.6 79.6 277.1 82 516.4 84.4 751.9 276.2 942 512.4 942c152.1 0 285.7-78.8 362.3-197.7 3.4-5.3-.4-12.3-6.7-12.3zm88.9-226.3L815 393.7c-5.3-4.2-13-.4-13 6.3v76H488c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z" />
+                    </svg>
 
 
                     <span class="title">خروج</span>

@@ -251,14 +251,9 @@
 </style>
 
 
-<?php 
+<?php
 
 $array['options'] = $options;
-
-// echo "<pre>";
-// print_r($array);
-// die();
-
 function findRateByKey($array, $key)
 {
 
@@ -290,95 +285,230 @@ function findRateByKey($array, $key)
     return "Key not found.";
 }
 
-
+$carType = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="15" height="15"><path d="M24,13a3,3,0,0,0-3-3h-.478L15.84,3.285A3,3,0,0,0,13.379,2h-7A3.016,3.016,0,0,0,3.575,3.937l-2.6,6.848A2.994,2.994,0,0,0,0,13v5H2v.5a3.5,3.5,0,0,0,7,0V18h6v.5a3.5,3.5,0,0,0,7,0V18h2ZM14.2,4.428,18.084,10H11V4h2.379A1,1,0,0,1,14.2,4.428Zm-8.753.217A1,1,0,0,1,6.381,4H9v6H3.416ZM7,18.5a1.5,1.5,0,0,1-3,0V18H7Zm13,0a1.5,1.5,0,0,1-3,0V18h3ZM22,16H2V13a1,1,0,0,1,1-1H21a1,1,0,0,1,1,1Z"/></svg>';
+$weather = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="15" height="15"><path d="M23,11H18.92a6.924,6.924,0,0,0-.429-1.607l3.527-2.044a1,1,0,1,0-1-1.731l-3.53,2.047a7.062,7.062,0,0,0-1.149-1.15l2.046-3.531a1,1,0,0,0-1.731-1L14.607,5.509A6.9,6.9,0,0,0,13,5.08V1a1,1,0,0,0-2,0V5.08a6.9,6.9,0,0,0-1.607.429L7.349,1.982a1,1,0,0,0-1.731,1L7.664,6.515a7.062,7.062,0,0,0-1.149,1.15L2.985,5.618a1,1,0,1,0-1,1.731L5.509,9.393A6.924,6.924,0,0,0,5.08,11H1a1,1,0,0,0,0,2H5.08a6.924,6.924,0,0,0,.429,1.607L1.982,16.651a1,1,0,1,0,1,1.731l3.53-2.047a7.062,7.062,0,0,0,1.149,1.15L5.618,21.016a1,1,0,0,0,1.731,1l2.044-3.527A6.947,6.947,0,0,0,11,18.92V23a1,1,0,0,0,2,0V18.92a6.947,6.947,0,0,0,1.607-.429l2.044,3.527a1,1,0,0,0,1.731-1l-2.046-3.531a7.062,7.062,0,0,0,1.149-1.15l3.53,2.047a1,1,0,1,0,1-1.731l-3.527-2.044A6.924,6.924,0,0,0,18.92,13H23A1,1,0,0,0,23,11ZM12,17c-6.608-.21-6.606-9.791,0-10C18.608,7.21,18.606,16.791,12,17Z"/></svg>';
+$roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="15" height="15"><path d="M21.46,4.134A4.992,4.992,0,0,0,16.536,0H7.451A4.992,4.992,0,0,0,2.525,4.138l-2.449,14A5,5,0,0,0,5,24H19a5,5,0,0,0,4.925-5.866ZM21.3,20.929A3,3,0,0,1,19,22H5a3,3,0,0,1-2.955-3.518l2.449-14A3,3,0,0,1,7.451,2h9.085A3,3,0,0,1,19.49,4.48l2.463,14A3,3,0,0,1,21.3,20.929ZM13,5V7a1,1,0,0,1-2,0V5a1,1,0,0,1,2,0Zm0,6v2a1,1,0,0,1-2,0V11a1,1,0,0,1,2,0Zm0,6v2a1,1,0,0,1-2,0V17a1,1,0,0,1,2,0Z"/></svg>';
 ?>
 
 <script>
-
-let baseRate = <?=findRateByKey($array , "pp_km");?>; // قیمت پایه هر کیلومتر
-
+    let baseRate = <?= findRateByKey($array, "pp_km"); ?>; // قیمت پایه هر کیلومتر
 </script>
 
-<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-
-</div>
 
 
 
 
 <div class="card bg-white border-0 rounded-10 mb-4">
-    <div class="card-body p-4">
+    <div class="row">
+        <div class="col-lg-9 map_holder">
+            <div style="height: 500px;position: relative;" id="map"></div>
 
-        <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
-            <h4 class="fw-semibold fs-18 mb-sm-0">بررسی قیمت </h4>
         </div>
 
 
+        <div class="col-lg-3 factor_holder">
+            <div class="card">
+                <div class="card-body">
+                    <div id="invoice">
+
+                        <div class="invoice overflow-auto">
+                            <div style="width: 99%;text-align: right;">
+                                <header>
+                                    <div class="row">
+
+                                        <div class="col company-details">
+                                            <h3 class="name" style="text-align: right;">
+                                                خلاصه سرویس
+
+                                            </h3>
+
+                                        </div>
+                                    </div>
+                                </header>
+                                <main>
+                                    <div class="row contacts" style="text-align: right;">
 
 
-        <div class="col-lg-12">
-            <div class="form-group mb-4" bis_skin_checked="1"> <label class="label"> انتخاب مبدا و مقصد</label>
-                <div class="form-group position-relative" bis_skin_checked="1">
-                <div class="controls">
-
-                <?php foreach($options as $O):if(is_object(json_decode($O['rate']))):?>
-                    <?php 
-                    $OI = json_decode($O['rate']);
-                    $VA = json_decode($O['values']);
-                    
-                    ?>
-
-                    <label><?=$O['name']?> :
-
-                            <select id="<?=$O['option']?>">
-                                
-                                <?php $i = 0; foreach ($OI as $OIO => $VAL): ?>
-                                    <option value="<?=$VAL ?>"><?=$VA[$i]?></option>
-                                <?php $i++; endforeach;?>
-
-                            </select>
-                        </label>
+                                    </div>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th colspan="2" class="text-left">عنوان</th>
+                                                <th class="text-right">توضیحات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="factor">
 
 
-        
+                                        </tbody>
+
+                                    </table>
 
 
-                    <?php
-                endif;endforeach;
-?>
-                    
+                                    <table>
 
+                                        <tfoot>
 
+                                        </tfoot>
+                                    </table>
 
-
-                        <br>
-                        <button type="button" id="reset">ریست</button>
-                        <button type="button" id="calculate-btn">محاسبه کرایه</button>
-
-                        <div class="fare"></div>
-                        <div class="total"></div>
+                                    <div class="notices">
+                                        <div>نکته مهم:</div>
+                                        <div class="notice"> در انتخاب مبدا و مقصد دقت کنید</div>
+                                    </div>
+                                </main>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
                     </div>
-
-
-
-
-
-
-                    <div style="height: 600px;position: relative;" id="map"></div>
-
-
-
-                  
-
                 </div>
             </div>
         </div>
-
-
-
-
-
     </div>
+
+
+
+    <footer class="footer-area bg-white text-center rounded-top-10">
+
+
+        <div class="btsearch" role="search">
+            <input style="width: 500px;" class="form-control me-2" type="search" id="searchInput" placeholder="جستجو..." aria-label="Search">
+            <ul id="searchResults" class="list-group dropdown-menu show"></ul>
+
+        </div>
+
+
+        <div style="position: absolute; bottom:0" class="tab-pane fade show active" id="preview-tab-pane" role="tabpanel" aria-labelledby="preview-tab" tabindex="0">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid"> <a class="navbar-brand" href="#">تنظیمات قیمت</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="width: auto;">
+
+
+
+                            <?php foreach ($options as $O): if (is_object(json_decode($O['rate']))): ?>
+                                    <?php
+                                    $OI = json_decode($O['rate']);
+                                    $VA = json_decode($O['values']);
+
+                                    ?>
+
+                                    <li class="nav-item dropdown">
+                                        <?= ${$O['option']}; ?>
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <?= $O['name'] ?> </a>
+                                        <ul class="dropdown-menu">
+
+
+                                            <?php $i = 0;
+                                            foreach ($OI as $OIO => $VAL): ?>
+                                                <li><a data-<?= $O['option'] ?>="<?= $VAL ?>" class="dropdown-item"><?= $VA[$i] ?></a></li>
+                                            <?php $i++;
+                                            endforeach; ?>
+
+                                        </ul>
+                                    </li>
+
+
+                            <?php endif;
+                            endforeach; ?>
+
+
+
+
+
+                        </ul>
+
+
+
+                        <div style="float: left;position: fixed;left:0">
+                            <button type="button" id="reset" class="btn btn-danger bg-danger bg-opacity-10 text-danger border-0 fw-semibold py-2 px-4">ریست</button>
+                            <button type="button" id="calculate-btn" class="btn btn-primary bg-primary bg-opacity-10 text-primary border-0 fw-semibold py-2 px-4">محاسبه کرایه</button>
+                            <button style="display: none;" type="button" id="submit" class="btn btn-outline-success fw-semibold py-2 px-4 hover-white ">ثبت سفارش</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </footer>
+
+
+
+    <style>
+        li.nav-item.dropdown {
+            margin: 0 10px;
+        }
+
+        footer svg {
+            float: right;
+            margin: 10px;
+        }
+
+        #map * {
+            z-index: 0;
+        }
+
+        .fare,
+        .total {
+            padding: 30px;
+        }
+
+
+        #searchResults {
+            position: absolute;
+            bottom: 0;
+            margin-bottom: 70px;
+            background: #ffffff;
+            height: 150px;
+            overflow: auto;
+            display: none;
+            width: 500px;
+        }
+
+        .list-group-item,
+        .dropdown-item {
+            cursor: pointer;
+        }
+
+        .bg-body-tertiary {
+            --bs-bg-opacity: 1;
+            background-color: white !important;
+            width: 100% !important;
+        }
+
+        footer.footer-area.bg-white.text-center.rounded-top-10 {
+            position: fixed;
+            bottom: 0;
+            background: blue;
+            width: 96%;
+            height: 60px;
+        }
+
+        .dropdown-menu[data-bs-popper] {
+            bottom: 100%;
+            top: auto !important;
+        }
+
+        .btsearch {
+            position: relative;
+            z-index: 2;
+            margin: auto !important;
+            width: 580px;
+            bottom: -5px;
+        }
+
+        .dropdown-item:hover {
+            color: var(--bs-dropdown-link-active-color);
+            text-decoration: none;
+            background-color: var(--bs-dropdown-link-active-bg);
+        }
+    </style>
+
+
+</div>
 </div>
 
 </div>
@@ -394,11 +524,6 @@ let baseRate = <?=findRateByKey($array , "pp_km");?>; // قیمت پایه هر 
 <link rel="stylesheet" href="<?= base_url() ?>assets/chosen/chosen.min.css" />
 
 
-<style>
-
-
-
-</style>
 
 
 
@@ -414,7 +539,34 @@ let baseRate = <?=findRateByKey($array , "pp_km");?>; // قیمت پایه هر 
 
 <!-- بارگذاری SDK نقشه نشان -->
 
+<script>
+    var Dropdowns = function() {
 
+        $('.dropdown-item').on('click', function() {
+            var selectedText = $(this).text();
+            $('.nav-link.show').text(selectedText);
+        });
+
+
+
+
+
+        var t = $(".dropup, .dropright, .dropdown, .dropleft"),
+            e = $(".dropdown-menu"),
+            r = $(".dropdown-menu .dropdown-menu");
+        $(".dropdown-menu .dropdown-toggle").on("click", function() {
+                var a;
+                return (a = $(this)).closest(t).siblings(t).find(e).removeClass("show"),
+                    a.next(r).toggleClass("show"),
+                    !1
+            }),
+            t.on("hide.bs.dropdown", function() {
+                var a, t;
+                a = $(this),
+                    (t = a.find(r)).length && t.removeClass("show")
+            })
+    }()
+</script>
 
 
 
@@ -427,4 +579,3 @@ let baseRate = <?=findRateByKey($array , "pp_km");?>; // قیمت پایه هر 
 <script>
     jalaliDatepicker.startWatch();
 </script>
-

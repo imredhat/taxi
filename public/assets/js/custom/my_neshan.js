@@ -1,95 +1,32 @@
 
 // آرایه گلوبال برای ذخیره اطلاعات مهم
-// let tripData = {
-//     startPoint: null,
-//     endPoint: null,
-//     returnPoint: null,
-//     isReturnTrip: null,
-//     fareDetails: {
-//         distance: null,
-//         duration: null,
-//         fare: null,
-//     },
-//     passenger: null,
-//     driver: null,
-//     car: null
-// };
-
-
+let startMarker, endMarker, routeLine;
 let tripData = {
     startPoint: null,
     endPoint: null,
     distance: null,
     travelTime: null,
-    toll: null
+    toll: null,
+    passenger: null,
+    driver: null,
+    car: null,
+    startAdd: null,
+    endAdd: null
 };
+
 
 
 $(document).ready(function () {
 
+    $("body").attr("sidebar-data-theme", "sidebar-hide");
 
     let no = 0;
-
-
-    $(".chosen").chosen();
-
-    $("#passenger").on('change', function () {
-        var passengerName = $(this).find('option:selected').data('name');
-        no = no + 1;
-        $(".factor").append('<tr><td class="no">0' + no + '</td><td class="text-left" colspan="2">مسافر سرویس</td><td class="unit">' + passengerName + ' </td></tr>');
-    });
-
-    $("#driver").on('change', function () {
-        var driver_name = $(this).find('option:selected').data('name');
-        no = no + 1;
-        $(".factor").append('<tr><td class="no">0' + no + '</td><td class="text-left" colspan="2">راننده سرویس</td><td class="unit">' + driver_name + ' </td></tr>');
-
-    });
-
-
-
-    $("#Cars").on('change', function () {
-        var car = $(this).find('option:selected').data('name');
-        no = no + 1;
-        $(".factor").append('<tr><td class="no">0' + no + '</td><td class="text-left" colspan="2">راننده سرویس</td><td class="unit">' + car + ' </td></tr>');
-
-    });
-
-
-
-
-    $("#driver").on('change', function () {
-        var driverId = $(this).val();
-        $.ajax({
-            type: "POST",
-            url: base + "Service/GetDriverCarList",
-            data: {
-                driver_id: driverId
-            },
-            success: function (data) {
-                var carsHtml = '';
-                data = JSON.parse(data);
-                carsHtml += '<option value=""></option>';
-                $.each(data, function (index, car) {
-                    carsHtml += '<option data-name="' + car.car_brand + ' | ایران ' + car.iran + car.harf + car.pelak + car.pelak_last + '" value="' + car.cid + '"> ' + car.car_brand + ' | ایران ' + car.iran + car.harf + car.pelak + car.pelak_last + '</option>';
-                });
-
-
-                $('#Cars').html(carsHtml);
-                $('#Cars').trigger('chosen:updated');
-            }
-        });
-    });
-
-
-
-
-
-
-
+    height = self.innerHeight - 170
+    $("#map").css("height", height);
 
     // API Key نشان که از پنل خود دریافت کرده‌اید
     const API_KEY = 'web.840318dd773d4122a1d07e932344af55';
+    const Service_KEY = 'service.89629a97053c4dd3bd06adb146db6886';
 
     // ساخت نقشه نشان
     let map = new L.Map('map', {
@@ -99,35 +36,85 @@ $(document).ready(function () {
         zoom: 8
     });
 
-    //     // ایجاد نقشه
-    // const map = new mapboxgl.Map({
-    //     container: 'map',
-    //     style: 'mapbox://styles/mapbox/streets-v11', // استفاده از استایل نقشه فارسی
-    //     center: [51.3890, 35.6892], // مختصات تهران
-    //     zoom: 12
-    // });
+    // جستجو روی نقشه
+    $("#searchInput").on('input', function () {
+        let query = $(this).val();
 
+        // پاک کردن نتایج قبلی در صورت خالی بودن ورودی
+        if (query === '') {
+            $("#searchResults").html('');
+            return;
+        }
+
+        // درخواست به API نشان برای جستجو
+        fetch(`https://api.neshan.org/v1/search?term=${query}&lat=35.6892&lng=51.3890`, {
+            headers: {
+                'Api-Key': Service_KEY
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                let results = data.items;
+                let searchResults = $("#searchResults");
+                searchResults.fadeIn();
+                searchResults.html('');
+
+                // نمایش نتایج جستجو
+                results.forEach(result => {
+                    searchResults.append(`<li class="list-group-item bg-white" data-lat="${result.location.y}" data-lng="${result.location.x}">${result.title}</li>`);
+                });
+
+                // انتخاب نتیجه جستجو
+                $("#searchResults li").on('click', function () {
+                    let lat = $(this).data('lat');
+                    let lng = $(this).data('lng');
+                    let point = [lat, lng];
+
+
+                    map.setView(point, 8); // بزرگ‌نمایی روی نقطه جستجو
+
+
+                    if (!tripData.startPoint) {
+                        tripData.startPoint = point;
+                        startMarker = L.marker(tripData.startPoint).addTo(map);
+                        console.log(`نقطه شروع انتخاب شد: ${tripData.startPoint}`);
+
+
+                    } else if (!tripData.endPoint) {
+                        tripData.endPoint = point;
+                        endMarker = L.marker(tripData.endPoint).addTo(map);
+                        console.log(`نقطه پایان انتخاب شد: ${tripData.endPoint}`);
+                        drawRouteWithAPI(); // رسم مسیر پس از انتخاب مبدا و مقصد
+                    }
+
+                    // پاک کردن فیلد جستجو و نتایج
+                    $("#searchInput").val('');
+                    $("#searchResults").html('');
+                    searchResults.hide();
+                });
+            });
+    });
 
 
     let startMarker, endMarker;
 
 
+
     map.on('click', function (e) {
+        let point = [e.latlng.lat, e.latlng.lng];
+
         if (!tripData.startPoint) {
-            // انتخاب نقطه شروع
-            tripData.startPoint = [e.latlng.lat, e.latlng.lng];
+            tripData.startPoint = point;
             startMarker = L.marker(tripData.startPoint).addTo(map);
-            console.log(`نقطه شروع انتخاب شد: ${tripData.startPoint}`);
+            // console.log(`نقطه شروع انتخاب شد: ${tripData.startPoint}`);
+
+            getAddressFromCoordinates(point, 'start');
         } else if (!tripData.endPoint) {
-            // انتخاب نقطه پایان
-            tripData.endPoint = [e.latlng.lat, e.latlng.lng];
+            tripData.endPoint = point;
             endMarker = L.marker(tripData.endPoint).addTo(map);
             console.log(`نقطه پایان انتخاب شد: ${tripData.endPoint}`);
-
-
-
-            // رسم مسیر بین دو نقطه با استفاده از API نشان
-            drawRouteWithAPI();
+            getAddressFromCoordinates(point, 'end');
+            drawRouteWithAPI(); // رسم مسیر پس از انتخاب نقاط
         } else {
             console.log("نمی‌توانید نقطه دیگری اضافه کنید.");
         }
@@ -152,10 +139,12 @@ $(document).ready(function () {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
 
-                $(".fare").append(`${label} آدرس: ${data.state} - ${data.city} - ${data.address} <br/>`);
-
+                if (label == "start") {
+                    tripData.startAdd = data.state + '-' + data.city + '-' + data.address;
+                } else {
+                    tripData.endAdd = data.state + '-' + data.city + '-' + data.address;
+                }
 
 
             })
@@ -165,56 +154,47 @@ $(document).ready(function () {
 
 
 
-    // تابع رسم خط مسیر
+    // تابع رسم مسیر با API نشان
     function drawRouteWithAPI() {
         const [startLat, startLng] = tripData.startPoint;
         const [endLat, endLng] = tripData.endPoint;
-
-        // ساخت URL برای درخواست مسیر با اطلاعات جدید
-
 
         const url = `https://api.neshan.org/v4/direction?type=car&origin=${startLat},${startLng}&destination=${endLat},${endLng}&avoidTrafficZone=false&avoidOddEvenZone=false&alternative=false&bearing=`;
 
         fetch(url, {
             method: 'GET',
             headers: {
-                'Api-Key': `service.89629a97053c4dd3bd06adb146db6886` // کلید API شما
+                'Api-Key': Service_KEY
             }
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data.routes[0].legs[0].distance); // برای بررسی ساختار پاسخ
-                console.log(data.routes[0].legs[0].duration); // برای بررسی ساختار پاسخ
-
-                tripData.distance = data.routes[0].legs[0].distance.value/1000;
-                tripData.travelTime = data.routes[0].legs[0].duration.text;
-
-                // محاسبه مسافت و زمان رسیدن
-                $(".fare").append(`مسافت: ${data.routes[0].legs[0].distance.value/1000} <br/>`);
-                $(".fare").append(`زمان تقریبی رسیدن: ${tripData.travelTime}  <br/>`);
-
-
-                // بررسی وجود routes و دسترسی به آن
                 if (data.routes && data.routes.length > 0) {
-
                     const polylinePoints = data.routes[0].overview_polyline.points;
                     const coordinates = polyline.decode(polylinePoints).map(coord => [coord[0], coord[1]]);
 
-                    // رسم خط مسیر
+                    tripData.distance = data.routes[0].legs[0].distance.value / 1000;
+                    tripData.travelTime = data.routes[0].legs[0].duration.text;
+
+
+                    // console.log(data.routes[0].legs[0].distance); // برای بررسی ساختار پاسخ
+                    // console.log(data.routes[0].legs[0].duration); // برای بررسی ساختار پاسخ
+
+
+                    // رسم مسیر
                     routeLine = L.polyline(coordinates, { color: 'blue' }).addTo(map);
-                    map.fitBounds(routeLine.getBounds()); // زوم و مرکز کردن نقشه به خط مسیر
-
-                    // دریافت آدرس متنی با استفاده از API نشان
-                    getAddressFromCoordinates(tripData.startPoint, "نقطه شروع");
-                    getAddressFromCoordinates(tripData.endPoint, "نقطه پایان");
-
+                    map.fitBounds(routeLine.getBounds());
 
                 } else {
-                    console.error('مسیر یافت نشد یا داده‌ها معتبر نیستند:', data);
+                    console.error("مسیر یافت نشد.");
                 }
-            })
-            .catch(error => console.error('Error:', error));
+            });
     }
+
+
+
+
+
 
 
 
@@ -230,7 +210,7 @@ $(document).ready(function () {
 
         console.log(distance);
 
-        
+
 
         // تغییر نرخ براساس وضعیت جوی
         // switch (weather) {
@@ -276,12 +256,20 @@ $(document).ready(function () {
             baseRate *= 1.2; // 20% افزایش در روزهای تعطیل
         }
 
-        console.log(baseRate);
-
         // محاسبه کرایه نهایی
-        const fare = (distance * baseRate* weather * roadCondition * carType) + toll;
+        const fare = (distance * baseRate * weather * roadCondition * carType) + toll;
 
-        $(".total").html(`<b>کرایه نهایی: ${formatFare(fare.toFixed(0))} تومان </b>`)
+        $(".total").html(`<b>کرایه نهایی: ${formatFare(fare.toFixed(0))} تومان </b>`);
+
+        $("#submit").fadeIn();
+
+        CreateFactor();
+    }
+
+    function formatFare(amount) {
+        precision = 1000;
+        amount = Math.ceil(amount / precision) * precision;
+        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
     // تابع تولید عوارض جاده
@@ -308,6 +296,9 @@ $(document).ready(function () {
         tripData.endPoint = null;
         $(".fare").empty();
         $(".total").empty();
+        $("#submit").fadeOut();
+        $(".factor").empty();
+        no = 0;
         console.log("نقاط و مسیر ریست شد.");
     });
 
@@ -315,67 +306,18 @@ $(document).ready(function () {
     document.getElementById('calculate-btn').addEventListener('click', calculateFare);
 
 
+    function CreateFactor() {
+        ap = '<tr><td class="no">0' + no + 1 + '</td><td class="text-left" colspan="2">مسافت</td><td class="unit">' + data.routes[0].legs[0].distance.value / 1000 + ' کیلومتر</td></tr>';
+        $(".factor").append(ap);
 
+        ap = '<tr><td class="no">0' + no + 1 + '</td><td class="text-left" colspan="2">زمان تقریبی رسیدن</td><td class="unit">' + tripData.travelTime + '</td></tr>';
+        $(".factor").append(ap);
+     
+        start = '<tr><td class="no">0' + no+1 + '</td><td class="text-left" colspan="2">' + label + '</td><td class="unit">' + tripData.startAdd + '</td></tr>';
+        $(".factor").append(start);
 
-
-
-
-
-
-
-
-    function formatFare(amount) {
-        precision = 1000;
-        amount = Math.ceil(amount / precision) * precision;
-        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        end = '<tr><td class="no">0' + no+1 + '</td><td class="text-left" colspan="2">' + label + '</td><td class="unit">' + tripData.endAdd + '</td></tr>';
+        $(".factor").append(end);
     }
-
-
-
-
-
-    $("#addService").on('click', function () {
-
-        var btn = $(this);
-
-        tripData.passenger = $("#passenger").val();
-        tripData.driver = $("#driver").val();
-        tripData.car = $("#Cars").val();
-        tripData.callDate = $('input[name="call_date"]').val();
-        tripData.tripDate = $('input[name="trip_date"]').val();
-        tripData.desc = $('textarea[name="desc"]').val();
-        tripData.isFactor = $('input[name="isFactor"]:checked').val() ? true : false;
-        tripData.isPaid = $('input[name="isPaid"]:checked').val() ? true : false;
-        tripData.isTax = $('input[name="isTax"]:checked').val() ? true : false;
-
-
-        // console.log(tripData);
-
-        $(".spinner-border").fadeIn();
-        // $(this).attr("disabled" , "disabled");
-
-
-        $.ajax({
-            type: "POST",
-            url: base + "Service/createOrder",
-            data: tripData,
-            success: function (data) {
-                // console.log(data)
-
-                if (data.status == "success") {
-                    window.location.replace(base + 'Service/');
-                    return false;
-
-                } else {
-                    btn.attr("disabled", "");
-                }
-            }
-        });
-
-
-    });
-
-
-
 
 });

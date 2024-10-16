@@ -232,4 +232,52 @@ $(document).ready(function () {
         const farePerKm = 2000; // قیمت به ازای هر کیلومتر
         return baseFare + (distance / 1000) * farePerKm;
     }
+
+
+
+    
+    $("#addService").on('click', function () {
+
+        var btn = $(this);
+
+        tripData.passenger = $("#passenger").val();
+        tripData.driver = $("#driver").val();
+        tripData.car = $("#Cars").val();
+        tripData.callDate = $('input[name="call_date"]').val();
+        tripData.tripDate = $('input[name="trip_date"]').val();
+        tripData.desc = $('textarea[name="desc"]').val();
+        tripData.isFactor = $('input[name="isFactor"]:checked').val() ? true : false;
+        tripData.isPaid = $('input[name="isPaid"]:checked').val() ? true : false;
+        tripData.isTax = $('input[name="isTax"]:checked').val() ? true : false;
+
+
+        // console.log(tripData);
+
+        $(".spinner-border").fadeIn();
+        // $(this).attr("disabled" , "disabled");
+
+
+        $.ajax({
+            type: "POST",
+            url: base + "Service/createOrder",
+            data: tripData,
+            success: function (data) {
+                // console.log(data)
+
+                if (data.status == "success") {
+                    window.location.replace(base + 'Service/');
+                    return false;
+
+                } else {
+                    btn.attr("disabled", "");
+                }
+            }
+        });
+
+
+    });
+
+
+
+    
 });
