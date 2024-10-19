@@ -89,4 +89,14 @@ $routes->post('Service/createOrder', 'Service::createOrder');
 $routes->get('Option', 'Option::index');
 $routes->post('Option/saveSettings', 'Option::saveSettings');
 
+
+$routes->get('Trips/AddTrip', 'Trips::AddTrip');
+$routes->post('Trips/AddTrip', 'Trips::AddTrip');
+
+$routes->get('Trips/FindID', 'Trips::FindID');
+$routes->post('Trips/FindID', 'Trips::FindID');
+
+$routes->get('Trips/Step2(:any)', 'Trips::Step2/$1');
+
+
 service('auth')->routes($routes);

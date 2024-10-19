@@ -7,9 +7,6 @@ let tripData = {
     distance: null,
     travelTime: null,
     toll: null,
-    passenger: null,
-    driver: null,
-    car: null,
     startAdd: null,
     endAdd: null,
     roadCondition: null,
@@ -18,7 +15,15 @@ let tripData = {
 };
 
 let no = 0;
+initiate();
 
+function initiate() {
+    $(".factor").empty();
+    $(".package:first-child").addClass("package_selected");
+    var currentPackage = $(".package_selected").data("name");
+    tripData.Packgae = currentPackage;
+
+}
 
 
 $(document).ready(function () {
@@ -34,6 +39,23 @@ $(document).ready(function () {
     // API Key نشان که از پنل خود دریافت کرده‌اید
     const API_KEY = 'web.840318dd773d4122a1d07e932344af55';
     const Service_KEY = 'service.89629a97053c4dd3bd06adb146db6886';
+
+
+    const startIcon = L.icon({
+        iconUrl: '../assets/images/start.png', // آدرس عکس برای نقطه شروع
+        iconSize: [50, 50], // سایز آیکن
+        iconAnchor: [20, 40], // مکان آیکن نسبت به مختصات
+        popupAnchor: [0, -60] // مکان پاپ‌آپ نسبت به آیکن
+    });
+
+    // تعریف آیکن سفارشی برای نقطه پایان
+    const endIcon = L.icon({
+        iconUrl: '../assets/images/end.png', // آدرس عکس برای نقطه پایان
+        iconSize: [50, 50], // سایز آیکن
+        iconAnchor: [20, 40], // مکان آیکن نسبت به مختصات
+        popupAnchor: [0, -60] // مکان پاپ‌آپ نسبت به آیکن
+    });
+
 
     // ساخت نقشه نشان
     let map = new L.Map('map', {
@@ -83,14 +105,19 @@ $(document).ready(function () {
 
                     if (!tripData.startPoint) {
                         tripData.startPoint = point;
-                        startMarker = L.marker(tripData.startPoint).addTo(map);
+                        startMarker = L.marker(tripData.startPoint, { icon: startIcon, draggable: true }).addTo(map);
+
+                        getAddressFromCoordinates(point, 'start');
                         console.log(`نقطه شروع انتخاب شد: ${tripData.startPoint}`);
 
 
                     } else if (!tripData.endPoint) {
                         tripData.endPoint = point;
-                        endMarker = L.marker(tripData.endPoint).addTo(map);
+                        endMarker = L.marker(tripData.endPoint, { icon: endIcon, draggable: true }).addTo(map);
+
                         console.log(`نقطه پایان انتخاب شد: ${tripData.endPoint}`);
+
+                        getAddressFromCoordinates(point, 'end');
                         drawRouteWithAPI(); // رسم مسیر پس از انتخاب مبدا و مقصد
                     }
 
@@ -112,17 +139,18 @@ $(document).ready(function () {
 
         if (!tripData.startPoint) {
             tripData.startPoint = point;
-            startMarker = L.marker(tripData.startPoint).addTo(map);
+            startMarker = L.marker(tripData.startPoint, { icon: startIcon, draggable: true }).addTo(map);
+
             // console.log(`نقطه شروع انتخاب شد: ${tripData.startPoint}`);
 
             getAddressFromCoordinates(point, 'start');
         } else if (!tripData.endPoint) {
             tripData.endPoint = point;
-            endMarker = L.marker(tripData.endPoint).addTo(map);
+            endMarker = L.marker(tripData.endPoint, { icon: endIcon, draggable: true }).addTo(map);
             console.log(`نقطه پایان انتخاب شد: ${tripData.endPoint}`);
             getAddressFromCoordinates(point, 'end');
             drawRouteWithAPI(); // رسم مسیر پس از انتخاب نقاط
-            
+
         } else {
             console.log("نمی‌توانید نقطه دیگری اضافه کنید.");
         }
@@ -181,12 +209,18 @@ $(document).ready(function () {
                     const polylinePoints = data.routes[0].overview_polyline.points;
                     const coordinates = polyline.decode(polylinePoints).map(coord => [coord[0], coord[1]]);
 
+
+
                     tripData.distance = data.routes[0].legs[0].distance.value / 1000;
                     tripData.travelTime = data.routes[0].legs[0].duration.text;
+                    tripData.TimeMin = data.routes[0].legs[0].duration.value;
+
 
                     // رسم مسیر
                     routeLine = L.polyline(coordinates, { color: 'blue' }).addTo(map);
                     map.fitBounds(routeLine.getBounds());
+
+                    console.log(data.routes[0].legs[0]);
 
 
                     calculateFare();
@@ -200,6 +234,7 @@ $(document).ready(function () {
 
 
 
+    console.log(getPackageField("Eco", "base_fare")); // نتیجه: 50000
 
 
 
@@ -207,34 +242,28 @@ $(document).ready(function () {
     // تابع محاسبه کرایه
     function calculateFare() {
 
-        // $("#map_holder").attr("class" , "col-lg-9");
-        // $("#factor_holder").slideToggle();
-
         const distance = tripData.distance;
         const weather = tripData.weather;
         const roadCondition = tripData.roadCondition;
-        const carType = tripData.carType;
-        // const toll = getRandomToll(); // دریافت مبلغ عوارض
+        const Packgae = tripData.Packgae;
         const toll = 0; // دریافت مبلغ عوارض
-        const isHoliday = checkIfHoliday(); // چک کردن تعطیلی
+        const isHoliday = tripData.isHoliday = checkIfHoliday();
+
+        // const toll = getRandomToll(); // دریافت مبلغ عوارض
 
 
         if (isHoliday) {
             baseRate *= 1.2; // 20% افزایش در روزهای تعطیل
         }
 
-        // محاسبه کرایه نهایی
-        const fare = (distance * baseRate * weather * roadCondition * carType) + toll;
-
+        const fare = PackagePrice(tripData.Packgae, distance, tripData.TimeMin);
         tripData.fare = fare;
 
 
         $("#submit").fadeIn();
-
-
         $(".fareHolder").html(formatFare(fare.toFixed(0)) + 'تومان').fadeIn();
 
-        
+
     }
 
     function formatFare(amount) {
@@ -254,72 +283,333 @@ $(document).ready(function () {
     function checkIfHoliday() {
         const today = new Date();
         const day = today.getDay();
+
         // در ایران روز جمعه (day=5) تعطیل است
         return day === 5;
     }
 
+
+    function PackagePrice(packageName, distance, time) {
+        const selectedPackage = packages.find(pkg => pkg.name === packageName);
+
+        if (!selectedPackage) {
+            return 'Package not found!';
+        }
+
+        // محاسبه هزینه اولیه بر اساس مسافت
+        let fare = 0;
+        if (distance < 50) {
+            fare += parseInt(selectedPackage.base_fare);
+        } else {
+            fare += parseInt(selectedPackage.long_fare);
+        }
+
+        fare += distance * parseInt(selectedPackage.distance_rate);
+        fare += time * parseInt(selectedPackage.time_rate);
+
+        return fare;
+    }
+
     // دکمه ریست کردن نقاط و مسیر
     document.getElementById('reset').addEventListener('click', function () {
-        if (startMarker) startMarker.remove();
-        if (endMarker) endMarker.remove();
-        if (routeLine) map.removeLayer(routeLine); // حذف خط مسیر
+        no = 0;
+
         tripData.startPoint = null;
         tripData.endPoint = null;
+
+        if (endMarker) endMarker.remove();
+        if (startMarker) startMarker.remove();
+        if (routeLine) map.removeLayer(routeLine);
+
         $("#submit").fadeOut();
         $(".factor").empty();
-        no = 0;
-        console.log("نقاط و مسیر ریست شد.");
+        $("#sabt_estelam").hide();
 
+
+        $("#factor_holder").hide();
         $(".fareHolder").empty().hide();
-        // $(".fareHolder").hide();
+        $("#map_holder").attr("class", "col-lg-12");
+
+        console.log("نقاط و مسیر ریست شد.");
     });
 
-    // دکمه محاسبه کرایه
-    document.getElementById('calculate-btn').addEventListener('click', calculateFare);
+
+
+
+
+    $("#submit").click(function () {
+
+        // calculateFare();
+        $(".fareHolder").hide();
+
+        $("#factor_holder").fadeIn();
+        $("#map_holder").attr("class", "col-lg-9");
+        $(this).hide();
+        $("#sabt_estelam").show();
+
+        var wether = $("li.nav-item.dropdown").eq(1).children('a').text();
+        var road = $("li.nav-item.dropdown").eq(2).children('a').text();
+
+
+        // typer.splice(0, 1);
+        allPack = '<div style="text-align:left;">';
+
+        for (let index = 0; index < packages.length; index++) {
+
+            lable = packages[index]['name'];
+
+
+            const fare = PackagePrice(lable, tripData.distance, tripData.TimeMin);
+
+
+            allPack += 'تومان ' + lable + ' : ' + formatFare((fare).toFixed(0)) + ' <br/>';
+        }
+        allPack += '</div>';
+
+
+
+        CreateFactor('مقصد', tripData.endAdd, '');
+        CreateFactor('مبدا', tripData.startAdd, '');
+        CreateFactor('مسافت', tripData.distance, 'کیلومتر');
+        CreateFactor('روز تعطیل', tripData.isHoliday ? "بله" : "خیر", '');
+        CreateFactor('زمان تقریبی رسیدن', tripData.travelTime, '');
+        CreateFactor('کرایه', formatFare(tripData.fare.toFixed(0)), 'تومان');
+        CreateFactor('شرایط مسیر', `جاده : ${road} <br/>  شرایط آب و هوایی : ${wether}`, '');
+        CreateFactor('مقایسه قیمت ها', allPack, '');
+
+        $(".base_fare").html(formatFare((tripData.fare).toFixed(0)) + 'تومان')
+        // CreateFactor('عوارض', formatFare(toll), 'تومان');
+
+
+    });
+
 
 
     function CreateFactor(lable, data, last) {
-        no = no + 1;
-        row = '<tr><td class="no">0' + no + '</td><td class="text-left" colspan="2">' + lable + '</td><td class="unit">' + data + ' ' + last + ' </td></tr>';
+        no = newNum();
+        row = '<tr><td class="no">' + no + '</td><td class="text-left" colspan="2">' + lable + '</td><td class="unit">' + data + ' ' + last + ' </td></tr>';
         $(".factor").append(row);
     }
 
 
+    function newNum() {
+        no++;
+        let formattedNo = no < 10 ? '0' + no : no;
+        return formattedNo;
+    }
 
-    $('.dropdown-item').on('click', function () {
-        var selectedText = $(this).text();
-        $('.nav-link.show').text(selectedText);
+    function getPackageField(packageName, fieldName) {
+        const selectedPackage = packages.find(pkg => pkg.name === packageName);
+        if (selectedPackage && selectedPackage[fieldName]) {
+            return selectedPackage[fieldName];
+        } else {
+            return 'Field or package not found!';
+        }
+    }
 
-        var name = $(this).data('name');
-        var value = $(this).data('value');
 
-        tripData[name] = value;
+    //=================================================================================================================================================
+    //=================================================================================================================================================
+    //=================================================================================================================================================
+
+
+
+
+    $(".spinner-border-sm").hide();
+    $("#checkID").click(function () {
+
+        var passenger_id = $('input[name="passenger_id"]').val();
+
+        // $(this).attr("disabled", 'disabled');
+        $(".spinner-border-sm").fadeIn();
+        $.ajax({
+            type: "POST",
+            url: base + "Trips/FindID",
+            data: { ID: passenger_id },
+
+            success: function (data) {
+
+
+                if (data.status == "OK") {
+
+                    console.log(data);
+                    $(".spinner-border-sm").hide();
+
+                    $('input[name="passenger_name"]').val(data.User.name + ' ' + data.User.lname);
+                    $('input[name="passenger_tel"]').val(data.User.mobile);
+
+
+                    // window.location.href = base + 'Trips/Step2/' + data.ID;
+                } else {
+                    $(".spinner-border-sm").fadeOut();
+                    alert('کابری با این شماره اشتراک یافت نشد');
+                }
+
+
+            }
+
+
+        });
+    });
+
+    // Hamsafar();
+
+    // function Hamsafar() {
+    //     var url = 'https://hamsafartaxi.com/google_route.php?origin=35.59899109568322,51.43578649284009&destination=35.813894421727326,51.45960307999931&waypoints=waypoints=35.66565377014952,51.41102157070676|35.60901156352773,51.275752415417045';
+    //     $.ajax({
+    //         type: "GET",
+    //         contentType: "application/json; charset=utf-8",
+    //         url: url,
+    //         async: true,
+    //         error: function (jqXHR, textStatus, errorThrown) {
+    //             //console.log("error: " + textStatus + " - " + errorThrown);
+    //             $("#panelWait").hide();
+    //         },
+    //         success: function (data) {
+    //             if (manual_result != '')
+    //                 data = manual_result;
+    //             console.log('Success: ' + data);
+    //             data = data.trim();
+
+    //             if (data.indexOf('OK;') >= 0) {
+    //                 var jsonStr = data.substr(3);
+    //                 var json = JSON.parse(jsonStr);
+    //                 console.log(json);
+
+    //                 routesCallback(json, json['status']);
+    //             } else {
+    //                 $("#panelWait").hide();
+    //                 $("#lblMessage").text("خطا در محاسبه کرایه");
+    //                 $("#btnContinueRequest").hide();
+    //                 $("#car_classs").hide();
+    //                 last_requested_path = '';
+    //             }
+    //         },
+    //         complete: function () {
+    //             $("#panelWait").hide();
+    //         }
+    //     });
+    // }
+
+    $(".weather svg").on("click", function () {
+        $(".weather svg").removeClass("svg_select");
+        $(this).addClass("svg_select");
+    })
+
+
+    $(".package").on("click", function () {
+        $(".package").removeClass("package_selected");
+        $(this).addClass("package_selected");
+
+
+        var currentPackage = $(this).data("name");
+        tripData.Packgae = currentPackage;
 
         $(".factor").empty();
-        no = 0;
         calculateFare();
+
+
     });
 
 
-    $("#submit").click(function(){
-
-        $(".fareHolder").hide();
-
-        $("#map_holder").attr("class" , "col-lg-9");
-        $("#factor_holder").fadeIn();
-
-        CreateFactor('مسافت', tripData.distance, 'کیلومتر');
-        CreateFactor('زمان تقریبی رسیدن', tripData.travelTime, '');
-        CreateFactor('مبدا', tripData.startAdd, '');
-        CreateFactor('مقصد', tripData.endAdd, '');
-        CreateFactor('کرایه', formatFare(tripData.fare.toFixed(0)), 'تومان');
-        // CreateFactor('عوارض', formatFare(toll), 'تومان');
-        // CreateFactor('روز تعطیل', isHoliday ? "بله":"خیر", '');
 
 
-        
+
+
+
+    //==========================================================
+    function persianToCalendars(year, month, day, op = {}) {
+        const formatOut = gD => "toCal" in op ? (op.calendar = op.toCal, new Intl.DateTimeFormat(op.locale ?? "en", op).format(gD)) : gD,
+            dFormat = new Intl.DateTimeFormat('en-u-ca-persian', { dateStyle: 'short', timeZone: "UTC" });
+        let gD = new Date(Date.UTC(2000, month, day));
+        gD = new Date(gD.setUTCDate(gD.getUTCDate() + 226867));
+        const gY = gD.getUTCFullYear() - 2000 + year;
+        gD = new Date(((gY < 0) ? "-" : "+") + ("00000" + Math.abs(gY)).slice(-6) + "-" + ("0" + (gD.getUTCMonth() + 1)).slice(-2) + "-" + ("0" + (gD.getUTCDate())).slice(-2));
+        let [pM, pD, pY] = [...dFormat.format(gD).split("/")], i = 0;
+        gD = new Date(gD.setUTCDate(gD.getUTCDate() +
+            ~~(year * 365.25 + month * 30.44 + day - (pY.split(" ")[0] * 365.25 + pM * 30.44 + pD * 1)) - 2));
+        while (i < 4) {
+            [pM, pD, pY] = [...dFormat.format(gD).split("/")];
+            if (pD == day && pM == month && pY.split(" ")[0] == year) return formatOut(gD);
+            gD = new Date(gD.setUTCDate(gD.getUTCDate() + 1)); i++;
+        }
+        throw new Error('Invalid Persian Date!');
+    }
+    //==========================================================
+
+
+
+    $('input[name="trip_date"]').on("change", function () {
+
+        var val = $(this).val();
+
+        const result = convertDateAndCheckFriday(val);
+        console.log(`Converted Date: ${result.formattedDate}, Is Friday: ${result.isFriday}`);
+
     });
 
+
+
+
+
+
+
+    function convertDateAndCheckFriday(persianDate) {
+        const [jy, jm, jd] = persianDate.split('/').map(Number);
+        const gregorian = jalaali.toGregorian(jy, jm, jd);
+        const gregorianDate = new Date(gregorian.gy, gregorian.gm - 1, gregorian.gd); // month is zero-based
+        const dayOfWeek = gregorianDate.getDay();
+        const isFriday = dayOfWeek === 5;
+        const formattedDate = `${gregorian.gy}-${String(gregorian.gm).padStart(2, '0')}-${String(gregorian.gd).padStart(2, '0')}`;
+
+        return {
+            formattedDate,
+            isFriday
+        };
+    }
+
+
+
+
+
+    $(".spinner-grow").hide();
+    $("#insertReq").click(function () {
+
+        tripData.isGuest = $('select[name="isGuest"]').val();
+        tripData.trip_date = $('input[name="trip_date"]').val();
+        tripData.trip_time = $('input[name="trip_time"]').val();
+        tripData.company_name = $('input[name="company_name"]').val();
+        tripData.passenger_id = $('input[name="passenger_id"]').val();
+        tripData.passenger_tel = $('input[name="passenger_tel"]').val();
+        tripData.passenger_name = $('input[name="passenger_name"]').val();
+        tripData.total_passenger = $('input[name="total_passenger"]').val();
+        tripData.end_address_desc = $('textarea[name="end_address_desc"]').val();
+        tripData.start_address_desc = $('textarea[name="start_address_desc"]').val();
+
+        $(this).attr("disabled", 'disabled');
+        $(".spinner-grow").fadeIn();
+        $.ajax({
+            type: "POST",
+            url: base + "Trips/AddTrip",
+            data: tripData,
+            success: function (data) {
+                console.log(data);
+
+                return;
+
+                if (data.status == "OK") {
+                    window.location.href = base + 'Trips/Step2/' + data.ID;
+                } else {
+                    $(".spinner-grow").fadeOut();
+                    alert('مشکلی در ثبت اطلاعات بوجود آمده');
+                }
+
+
+            }
+
+
+        });
+    });
 
 
 });

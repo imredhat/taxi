@@ -1,234 +1,83 @@
-<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
 
-</div>
+    
+    
+    
+    
+    
+<script>var mapsource = 'cedar';</script>
+<script>var routesource = 'neshan'; </script>
 
+<script type="text/javascript">
+    document.addEventListener("keypress", function(event) {
+      //console.log(event.keyCode);
+      if (event.keyCode == 70 || event.keyCode == 102 || event.keyCode == 1576) { // f or F
+        if (($("#btnoriginPoint").is(':visible') || $("#btndestinationPoint").is(':visible')) && !$("#panelModalPointTypeSelector").is(':visible')){
+            showHideSearchBox(true);
+        }
+      }
+    });
+    document.addEventListener("keydown", function(event){
+      //console.log(event.keyCode);
+      if (event.keyCode == 27){
+        if (!$("#btnSearch").is(":visible")){
+            showHideSearchBox(false);
+        }
+      }
 
-
-
-<div class="card bg-white border-0 rounded-10 mb-4">
-    <div class="card-body p-4">
-
-        <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
-            <h4 class="fw-semibold fs-18 mb-sm-0">افزودن سرویس </h4>
-        </div>
-
-
-        <div class="tab-content" id="myTab2Content">
-            <div class="tab-pane fade show active" id="preview2-tab-pane" role="tabpanel" aria-labelledby="preview2-tab" tabindex="0">
-
-                <div class="tab-content" id="myTabstep2Content">
-                    <div class="tab-pane fade show active" id="step1-tab-pane" role="tabpanel" aria-labelledby="step1-tab" tabindex="0">
-                        <form action="<?= base_url() ?>OneStep" method="post" enctype="multipart/form-data">
-                            <div class="row">
-
-
-                                <div class="col-lg-4">
-                                    <div class="form-group mb-4"> <label class="label">مسافر</label>
-                                        <div class="form-group position-relative"> <select class="chosen" style="width: 100%;" name="brand" data-placeholder="انتخاب مسافر">
-
-                                                <?php foreach ($Users as $B) : ?>
-                                                    <option value=""></option>
-                                                    <option value="<?= $B['id'] ?>"><?= $B['name'] . ' ' . $B['lname'] ?></option>
-                                                <?php endforeach; ?>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-lg-4">
-                                    <div class="form-group mb-4"> <label class="label">راننده</label>
-                                        <div class="form-group position-relative"> <select class="chosen" id="driver" style="width: 100%;" name="driver" data-placeholder="راننده را انتخاب کنید">
-
-                                                <?php foreach ($Drivers as $D) : ?>
-                                                    <option value=""></option>
-                                                    <option value="<?= $D['did'] ?>"><?= $D['name'] . ' ' . $D['lname'] ?></option>
-                                                <?php endforeach; ?>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-lg-4">
-                                    <div class="form-group mb-4"> <label class="label">خودرو</label>
-                                        <div class="form-group position-relative"> <select class="chosen" id="Cars" style="width: 100%;" name="driver" data-placeholder="خودرو را انتخاب کنید">
-
-                                                <option value=""></option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-
-
-
-                                <div class="col-lg-12">
-                                    <div class="form-group mb-4" bis_skin_checked="1"> <label class="label"> انتخاب مبدا و مقصد</label>
-                                        <div class="form-group position-relative" bis_skin_checked="1">
-                                            <div style="height: 550px;position: relative;" id="map" ></div>
-                                            <button id="reset-btn">ریست</button> <!-- دکمه ریست -->
-
-
-
-
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-lg-12">
-                                    <div class="form-group mb-4"><img src="<?=base_url()?>assets/images/top-view-winding-car-road-grass-bushes_107791-10321.avif" />
-                                    </div>
-                               </div>
-                                
-                                
-
-
-
-                                <div class="col-lg-4">
-                                    <div class="form-group mb-4"> <label class="label">نام</label>
-                                        <div class="form-group position-relative"> <input type="text" class="form-control text-dark ps-5 h-15" placeholder="نام" name="first_name"> <i class="ri-user-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group mb-4"> <label class="label">نام خانوادگی</label>
-                                        <div class="form-group position-relative"> <input type="text" class="form-control text-dark ps-5 h-15" placeholder="نام خانوادگی" name="last_name">
-                                            <i class="ri-user-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group mb-4"> <label class="label">موبایل</label>
-                                        <div class="form-group position-relative"> <input type="number" class="form-control text-dark ps-5 h-15" placeholder="موبایل" name="mobile"> <i class="ri-smartphone-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="col-lg-12">
-                                    <div class="form-group mb-4"> <label class="label">آدرس</label>
-                                        <div class="form-group position-relative"> <input type="text" class="form-control text-dark ps-5 h-15" placeholder="آدرس" name="address"> <i class="ri-map-pin-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-4"> <label class="label">کد ملی</label>
-                                        <div class="form-group position-relative"> <input type="number" class="form-control text-dark ps-5 h-15" placeholder="کد ملی" name="national_id"> <i class="ri-numbers-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-4"> <label class="label">شماره کارت بانکی</label>
-                                        <div class="form-group position-relative"> <input type="number" class="form-control text-dark ps-5 h-15" placeholder="شماره کارت بدون فاصله وارد کنید" name="bank_card_number"> <i class="ri-bank-card-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-4"> <label class="label">شماره شبا</label>
-                                        <div class="form-group position-relative"> <input type="text" class="form-control text-dark ps-5 h-15" placeholder="با IR بنویسید" name="iban"> <i class="ri-bank-card-2-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group mb-4"> <label class="label">یادداشت :</label>
-                                        <div class="form-group position-relative"> <textarea class="form-control ps-5 text-dark" placeholder="چند متن  ... " cols="30" rows="5" name="notes"></textarea> <i class="ri-information-line position-absolute top-0 start-0 fs-20 text-gray-light ps-20 pt-2"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group d-flex gap-3">
-                                        <button class="btn btn-primary bg-primary bg-opacity-10 text-primary py-3 px-5 fw-semibold border-0 prev-tab" data-bs-target="#step2-tab-pane" type="button"> قبلی</button>
-                                        <button class="btn btn-primary py-3 px-5 fw-semibold text-white next-tab" data-bs-target="#step2-tab-pane" type="button"> بعدی</button>
-
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-</div>
-
-<style>
-    .form-control[type=file]:not(:disabled):not([readonly]) {
-        cursor: pointer;
-        height: 40px;
+    });
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
-
-    .chosen-container.chosen-container-single {
-        width: 100% !important;
+    function setCookie(name,value,days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days*24*60*60*1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
     }
-
-
-
-    a.chosen-single {
-        padding: 10px !important;
-        height: 40px !important;
-        font-size: 15px;
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+        return null;
     }
-
-    li.active-result {
-        font-size: 16px;
-        padding: 10px !important;
+    function eraseCookie(name) {   
+        document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
-
-    b {
-        margin-top: 10px;
-        margin-right: 5px;
-    }
-</style>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script src="<?= base_url() ?>assets/chosen/chosen.jquery.min.js"></script>
-<link rel="stylesheet" href="<?= base_url() ?>assets/chosen/chosen.min.css" />
+</script>
+<script src="./js/polyline.js"></script>
 <script>
 
+    var _passenger_id = getParameterByName('passenger_id');
+    var _token = getParameterByName('token');
+    if (_passenger_id != null && _token != null){
+        localStorage.passenger_id = _passenger_id;
+        localStorage.token = _token;
+        var url = new URL(location.href);
+        url.searchParams.delete('passenger_id');
+        url.searchParams.delete('token');
+        setCookie('passenger_id', localStorage.passenger_id, 120);
+        setCookie('token', localStorage.token, 120);
+        window.location.href = url.toString();
 
-
-    $(document).ready(function() {
-
-
-  
-
-        $(".chosen").chosen();
-
-
-
-        $("#driver").on('change', function() {
-            var driverId = $(this).val();
-            $.ajax({
-                type: "POST",
-                url: "<?=base_url() ?>"+'Service/GetDriverCarList',
-                data: {
-                    driver_id: driverId
-                },
-                success: function(data) {
-                    var carsHtml = '';
-                    data = JSON.parse(data)
-                    $.each(data, function(index, car) {
-                        carsHtml += '<option value="' + car.cid + '">' + car.car_brand + ' | ایران ' + car.iran + car.harf + car.pelak + car.pelak_last + '</option>';
-                    });
-                    $('#Cars').html(carsHtml);
-                    $('#Cars').trigger('chosen:updated');
-                }
-            });
-        });
-    });
+    }
+    if (getCookie('passenger_id') == null && localStorage.passenger_id != undefined && localStorage.token != undefined){
+        setCookie('passenger_id', localStorage.passenger_id, 120);
+        setCookie('token', localStorage.token, 120);
+        window.location.reload();
+    }
 </script>
 
 
@@ -237,191 +86,7251 @@
 
 
 
+<html>
+<head>
+    
+    <script type="">
+        var PRICE_ENTRANCE = 20000; // toman
 
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
-    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css"/>
-    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
-    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js"></script>
+        var PRICE_PER_KM = 1010; // 
+        var PRICE_PER_KM_OVER_50KM = 1010; // 
+
+        var KM_ENTRANCE = PRICE_ENTRANCE / PRICE_PER_KM;
+        
+        var onlur_disabled = false;
+        
+        var cities_loc =  {
+                'tehran': {lat: 35.726250, lng: 51.414114, rad: 7}, 
+                'isfahan': {lat: 32.651911, lng: 51.675235, rad: 5},
+        };
+            
+        
+        var city_distances = [
+            {src: 'tehran', dst: 'isfahan', dist: 440},
+            {src: 'isfahan', dst: 'tehran', dist: 440},
+        ];
+        
+        
+        
+        var northCoordsAsDest = // Astara to Gorgan
+            [{lat:38.57914506558817, lng:48.821692266508876},{lat:38.441597109860204, lng:48.673376836821376},{lat:37.92345586345157, lng:48.761267461821376},{lat:37.697785182920434, lng:48.398718633696376},{lat:37.53679217664653, lng:48.431677618071376},{lat:37.27935324330834, lng:48.623938360258876},{lat:37.06487632918265, lng:49.145788946196376},{lat:36.827809676299644, lng:50.068640508696376},{lat:36.050043309892956, lng:51.079382696196376},{lat:35.94782850775272, lng:51.216711797758876},{lat:35.934486377708716, lng:51.667151250883876},{lat:35.78757437435692, lng:52.013220586821376},{lat:35.559993590486435, lng:52.249426641508876},{lat:35.59573543679746, lng:52.826208868071376},{lat:35.79203025281476, lng:53.040442266508876},{lat:36.07668624672308, lng:53.551306524321376},{lat:36.49291248026379, lng:54.166540899321376},{lat:36.70459603405042, lng:54.380774297758876},{lat:37.091171508505845, lng:54.232458868071376},{lat:37.03857203148488, lng:53.919348516508876},{lat:38.15275589785514, lng:51.200232305571376},{lat:38.69070921204892, lng:49.244665899321376},];
+            /*[{lat:38.58099460753264, lng:48.82321322868506},{lat:38.4412989723696, lng:48.67352450798194},{lat:37.92207228902225, lng:48.76141513298194},{lat:37.6996572006608, lng:48.39886630485694},{lat:37.5363655682904, lng:48.431164905646256},{lat:37.27892516648766, lng:48.626172229865006},{lat:37.06392819260429, lng:49.15127730146935},{lat:36.82773487077458, lng:50.0693239220094},{lat:35.948087364267856, lng:51.2189025000215},{lat:35.93464482061181, lng:51.668185606136376},{lat:35.78550508273266, lng:52.014254942073876},{lat:35.559594188821386, lng:52.25114764226919},{lat:35.60234205781907, lng:52.8287993676779},{lat:36.14537949897864, lng:53.6198149926779},{lat:36.331464059356726, lng:52.9990874536154},{lat:36.331464059356726, lng:52.4937163598654},{lat:36.45527415445324, lng:51.8784819848654},{lat:36.74633100316012, lng:51.8345366723654},{lat:38.53824828295353, lng:49.7361480004904},];*/
+        
+        var northCoordsAsSrc = // Astara to Gorgan
+            [{lat:38.57914506558817, lng:48.821692266508876},{lat:38.441597109860204, lng:48.673376836821376},{lat:37.92345586345157, lng:48.761267461821376},{lat:37.697785182920434, lng:48.398718633696376},{lat:37.53679217664653, lng:48.431677618071376},{lat:37.27935324330834, lng:48.623938360258876},{lat:37.06487632918265, lng:49.145788946196376},{lat:36.827809676299644, lng:50.068640508696376},{lat:36.050043309892956, lng:51.079382696196376},{lat:35.94782850775272, lng:51.216711797758876},{lat:35.934486377708716, lng:51.667151250883876},{lat:35.78757437435692, lng:52.013220586821376},{lat:35.559993590486435, lng:52.249426641508876},{lat:35.59573543679746, lng:52.826208868071376},{lat:35.79203025281476, lng:53.040442266508876},{lat:36.07668624672308, lng:53.551306524321376},{lat:36.49291248026379, lng:54.166540899321376},{lat:36.70459603405042, lng:54.380774297758876},{lat:37.091171508505845, lng:54.232458868071376},{lat:37.03857203148488, lng:53.919348516508876},{lat:38.15275589785514, lng:51.200232305571376},{lat:38.69070921204892, lng:49.244665899321376},];
+        
+        var chaloosCoords = 
+            [{lat:37.02591641754761, lng:50.604033077926715},{lat:36.94474061025341, lng:50.491423214645465},{lat:36.74912540146328, lng:50.524382199020465},{lat:36.393990108243415, lng:51.103911007614215},{lat:36.32763548390541, lng:51.713652218551715},{lat:36.49341591685248, lng:51.889433468551715},{lat:36.65443548671241, lng:51.853727902145465},];
+        
+        var northCoordsAsDestPlus = // Ramsar to Babolsar
+            [{lat:37.10562313108224, lng:50.350773561118636},{lat:36.897243099694855, lng:50.342533815024886},{lat:36.505269741812434, lng:50.630924928306136},{lat:36.339514635876554, lng:50.974247682212386},{lat:35.94693216080313, lng:51.020939576743636},{lat:35.92246959114323, lng:51.106083619712386},{lat:36.030270370958114, lng:51.257145631431136},{lat:36.0513687384983, lng:51.364262330649886},{lat:35.958049007915356, lng:51.347782838462386},{lat:35.89577451913394, lng:51.465885865806136},{lat:35.84903647644848, lng:51.680119264243636},{lat:35.82899744819401, lng:51.858647096274886},{lat:35.753248784581295, lng:51.910832154868636},{lat:35.73095602803201, lng:52.072880494712386},{lat:35.808953358512596, lng:52.311833131431136},{lat:35.97360996549152, lng:52.476628053306136},{lat:36.162319561360015, lng:52.718327272056136},{lat:36.29082605309887, lng:52.811711061118636},{lat:36.571472660059555, lng:52.770512330649886},{lat:36.83571691622504, lng:52.891361940024886},{lat:36.73232949075715, lng:52.344792115806136},{lat:36.683887468053335, lng:51.943791139243636},];
+        
+        var northAll = // Astara to Gonbad
+            [{lat:38.63373103237233, lng:48.61949580857584},{lat:37.47803535784105, lng:48.21519890004823},{lat:36.258133465878316, lng:49.49840205857584},{lat:36.495191925683834, lng:50.02574580857584},{lat:36.01146669862888, lng:51.66490609893629},{lat:35.79789452063332, lng:53.05357790688107},{lat:36.595811146544705, lng:54.490589491520616},{lat:37.25975254969021, lng:55.75621462563107},{lat:37.79645423834195, lng:55.532093263660165},];
+        var westAll = 
+            [{lat:37.28123379319839, lng:44.44393603731441},{lat:36.91319583249338, lng:46.6521879904394},{lat:34.30552341888578, lng:46.6521879904394},{lat:33.08069302759049, lng:48.4759184591894},{lat:32.46177078642407, lng:48.7835356466894},{lat:31.48322047485965, lng:48.0804106466894},{lat:31.43636342379713, lng:46.7400786154394},{lat:34.19655055895272, lng:44.91634814668941},];
+        var southWarmAll = 
+            [{lat:32.42892592730084, lng:46.81873831582519},{lat:29.795642644013544, lng:62.13367972207519},{lat:24.039228503651298, lng:65.41779847422056},{lat:26.168048390130902, lng:47.61994691172056},];
+        
+        var passing_north_gates_area = [{lat:35.928888192052, lng:50.98102876116254},{lat:35.822062545145265, lng:51.22272797991254},{lat:35.83542362735118, lng:51.81049653460004},{lat:35.60351338232918, lng:52.13459321428754},{lat:35.65709102731739, lng:52.76081391741254},{lat:35.793105817669336, lng:52.96955415178754},{lat:35.968910659317146, lng:51.00574799944379},]; 
+        var chaloos_tolls_area = 
+            [{lat:35.989850940599986, lng:51.261666648597334},{lat:35.99193433571802, lng:51.290849082679365},{lat:35.950881318648044, lng:51.27316796085319},{lat:35.95873236172614, lng:51.24698960086784},];
+        var haraaz_tolls_area = 
+            [{lat:35.80534099849958, lng:52.00732769530163},{lat:35.876589118354225, lng:52.04165997069226},{lat:35.846260828136444, lng:52.13332714598523},{lat:35.7936457440728, lng:52.07015575926648},];
+        var khoramabad_andimeshk_tolls_area = 
+            [{lat:32.86565917140333, lng:48.0523321516394},{lat:32.861766059587595, lng:48.08666442703002},{lat:32.81770431710756, lng:48.07069991897338},{lat:32.83523067360534, lng:48.04984306167358},];
+        
+        var IsfahanCoords = 
+            [{lat:33.508926779085144, lng:51.729427811535714},{lat:33.50434645867345, lng:52.141415116223214},{lat:31.94267159254647, lng:52.110385987869044},{lat:31.851729799154178, lng:51.605014894119044},{lat:32.263742765827175, lng:51.264438722244044},{lat:32.84712196247191, lng:51.047458741775294},{lat:33.27756575362238, lng:51.410007569900294},];
+        
+        var GorganCoords = 
+            [{lat:36.90696632201674, lng:53.05212200316044},{lat:36.556972480060814, lng:53.26635540159794},{lat:36.289557560664704, lng:53.11529338987919},{lat:35.94343450747663, lng:53.63439739378544},{lat:36.1588314666363, lng:54.01891887816044},{lat:37.06712030297427, lng:55.52953899534794},{lat:37.373320320223726, lng:55.86187542112919},{lat:37.46493774852717, lng:55.87286174925419},{lat:37.61738423152707, lng:54.94177044066044},{lat:37.371137586984354, lng:53.78820598753544},];
+        var AstaraCoords = 
+            [{lat:38.49278687538651, lng:48.98951562776915},{lat:38.484187511339826, lng:48.6461928738629},{lat:37.70605150340296, lng:48.70387109651915},{lat:37.619081232478884, lng:48.8384536160504},{lat:37.74949841847802, lng:49.1625502957379},];
+        var ArdabilCoords = 
+            [{lat:38.44977979412671, lng:48.0803969754254},{lat:38.42396323414264, lng:48.50611719026915},{lat:37.94685984458357, lng:48.5473159207379},{lat:37.45791778144749, lng:48.63795312776915},{lat:37.311699268004574, lng:48.2781508816754},{lat:37.569027200957414, lng:47.65467676058165},{lat:38.39167955322431, lng:48.01173242464415},];
+        var TabrizCoords = 
+            [{lat:38.159220102897855, lng:46.21478850130405},{lat:38.158140280513415, lng:46.40704924349155},{lat:37.99003341951489, lng:46.40498930696811},{lat:38.00897148935038, lng:46.1021786380228},];
+        
+        var AsaluyeCoords = 
+            [{lat:27.914246169481007, lng:51.730706693183016},{lat:28.277683947534463, lng:51.824090482245516},{lat:27.821980297226975, lng:52.972161771308016},{lat:27.198363201318227, lng:53.362176419745516},{lat:26.600712462628895, lng:53.362176419745516},];        
+        
+        var BandarAbbasCoords = // And its area
+            [{lat:26.85126017118036, lng:53.6387757197023},{lat:27.58399314040696, lng:56.8248108759523},{lat:26.745841759632263, lng:56.66276253610855},{lat:26.313344888687496, lng:54.34464730173355},];        
+        
+        var TehranKarajCoords = // 
+            [{lat:36.041588233679136, lng:50.860966825991646},{lat:35.805825574186265, lng:52.390813017397896},{lat:35.19988732177225, lng:51.215275908022896},{lat:35.68545007847239, lng:50.462712431460396},];        
+        
+              
+        
+        var FashamShemshakCoords = // 
+            [{lat:36.131196609314266, lng:51.34257481466077},{lat:36.0685037997188, lng:51.33158848653577},{lat:35.95241809543124, lng:51.31167576680921},{lat:35.80498248907691, lng:51.55337498555921},{lat:35.768777146507226, lng:51.65019200216077},{lat:35.767105732568375, lng:51.79026768575452},{lat:35.848407125075894, lng:51.884338120324834},{lat:36.0585127164683, lng:51.620666245324834},];        
+        var HarazCoords = // 
+            [{lat:35.75124059024322, lng:52.10104570002496},{lat:35.74009471104832, lng:52.05023393244684},{lat:35.74566784572774, lng:52.00628861994684},{lat:35.80026391417201, lng:51.91427812189996},{lat:35.924914091464736, lng:51.99942216486871},{lat:36.095987712231256, lng:52.19992265314996},{lat:35.994943624560285, lng:52.43200883479059},{lat:35.81362866519269, lng:52.30429277033746},];
+        var ZanjanTaleshCoords = // 
+            [{lat:36.669836868708536, lng:49.08187370962384},{lat:37.12012591401469, lng:48.32656365103009},{lat:37.43919690614231, lng:48.40072136587384},{lat:36.87004913731173, lng:49.27413445181134},];
+        var NorthOfQazvinCoords = // 
+            [{lat:36.88439247630784, lng:49.77292665952891},{lat:36.80856359119165, lng:50.04621157163829},{lat:36.422767785413555, lng:50.58866152281016},{lat:36.40066405054062, lng:50.73011049741954},{lat:36.454807027492535, lng:50.75345644468516},{lat:36.39734794786676, lng:50.85096010679454},{lat:36.34205874307737, lng:50.74384340757579},{lat:36.359755563385264, lng:50.53647646421641},{lat:36.319932061488, lng:50.37580141538829},{lat:36.34427106559878, lng:50.21924623960704},{lat:36.39624254886585, lng:50.06543764585704},{lat:36.44596993710264, lng:49.72623476499766},{lat:36.525467498180156, lng:49.65345034116954},{lat:36.859124537575816, lng:49.75782045835704},];
+        var SistanCoords = // 
+            [{lat:31.65206972496531, lng:61.020423242413706},{lat:31.070436087336677, lng:59.943763086163706},{lat:30.80658721773732, lng:59.196692773663706},{lat:28.795195895315402, lng:59.075843164288706},{lat:28.50596150237494, lng:58.724280664288706},{lat:26.616619136499548, lng:58.537513086163706},{lat:25.2386903372983, lng:58.976966211163706},{lat:24.770731395354883, lng:61.701575586163706},{lat:26.847555684121243, lng:63.514319726788706},{lat:27.512126668077066, lng:63.382483789288706},{lat:31.56201535146198, lng:61.833411523663706},];
+        var NoordoozCoords = // 
+            [{lat:38.84809001416615, lng:46.16262972072894},{lat:38.87762978796943, lng:46.180654165309015},{lat:38.88177239462163, lng:46.282792684596124},{lat:38.827765943148904, lng:46.23575746731097},{lat:38.829905592375546, lng:46.1715561123305},];
+            
+        var MehranBorderAreaCoords = // 
+            [{lat:33.79893958756146, lng:46.17720996388264},{lat:33.02632927840418, lng:45.97121631153889},{lat:32.84883626597055, lng:46.26235400685139},{lat:33.84229410997632, lng:46.69356738575763},{lat:34.14970554044707, lng:46.74849902638263},{lat:34.292783009316366, lng:46.35299121388264},];        
+        var KhosraviBorderAreaCoords = // 
+            [{lat:34.39864654461927, lng:45.410884644744584},{lat:34.470569944053565, lng:45.52967431759615},{lat:34.419890208744484, lng:45.59799554562349},{lat:34.31560294380311, lng:45.44796350216646},]; 
+            
+        var KhosraviBorderAreaCoords = // larger area
+            [{lat:34.30508813894062, lng:45.522380177637075},{lat:34.32777316651273, lng:45.445475880762075},{lat:34.46488675167341, lng:45.4083970233402},{lat:34.64584866861023, lng:45.51551372255895},{lat:34.56446451934255, lng:45.843730275293325},{lat:34.379925457435725, lng:45.8972886249027},{lat:34.26537459227054, lng:45.6500962420902},]
+        
+        var ChazzabehBorderAreaCoords = // 
+            [{lat:31.879739377051514, lng:47.76119578921502},{lat:31.85028959322828, lng:47.890971790191585},{lat:31.752834236329836, lng:47.894748340484554},{lat:31.796030728457435, lng:47.78454173648065},];        
+        
+        var ShalamcheBorderAreaCoords = // 
+            [{lat:30.542048423608474, lng:47.990136328664},{lat:30.487330567839095, lng:48.249688330617126},{lat:30.361510851224224, lng:48.410020056691344},{lat:30.262517610490377, lng:48.25827139946478},{lat:30.403863595842875, lng:47.99665946098822},];        
+
+        var BashmaghBorderAreaCoords = // including marivan
+            [{lat:35.65951639980788, lng:45.968984811615805},{lat:35.64277775156071, lng:46.11112043173299},{lat:35.51153705476356, lng:46.24226972372518},{lat:35.47743518063214, lng:46.15437909872518},{lat:35.59477419112988, lng:45.982717721772055},];        
+
+
+        
+        var TehranTrafficCoords = // 
+            [{lat:35.825529428474695, lng:51.41478750070222},{lat:35.757021575458516, lng:51.098243921600655},{lat:35.724139131409146, lng:51.07970449288972},{lat:35.60475670203854, lng:51.232826441131905},{lat:35.5578475433332, lng:51.45941945871003},{lat:35.73584460880531, lng:51.666786402069405},{lat:35.813280328745314, lng:51.54113027413972},];   /// used for fare only
+            
+            
+        var TehranMainTrafficAreaCoords = // 
+            [{lat:35.70186814671774, lng:51.44741688373896},{lat:35.70143252018318, lng:51.44810352924677},{lat:35.66120685266504, lng:51.44522854748847},{lat:35.66082330603358, lng:51.444863767062444},{lat:35.66052692782924, lng:51.440314740573186},{lat:35.66003877309467, lng:51.43718192044379},{lat:35.65970752353951, lng:51.43492886487128},{lat:35.65981212881065, lng:51.43128106061103},{lat:35.66009107553039, lng:51.430873364840764},{lat:35.65989929976524, lng:51.43050858441474},{lat:35.65974239197845, lng:51.43042275372626},{lat:35.65951574685323, lng:51.42638871136786},{lat:35.65903724200047, lng:51.41820356761736},{lat:35.65863625049262, lng:51.412195419424},{lat:35.65835729869089, lng:51.410843586080496},{lat:35.65814808420015, lng:51.40833303844256},{lat:35.658514209199275, lng:51.4047925225429},{lat:35.65931345546864, lng:51.39848839114735},{lat:35.659731877795814, lng:51.398187983737685},{lat:35.65985391722826, lng:51.39763008426259},{lat:35.66135324360504, lng:51.39653574298451},{lat:35.66651350058256, lng:51.395977843509414},{lat:35.66693833311575, lng:51.396428454623916},{lat:35.6677227982621, lng:51.395720351443984},{lat:35.6741725527542, lng:51.39488350223134},{lat:35.685503631798206, lng:51.39335948237127},{lat:35.687876838455274, lng:51.39306494204098},{lat:35.688260255097184, lng:51.393451180139124},{lat:35.68867852569567, lng:51.39287182299191},{lat:35.69056071624773, lng:51.39272161928707},{lat:35.69089183776936, lng:51.39304348436886},{lat:35.69139723112587, lng:51.39261433092648},{lat:35.69875121346992, lng:51.391691651025354},{lat:35.70064977322774, lng:51.39143255857974},{lat:35.70096342765172, lng:51.391732965989405},{lat:35.701486182283126, lng:51.391217981858546},{lat:35.713710134785856, lng:51.38960865644961},{lat:35.71428507274813, lng:51.39005926756411},{lat:35.71953919262366, lng:51.40484029856044},{lat:35.719556613772696, lng:51.405162163642224},{lat:35.7199747202068, lng:51.406363793280896},{lat:35.72020119360924, lng:51.40657837000209},{lat:35.720880609954065, lng:51.40874559488612},{lat:35.721664544691244, lng:51.408874340918835},{lat:35.72373757938212, lng:51.410376377967175},{lat:35.723598217396706, lng:51.41078407373744},{lat:35.72448011519938, lng:51.437128726127476},{lat:35.72385046740429, lng:51.440957517283245},{lat:35.72335398992199, lng:51.44075366939811},{lat:35.72267459466918, lng:51.44056591476707},{lat:35.72225650240309, lng:51.44052836384086},{lat:35.721801066183104, lng:51.44035670246391},{lat:35.72159201803227, lng:51.440233320849224},{lat:35.72113036808942, lng:51.44005093063621},{lat:35.71807633996633, lng:51.43910783888168},{lat:35.71778017441271, lng:51.43923122049637},{lat:35.717398761253506, lng:51.440419939750036},{lat:35.71729858688177, lng:51.440452126258215},{lat:35.71697193044682, lng:51.440205363028845},{lat:35.7110865105226, lng:51.43679968904154},{lat:35.710860158017596, lng:51.43668756437863},{lat:35.70971022853076, lng:51.43587753725613},{lat:35.7091568240629, lng:51.43550202799405},{lat:35.70859927265066, lng:51.43498704386319},{lat:35.706820966845434, lng:51.43368349028195},{lat:35.70652911546233, lng:51.43413410139645},{lat:35.70650733546554, lng:51.43443450880612},{lat:35.706655118932765, lng:51.437680376280035},{lat:35.70670303482907, lng:51.43810416530439},{lat:35.70668125487978, lng:51.43933261703321},{lat:35.70650803690543, lng:51.43989555006744},{lat:35.70629894863515, lng:51.440045753772274},{lat:35.706107283905645, lng:51.440029660518185},{lat:35.70207557194941, lng:51.43851556664455},{lat:35.70200587204515, lng:51.438306354341385},{lat:35.70198409081257, lng:51.434266423763155},{lat:35.70169657798493, lng:51.43418595749271},{lat:35.70173142807988, lng:51.43812344032657},{lat:35.70152668355399, lng:51.438284372867464},{lat:35.69927484936654, lng:51.43711624404195},{lat:35.69880871372498, lng:51.438038923943076},{lat:35.69897861394733, lng:51.43824813624624},{lat:35.699065742126066, lng:51.438317873680624},{lat:35.69946281622949, lng:51.43946664980645},{lat:35.69979390079165, lng:51.440759474551626},{lat:35.70027309969681, lng:51.44237416437859},{lat:35.70172814041811, lng:51.44742335048653},];
+        var TehranMain2TrafficAreaCoords =
+                [{lat:35.758116327195744, lng:51.483234096477425},{lat:35.756827776049356, lng:51.4848863372306},{lat:35.75513869767243, lng:51.48514382929603},{lat:35.75297941124568, lng:51.485251117656624},{lat:35.75001350758227, lng:51.484155721361674},{lat:35.74787149704848, lng:51.48342616050962},{lat:35.74529404210855, lng:51.48301846473936},{lat:35.74170504982704, lng:51.483674341062056},{lat:35.7387790571223, lng:51.48337393365239},{lat:35.73634064772703, lng:51.48255854211186},{lat:35.73504290619642, lng:51.48216902727272},{lat:35.731750881417774, lng:51.47942244524147},{lat:35.72835420528554, lng:51.476010675374525},{lat:35.72457774329158, lng:51.471708830116505},{lat:35.72274861712477, lng:51.46836143326592},{lat:35.718166907251586, lng:51.46006442261564},{lat:35.71635505575129, lng:51.45774699402677},{lat:35.71435151814813, lng:51.45658827973234},{lat:35.712835764928215, lng:51.456373703011145},{lat:35.7096299390217, lng:51.456888687142005},{lat:35.70483570324812, lng:51.45753241730558},{lat:35.701803806053675, lng:51.45731784058439},{lat:35.695140384472715, lng:51.456362945907536},{lat:35.68982512973583, lng:51.45702813374323},{lat:35.68790806570567, lng:51.45730708348078},{lat:35.684438217019945, lng:51.45945468441514},{lat:35.68322898188811, lng:51.45999112621812},{lat:35.68178235459823, lng:51.459969668546},{lat:35.67931375744643, lng:51.4594686878918},{lat:35.67710012414804, lng:51.45923265349849},{lat:35.67526990851467, lng:51.45974763762935},{lat:35.67342956119017, lng:51.46142133605464},{lat:35.671390081587354, lng:51.46378167998775},{lat:35.66989094369178, lng:51.46472581756099},{lat:35.66820194228516, lng:51.46488939641198},{lat:35.66587083939217, lng:51.46396671651085},{lat:35.66196577931997, lng:51.46182094929894},{lat:35.65857356021349, lng:51.460712454043595},{lat:35.654947107941275, lng:51.460476419650284},{lat:35.64296114810581, lng:51.46345968141251},{lat:35.64497741482497, lng:51.45822400941544},{lat:35.645692346611646, lng:51.453288744828036},{lat:35.6457272211693, lng:51.44951219453507},{lat:35.64511691421253, lng:51.44341821565323},{lat:35.645122505874085, lng:51.43919105424576},{lat:35.649747136573666, lng:51.397863483744004},{lat:35.64897902169363, lng:51.3975201609901},{lat:35.64707841346925, lng:51.394837951975205},{lat:35.64604962501841, lng:51.39374361069713},{lat:35.64602698238162, lng:51.39271660506575},{lat:35.6505594525111, lng:51.38821361306847},{lat:35.653384070260174, lng:51.383428552185904},{lat:35.654604553197316, lng:51.38272044900597},{lat:35.67366229395686, lng:51.38139175076171},{lat:35.68760601650712, lng:51.37967513699218},{lat:35.705086232502566, lng:51.377722883560736},{lat:35.7184402526891, lng:51.378356342512475},{lat:35.72091405183881, lng:51.37921464939724},{lat:35.72401490285318, lng:51.38101709385525},{lat:35.7275591249796, lng:51.38309158176594},{lat:35.729092017188314, lng:51.383413446847726},{lat:35.73154806706625, lng:51.3834992775362},{lat:35.73722300634597, lng:51.38364948124104},{lat:35.7416822070474, lng:51.38387566663197},{lat:35.744207531683436, lng:51.384776888860976},{lat:35.74694175837632, lng:51.38597851849965},{lat:35.74845721973391, lng:51.386300383581435},{lat:35.749362785532696, lng:51.387287436498916},{lat:35.75007678207113, lng:51.38795262433461},{lat:35.75058180014539, lng:51.39361744977406},{lat:35.75116350634594, lng:51.40894256150582},{lat:35.75133764849361, lng:51.410530429242634},{lat:35.75207975927312, lng:51.41462884461739},{lat:35.75167923549866, lng:51.41694627320626},{lat:35.750093866628355, lng:51.4201100208004},{lat:35.74915347980802, lng:51.42294243352013},{lat:35.74911865045314, lng:51.434508118792344},{lat:35.750093866628355, lng:51.43879965321617},{lat:35.75061629894968, lng:51.44206121937828},{lat:35.750738199331224, lng:51.44543007390099},{lat:35.75143476935815, lng:51.44826248662071},{lat:35.753832052828606, lng:51.45252548911708},{lat:35.75515547921544, lng:51.455100409771376},{lat:35.756060968798415, lng:51.458640925671034},{lat:35.75663560107392, lng:51.46331869819301},{lat:35.75653961068929, lng:51.46997741746558},{lat:35.75721871702942, lng:51.473796883102786},{lat:35.75854208709066, lng:51.477337399002444},{lat:35.759221176339636, lng:51.48051313447608},{lat:35.758643182036295, lng:51.48240140962256},]
+            
+            
+        
+        var bans = [
+            {   // Tehran-Chaloos (From Shemshak)
+                endArea1: 
+                    [{lat:36.13330643543667, lng:51.289760499181966},{lat:36.134138282055275, lng:51.348468690099935},{lat:36.08781873930919, lng:51.34709539908431},{lat:36.08615405581029, lng:51.290790467443685}]
+                    , 
+                middleArea: 
+                    [{lat:35.98958472505252, lng:51.47445222779572},{lat:35.989654172677255, lng:51.4910175506717},{lat:35.97444368359518, lng:51.49144670411408},{lat:35.97444368359518, lng:51.47458097382844}]
+                    ,
+                endArea2: 
+                    [{lat:35.81222186099156, lng:51.57153118661813},{lat:35.81218705925667, lng:51.5862940650361},{lat:35.803207702060575, lng:51.585650334872525},{lat:35.80355575807312, lng:51.57457817605905}]
+                    ,
+                additive:
+                    40 // km
+                    
+            }
+            ,{  // Tabriz - Noordooz
+                endArea1: 
+                    [{lat:38.26489157667725, lng:46.121382304964115},{lat:38.31393527645798, lng:46.37544114285474},{lat:38.20340546326888, lng:46.3569017141438},{lat:38.22174886705707, lng:46.11794907742505},]
+                    , 
+                middleArea: 
+                    [{lat:38.67676302045169, lng:46.30543252585021},{lat:38.66979399085462, lng:46.202092376924426},{lat:38.613480808765935, lng:46.223378387666614},{lat:38.63306136079389, lng:46.329465118623645},]
+                    ,
+                endArea2: 
+                    [{lat:38.72544616372828, lng:46.17788632569423},{lat:38.72732104821828, lng:46.25238736329189},{lat:38.679362118971, lng:46.207755405284075},]
+                    ,
+                additive:
+                    80 // km
+                    
+            },{  // Manjil - Bonab
+                endArea1: 
+                    [{lat:36.80400123924834, lng:49.30012145282738},{lat:36.78723081226951, lng:49.51847472431176},{lat:36.64742636184836, lng:49.45770659687035},{lat:36.68515458348856, lng:49.26681914569848},]
+                    , 
+                middleArea: 
+                    [{lat:36.82160794491498, lng:48.78777646009608},{lat:36.82380656709088, lng:48.928538789197646},{lat:36.72287977728776, lng:48.932315339490614},{lat:36.73636270104432, lng:48.758250703260146},]
+                    ,
+                endArea2: 
+                    [{lat:36.652776636320844, lng:48.63288969899009},{lat:36.64892042404464, lng:48.772107075699076},{lat:36.541281862961036, lng:48.7595757951815},{lat:36.55259027656529, lng:48.6057672014315},]
+                    ,
+                additive:
+                    120 // km
+                    
+            },{  // Damghan (Allahabad-Solhābād)
+                endArea1: 
+                    [{lat:36.08929985720027, lng:54.07573082906816},{lat:36.090132170046836, lng:54.20688012106035},{lat:35.99630283455527, lng:54.21340325338457},{lat:36.006024079093194, lng:54.101136712857226},]
+                    , 
+                middleArea: 
+                    [{lat:35.94815191859398, lng:54.15264867744668},{lat:35.94926365653866, lng:54.20620702705605},{lat:35.90144480165526, lng:54.22371648750527},{lat:35.90450384968813, lng:54.16706823311074},]
+                    ,
+                endArea2: 
+                    [{lat:35.939571454993775, lng:54.27427484521331},{lat:35.94054433218239, lng:54.32972146996917},{lat:35.901898004554994, lng:54.333669681639094},{lat:35.89981223413882, lng:54.28251459130706},]
+                    ,
+                additive:
+                    20 // km
+                    
+            },{  // Qazvin (Allahabad-Abhar)
+                endArea1: 
+                    [{lat:36.37497919887122, lng:49.50643631317733},{lat:36.411459042945296, lng:49.57922073700546},{lat:36.344566253486356, lng:49.66161819794296},{lat:36.29145337127396, lng:49.595013583685144},]
+                    , 
+                middleArea: 
+                    [{lat:36.365580102943596, lng:49.38695999481796},{lat:36.30086141428371, lng:49.27847000458358},{lat:36.15629533517777, lng:49.52840896942733},{lat:36.23996576441904, lng:49.61355301239608},]
+                    ,
+                endArea2: 
+                    [{lat:36.15019664465831, lng:49.13770767548202},{lat:36.24716499748313, lng:49.26061722138046},{lat:36.142433988964186, lng:49.36773392059921},{lat:36.07364551215376, lng:49.22559830048202},]
+                    ,
+                additive:
+                    65 // km
+                    
+            },{  // Isfahan - Shiraz (new autoban is not started yet)
+                endArea1: 
+                    [{lat:32.14822585490879, lng:51.5500301099735},{lat:32.22261020900046, lng:52.1872371412235},{lat:31.854747743782553, lng:52.13367879161412},{lat:31.857080630242567, lng:51.64753377208287},]
+                    , 
+                middleArea: 
+                    [{lat:30.68154865470198, lng:51.97034185553525},{lat:30.65556199091482, lng:52.17358892584775},{lat:30.463990700073357, lng:52.1928150000665},{lat:30.4355776285342, lng:51.94287603522275},]
+                    ,
+                endArea2: 
+                    [{lat:29.865119363699264, lng:52.10397908718549},{lat:29.865119363699264, lng:53.09274861843549},{lat:29.27268266212765, lng:52.97464559109174},{lat:29.306219062572218, lng:52.18637654812299},]
+                    ,
+                additive:
+                    80 // km
+                    
+            }
+            
+        ];
+        
+        function validate(){
+            if ($('#name_init').val().trim().length == 0){
+                M.toast({html: "لطفا نام مسافر وارد گردد", displayLength:1001, classes: 'rounded'});
+                return false;
+            }
+            var s = $('#cellphone_init').val().trim();
+            if (s.length < 5){
+                M.toast({html: "لطفا شماره مسافر وارد گردد", displayLength:1001, classes: 'rounded'});
+                return false;
+            }
+            if (s.length < 10 || (s[0] == '0' && s.length < 11)){
+                M.toast({html: "شماره مسافر صحیح نیست", displayLength:1001, classes: 'rounded'});
+                return false;
+            }
+            if ($('#time_init_h').val() == ''){
+                M.toast({html: "لطفا زمان حرکت را مشخص نمائید", displayLength:1001, classes: 'rounded'});
+                return false;
+            }
+            if (refresh_time() == -99999){
+                M.toast({html: "لطفا تاریخ حرکت را بدرستی وارد نمائید", displayLength:1001, classes: 'rounded'});
+                return false;
+            }
+            if (refresh_time() == -9999){
+                M.toast({html: "لطفا زمان حرکت را بدرستی وارد نمائید", displayLength:1001, classes: 'rounded'});
+                return false;
+            }
+            if (refresh_time() < 10){
+                M.toast({html: "لطفا زمان حرکت را بدرستی وارد نمائید", displayLength:1001, classes: 'rounded'});
+                return false;
+            }
+            return true;
+        }
+        
+        function getAutoType(){ // manual, auto_payment, auto_register
+            var type = $(selected_carClass).attr("type");
+            if (type!='eco' && type!='sip' && type!='vip_pro')
+                return "manual";
+            if ($('#return_same_day_init').is(':checked') && $("#wait_init").val() == '13')
+                return "manual";
+            var onlyBar = $("#count_init_adult").val() == 'P';
+	        if (onlyBar)
+	            return "manual";
+            var adults = parseInt($("#count_init_adult").val());
+            var childs = parseInt($("#count_init_child").val());
+            //if (adults >= 4 || adults+childs > 4)
+                //return "manual";
+            //if (points.length > 2)
+                //return false;
+            if ($('#chkPet').is(':checked')){
+                if ($('#pet_type').val() == 'ETC' ||
+                    $('#pet_type').val() == 'FISH' ||
+                    $('#pet_count').val() >= 3){
+                    return "manual";
+                }
+            }
+            if ($('#chkLuggage').is(':checked') && $("[name='luggageDesc']").val().trim().length > 2)
+                return "manual";
+            if (refresh_time() < 30) //6*
+                return "manual";
+            var autoPayment = false;
+            var TehranKarajFromCoords =
+                [{lat:35.81843376432968, lng:51.42360049278325},{lat:35.79838700747649, lng:51.361115751572314},{lat:35.767750248389305, lng:51.27185183555669},{lat:35.763850177543596, lng:51.157868681259814},{lat:35.75437778083207, lng:51.097443876572314},{lat:35.80841101843057, lng:51.02259951622075},{lat:35.84348509349749, lng:51.031525907822314},{lat:35.88188176816761, lng:50.954621610947314},{lat:35.86685919769871, lng:50.908616361923876},{lat:35.79560233550084, lng:50.85751637562282},{lat:35.64899108486641, lng:50.94815358265407},{lat:35.63225023109454, lng:50.97836598499782},{lat:35.63057595283221, lng:51.1472807799197},{lat:35.668517647809125, lng:51.21731862171657},{lat:35.6082488920709, lng:51.3285551939822},{lat:35.571954126257836, lng:51.432238665661885},{lat:35.57753900731412, lng:51.467944232068135},{lat:35.69473152048108, lng:51.522875872693135},{lat:35.72093677957564, lng:51.649218646130635},{lat:35.74378965001679, lng:51.638232318005635},{lat:35.82177439848063, lng:51.498156634411885},];
+            //TehranKarajFromCoords = new google.maps.Polygon({paths: TehranKarajFromCoords});
+            if (pointInPolygon(origin_point, TehranKarajFromCoords)){
+                if (refresh_time() < 1.5*60) //6*
+                    return "auto_register_candidate";
+            
+                autoPayment = true;
+                console.log("Auto: From Tehran or Karaj");
+            }
+            if (autoPayment){
+                var fare = parseInt($("#fare_total_init").val());
+                //if ($('#return_same_day_init').is(':checked'))
+                    //fare = fare * 1.5 + parseInt($("#wait_init").val())*parseInt($(selected_carClass).attr("wait"))*1000;
+                var beianeh = Math.floor(fare/1000 * 0.15);
+                if (beianeh +1 == 70)
+                    beianeh = 70;
+                if (beianeh +1 == 86)
+                    beianeh = 86;
+                $("#auto_beianeh").val(beianeh);
+                $("#lbl_auto_beianeh").text(toCommas(beianeh*1000));
+                var lnk = "https://hamsafartaxi.com/pay/?"+$("#id_init").val()+","+beianeh+"&rand="+$("#rand_init").val()+"&direct&auto&openexternal";
+                
+                $("#lnkPayment").attr("href", lnk);
+                
+                
+                return "auto_payment";
+            }
+            return "auto_register";
+        }
+
+        var requestId = -1;
+
+    </script>
+    
+    
+    <link rel="manifest" href="/manifest.json">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="keywords" content="سواری شهرستان, اپلیکیشن بین شهری, اپلیکیشن بین شهری, تاکسی فرودگاه امام, سرویس دربستی, تاکسی شهرستان, سواری دربستی, سواری دربست, سواری بین شهری, تاکسی اصفهان به تهران, خودروی دربستی, تاکسی VIP, سرویس دربستی اصفهان, تپسی بین شهری, تاکسی فرودگاه, تاکسی فرودگاه امام, تاکسی ویژه فرودگاه, تاکسی فرودگاه مهرآباد, تاکسی سرویس بین شهری, اپلیکیشن تاکسی بین شهری,تاکسی بین شهری,اسنپ بین شهری, تاکسی دربستی بین شهری,آژانس تاکسی بین شهری, تاکسی دربست شهرستان, تاکسی تهران به, تاکسی از تهران به,نرخ تاکسی بین شهری, تاکسی تهران به رشت,  تاکسی تهران به شمال, تاکسی تهران به کرمانشاه, تاکسی تهران به قم, تاکسی تشریفات ویژه" />
+    
+    <meta name="Description" content="رزرو تاکسی دربست VIP و معمولی بین شهری" />
+    
+    <meta property="og:site_name" content="تاکسی دربست بین شهری" />
+    <meta property="og:title" content="تاکسی دربست بین شهری | همسفر تاکسی" />
+    <meta property="og:description" content="کرایه تاکسی دربست بین شهری همسفر تاکسی" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="https://www.hamsafartaxi.com" />
+    
+    <meta name="DC.Title" content="تاکسی دربست بین شهری | همسفر تاکسی" />
+    <meta name="DC.Creator" content="شرکت رویای آرمان شهر الکترونیک" />
+    <meta name="DC.Subject" content="تاکسی دربست بین شهری" />
+    <meta name="DC.Description" content="کرایه تاکسی دربست بین شهری همسفر تاکسی" />
+    <meta name="DC.Publisher" content="شرکت رویای آرمان شهر الکترونیک" />
+    <meta name="DC.Type" content="Text" />
+    <meta name="DC.Language" content="fa" />
+    
+    <meta http-equiv="imagetoolbar" content="no" />
+    
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+    <link type="text/css" rel="stylesheet" href="/css/style.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="/css/fonts.css" media="screen,projection" />
+
+    
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link type="text/css" href="/css/materialize_rtl.css" rel="stylesheet" media="screen,projection" />
+	<link href="https://hamsafartaxi.com/css/google-fonts/google-icon.css" rel="stylesheet">
+    <script src="./js/sweetalert2-11.js"></script>
+
+                <script src='https://api.cedarmaps.com/cedarmaps.js/v1.8.0/cedarmaps.js'></script>
+        <link href='https://api.cedarmaps.com/cedarmaps.js/v1.8.0/cedarmaps.css' rel='stylesheet' />
+    
+    <title>رزرو سواری دربستی بین شهری</title>
+    
+        <script src="./js/jalaali.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCapctchaCallback&render=explicit&hl=fa" async defer></script>
+    <script type="text/javascript">
+        // New recaptcha
+        var widId = "";
+        var widId_reg = "";
+        var onloadCapctchaCallback = function () {
+            widId = grecaptcha.render('captcha_element', {
+                'sitekey': '6LcVHW8UAAAAAOc-Nx93xZ0JTuBCWVsF09t1NA2D'
+            });
+        };
+    </script>
+	
+
+	<style>
+	    tr{
+	        border-bottom: 0px!important;
+	    }
+		.not-selectable {
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		.hidden-links{
+		    position:absolute;z-index:0;color:white;background-color:white;
+		    right:0px;
+		}
+		.hidden-links a{
+		    color:white;
+		}
+		input, textarea, select{
+		    font-family:IRANSans!important;
+		}
+		body{
+		    position: absolute;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            overflow-y: hidden;
+		}
+		.rtl{
+		    direction:rtl;
+		    text-align: right;
+		}
+	</style>
+	
+	
+	
+</head>
+<body style="margin:0px;font-family:IRANSans;overflow-y: hidden;" >
+    
+    
+    
     <style>
-        #map { width: 100%; height: 800px; margin: 0 auto; }
-        .mapboxgl-ctrl-geocoder { margin: 10px; }
-        #reset-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
+        .driver_register a:link, .driver_register a:visited, .driver_register a:hover, .driver_register a:active{
+            color:white;
+        }
+        
+    </style>
+    <div id="driver_register" class="driver_register" style="display:none;position: absolute;right: 8px;bottom: 8px;color: white;z-index: 100;padding: 4px;">
+        <a target="_blank" href="استخدام_راننده.html">
+            جذب همکار راننده
+        </a>
+    </div>
+    
+        
+    
+    <div class="hidden-links not-selectable">
+        <a href="/trips_links.php">نرخ کرایه تاکسی دربست بین شهری</a>
+        <a href="/trips_links_en.php">Taxi fare in Iran</a>
+    </div>
+	<script type="text/javascript"
+		src="/js/jquery-3.2.1.min.js"></script>
+
+
+    <script src="./js/materialize.min.js"></script>
+    <script src="./js/cities.js?23"></script>
+    <script src="./js/openlocationcode.min.js"></script>
+    <script src="./js/script.js?5"></script>
+
+
+    <link rel="stylesheet" href="./js/ui_1.12.1/jquery-ui.css">
+    <script src="./js/ui_1.12.1/code.jquery.com_ui_1.12.1_jquery-ui.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            $(document).bind("contextmenu", function(e) {
+                if(!$(e.target).is('input') && !$(e.target).is('textarea') && !$(e.target).is('.text-selectable')){
+                    return false;
+                }
+            });
+            $(document).bind("selectstart", function(e) {
+                if(!$(e.target).is('input') && !$(e.target).is('textarea') && !$(e.target).is('.text-selectable')){
+                    return false;
+                }
+            });
+        });
+	</script>
+	
+	
+	
+		
+	
+	<style>
+	    .fav_search_btn{
+            padding-left: 4px;
+            padding-right: 4px;
+            width: 40px;
+            position: relative;
+	    }
+	    #fav_search{
+	        width: 140px;
+            height: 21px;
+            background-color: white;
+            border: 1px solid #4caf50;
+            border-radius: 7px;
+            margin: 0px 4px;
+            padding: 1px 4px;
+	    }
+	    .fav_search_btn img{
+	        margin: -2px 0px;
+            position: relative;
+            top: 6px;
+            left: -3px;
+            float: none;
+            height: 24px;
+            width: 24px;
+	    }
+	    .modal{
+	        top: 0%!important;
+	        max-height: 100%!important;
+	        width: 100%!important;
+	    }
+	    .modal.modal-fixed-footer{
+	        height: 100%!important;
+	    }
+	</style>
+	
+	<script>
+	    var isFormAutofilled = false;
+	    function fillFormFromUrl(){
+	        if (isFormAutofilled)
+	            return;
+	        isFormAutofilled = true;
+	        if (!url) url = window.location.href;
+            var __name = getParameterByName('name');
+            var __name_gender = getParameterByName('name_gender');
+            var __cellphone = getParameterByName('cellphone');
+            
+            var __name_orderer = getParameterByName('name_orderer');
+            var __name_orderer_gender = getParameterByName('name_orderer_gender');
+            var __cellphone_orderer = getParameterByName('cellphone_orderer');
+            
+            var __company = getParameterByName('company');
+            var __time = getParameterByName('time');
+            var __adults = getParameterByName('adults');
+            var __children = getParameterByName('children');
+            var __return_same_day = getParameterByName('return_same_day');
+            var __wait = getParameterByName('wait');
+            
+            var __desc1 = getParameterByName('org');
+            var __desc2 = getParameterByName('desc');
+        
+        
+            if (__name != null && __name != ''){
+                setCookie('name_gender_init', __name_gender, 120);
+                setCookie('name_init', __name, 120);
+                setCookie('cellphone_init', __cellphone, 120);
+                $("#name_gender_init").val(__name_gender);
+                $("#name_init").val(__name);
+                $("#cellphone_init").val(__cellphone);
+                if (__name_orderer != null && __name_orderer != ''){
+                    setCookie('name_gender_init_orderer', __name_orderer_gender, 120);
+                    setCookie('name_init_orderer', __name_orderer, 120);
+                    setCookie('cellphone_init_orderer', __cellphone_orderer, 120);
+                    $("#chkOrdererInfo").prop('checked', true).trigger( "change" );
+                    $("#name_gender_init_orderer").val(__name_orderer_gender);
+                    $("#name_init_orderer").val(__name_orderer);
+                    $("#cellphone_init_orderer").val(__cellphone_orderer);
+                }else{
+                    eraseCookie('name_gender_init_orderer');
+                    eraseCookie('name_init_orderer');
+                    eraseCookie('cellphone_init_orderer');
+                    $("#chkOrdererInfo").prop('checked', false).trigger( "change" );
+                }
+                if (__company != null && __company != ''){
+                    setCookie('company_init', __company, 120);
+                    $("#company_init").val(__company);
+                    $("#chkCompany").prop('checked', true).trigger( "change" );
+                }else{
+                    eraseCookie('company_init');
+                    $("#company_init").val('');
+                    $("#chkCompany").prop('checked', false).trigger( "change" );
+                }
+                if (__time != null && __time != ''){
+                    $("#time_init_h").val(__time.substr(0,2));
+                    if (__time.substr(3,2) == '00')
+                        $("#time_init_m")[0].selectedIndex = "1";
+                    else
+                        $("#time_init_m").val(__time.substr(3,2));
+                    $("#departure_init").val('');
+                }
+                $("#count_init_adult").val('1');
+                if (__adults != null && __adults != ''){
+                    setCookie('adults', __adults, 120);
+                    $("#count_init_adult").val(__adults);
+                }else{
+                    eraseCookie('adults');
+                    $("#count_init_adult").val('1');
+                }
+                $("#count_init_child").val('1');
+                if (__children != null && __children != ''){
+                    setCookie('children', __children, 120);
+                    $("#count_init_child").val(__children);
+                }else{
+                    eraseCookie('children');
+                    $("#count_init_child").val('1');
+                }
+                
+                $("#return_same_day_init").prop('checked', false);
+                if (__return_same_day == true){
+                    $("#return_same_day_init").prop('checked', true);
+                }
+                $("#wait_init").val('0');
+                if (__wait != null && __wait != ''){
+                    $("#wait_init").val(__wait);
+                }else{
+                    eraseCookie('children');
+                    $("#wait_init").val('0');
+                }
+                
+                
+                $("#origin_desc").val('');
+                if (__desc1 != null && __desc1 != ''){
+                    setCookie('origin_desc', __desc1, 120);
+                    $("#origin_desc").val(__desc1);
+                }else{
+                    eraseCookie('origin_desc');
+                    $("#origin_desc").val('');
+                }
+                $("#destination_desc").val('');
+                if (__desc2 != null && __desc2 != ''){
+                    setCookie('destination_desc', __desc2, 120);
+                    $("#destination_desc").val(__desc2);
+                }else{
+                    eraseCookie('destination_desc');
+                    $("#destination_desc").val('');
+                } 
+                M.updateTextFields();
+            }
+        };
+        $(document).ready(function () {
+            //fillFormFromUrl();
+        });
+
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#place").autocomplete({
+                source: function(request, response){
+                            response(select(request.term, max_count = 5));
+                            $("#ui-id-1").css("direction", $("#place").css("direction"));
+                        },
+                focus: function( event, ui ) {
+                    $("#place").val( ui.item.label );
+                    //console.log(ui.item.label);
+                    return false;
+                },
+                select: function( event, ui ) {
+                    $( "#place" ).val( ui.item.label );
+                    //alert( ui.item.lat);
+                    return false;
+                }
+            });
+        });
+    </script>
+    <style>
+        .chip {
+            margin:4px;
+            cursor:pointer;
+            background-color:#4CAF50!important;
+            color:white;
+        }
+    </style>
+    
+    
+    <div id="panel_favorite_points" onWheel= "this.scrollLeft+=event.deltaY>0?50:-50" style="position:fixed;right:10px;bottom:50px;width:100%;max-width:100%;margin-right:0px;z-index: 2;direction: rtl;overflow-x: scroll;overflow: hidden;white-space:nowrap;display:none;">
+    </div>
+    <script>
+        var origin_desc_favorite_point = '';
+        var selected_favorite_point = '';
+        var panel_favorite_points_chip_mouse_downed = false;
+        var selected_favorite_point;
+        var selected_favorite_pointX;
+        $("#panel_favorite_points").on('mousedown', '.chip', function(){
+            if ($(this).hasClass('fav_search_btn')){
+                if ($("#fav_search").is(':visible'))
+                    $("#fav_search").slideUp().val('');
+                else{
+                    $("#fav_search").slideDown().focus();
+                }
+                filter_fav_points();
+                return;
+            }
+            $("#fav_search").hide().val('');filter_fav_points();
+            selected_favorite_point = this;
+            panel_favorite_points_chip_mouse_downed = true;
+            setTimeout(function(){
+                console.log('timeout: '+panel_favorite_points_chip_mouse_downed);
+                if (!panel_favorite_points_chip_mouse_downed)
+                    return;
+                panel_favorite_points_chip_mouse_downed = false; // aaaaaaa
+                selected_favorite_point = create_point($(selected_favorite_point).attr('lat'), $(selected_favorite_point).attr('lng'));
+                panToZoom(selected_favorite_point, 15); 
+                if (points.length == 0)
+                    origin_desc_favorite_point = $(selected_favorite_point).attr('desc');
+            }, 300);
+        });
+
+        let mouseDown = false;
+        let startX, scrollLeft;
+        const slider = document.querySelector('#panel_favorite_points');
+        
+        const startDragging = (e) => {
+          mouseDown = true;
+          startX = e.pageX - slider.offsetLeft;
+          scrollLeft = slider.scrollLeft;
+        }
+        
+        const stopDragging = (e) => {
+          mouseDown = false;
+        }
+        
+        const move = (e) => {
+          e.preventDefault();
+          if(!mouseDown) { return; }
+          const x = e.pageX - slider.offsetLeft;
+          const scroll = x - startX;
+          slider.scrollLeft = scrollLeft - scroll;
+          if (Math.abs(scroll) > 2)
+                panel_favorite_points_chip_mouse_downed = false;
+        }
+        
+        function touchHandler(event) {
+            var touch = event.changedTouches[0];
+    
+            var d = new Date(); var type = "";
+            switch (event.type) {
+                case "touchstart": type = "mousedown"; lastTouchDown = d.getTime(); break;
+                case "touchmove": type = "mousemove"; lastTouchDown = -1; break;
+                case "touchend": if (lastTouchDown > -1 && (d.getTime() - lastTouchDown) < clickms) { lastTouchDown = -1; type = "click"; break; } type = "mouseup"; break;
+                default: return;
+            }
+    
+            var simulatedEvent = document.createEvent("MouseEvent");
+            simulatedEvent.initMouseEvent(type, true, true, window, 1,
+            touch.screenX, touch.screenY,
+            touch.clientX, touch.clientY, false,
+            false, false, false, 0, null);
+    
+            touch.target.dispatchEvent(simulatedEvent);
+            event.preventDefault();
+        }
+        
+        // Add the event listeners
+        slider.addEventListener('mousemove', move, false);
+        slider.addEventListener('mousedown', startDragging, false);
+        slider.addEventListener('mouseup', stopDragging, false);
+        slider.addEventListener('mouseleave', stopDragging, false);
+        
+        slider.addEventListener("touchstart", touchHandler, true);
+        slider.addEventListener("touchmove", touchHandler, true);
+        slider.addEventListener("touchend", touchHandler, true);
+        slider.addEventListener("touchcancel", touchHandler, true);
+    </script>
+    
+	<div style="display:none;">
+        <div style="background-color:#000000;opacity: 0.5;font-color:white;position:fixed;left:0px;bottom:0px;width:100%;z-index:1;padding-top:4px;text-align: center;">
+        &nbsp;	
+        </div>
+        <div style="position:fixed;left:0px;bottom:0px;width:100%;z-index:1;padding-top:4px;text-align: center;">
+            <span id="lblMessage1" style="color:white;font-size: 17px;" dir="rtl">مبدا سفر خود را مشخص نمائید</span>
+        </div>
+    </div>
+    
+    
+    <style>
+        #slide-out li{
+            text-align:right;
+        }
+        #slide-out li a{
             cursor: pointer;
         }
-        #reset-btn:hover {
-            background-color: #ff1a1a;
+    </style>
+    <ul id="slide-out" class="sidenav">
+        <li>
+            <div class="user-view">
+                <div style="position: absolute;display: inline-block;left: 0px;top: 0px;height: 36px;width: 36px;" ondblclick="$('#panelModal').show();"></div>
+                <div class="background">
+                    
+                </div>
+                <div style="text-align:center;">
+                    <a href="https://www.hamsafartaxi.com"><img class="" src="images/icons/icon-192x192.png" style="width:141px;height:141px;" onclick="return false;"></a><br>
+                    <a href="https://www.hamsafartaxi.com" style="display:block;padding-top: 4px;line-height: 24px;" onclick="return false;">
+                        <span style="line-height:24px;">
+                            سامانه رزرو تاکسی بین شهری
+                            <span style="display:block;font-weight:800;font-size:20px;">
+                                همسفر تاکسی
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        <li><div class="divider"></div></li>
+                    <li><a class="sidenav-close" href="login.php"><i class="material-icons">fingerprint</i>ثبت نام یا ورود</a></li>
+                    <li><a class="sidenav-close" onclick="newRequest(false);"><i class="material-icons">add</i>سفر جدید</a></li>
+                <li><a data-target="panelModalAbout" class="modal-trigger sidenav-close" onclick="closeMenu1();"><i class="material-icons">info_outline</i>درباره همسفر تاکسی</a></li>
+                <li style=""><a href="https://www.taxivan.ir/?openexternal" target="_blank" class="sidenav-close"><i class="material-icons">airport_shuttle</i><span><i class="material-icons" style="position: relative;top: 0px;font-size: 14px;left: -3px;color: #4184f9;">open_in_new</i>درخواست ون</span></a></li>
+        <li><a data-target="panelModalRules" class="modal-trigger sidenav-close" onclick="closeMenu1();"><i class="material-icons">security</i>شرایط و قوانین</a></li>
+        <li><a data-target="panelModalComplaint" class="modal-trigger sidenav-close" onclick="closeMenu1();" style="display:none1;"><i class="material-icons" >account_balance</i>اعتراض</a></li>
+        <li><a data-target="panelModalContact" class="modal-trigger sidenav-close" onclick="closeMenu1();" style="display:none1;"><i class="material-icons">contact_phone</i>تماس با ما</a></li>
+        <li><a data-target="panelModalPayment" class="modal-trigger sidenav-close"><i class="material-icons">payment</i>پرداخت</a></li>
+        <li style=""><a data-target="panelModalInvoice" class="modal-trigger sidenav-close"><i class="material-icons">content_paste</i>صدور فاکتور</a></li>
+        <li style=""><a href="استخدام_راننده.html?openexternal" target="_blank" class="sidenav-close"><i class="material-icons">directions_car</i>جذب راننده</a></li>
+                <script>
+            function newRequest(force = false){
+                if (map == undefined){
+                    start(true);
+                }else if (points.length == 0 || force == true){
+                    start(false);
+                }else{
+                    Swal.fire({
+                      title: 'تنظیمات مسیر کنونی حذف شود؟',
+                      showCancelButton: true,
+                      confirmButtonText: 'بله',
+                      cancelButtonText: 'لغو',
+                    }).then((result) => {
+                      /* Read more about isConfirmed, isDenied below */
+                      if (result.isConfirmed) {
+                        start(false);
+                      }
+                    });
+                }
+            }
+	        function areUSureExit(){
+	            Swal.fire({
+                  title: 'به خروج اطمینان دارید؟',
+                  showCancelButton: true,
+                  confirmButtonText: 'خروج',
+                  cancelButtonText: 'انصراف',
+                }).then((result) => {
+                  /* Read more about isConfirmed, isDenied below */
+                  if (result.isConfirmed) {
+                    window.location.href = 'logout.php';
+                  }
+                })
+	        }
+	    </script>
+        
+        <li style="display:none;"><a href="/contact.php"><i class="material-icons sidenav-close">contact_phone</i>تماس با ما</a></li>
+        <li style="display:none;"><a href="/bill.php"><i class="material-icons sidenav-close" onclick="closeMenu();">beach_access</i>امنیت</a></li>
+        <li><div class="divider"></div></li>
+        <li style="display:none;"><a href="https://www.foroodgahtaxi.com" class="sidenav-close"><i class="material-icons">flight_takeoff</i>سرویس اختصاصی فرودگاه ها</a></li>
+
+    </ul>
+    <a href="" data-target="slide-out" class="sidenav-trigger" style="position:absolute;z-index:4;left:12px;top:56px;"><i class="material-icons" style="font-size:36px;">menu</i></a>
+    <script type="text/javascript">
+        function closeMenu1(){
+        }
+        function closeMenu(){
+            var instance = M.Sidenav.getInstance($("#slide-out"));
+            var isOpen = instance.isOpen;
+            instance.close();
+            return isOpen;
+        }
+    </script>
+    <style>
+        #panelModalRules li{
+            list-style-type: unset;
+        }
+        #panelModalInvoice li{
+            list-style-type: unset;
+        }
+    </style>
+            <script>
+            function handleAppMessage(type, data){
+                if (type == 'event'){
+                    if (data!= null){
+                        if (data.indexOf('prepayment_accepted') > -1){
+                            check_beianeh_is_done();
+                        }else if (data.indexof('prepayment_failed')){
+                            start(false);
+                            panelModalCurrentRequestsInstance.open();
+                            var request_id=$("#id_init").val();
+                            request_id = 630663;
+                            loadCurrentRequests(request_id);
+                        }else{
+                            M.toast({html: data, displayLength:3000, classes: 'rounded'});
+                        }
+                    }
+                }
+            }
+            function check_beianeh_is_done(){
+                $("#lnkPayment").hide();
+                $("#lnkPaymentProgress").show();
+                
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: "check_beianeh_is_done.php?id="+$("#id_init").val()+"&rand="+$("#rand_init").val(),
+                    async: true,
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#lnkPayment").show();
+                    },
+                    success: function (data) {
+                        console.log('Success: '+data);
+                        data = data.trim();
+                        
+                        if (data.indexOf('yes') >= 0){
+                            start(false);
+                            panelModalCurrentRequestsInstance.open();
+                            loadCurrentRequests($("#id_init").val());
+                        }else{
+                            $("#lnkPayment").show();
+                        }
+                    },
+                    complete: function(){
+                        $("#lnkPaymentProgress").hide();
+                    }
+                });
+            }
+        </script>
+        <style>
+        div.swal2-container > div > input{
+            width: 90%!important;
+            margin: auto!important;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            setInterval(function(){
+                $(".swal2-container div input").attr("dir", "auto");
+            }, 1000);
+            setInterval(function(){
+                showHide_panel_favorite_points();
+            }, 500);
+        });
+    </script>
+    <script>
+        function undoG(smooth){
+            if (mapsource == 'mapbox' || mapsource == 'cedar')
+                smooth = false;
+            showHideSearchBox(false);
+            $('#btnoriginPoint').css('transform', 'scale(1)');
+            $('#btndestinationPoint').css('transform', 'scale(1)');
+
+            if (closeModal(panelModalCurrentRequestsInstance) ||
+                closeModal(panelModalOldTripsInstance) ||
+                closeModal(panelModalProfileInstance) ||
+                closeModal(panelModalAboutInstance) ||
+                closeModal(panelModalRulesInstance) ||
+                closeModal(panelModalInstance) ||
+                closeModal(panelModalReturnInfoInstance) ||
+                closeModal(panelModalComplaintInstance) ||
+                closeModal(panelModalInvoiceInstance) ||
+                closeModal(panelModalPaymentInstance) ||
+                closeModal(panelModalContactInstance) ||
+                closeModal(panelModalReturnInfoInstance) ||
+                
+                closeMenu())
+                return true;
+            else
+                showHideSearchBox(false);
+                
+                
+            
+            
+            var ret = undo(smooth);
+            if ($("#panelModalPointTypeSelector").is(':visible')){
+                closeModal(panelModalPointTypeSelectorInstance);
+                return true;
+            }
+            return ret;
+        }
+        var aaaaa = null;
+        var favorites_temp;
+        $(document).ready(function(){
+            $("#btnUndo2").click(function(){ undoG(true); }); 
+            $("#btnFavoriteAdd").click(function(){
+                if (favorites.points.length >= 50){ 
+                    Swal.fire({
+                      title: "خطا !",
+                      text: 'نمیتوانید بیش از 50 نقطه ثبت نمائید',
+                      icon: "error",
+                      confirmButtonText: "بسیار خب",
+                    });
+                    return;
+                }
+                    
+                Swal.fire({
+                  title: "آدرس منتخب",
+                  //input: "text",
+                  inputAttributes: {
+                    autocapitalize: "off"
+                  },
+                  showCancelButton: true,
+                  confirmButtonText: "ثبت",
+                  cancelButtonText: "انصراف",
+                  showLoaderOnConfirm: true,
+                  
+                  html: '<div class="rtl">عنوان:</div><input id="fav_label" type="text" autocomplete="off" maxlength="40">'+
+                        '<div class="rtl">جزئیات آدرس:</div><input id="fav_desc" type="text" autocomplete="off" maxlength="50">',
+                      
+                  preConfirm: async (text) => {
+                    var fav_label= $('#fav_label').val().trim();
+                    var fav_desc= $('#fav_desc').val().trim();
+                    if (fav_label.length == 0){
+                        Swal.showValidationMessage('نام مناسب وارد نمائید');
+                        return false;
+                    }
+                    if (find_favorite_point_index(fav_label) > -1){
+                        Swal.showValidationMessage('نام تکراری است');
+                        return false;
+                    }
+                    favorites_temp = JSON.parse(JSON.stringify(favorites));
+                    
+                    favorites_temp.points.push({ lat: points[points.length-1].point[0], lng: points[points.length-1].point[1], label: fav_label, desc: fav_desc }); 
+                    try {
+                      const url = 'update_favorites.php?passenger_id=&token=';
+                      const response = await fetch(url,
+                        {
+                            headers: {
+                              'Accept': 'application/json',
+                              'Content-Type': 'application/json'
+                            },
+                            method: "POST",
+                            body: JSON.stringify(favorites_temp)
+                        });
+                      if (!response.ok) {
+                        return Swal.showValidationMessage(`
+                          ${JSON.stringify(await response.json())}
+                        `);
+                      }
+                      var j = await response.json();
+                      if(j.status == 'failed'){
+                          Swal.showValidationMessage('خطا در ثبت');
+                          return;
+                      }
+                      return j;
+                      //return response.json();
+                    } catch (error) {
+                      Swal.showValidationMessage('خطا در ثبت');
+                    }
+                  },
+                  allowOutsideClick: () => !Swal.isLoading()
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    if (result.value.status == 'failed'){
+                        Swal.showValidationMessage('خطا در ثبت');
+                    }else{
+                        Swal.fire({
+                          position: "top-end",
+                          icon: "success",
+                          title: "ثبت شد",
+                          showConfirmButton: false,
+                          timer: 1500
+                        });
+                        console.log('favorites_temp');
+                        console.log(favorites_temp);
+                        
+                        favorites = favorites_temp;
+                        update_favorite_points_view();
+                    }
+                  }
+                });
+            });
+            
+        });
+    </script>
+    
+    <script>
+            </script>
+    
+            <div id="panelButtonCurrentRequests" onclick="panelModalCurrentRequestsInstance.open();loadCurrentRequests();" style="z-index:4;position:absolute;top:7px;right:10px;font-size: 20px;border-radius: 26px;display:none;" class="btn waves-effect waves-light btn-small">
+            <span id="lblCurrentRequests" style="background-color:red;color:white;border-radius: 50%;width: 23px;height: 23px;display: inline-table;font-size: 17px;line-height: 23px;"></span>
+            سفرهای جاری
+        </div>
+        
+    <div id="panelModalReturnInfo" class="modal" style="top: 20%!important;width: 55%!important;max-height: 100%!important;">
+        <div class="modal-content center">
+            <p>
+                سامانه تا ساعت 04:00 بامداد 28 اسفند غیر فعال است
+            </p>
+            <p dir="rtl" style="display:none;">
+                <span style="font-weight:bold;color:red;">توجه:</span>
+                در صورت درخواست
+                <span style="color:red;">
+                    سفر رفت و برگشتی
+                </span>
+                ، لطفا فقط مسیر رفت را مشخص نمائید.
+                <br><br>
+                هزینه برگشت همواره نصف رفت است
+            </p>
+        </div>
+        <div class="modal-footer" style="text-align:center;">
+            <a class="modal-close waves-effect waves-yellow btn-flat" style="display:none;" onclick='closeModal(panelModalReturnInfoInstance);'>متوجه شدم</a>
+        </div>
+    </div>
+    
+    <div id="panelModalPointTypeSelector" class="modal modal_small modal-fixed-footer not-selectable" style="text-align:right;direction:rtl;overflow: hidden;height: 140px!important;">
+        <style>
+            table.t-center td{
+                text-align:center;
+                width:50%;
+                padding-left:12px;
+                padding-right:12px;
+                color:white;
+            }
+            .point-selector{
+                border-bottom: solid;
+                padding-bottom: 8px;
+                cursor: pointer;
+            }
+            .point-selector img{
+                height: 60px;
+            }
+        </style>
+        <table class="t-center">
+            <tr id="panelOriginOrDest">
+                <td>
+                    <div onclick="setNextPoint('from');" class="point-selector">
+                        تنظیم مبدا 
+                        <span id="lblOriginPointCounter"></span><br>
+                        <img src="/images/org.png">
+                    </div>
+                </td>
+                <td>
+                    <div onclick="setNextPoint('to');" class="point-selector">
+                        تنظیم مقصد (ها)
+                        <br>
+                        <img src="/images/dest.png">
+                    </div>
+                </td>
+            </tr>
+            <tr id="panelDestOrFinal">
+                <td>
+                    <div onclick="setNextPoint('fin');" class="point-selector">
+                        پایان و محاسبه
+                        <br>
+                        <img src="/images/route.png">
+                    </div>
+                </td>
+                <td>
+                    <div onclick="setNextPoint('to');" class="point-selector">
+                        تنظیم مقصد 
+                        <span id="lblDestPointCounter"></span>
+                        <br>
+                        <img src="/images/dest.png" >
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <img id="btnUndo2" src="/images/undo.png" style="position:absolute;padding:4px;width:30px;height:36px;left:4px;bottom:4px;cursor: pointer;z-index:1;bottom: -4px;">
+        <img id="btnFavoriteAdd" src="/images/favorite.png" style="position:absolute;padding:4px;width:30px;height:30px;right:4px;bottom:3px;cursor: pointer;z-index:1;bottom: -3px;">
+    </div>
+    
+    
+    <div id="panelModalRules" class="modal modal-fixed-footer" style="text-align:right;direction:rtl;">
+        <div class="modal-content">
+            <h4 style="font-size:13.7px;font-weight:800;">
+                <div style="font-size:35px;margin-bottom:14px;">همسفر تاکسی</div>
+                قوانین و شرایط:
+            </h4>
+            <hr>
+            <ul style="list-style: unset;">
+                <li style="display:none;">
+                    هماهنگی شبانه (23 تا 08 صبح ) برای حرکت از ساعت 24 تا حدود 09 صبح، شامل 10-20 درصد افزایش می گردد.
+                </li>
+                <li>
+                    مبلغ اعلام شده در سایت، در روزها و زمان های با آب و هوای نامناسب یا ایام پر ترافیک که زمان سفر طولانی تر است، شامل ضریب خواهد بود که قبل از سفر و در هنگام هماهنگی به اطلاع شما خواهد رسید.<br>
+                    <b>نکته:</b>
+                    بدیهیست در صورت رزرو بیش از 1 روز قبل، با توجه <span style="color:red;">عدم امکان پیش بینی هوا</span>، در صورت بارندگی یا ...، افزایش کرایه متناسب (10-20 درصد) اعمال خواهد گردید.
+                </li>
+                <li>
+                    برخی مسیرهای کوهستانی یا صعب العبور، شامل افزایش کرایه جداگانه میگردند که میزان افزایش، توسط اپراتور در زمان رزرو سفر اعلام می گردد.
+                </li>                
+                <li>
+                    بدیهیست در صورت مسدود بودن مسیر اصلی به هر علت و یا <span style="color:red;">تغییر مسیر اصلی</span> بر اساس خواست یا پیشنهاد مسافر، و در صورت طولانی تر شدن مسیر و یا نیمه کاره ماندن یا بازگشت اجباری، هزینه اضافه مسیر بر عهده مسافر می باشد.هزینه بر اساس مسافت و طبق تعرفه اولیه مسیر خواهد بود.
+<br>نکته: منظور از مسیر اصلی، کوتاه ترین مسیر قابل تردد یا توافق شده در زمان رزرو سفر می باشد
+                </li>
+                <li>
+                    در صورت گازسوز بودن اتومبیل، میتوانید با پرداخت 25,000 تومان به ازای هر 100 کیلومتر، از راننده بخواهید از زدن گاز صرفنظر نماید.
+                </li>
+                <li>
+                    هر گونه
+                    <span style="color:red;">واگذاری سفر</span>
+                    به راننده دیگر یا تغییر اجباری شرایط سفر از طرف راننده ما و بدون هماهنگی با شرکت ممنوع است. بدیهیست در صورت مواجهه، لازم است شخص مسافر، شرکت را از این موضوع مطلع سازد. در غیر اینصورت مسئولیت عواقب مشکلات پیش آمده بر عهده راننده و مسافر بوده و شرکت بعلت عدم اطلاع، مسئولیتی نخواهد داشت. در هر صورت برخورد با راننده خاطی انجام خواهد پذیرفت.
+                </li>
+                <li>
+	                با توجه به تجربیات پیشین، سفر بدون هماهنگی با شرکت چه برگشت و چه سفرهای بعدی با هر یک از راننده های ما، علاوه بر برخورد با راننده خاطی و جریمه وی، شرکت هیچگونه مسئولیت و پاسخگوئی در قبال هر نوع اتفاقی نخواهد داشت. بدیهیست هماهنگی سفر برگشت یا سفرهای بعدی، صرفا با تماس شخص مسافر با دفتر شرکت قابل قبول است.
+                </li>
+		        <li>
+                    جریمه های پلیس در مواردی همچون نبستن کمربند مسافر و تعداد سرنشین اضافی تماما بر عهده خود مسافر می باشد.
+                </li>
+		        <li>در صورت گرمای هوا و به درخواست مسافر، بدون هزینه اضافه، کولر روشن می گردد. بدیهیست در مسیرهای با شیب بالا ممکن است به علت فشار شدید به موتور، به تشخیص راننده، کولر موقتا خاموش گردد</li>
+                <li style="display:none;">
+                    در فصول گرم سال، با توجه به گرمای شدید هوا، در برخی مسیرها 10% توسط اپراتور افزایش کرایه اعلام می گردد. بدیهیست در مسیرهای با شیب بالا ممکن است به علت فشار شدید به موتور، به تشخیص راننده، کولر موقتا خاموش گردد
+                </li>
+                <li>
+                    در صورت لغو سفر از طرف راننده (بعلل شخصی یا نقص فنی اتومبیل یا ...)، همسفرتاکسی متعهد به تلاش برای ارائه سرویس جایگزین خواهد بود. اما با این حال در شرایط پیک سفر و یا مسیرهای فرعی و ندرتا ممکن است نتواند جایگزینی ارائه نماید. در این حالت، مبلغ پیش پرداخت فورا و بطور کامل مسترد میگردد.
+                </li>
+		        <li style="display:none;">رزرو اقتصادی، عادی و ویژه بیش از یک روز قبل از سفر امکان پذیر نیست</li>
+		        <li>
+		            کرایه بازگشت در همان روز و همان اتومبیل، نصف رفت می باشد
+		        </li>
+		        <li>هزینه ساعتی <span style="color:red;">توقف</span> به شرح زیر است:
+				    <ul>
+				        <li>اقتصادی: 50,000 تومان</li>
+				        <li>عادی: 60,000 تومان</li>
+				        <li>ویژه: 80,000 تومان</li>
+				        <li><span style="display:inline-block;">VIP:</span> 120,000 تومان</li>
+				        <li><span style="display:inline-block;">SUV:</span> 150,000 تومان</li>
+				        <li style="display:none;"><span style="display:inline-block;">VIP و SUV</span>: 1000 ?> تومان</li>
+				    </ul>
+		        </li>
+		        <li>هزینه ساعتی <span style="color:red;">در اختیار</span> به شرح زیر است:
+				    <ul>
+				        <li>هزینه توقف + هزینه مسیر طی شده در زمان در اختیار </li>
+				        <li>
+				            در صورتی که مدت کل سفر زیر 4 ساعت باشد، مبلغی به عنوان ورودیه معادل یک ساعت توقف به کرایه اضافه میگردد.
+				        </li>
+				        
+				    </ul>
+		        </li>
+
+		        <li><span style="color:red;">هزینه کیلومتری <span style="font-weight:800;">بدون</span> برگشت</span> به مبدا در مسیرهای کفی به شرح زیر است:
+				    <ul>
+				        <li>اقتصادی: 4.000 تومان</li>
+				        <li>عادی: 4,400 تومان</li>
+				        <li>ویژه: 6.200 تومان</li>
+				        <li><span style="display:inline-block;">VIP</span>: 9.000 تومان</li>
+				        <li><span style="display:inline-block;">SUV</span>: 12.000 تومان</li>
+				    </ul>
+		        </li>
+                <li><span style="color:red;">هزینه کیلومتری <span style="font-weight:800;">با</span> برگشت</span> به مبدا در مسیرهای کفی به شرح زیر است:
+				    <ul>
+				        <li>اقتصادی: 3.000 تومان</li>
+				        <li>عادی: 3.300 تومان</li>
+				        <li>ویژه: 4.700 تومان</li>
+				        <li><span style="display:inline-block;">VIP</span>: 7.000 تومان</li>
+				        <li><span style="display:inline-block;">SUV</span>: 9.000 تومان</li>
+				    </ul>
+		        </li>
+                <li>
+                    هزینه وعده های غذایی و اقامت راننده برای سفرهایی که شب مانی دارد، بر عهده مسافر است
+                </li>
+                <li>
+                    در سایر سفرها، هزینه وعده های غذایی راننده بر عهده مسافر نیست. لذا در صورت مهمان نمودن راننده، امکان کسر هزینه آن از کرایه وجود ندارد.
+                </li>
+		        <li>در زمان رزرو، ممکن است 15-100 درصد کل کرایه با توجه به مشخصات سفر، توسط اٌپراتور بعنوان بیعانه درخواست گردد که لازم است جهت ثبت  قطعی رزرو پرداخت گردد.
+		            <br>توجه شود که در صورت کنسلی، تعویق یا نیمه کاره ماندن سفر، در صورتی که از جانب شرکت نباشد، بسته به میزان خسارت، بخشی یا کل مبلغ بیعانه بابت خسارت کسر میگردد و باقی مبلغ بیعانه تنها در سفرهای بعد شما قابل انتقال است و قابل استرداد نخواهد بود.
+		        </li>
+		        <li>
+		            در صورت نیاز به رسید سفر، پس از اتمام سفر مجددا تماس بگیرید. رسید بصورت الکترونیکی و بصورت یک لینک در WhatsApp یا پیامک ارسال میگردد<br>در صورت نیاز، ارسال نسخه چاپ شده بصورت جداگانه نیز امکان پذیر است.
+		        </li>
+		        <li>
+		            حداکثر تعداد مجاز مسافر 3 بزرگسال و یک کودک زیر 12 سال است. در صورت تعداد بیشتر، بسته به مقدار بار همراه، بین 10 تا 20 درصد به کرایه اضافه می گردد
+		        </li>
+		        <li>
+		            در صورت وجود اتباع خارجی بین مسافرین، لازم است این موضوع در زمان رزرو اعلام گردد. در غیر اینصورت در صورت همراه نداشن هیچ نوع مجوز تردد مجاز (گذرنامه و ...)، راننده حق لغو سفر و دریافت غرامت را خواهد داشت.
+		            <br>
+		            
+		        </li>
+		        <li style="direction: ltr;text-align: left;">
+		            Foreign passengers without any valid visa might be a reason for trip cancellation. In such a case the driver is permitted to request for fine.
+		        </li>
+		        <li style="">برای تعداد 5 نفر یا بیشتر و جهت رزرو ون <a target="_blank" href="https://www.taxivan.ir">اینجا</a> را ملاحظه فرمائید</li>
+		    </ul>
+		    
+            <p style="display:none;">
+                تماس: 
+                <a style="direction: ltr;display: inline-block;" href="tel:02126722397">021 2672 239</a>
+            </p>
+            
+        </div>
+        <div class="modal-footer" style="text-align:left;">
+            <a  class="modal-close waves-effect waves-green btn-flat" onclick='closeModal(panelModalRulesInstance);'>بسیار خب</a>
+        </div>
+    </div>    
+    
+    
+    <div id="panelModalContact" class="modal modal-fixed-footer" style="text-align:right;direction:rtl;">
+        <div class="modal-content">
+            <h4 style="font-size:13.7px;font-weight:800;">
+                <div style="font-size:35px;margin-bottom:14px;">همسفر تاکسی</div>
+                تماس با ما
+            </h4>
+            <hr>
+
+            <p>
+                آدرس: تهران، سید خندان، خیابان برازنده، پلاک 52، واحد 4
+            </p>
+            <p>
+                شرکت رویای آرمانشهر الکترونیک - شماره ثبت: 460607
+            </p>
+            <p style="">
+                تماس: 
+                <a style="direction: ltr;display: inline-block; font-family: tahoma;" href="tel:02144994258">021 44 99 4258</a><!--&nbsp;-&nbsp;
+                <a style="direction: ltr;display: inline-block; font-family: tahoma;" href="tel:02177506076">021 77 50 60 76</a>-->
+            </p>
+            
+        </div>
+        <div class="modal-footer" style="text-align:left;">
+            <a  class="modal-close waves-effect waves-green btn-flat" onclick='closeModal(panelModalContactInstance);'>بسیار خب</a>
+        </div>
+    </div>
+    
+    <div id="panelModalPayment" class="modal modal-fixed-footer" style="text-align:right;direction:rtl;">
+        <div class="modal-content">
+            <h4 style="font-size:13.7px;font-weight:800;">
+                <div style="font-size:35px;margin-bottom:14px;">همسفر تاکسی</div>
+            </h4>
+            <hr>
+            <br>
+            <h3 style="font-size:20px;font-weight:800;margin-right: 32px;">
+                پرداخت اینترنتی:
+            </h3>
+            <center>
+                <a href="https://me.sizpay.ir/hamsafartaxi" target="_blank" style="display: inline-block;margin-bottom: 16px;border-style: dotted;padding: 10px;border-width: 2px;background-color: #c1c1c14a;display:none;">
+                    پرداخت از طریق درگاه آنلاین بانکی
+                </a>
+                <a href="https://hamsafartaxi.com/pay/" target="_blank" style="display: inline-block;margin-bottom: 16px;border-style: dotted;padding: 10px;border-width: 2px;background-color: #c1c1c14a;">
+                    پرداخت از طریق درگاه آنلاین بانکی
+                </a>
+                <span style="display:none;">
+                    <br><span>موقتا غیر فعال است</span>
+                </span>
+            </center>
+            <br><br><br>
+           <h3 style="font-size:20px;font-weight:800;margin-right: 32px;">
+            پرداخت کارت به کارت:
+           </h3>
+               
+               
+           <script>
+                function copyCardNumber(){
+                    //copyToClipboard('6037697528209296');
+                    copyToClipboard('6037691990566549');
+                    M.toast({html: "<div style='text-align:right;'>"+"شماره کارت کپی شد" + "<br><span style='font-family:tahoma;font-size:10px;'>" 
+                        + "6037691990566549</span></div>", displayLength:1001, classes: 'rounded'});
+                }
+                function copyToClipboard(text) {
+                    if (window.clipboardData && window.clipboardData.setData) {
+                        // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+                        return clipboardData.setData("Text", text);
+                
+                    }
+                    else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+                        var textarea = document.createElement("textarea");
+                        textarea.textContent = text;
+                        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in Microsoft Edge.
+                        document.body.appendChild(textarea);
+                        textarea.select();
+                        try {
+                            return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+                        }
+                        catch (ex) {
+                            console.warn("Copy to clipboard failed.", ex);
+                            return false;
+                        }
+                        finally {
+                            document.body.removeChild(textarea);
+                        }
+                    }
+                }
+           </script>
+            <center>
+               <table style="display: contents;">
+                   <tr>
+                       <td><img src="images/copy.png" onclick="copyCardNumber();" style="width:24px;cursor:pointer;"/></td>
+                       <td><div style="direction:ltr;margin:8px;"><b>6037 6919 9056 6549</b></div></td>
+                   </tr>
+               </table>
+                به نام 
+                <b>شرکت رویای آرمانشهر الکترونیک</b>
+                
+            </center>
+            
+            <p style="display:none;">
+                تماس: 
+                <a style="direction: ltr;display: inline-block;" href="tel:02126722397">021 267 22 397</a>
+            </p>
+            
+        </div>
+        <div class="modal-footer" style="text-align:left;">
+            <a  class="modal-close waves-effect waves-green btn-flat" onclick='closeModal(panelModalPaymentInstance);'>بسیار خب</a>
+        </div>
+    </div>
+    
+    <div id="panelModalInvoice" class="modal modal-fixed-footer" style="text-align:right;direction:rtl;">
+        <div class="modal-content">
+            <h4 style="font-size:13.7px;font-weight:800;">
+                <div style="font-size:35px;margin-bottom:14px;">همسفر تاکسی</div>
+            </h4>
+            <hr>
+            <br>
+            <h3 style="font-size:20px;font-weight:800;margin-right: 32px;">
+                صدور فاکتور: 
+            </h3>
+            
+            با شمار تلفن همراهی که رزرو سفر نموده بودید، پیامکی حاوی موارد زیر:
+
+            <br>
+            <ol style="list-style: unset;">
+                <li>
+                    نام و نام خانوادگی
+                </li>
+                <li>
+                    نام شرکت (در صورت نیاز)
+                </li>
+                <li>
+                    شناسه ملی یا کد اقتصادی شرکت یا کد ملی شخص
+                </li>
+                <li>
+                    مبلغ کل پرداختی ( بیعانه + مبلغ پرداختی به راننده)
+                </li>
+                <li>
+                    و سایر جزئیاتی که ممکن است مهم باشد
+                </li>
+            </ol>
+            
+            <br>
+            این موارد را به شماره زیر پیامک فرمائید:<br><br>
+            <center>
+                <span style="display: inline-block;direction:ltr;">
+    			    <a href="sms:09125381475">sms: 0912 538 1475</a>
+    			</span>
+			</center>
+			<br><br>
+			<div>
+			    پس از هر رزرو سفر، همواره یک پیامک حاوی یک لینک برای شما ارسال می گردد. پس از صدور فاکتور، با باز کردن همان لینک، فاکتور خود را مشاهده خواهد نمود.
+			    <br><br>
+                ارسال نسخه چاپ شده بصورت جداگانه نیز امکان پذیر است و در تهران با پیک ( بصورت پس کرایه ) و برای سایر شهرها با پست پیشتاز ارسال خواهد شد.
+			</div>
+        </div>
+        <div class="modal-footer" style="text-align:left;">
+            <a  class="modal-close waves-effect waves-green btn-flat" onclick='closeModal(panelModalInvoiceInstance);'>بسیار خب</a>
+        </div>
+    </div>
+    
+    <div id="panelModalComplaint" class="modal modal-fixed-footer" style="text-align:right;direction:rtl;">
+        <div class="modal-content">
+            <h4 style="font-size:13.7px;font-weight:800;">
+                <div style="font-size:35px;margin-bottom:14px;">همسفر تاکسی</div>
+                ثبت اعتراض
+            </h4>
+            <hr>
+            <style>
+                .padd{
+                    margin-top:4px;
+                }
+                .padd span{
+                    color:#7e7878;
+                }
+            </style>
+            <div id="panelInitForm" style="max-width:500px;width:100%;margin:auto;margin-top: 16px;">
+                <form id="formComplaint">
+                    <div class="padd">
+                        <span>عنوان:</span><br>
+                        <input type="text" id="txtComplaintTitle" name="txtComplaintTitle" style="direction:rtl;" maxlength="100" class="browser-default">
+                    </div>
+                    <div class="padd">
+                        <span>شماره همراه:</span><br>
+                        <input type="text" id="txtComplaintCellphone" name="txtComplaintCellphone" style="direction:ltr;" maxlength="100" class="browser-default" value="">
+                    </div>
+                    <div class="padd">
+                        <span>ایمیل:</span><br>
+                        <input type="text" id="txtComplaintEmail" name="txtComplaintEmail" style="direction:ltr;" maxlength="100" class="browser-default">
+                    </div>
+                    <div class="padd">
+                        <span>کد سفر مربوطه:</span><br>
+                        <input type="text" id="txtComplaintRequestId" name="txtComplaintRequestId" style="direction:ltr;" maxlength="100" class="browser-default">
+                    </div>
+                    <div class="padd">
+                        <span>متن:</span>
+                        <span style="color:red;">*</span>
+                        <span>(حداکثر تا 500 حرف)</span>
+                        <br>
+                        <textarea id="txtComplaint" name="Complaint" maxlength="500" style="min-height: 120px; max-height: 200px; padding: 8px; width: 100%;max-width: 500px;"></textarea>
+                        
+                    </div>
+                    <div id="captcha_element" class="padd"></div>
+                    <div id="lblComplaintMessage">
+                        
+                    </div>
+                    <div style="width:65px;height:40px;text-align:center;margin-bottom:48px;">
+                        <span id="btnRegisterComplaint" class="waves-effect waves-light btn padd" onclick="do_register_complaint();" >ثبت</span>
+                        <img id="btnRegisterComplaintProgress" src="./images/progress.gif" style="height: 24px; margin-top: 12px; display: none;">
+                    </div>
+                </form>
+                <script>
+                    function IsRecapchaValid(widId) {
+                        var res = grecaptcha.getResponse(widId);
+                        if (res == "" || res == undefined || res.length == 0) {
+                            return false;
+                        }
+                        return true;
+                    }
+                    function do_register_complaint(){
+                        if ($("#txtComplaint").val().trim().length < 30){
+                            $("#lblComplaintMessage").css("color", "red").text('متن اعتراض خود را بنویسید');
+                            return;
+                        }
+                        if (!IsRecapchaValid(widId)){
+                            $("#lblComplaintMessage").css("color", "red").text('باکس تشخیص ربات را تیک بزنید');
+                            return;
+                        }
+                        
+                        $("#btnRegisterComplaint").hide();
+                        $("#btnRegisterComplaintProgress").show();
+    			        $("#lblComplaintMessage").text('');
+                        
+                        $.ajax({
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            url: "register_complaint.php",
+                            data: $('#formComplaint').serialize(),
+                            async: true,
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                //console.log("error: " + textStatus + " - " + errorThrown);
+                                $("#lblComplaintMessage").css("color", "red").text('خطا در ثبت. مجددا سعی کنید');
+                                $("#btnRegisterComplaint").show();
+                            },
+                            success: function (data) {
+                                console.log('Success: '+data);
+                                data = data.trim();
+                                
+                                if (data.indexOf('OK') >= 0){
+                                    $("#lblComplaintMessage").css("color", "blue").text('ثبت شد. بررسی شده و در صورت نیاز با شما تماس گرفته خواهد شد.');
+                                }else{
+                                    $("#lblComplaintMessage").css("color", "red").text('خطا در ثبت. مجددا سعی کنید');
+                                    $("#btnRegisterComplaint").show();
+                                }
+                            },
+                            complete: function(){
+            			        $("#btnRegisterComplaintProgress").hide();
+                            }
+                        });
+                    }
+                </script>
+            </div>
+            
+        </div>
+        <div class="modal-footer" style="text-align:left;">
+            <a  class="waves-effect waves-green btn-flat" onclick='closeModal(panelModalComplaintInstance);'>بسیار خب</a>
+        </div>
+    </div>
+    
+    <div id="panelModalProfile" class="modal modal-fixed-footer" style="text-align:right;direction:rtl;">
+            </div>
+
+    <div style="display:none;">
+        <div id="btnTextWeb" onclick="doNativeCommand('show_settings', null, null, null);" style="z-index:9990;display:inline-block;position:fixed;width:200px;height:400px;background-color:red;cursor:pointer;display:none;"></div>
+        <div id="btnRefresh1" onclick="location.reload();" style="z-index:9990;display:inline-block;position:fixed;width:30px;height:30px;background-color:red;cursor:pointer;right:0px;bottom: 0px;"></div>
+        <div id="btnRefresh2" onclick="app_fetch_fcm_token();" style="z-index:9990;display:inline-block;position:fixed;width:30px;height:30px;background-color:blue;cursor:pointer;right:0px;bottom: 30px;"></div>
+            <div id="btnRefresh2" onclick="M.toast({html:'web', displayLength:3000, classes: 'rounded'});" style="z-index:9990;display:inline-block;position:fixed;width:30px;height:30px;background-color:yellow;cursor:pointer;right:0px;bottom: 60px;"></div>
+    </div>
+    <script>
+        function textWeb(){
+            $("#btnTextWeb").css('background-color','blue');
+        }
+    </script>
+    <div id="panelModalCurrentRequests" class="modal modal-fixed-footer" style="text-align:right;direction:rtl;">
+                    <div class="modal-content" style="overflow-y: scroll!important;">
+                <h4 style="font-size:13.7px;font-weight:800;">
+                    <div style="font-size:35px;margin-bottom:14px;">همسفر تاکسی</div>
+                    سفرهای جاری
+                </h4>
+                <hr>
+                <div id="panelCurrentRequests">
+                    
+                </div>
+                <script>
+                    var isFlutterInAppWebViewReady = false;
+                    window.addEventListener("flutterInAppWebViewPlatformReady", function(event) {
+                        isFlutterInAppWebViewReady = true;
+                        $("#btnTextWeb").html($("#btnTextWeb").html()+'Flutter ready<br>');
+                        $("#btnTextWeb").html($("#btnTextWeb").html()+'Flutter ready<br>');
+                    });
+                    function doNativeCommand(command, param1, param2, param3) {
+                        if (!isFlutterInAppWebViewReady)
+                            return;
+                        $("#btnTextWeb").css('background-color','yellow');
+                        if(typeof window.flutter_inappwebview !== "undefined" && window.flutter_inappwebview !== null) {
+                            $("#btnTextWeb").html($("#btnTextWeb").html()+'not null<br>');
+                            window.flutter_inappwebview.callHandler('flutterCall', command, param1, param2, param3).then(function(result) {
+                                //M.toast({html:"aa"+, displayLength:3000, classes: 'rounded'});
+                               $("#btnTextWeb").html($("#btnTextWeb").html()+'result:'+result+'<br>');
+                            });;
+                        }
+                    }
+                    function loadCurrentRequests(default_id){
+                        $("#panelCurrentRequests").html("<br><br><br><center><img style='width:32px;' src='./images/progress.gif'></center>");
+                                                    var url = "current_requests.php?requests_list="+getCookie('requests_list');
+                                                console.log(url);
+                        if (default_id != null)
+                            url += '&default_id='+default_id;
+                        $.ajax({
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            url: url,
+                            async: true,
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                $("#panelCurrentRequests").html("<br><br><br><center>خطا در دریافت اطلاعات<br><br><img style='width:32px;cursor:pointer;' onclick='loadCurrentRequests();' src='./images/refresh.png'></center>");
+                                //console.log("error: " + textStatus + " - " + errorThrown);
+                            },
+                            success: function (data) {
+                                data = data.trim();
+                                $("#panelCurrentRequests").html(data);
+                                console.log('Success: '+data);
+                                /*if (data.indexOf('OK') >= 0){
+                                    $("#lblComplaintMessage").css("color", "blue").text('ثبت شد. بررسی شده و در صورت نیاز با شما تماس گرفته خواهد شد.');
+                                }else{
+                                    $("#lblComplaintMessage").css("color", "red").text('خطا در ثبت. مجددا سعی کنید');
+                                    $("#btnRegisterComplaint").show();
+                                }*/
+                            },
+                            complete: function(){
+                            }
+                        });
+                    }
+                </script>
+            </div>
+            <div class="modal-footer" style="text-align:left;">
+                <a  class="waves-effect waves-green btn-flat" onclick='closeModal(panelModalCurrentRequestsInstance);'>بسیار خب</a>
+            </div>
+            </div>
+    
+    
+    
+    <div id="panelModalOldTrips" class="modal modal-fixed-footer" style="text-align:right;direction:rtl;">
+            </div>
+    
+    
+    
+    <div id="panelModalAbout" class="modal modal-fixed-footer" style="text-align:right;direction:rtl;">
+        <div class="modal-content">
+            <h4 style="font-size:13.7px;font-weight:800;">
+                <div style="font-size:35px;margin-bottom:14px;">همسفر تاکسی</div>
+                سامانه رزرو تاکسی دربست بین شهری
+            </h4>
+            <hr>
+            <p>همسفر تاکسی بعنوان اولین و تنها ارائه دهنده اتومبیل های کلاس های مختلف در سطح ایران است که با استفاده از تکنیک های هوشمند و پیشرفته تحلیل مسافت و هزینه، قادر به محاسبه قیمت های مسیرهای کوتاه و بلند بین شهری برای کلاس های مختلف است.</p>
+            <p>کلاس های خودروی موجود به شرح زیر است:</p>
+            <ul class="classes" style="list-style:circle">
+                <style>
+                    .classes li{
+                        list-style-type:circle!important;
+                    }
+                </style>
+                <li><b>اقتصادی:</b> پراید، تیبا و ...</li>
+                <li><b>عادی:</b> سمند، پارس و پژو 405 و ...</li>
+                <li><b>ویژه:</b> آریو، مزدا، MVM و ... سواری</li>
+                <li><b>VIP:</b> تویوتا و هیوندای و ... سواری</li>
+                <li><b>VIP SUV:</b> انواع خودروهای شاسی بلند</li>
+            </ul>
+            <br>
+            <p>همسفر تاکسی با افتخار اعلام می دارد با رعایت حقوق مسافران و همچنین رانندگان، نرخ های منصفانه ای برای هر دو طرف ارائه می دهد به گونه ای که حقوق هیچ یک ضایع نگردد.</p>
+            <br>
+            <div style="display:inline-block;position:relative;">
+                <a referrerpolicy="origin" target="_blank" href="https://trustseal.enamad.ir/?id=184272&amp;Code=TEDqYtZeKLbuCVoudRlr">
+                    <img referrerpolicy="origin" src="https://Trustseal.eNamad.ir/logo.aspx?id=184272&amp;Code=TEDqYtZeKLbuCVoudRlr" alt="" style="cursor:pointer;position: absolute;z-index:1;" id="TEDqYtZeKLbuCVoudRlr">
+                    <img referrerpolicy="origin" src="./images/enamad_2.png" alt="" style="cursor:pointer;position: relative;z-index:0;top: -8px">
+                </a>
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQwIiBoZWlnaHQ9IjM2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KCTxwYXRoIGQ9Im0xMjAgMjQzbDk0LTU0IDAtMTA5IC05NCA1NCAwIDEwOSAwIDB6IiBmaWxsPSIjODA4Mjg1Ii8+Cgk8cGF0aCBkPSJtMTIwIDI1NGwtMTAzLTYwIDAtMTE5IDEwMy02MCAxMDMgNjAgMCAxMTkgLTEwMyA2MHoiIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS13aWR0aDo1O3N0cm9rZTojMDBhZWVmIi8+Cgk8cGF0aCBkPSJtMjE0IDgwbC05NC01NCAtOTQgNTQgOTQgNTQgOTQtNTR6IiBmaWxsPSIjMDBhZWVmIi8+Cgk8cGF0aCBkPSJtMjYgODBsMCAxMDkgOTQgNTQgMC0xMDkgLTk0LTU0IDAgMHoiIGZpbGw9IiM1ODU5NWIiLz4KCTxwYXRoIGQ9Im0xMjAgMTU3bDQ3LTI3IDAtMjMgLTQ3LTI3IC00NyAyNyAwIDU0IDQ3IDI3IDQ3LTI3IiBzdHlsZT0iZmlsbDpub25lO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6MTU7c3Ryb2tlOiNmZmYiLz4KCTx0ZXh0IHg9IjE1IiB5PSIzMDAiIGZvbnQtc2l6ZT0iMjVweCIgZm9udC1mYW1pbHk9IidCIFlla2FuJyIgc3R5bGU9ImZpbGw6IzI5Mjk1Mjtmb250LXdlaWdodDpib2xkIj7Yudi22Ygg2KfYqtit2KfYr9uM2Ycg2qnYtNmI2LHbjDwvdGV4dD4KCTx0ZXh0IHg9IjgiIHk9IjM0MyIgZm9udC1zaXplPSIyNXB4IiBmb250LWZhbWlseT0iJ0IgWWVrYW4nIiBzdHlsZT0iZmlsbDojMjkyOTUyO2ZvbnQtd2VpZ2h0OmJvbGQiPtqp2LPYqCDZiCDaqdin2LHZh9in24wg2YXYrNin2LLbjDwvdGV4dD4KPC9zdmc+ " alt="" onclick="window.open('https://ecunion.ir/verify/hamsafartaxi.com?token=509193662b1c3be7a758', 'Popup','toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=600, top=30')" style="cursor:pointer; width: 96px;height: 144px;">
+            </div>
+
+            <hr>
+            <p>
+                آدرس: تهران، سید خندان، خیابان برازنده، پلاک 52، واحد 4
+            </p>
+            <p>
+                شرکت رویای آرمانشهر الکترونیک - شماره ثبت: 460607
+            </p>
+            <p style="">
+                تماس: 
+                <a style="direction: ltr;display: inline-block; font-family: tahoma;" href="tel:02144994258">021 44 99 4258</a><!--&nbsp;-&nbsp;
+                <a style="direction: ltr;display: inline-block; font-family: tahoma;" href="tel:02177506076">021 77 50 60 76</a>-->
+            </p>
+            
+        </div>
+        <div class="modal-footer" style="text-align:left;">
+            <a  class="waves-effect waves-green btn-flat" onclick='closeModal(panelModalAboutInstance);'>بسیار خب</a>
+        </div>
+    </div>
+    
+    <style>
+    
+        .snippet, .snippet *{
+            font-size: 12px;
+            color:gray;
+            padding:0px;
+            text-align:right;
+            vertical-align:top;
+        }
+        
+        .info{
+            position:absolute;
+            width:300px;
+            bottom:10px;
+            right:25%;
+            left:50%;
+            margin-left:-150px;
+            z-index: 1;
+            text-align: center;
+            color:white;
+            font-size: 17px;
+            background-color: dimgrey;
+            padding: 4px;
+        }
+        #panelCarClass .select-dropdown li{
+            text-align: right;
+        }
+        #panelCarClass .select-wrapper .caret{
+            right: auto;
+            left: 0px;
+        }
+        #panelCarClass .input-field.col label{
+            right: .75rem;
+            left: auto;
         }
     </style>
 
 
+	<style>
+		#recallPanel #closePanel{
+			position: absolute;
+			width:12%;
+			max-width:24px;
+			cursor:pointer;
+            -webkit-transform: translateX(-64%) translateY(-65%);
+            transform: translateX(-64%) translateY(-65%);
+            -webkit-transform-origin: right 0;
+            transform-origin: right 0;
+		}
+	</style>
 
+    
+    <span id="recallPanel" class="not-selectable" style="position:absolute;z-index:999;right:0px;top:75px;text-align:right;display:inline-block;max-width:500px;width:70%;display:none;">
+		<img id="closePanel" class="responsive-img" src="/images/close.png" onclick="$('#recallPanel').fadeOut('slow');">
+		<a href="recall.html" target="_blank"><img src="/images/Recall.png" class="responsive-img" style=""></a>
+	</span>
+	
+	
+    
+    <div class="info not-selectable" style="z-index:2;">
+        <div id="panelWait" style="padding:4px;display:none;">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>        
+        </div>
+        
+        <div id="car_classs" style="display:none;">
+            <style>
+                #car_classs{
+                    padding-bottom: 4px;
+                }
+                #car_classs img{
+                    width: 40px;
+                    margin: 2px;
+                    cursor: pointer;
+                    
+                }
+            </style>
+            <script type="text/javascript">
+                var selected_carClass = null;
+                $(document).ready(function(){
+                    $("#imgCarClassSuperEconomy").attr("src", $("#imgCarClassSuperEconomy").attr("src_no"));
+                    $("#imgCarClassEconomy").attr("src", $("#imgCarClassEconomy").attr("src_yes"));
+                    $("#imgCarClassVIP").attr("src", $("#imgCarClassVIP").attr("src_no"));
+                    $("#imgCarClassVIPPro").attr("src", $("#imgCarClassVIPPro").attr("src_no"));
+                    $("#imgCarClassVIPSUV").attr("src", $("#imgCarClassVIPSUV").attr("src_no"));
+                    $("#imgCarClassSuperVIP").attr("src", $("#imgCarClassSuperVIP").attr("src_no"));
+                    
+                    $("#lbl_car_class").text($("#imgCarClassEconomy").attr("txt"));
+                    $("#car_class").val($(this).attr("txt"));
 
-<script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoicmVkaGF0NSIsImEiOiJjazV1cDdramoweDQwM2hsbzdqeGg2eXJwIn0.rE2Vf8qf_hAr3ZN2uAlQuw';
+                    selected_carClass = imgCarClassEconomy;
+                    $("#car_classs img").click(function(){
+                        if (this != selected_carClass){
+                            $(selected_carClass).attr("src", $(selected_carClass).attr("src_no"));
+                            $(this).attr("src", $(this).attr("src_yes"));
+                            selected_carClass = this;
+                            
+                            var class_type = $(selected_carClass).attr("type");
+                            
+                            if (class_type == 'super_eco')// && !IsOriginInTehranOrKaraj())
+                                $("#btnContinueRequest").attr("disabled", "disabled");
+                            else
+                                $("#btnContinueRequest").removeAttr("disabled");
+                            
+                            var multipliercheap = $(selected_carClass).attr("multipliercheap");
+                            var multiplierfix = $(this).attr("multiplierfix");
+                            var multipliervar = $(this).attr("multipliervar");
+                            var cmultiplier = getMultiplier(multiplierfix, multipliercheap, multipliervar, vDistance, class_type);
+                            cadditive = getAdditive(distance_real, class_type) + GetChaloosRoadTolls() + GetKhoramAbad_AndimeshRoadTolls() + GetFashamShemshakAddtitive() + GetNoordoozAddtitive(class_type) + GetNonTehranToOrFromNorthAdditive();
+                            //cmultiplier = cmultiplier * GetTehranToNorthMultiplier(vDistance);
+                            cost_car_class = rond(cost*cmultiplier + cadditive);
+                            
+                            if (routesource == 'db')
+                                cost_car_class = getMultiplierOldPaths(_old_go_fare, multiplierfix, $('#imgCarClassEconomy').attr("multiplierfix"));
 
-    // فعال کردن پلاگین RTL
-    mapboxgl.setRTLTextPlugin(
-        "https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js",
-        null,
-        true
-    );
+                            if (
+                                getCookie('rid') == '163594' || 
+                                getCookie('rid') == '237906'){
+                                cost_car_class = 10000;
+                            }
+                        
+                        
+                            var return_price = rond((cost_car_class)/2); //rond((cost_car_class - cadditive)/2);
+                            
+                            console.log('multiplierfix: ' + multiplierfix + '  multipliercheap: ' + multipliercheap + '  multipliervar: ' + multipliervar + '  vDistance: ' + vDistance);
 
-    // ایجاد نقشه
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11', // استفاده از استایل نقشه فارسی
-        center: [51.3890, 35.6892], // مختصات تهران
-        zoom: 12
-    });
+                            $("#go_fare").val(cost_car_class);
+                            $("#car_class").val($(this).attr("txt"));
+                            $("#lbl_car_class").text($(this).attr("txt"));
+                            $("#lblMessage").text("کرایه این مسیر " + toCommas(cost_car_class) + " تومان");
+                            $("#lblPrice1").text(toCommas(cost_car_class) + " تومان");
+                            $("#fare_init").val(cost_car_class);
+                            $("#car_class_init").val($("#car_class").val());
+                            $("#car_class_id_init").val(class_type);
+                            
+                            $("#lblPrice1_rial").text(toCommas(cost_car_class*10) + " ریال");
+                            $("#lblReturnPrice").text(toCommas(return_price) + " تومان");
+                            fare_base = cost_car_class;
 
-    // افزودن کنترل جستجو
-    const geocoder = new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        placeholder: "منطقه را جستجو کنید",
-        mapboxgl: mapboxgl
-    });
-    map.addControl(geocoder, 'top-left');
-
-    let startPoint = null;
-    let endPoint = null;
-    let startMarker = null;
-    let endMarker = null;
-
-    // افزودن مارکر قابل جابجایی
-    function addDraggableMarker(lngLat, color, isStartPoint) {
-        const marker = new mapboxgl.Marker({
-            color: color,
-            draggable: true
-        })
-        .setLngLat(lngLat)
-        .addTo(map);
-
-        marker.on('dragend', () => {
-            const newLngLat = marker.getLngLat();
-            if (isStartPoint) {
-                startPoint = [newLngLat.lng, newLngLat.lat];
-            } else {
-                endPoint = [newLngLat.lng, newLngLat.lat];
-            }
-            checkRoute();
-        });
-
-        return marker;
-    }
-
-    // انتخاب نقطه با کلیک روی نقشه
-    map.on('click', (e) => {
-        const coordinates = [e.lngLat.lng, e.lngLat.lat];
-        if (!startPoint) {
-            // اگر نقطه شروع هنوز انتخاب نشده باشد
-            if (startMarker) startMarker.remove();
-            startPoint = coordinates;
-            startMarker = addDraggableMarker(startPoint, 'green', true);
-            console.log(`نقطه شروع انتخاب شد: ${startPoint}`);
-        } else if (!endPoint) {
-            // اگر نقطه شروع انتخاب شده و نقطه پایان انتخاب نشده باشد
-            if (endMarker) endMarker.remove();
-            endPoint = coordinates;
-            endMarker = addDraggableMarker(endPoint, 'red', false);
-            console.log(`نقطه پایان انتخاب شد: ${endPoint}`);
-            checkRoute();  // بعد از انتخاب مقصد، مسیر نمایش داده شود
-        } else {
-            // اگر هر دو نقطه قبلاً انتخاب شده‌اند
-            console.log("هر دو نقطه قبلاً انتخاب شده‌اند. ابتدا یکی را جابجا کنید.");
-        }
-    });
-
-    // محاسبه و نمایش مسیر
-    function checkRoute() {
-        if (startPoint && endPoint) {
-            const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${startPoint[0]},${startPoint[1]};${endPoint[0]},${endPoint[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    const route = data.routes[0].geometry;
-                    const distance = data.routes[0].distance / 1000; // به کیلومتر
-                    let duration = data.routes[0].duration / 60; // به دقیقه
-
-                    console.log(`مسافت: ${distance.toFixed(2)} کیلومتر`);
-                    console.log(`زمان تقریبی: ${formatDuration(duration)}`);
-
-                    if (map.getSource('route')) {
-                        map.removeLayer('route');
-                        map.removeSource('route');
-                    }
-
-                    map.addSource('route', {
-                        type: 'geojson',
-                        data: {
-                            type: 'Feature',
-                            geometry: route
                         }
                     });
-                    map.addLayer({
-                        id: 'route',
-                        type: 'line',
-                        source: 'route',
-                        layout: {
-                            'line-join': 'round',
-                            'line-cap': 'round'
-                        },
-                        paint: {
-                            'line-color': '#3887be',
-                            'line-width': 5,
-                            'line-opacity': 0.75
-                        }
-                    });
-
-                    const bounds = turf.bbox(route);
-                    map.fitBounds(bounds, { padding: 20 });
                 });
+                function managePets(){
+                    if ($('#chkPet').is(':checked')){
+                        if ($('#pet_type').val() == 'DOGS'){
+                            if ($('#chkPetCage').is(':checked')){
+                                return $('#pet_count').val()*5;
+                            }else{
+                                return $('#pet_count').val()*10;
+                            }
+                        }else if ($('#pet_type').val() == 'DOGM'){
+                            return $('#pet_count').val()*10;
+                        }else if ($('#pet_type').val() == 'DOGL'){
+                            return $('#pet_count').val()*20;
+                        }else if ($('#pet_type').val() == 'CAT'){
+                            if (!$('#chkPetCage').is(':checked')){
+                                return $('#pet_count').val()*7;
+                            }
+                        }
+                    }
+                    return 0;
+                }
+                var fare_base; // Toman
+                function refresh_fare_total(){
+                    fare_total = fare_base;
+                    if ($('#return_same_day_init').is(':checked'))
+                        fare_total *= 1.5;
+                    fare_total = rond(fare_total);
+                    fare_total *= 1+manageChilds()/100;
+                    
+                    
+                    fare_total *= getDateTimeMultiplier();
+                    fare_total *= getDateTimeMultiplierFromNorth();
+                    fare_total *= getDateTimeMultiplierFromAllExceptNorthAndTehranKaraj();
+                    fare_total *= getDateTimeMultiplierFromAll();
+                    
+                    
+                    
+                    
+                    fare_total *= 1+managePets()/100;
+                    
+                    var pickupFare = GetPickupFare();
+                    if ($('#chkPickup').is(':checked'))
+                        fare_total += pickupFare;
+
+                    fare_total += parseInt($("#wait_init").val())*parseInt($(selected_carClass).attr("wait"))*1000;
+
+                    fare_total = rond(fare_total);
+                    $("#lblPrice1").text(toCommas(fare_total) + " تومان");
+                    $("#lblPrice1_rial").text(toCommas(fare_total*10) + " ریال");
+                    
+                    $("#fare_total_init").val(fare_total);
+                    
+                    resetReserveTypePanels();
+                    
+                    return fare_total;
+                }
+            </script>
+            
+            
+ 
+ 
+  
+             
+
+
+             
+                         
+                          
+                         
+                        
+            <img id="imgCarClassSuperEconomy" style="display:none1;" src="" src_yes="/images/car_class_super_economy.png" src_no="/images/car_class_super_economy_no.png" txt="اقتصادی (پراید و ...)" 
+                type='super_eco' wait="50"
+                multiplierfix=3.5243842391229 
+                multipliercheap=3.3481650271667 
+                multipliervar=0>
+            <img id="imgCarClassEconomy" src="" src_yes="/images/car_class_economy.png" src_no="/images/car_class_economy_no.png" txt="عادی (سمند، پرشیا و ...)"
+                type='eco' wait="60"
+                multiplierfix=4.0565662592304 
+                multipliercheap=3.700603451079 
+                multipliervar=0>
+            <img id="imgCarClassVIP" src="" src_yes="/images/car_class_vip.png" src_no="/images/car_class_vip_no.png" txt="ویژه (آریو، MVM...)"
+                type='sip' wait="80"
+                style="display:none1;"
+                multiplierfix=5.8152339945527 
+                multipliercheap=5.2865763586843 
+                multipliervar=0 style="">
+
+            <img id="imgCarClassVIPPro" src="" src_yes="/images/car_class_vip.png" src_no="/images/car_class_vip_no.png" txt="VIP (هیوندای، تویوتا و ...)"
+                type='vip_pro' wait="120"
+                multiplierfix=8.1060837499826 
+                multipliercheap=8.1060837499826 
+                multipliervar=0.55>
+
+            <img id="imgCarClassVIPSUV" src="" src_yes="/images/car_class_vip_suv.png" src_no="/images/car_class_vip_suv_no.png" txt="VIP SUV (انواع شاسی بلندها)"
+                type='vip_suv' wait="150"
+                multiplierfix=10.925591141281 
+                multipliercheap=10.925591141281 
+                multipliervar=0.55>
+
+                        
+            
+            
+            <div id="lbl_tolls_message" style="display:none;color:#fff700;font-size:12px;direction:rtl;"></div>
+            <span id="lbl_car_class" style="display:block;font-size:12px;direction:rtl;">&nbsp;</span>
+        </div>
+        
+        <div>
+            <div id="lblMessage" style="padding:4px;font-size:14px;display: inline-block;" dir="rtl" onclick="simulateButtonClick();" ondblclick="alert('مسافت: ' + Math.floor($('#go_distance').val()) + ' کیلومتر\nزمان: ' + $('#go_duration').val() + '\nAdditive: ' + cadditive + (auto_type?' Auto':''));")>مبدا ( اول ) را مشخص نمائید</div>
+        </div>
+        <div id="panelToName" style="padding:4px;font-size:12px;display:none;">
+            <a href="https://www.hamsafartaxi.com"><img src="/images/close.png" style="cursor:pointer;width:16px;position:relative;top:4px;"></a>
+            <span id="lblToName" ></span>
+        </div>
+        <a id="btnContinueRequest" style="display:none;margin:4px;" class="btn waves-effect waves-light btn-small modal-trigger" data-target="panelModal" onclick="submitFormRequest();">... ادامه</a>
+        <a id="btnContinueRequest1" style="margin:4px;display:none;" class="btn waves-effect waves-light btn-small modal-trigger" data-target="panelModal" onclick="grecaptcha.reset();"></a>
+		
+		<img id="btnUndo" src="/images/undo.png" style="display:none;position:absolute;padding:4px;width:30px;height:36px;left:4px;bottom:4px;cursor: pointer;z-index:1;" class="tooltipped" data-position="top" data-delay="50" data-tooltip="test">
+	    <img id="btnShare" onclick="share();" src="/images/share.png" style="display:none;position:absolute;padding:4px;width:30px;height:36px;right:4px;bottom:4px;cursor: pointer;z-index:1;" class="tooltipped" data-position="top" data-delay="50" data-tooltip="به اشتراک گذاری">
+
+    </div>
+    
+    <textarea id="clipboarder" style="display:none1;position:absolute;width: 0px; height: 0px;z-index: 0;top:-10px;left:-10;"></textarea>
+
+    <script>
+        function share(){
+            var cls = selected_carClass.id.replace("imgCarClass","");
+            var epoch = Math.round((new Date()).getTime() / 1000);
+            CopyToClipBoard("https://www.hamsafartaxi.com?rnd=" + epoch + randomString(5) + "&"+
+                "from="+float_round(getLat(origin_point))+","+float_round(getLng(origin_point)) + "&"+
+                "to="+float_round(getLat(destination_point))+","+float_round(getLng(destination_point)) + "&"+
+                "cls="+cls);
         }
-    }
-
-    // فرمت زمان براساس دقیقه، ساعت و روز
-    function formatDuration(duration) {
-        if (duration < 60) {
-            return `${duration.toFixed(0)} دقیقه`;
-        } else if (duration < 1440) {
-            const hours = Math.floor(duration / 60);
-            const minutes = duration % 60;
-            return `${hours} ساعت و ${minutes.toFixed(0)} دقیقه`;
-        } else {
-            const days = Math.floor(duration / 1440);
-            const hours = Math.floor((duration % 1440) / 60);
-            const minutes = duration % 60;
-            return `${days} روز و ${hours} ساعت و ${minutes.toFixed(0)} دقیقه`;
+        
+        function float_round(f){
+            return Math.round(f * 1000000) / 1000000
         }
-    }
+        
+        function CopyToClipBoard(text) {
+    		$("#clipboarder").val(text);
+            var copyTextarea = document.querySelector("#clipboarder");
+            copyTextarea.select();
 
-    // تابع ریست کردن نقاط و مسیر
-    function resetMarkers() {
-        if (startMarker) startMarker.remove();
-        if (endMarker) endMarker.remove();
-        if (map.getSource('route')) {
-            map.removeLayer('route');
-            map.removeSource('route');
+            try {
+                var successful = document.execCommand('copy');
+                if (successful){
+                    M.toast({html: "<div style='text-align:right;'>"+"لینک کپی شد" + "<br><span style='font-family:tahoma;font-size:10px;'>" + text.substring(0, 40) + "...</span></div>", displayLength:1001, classes: 'rounded'});
+                }
+            } catch (err) {
+                //console.log('Oops, unable to copy');
+            }
         }
-        startPoint = null;
-        endPoint = null;
-        startMarker = null;
-        endMarker = null;
-        console.log("نقاط و مسیر ریست شد.");
-    }
 
-    // افزودن event listener به دکمه ریست
-    document.getElementById('reset-btn').addEventListener('click', resetMarkers);
+    </script>
+    
 
-</script>
+    <div class="progress" style="position: absolute;bottom: 1px;z-index: 1;margin:0px;">
+        <div id="progress_bar" class="determinate" style="width: 0%"></div>
+    </div>
+    
+    
+    <style>
+        #zoomin{
+            display:none1;
+            position:fixed;
+            right:8px;
+            bottom:181px;
+            cursor: pointer;
+            z-index:1;
+            
+        }
+        #zoomout{
+            display:none1;
+            position:fixed;
+            right:8px;
+            bottom:150px;
+            cursor: pointer;
+            z-index:1;
+            
+        }
+        #myLocation{
+            display:none;
+            position:fixed;
+            right:8px;
+            bottom:110px;
+            cursor: pointer;
+            z-index:1;
+            
+        }
+        
+        @media screen and (max-width: 600px) {
+          #myLocation1 {
+            top:8px;
+            bottom:auto;
+          }
+        }
+        @media screen and (max-width: 500px) {
+          #myLocation1 {
+            top:64px;
+            bottom:auto;
+          }
+        }
+    </style>
 
+    <img id="zoomout" src="/images/zoom-out.png" width="30px" height="30px" class="tooltipped not-selectable" data-position="left" data-delay="50">
+    <img id="zoomin" src="/images/zoom-in.png" width="30px" height="30px" class="tooltipped not-selectable" data-position="left" data-delay="50">
+    
+    <img id="myLocation" alt="HamsafarTaxiMyLocation" src="/images/MyLocation.png" width="30px" height="30px" class="tooltipped not-selectable" data-position="left" data-delay="50" data-tooltip="برو به موقعیت من">
+    <img id="btnSearch" src="/images/magnifier-tool.png" width="30px" height="30px" class="not-selectable" style="position:fixed;left:16px;top:12px;cursor: pointer;z-index:1;display:none1;">
+    <div id="map" style="position:absolute;flex: 1 1 auto;width: 100%; height:100%;z-index: 0;" ></div>
+    <div id="mapOverlay" style="position:absolute;flex: 1 1 auto;width: 100%; height:100%;z-index: 1;background-color:#00000035;display:none;overflow-y: hidden;"></div>
+    <img id="mapImageInit" style="background-image: url(images/mapinit1.jpg);background-position: center;position:absolute;flex: 1 1 auto;width: 100%; height:100%;z-index: 1;background-color:#00000035;display:block;overflow-y: hidden;">
+    <div id="mapOverlayInit" style="position:absolute;flex: 1 1 auto;width: 100%; height:100%;z-index: 3;background-color:#000000D5;display:block;overflow-y: hidden;"  onmousedown="$('#keys').hide();"></div>
+    <div id="mapOverlayInitPanel" style="position:absolute;flex: 1 1 auto;width: 100%; height:100%;z-index: 3;display:block;overflow-y: hidden;text-align: center;top: 40%;" onmousedown="$('#keys').hide();">
+                <a id="btnStart" style="margin: 4px;height: 52px;width: 166px;line-height: 52px;font-size: 26px;border-radius: 26px;" class="btn waves-effect waves-light btn-small" onclick="start(true);">
+            شروع کنید        </a>
+                    <br><br><a id="btnStart" style="margin: 4px;height: 40px;width: 140px;line-height: 42px;font-size: 17px;border-radius: 26px;" class="btn waves-effect waves-light btn-small" href="login.php">ثبت نام / ورود</a>
+        
+        <style>
+            .alternative-no-filter{
+                position:absolute;
+                z-index: 1;
+                text-align: center;
+                font-size: 17px;
+                width: 100%;
+            }
+        </style>
+        <div id="panelAlternative" class="alternative-no-filter" style="margin-top: 32px;display:none;">
+            <span style="text-align:center;">
+                <span style="color:white;font-size: 12px;">
+                نسخه با کیفیت تر، اما فقط با فیلترشکن
+                </span>
+                <br>
+                <a style="margin: 4px;height: 37px;width: 94px;line-height: 40px;font-size: 15px;border-radius: 26px" class="btn waves-effect waves-light btn-small" href="https://hamsafartaxi.com/old.php">
+                    مشاهده
+                </a>
+            </span>
+        </div>
+        
+
+                <div style="margin: 4px;height: 52px;font-size: 16px;color:#ef66c7;direction:rtl;display:none;">
+            <center>
+                <div style="display:inline-block;">
+                    سال نو مبارک
+                    <img src="./images/flower.png" style="width:34px;position:relative;top:13px;">
+                </div>
+            </center>
+        </div>
+                <div style="margin: 4px;height: 52px;font-size: 16px;color:#ef66c7;direction:rtl;display:none;">
+            <center>
+                <div style="display:inline-block;;">
+                    یلدا مبارک
+                    <img src="./images/flower.png" style="width:34px;position:relative;top:13px;">
+                </div>
+            </center>
+        </div>
+                    <div style="margin: 4px;height: 52px;font-size: 16px;color:white;direction:rtl;">
+                <center>
+                    <div id="keys" style="color:#292827;cursor: default;" onmousedown="$('#keys').hide();"> 
+                        تاک����ی فرودگاه امام, سرویس دربستی, سواری برون شهری, سواری بین شهری, سواری دربستی, سرویس دربست, تاکسی بین شهری, تاکسی دربستی
+                        <br>
+                        تاکسی برون شهری, تاکسی دربست, تاکسی دربست بین شهری, سواری دربست, دربست برون شهری, تاکسی vip,رویال سفر
+                    </div>
+                                    </center>
+            </div>
+            <div style="display:none;">
+                <br><br><br><br>
+                <a href="https://www.taxivan.ir/?openexternal" target="_blank" style="margin: 4px;height: 52px;width: 286px;line-height: 52px;font-size: 18px;border-radius: 26px;" class="btn waves-effect waves-light btn-small">درخواست اجاره ون دربستی</a>
+            </div>
+            </div>
+    
+            
+    <div id='enamad1' style='display:none1;'>
+        <style>
+            #enamad1{
+                z-index: 998;
+                position: fixed;
+                left: -8px;
+                bottom: 0px;
+                width: 10px;
+            }
+            #enamad1 img {
+                width: 75px;
+            }
+        </style>
+        <div style="display:inline-block;position:relative;">
+            
+            <a referrerpolicy="origin" target="_blank" href="https://trustseal.enamad.ir/?id=184272&amp;Code=TEDqYtZeKLbuCVoudRlr">
+                <img referrerpolicy="origin" src="./images/enamad_2.png" alt="" style="cursor:pointer;position: relative;z-index:0;">
+            </a>
+        </div>
+        
+    </div>
+        
+	<style>
+		#pac-input{
+			width: 75%;
+			max-width:500px;
+			background-color: white;
+			padding-left: 36px;
+			padding-right: 8px;
+			direction: rtl;
+			margin-left: 16px;
+			margin-right: 50px;
+		}
+        @media screen and (max-width: 600px) {
+          #pac-input {
+            margin-right: 50px;
+          }
+        }
+	</style>
+	
+    <div id="place-container" class="ui-widget" style="z-index: 5;">
+        <style>
+            #place-container{
+                position: absolute;
+                z-index: 1;
+    			left: 50px;
+            }
+            #place, #company_initX{
+                background-color: white;
+                margin: 8px;
+                border-radius: 19px;
+                padding: 0px 17px;
+                height: 32px;
+                font-family:IRANSans;
+            }
+            .ui-menu-item .ui-menu-item-wrapper{
+                font-family:IRANSans;
+            }
+        </style>
+        <input id="place" dir=auto style="display:none;" placeholder="جستجوی نام شهر" autocomplete="off">
+        
+    </div>
+    <script>
+        $(document).ready(function(){
+            $(".request_type").siblings('span').css("height", "unset");
+            $("#place").autocomplete({
+                source: function(request, response){
+                    response(select(request.term, max_count = 5));
+                    $("#ui-id-1").css("direction", $("#place").css("direction"));
+                },
+                focus: function( event, ui ) {
+                    //$("#place").val( ui.item.label );
+                    //console.log(ui.item.label);
+                    return false;
+                },
+                select: function( event, ui ) {
+                    if (ui.item.label == 'مسیر کوتاه فعال شود'){
+                        $( "#place" ).val('');
+                        forbid_short_distances = false;
+                        M.toast({html: "مسیرهای کوتاه فعال شد", displayLength:3000, classes: 'rounded'});
+                    }else if (ui.item.label == 'neshanp'){
+                        routesource = "neshan";
+                        M.toast({html: "neshan route enabled", displayLength:3000, classes: 'rounded'});
+                        $( "#place" ).val('');
+                    }else if (ui.item.label == 'gpath'){
+                        routesource = "google";
+                        M.toast({html: "google route enabled", displayLength:3000, classes: 'rounded'});
+                        $( "#place" ).val('');
+                    }else if (ui.item.label == 'hpath'){
+                        routesource = "hamsafar";
+                        M.toast({html: "hamsafar route enabled", displayLength:3000, classes: 'rounded'});
+                        $( "#place" ).val('');
+                    }else if (ui.item.label == 'لیست سفرهای اخیر'){
+                        $( "#place" ).val('');
+                        $("#panelButtonCurrentRequests").show();
+                        $( "#place" ).val('');
+                    }else{
+                        //map.setZoom(13);
+                        var p = create_point(parseFloat(ui.item.lat), parseFloat(ui.item.lng));
+                        //console.log(p);
+                        panToZoom(p, 15);
+                        if (ui.item.label == 'برو به نقطه مشخص')
+                            $("#place").val('');
+                        else
+                            $("#place").val( ui.item.label );
+                    }
+                    
+                    return false;
+                }
+            });
+        });
+	</script>
+	
+    <div id="pac-input-container" style="display:none;">
+		<input id="pac-input" class="controls not-selectable" type="text" placeholder="جستجوی استان و شهر" style="" autocomplete="off">
+	</div>
+    <div id="pac-input-reset-container" style="display:none;">
+		<img id="pac-input-reset" src="/images/close.png" style="z-index:1;position:absolute;left:0px;top:0px;bottom:auto;right:auto;width:24px;height:24px;margin-top:22px;margin-left:24px;cursor:pointer;">
+	</div>
+    
+    
+    <style>
+        .input-field>label{
+            right: 16px;
+            left:auto;
+            text-align: right;
+        }
+        
+        .input-field>label:not(.label-icon).active {
+            -webkit-transform: translateY(-14px) scale(0.98);
+            transform: translateY(-14px) scale(0.98);
+            -webkit-transform-origin: right 0;
+            transform-origin: right 0;
+        }
+        
+        .red-color{
+            color: red;
+        }
+        .input-field>label:not(.label-icon).active .red-color{
+            color: #9e9e9e;
+        }
+        
+    </style>
+    
+    <div id="time_picker" style="text-align:center;height:100%;z-index: 10001;position:absolute;left:0px;width: 100%;display:none;" onmousedown="$('#time_picker').hide();">
+        <div style="background-color:#e3e3e3;display: inline-block;margin-top: 50px;">
+            <div style="font-size: 15px;margin-top: 1px;">عقربه ها را بگردانید</div>
+            <div id="timepicker" onmousedown="event.stopPropagation();" style="margin-top:-10px;"></div>
+        </div>
+    </div>
+    
+    <style>
+        .modal_large{
+            top:5%!important;
+            max-height:90%!important;
+            height:90%!important;
+            width:94%!important;
+        }
+        .modal_small{
+            top:30%!important;
+            height:140px!important;
+            width:90%!important;
+            max-width:300px;
+            background-color: dimgrey; 
+        }
+    </style>
+    <div id="panelModal" class="modal modal_large1 modal-fixed-footer" style="z-index:999;direction:rtl;">
+		<div style="background-color:red;position: absolute;left:0px;top:0px;">
+        	<a class="modal-action modal-close orange lighten-2 waves-effect btn" style="padding-left: 12px;padding-right: 12px;"><i class="material-icons" onclick="$('#iframeContainer iframe').attr('src', '');">close</i></a>
+        </div>
+        <div class="modal-content" style="height:unset;">
+            <div style="position:fixed;background-color: #626262;padding: 8px;z-index:2;top: 8px;right: 8px;">
+                <span id="lblPrice1" style="font-size:24px;color: white;"></span>
+                <span style="color:#c7c7c7;display:none;">معادل </span>
+                <span id="lblPrice1_rial" style="font-size:14px;color: white;"></span>
+            </div>
+            <br><br>
+            <h5 style="margin-bottom:8px;">درخواست تاكسی دربستی</h5>
+            <span style="display: inline-block;margin-top: 12px;margin-right: 42px;visibility: hidden;">کد رزرو:
+                <span id="lblRequestId" style="display:inline-block;color: red;" class="text-selectable"></span>
+                
+            </span>
+            
+            <p>
+				
+				
+			    <style>
+			        #panelConditions0{
+			            list-style: unset;
+			        }
+			        #panelConditions0 li{
+			            list-style-type: unset;
+			            
+			        }
+			        .border-box {
+                        border: 2px solid #dfeef8;
+                        border-radius: 9px;
+                        padding: 6px
+                    }
+			    </style>
+			    
+			    <li id="panelNightAdd" style="color:red;">
+			        هماهنگی شبانه (23 تا 08 صبح ) برای حرکت از ساعت 24 تا حدود 09 صبح، شامل 10-20 درصد افزایش می گردد.
+			    </li>
+			    <li>
+			        لطفا قبل از درخواست سفر، شرایط و قوانین را در پائین همین صفحه مطالعه فرمائید.
+			    </li>
+
+			    <div id="panelInitForm" style="max-width:300px;width:100%;margin:auto;margin-top: 32px;">
+				    <form id="more_info">
+				        <input id="id_init" name="id_init" type="hidden">
+				        <input id="rand_init" name="rand_init" type="hidden">
+				        <input id="fare_init" name="fare_init" type="hidden">
+				        <input id="car_class_id_init" name="car_class_id_init" type="hidden">
+				        <input id="car_class_init" name="car_class_init" type="hidden">
+				        
+				        <input id="fare_total_init" name="fare_total_init" type="hidden" value="">
+
+                        
+                        <div class="border-box">
+                            <div style="text-align:right;" class="snippet">
+                                در صورتی که شخص شما مسافر نیستید، اطلاعات یکی از مسافران را در زیر وارد نمائید
+                            </div>
+                                                        <style>
+                                .btnMySelf {
+                                    background-color: red;
+                                    border-radius: 36px;
+                                    padding: 0px 8px;
+                                    font-size: 12px;
+                                    color: white;
+                                    right: -6px;
+                                    position: relative;
+                                    border: solid 1px red;
+                                    top: -2px;
+                                    cursor: pointer;
+                                }
+                            </style>
+                                                        <table>
+                                <tr>
+                                    <td>
+                                                                                <select id="name_gender_init" name="name_gender_init" style="width:70px;background-color: #fafafa;" class="browser-default">
+                                            <option value="M" >آقای</option>
+                                            <option value="F" >خانم</option>
+                    				    </select>
+                                    </td>
+                                    <td>
+                                        <div class="input-field col s6">
+                                          <input id="name_init" name="name_init" type="text" maxlength="25" value="">
+                                          <label for="name_init" style="white-space: nowrap;">نام و نام خانوادگی مسافر</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+    
+        				    <div class="input-field col s6">
+                              <input id="cellphone_init" name="cellphone_init" type="text" maxlength="17" inputMode="numeric" value="">
+                              <label for="cellphone_init">شماره همراه مسافر</label>
+                            </div>
+                            
+                            
+                                                        
+                            <script>
+                                function chkOrderInfoChange(){
+                                    if($('#chkOrdererInfo').is(':checked')){
+                                        $('#panelOrdererInfo').slideDown();
+                                        $('#btnSwapNames').slideDown();
+                                                                            }else{ 
+                                        $('#panelOrdererInfo').slideUp();
+                                        $('#btnSwapNames').slideUp();
+                                                                            }
+                                }
+                                function swap_orderes(){
+                                    swap_fields('name_gender_init', 'name_gender_init_orderer');
+                                    swap_fields('name_init', 'name_init_orderer');
+                                    swap_fields('cellphone_init', 'cellphone_init_orderer');
+                                }
+                            </script>
+                            <p style="margin-top: 32px;">
+                              <label>
+                                <input id="chkOrdererInfo" type="checkbox" class="filled-in"  onchange="chkOrderInfoChange();" />
+                                <span>شخص شما مسافر نیستید؟</span>
+                              </label>
+                              <img id="btnSwapNames" src="./images/swap.png" style="display:none;width:24px;cursor:pointer;float: left;" onclick="swap_orderes();">
+                            </p>
+    
+                            <div id="panelOrdererInfo" style="display:none;">
+                                <table>
+                                    <tr>
+                                        <td>
+                                                                                        <select id="name_gender_init_orderer" name="name_gender_init_orderer" style="width:70px;background-color: #fafafa;" class="browser-default">
+                                                <option value="M" >آقای</option>
+                                                <option value="F" >خانم</option>
+                        				    </select>
+                                        </td>
+                                        <td>
+                                            <div class="input-field col s6">
+                                              <input id="name_init_orderer" name="name_init_orderer" type="text" maxlength="25" value="">
+                                              <label for="name_init_orderer">نام و نام خانوادگی شما</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+        
+            				    <div class="input-field col s6">
+                                  <input id="cellphone_init_orderer" name="cellphone_init_orderer" type="text" maxlength="17" inputMode="numeric" value="">
+                                  <label for="cellphone_init_orderer">شماره همراه شما</label>
+                                </div>
+                            </div>
+                                                        
+                            
+                            <p style="margin-top: 32px;">
+                              <label>
+                                <input id="chkCompany" type="checkbox" class="filled-in"  onchange="if($(this).is(':checked'))$('#panelCompany').slideDown();else $('#panelCompany').slideUp();" />
+                                <span style="font-size:12px;">در صورت نیاز به فاکتور، آیا به نام شرکت باشد؟</span>
+                              </label>
+                            </p>
+
+                            <div id="panelCompany" class="input-field col s6" style="display:none;">
+                                                              <div style="display: inline-block;max-width: 250px;">
+                                  <input id="company_init" name="company_init" type="text" maxlength="40" value="" autocomplete="off" placeholder="نام شرکت">
+                                  <label for="company_init">نام شرکت جهت صدور فاکتور</label>
+                              </div>
+                              <script>
+                                    function showFavoriteCompanies(){
+                                        /*if (favorites.inv_names.length > 0){
+                                            Swal.fire({
+                                              title: "خطا !",
+                                              text: 'هیچ شرکتی ثبت نکرده اید',
+                                              icon: "error",
+                                              confirmButtonText: "بسیار خب",
+                                            });
+                                            return;
+                                        }*/
+                                        $("#company_init").autocomplete("search", "open");
+                                    }
+                                    $(document).ready(function () {
+                                        
+                                        $("#company_init").autocomplete({
+                                            source: function(request, response){
+                                                if (request.term != 'open')
+                                                    return;
+                                                var lst = [];
+                                                favorites.inv_names.forEach(function (inv_name) {
+                                                    console.log(inv_name);
+                                                    var fav_inv_name = inv_name.name;
+                                                    if (fav_inv_name == undefined)
+                                                        return;
+                                                    lst.push({lat: 0, label:fav_inv_name});
+
+                                                });
+                                                
+                                                response(lst);
+                                                $(".ui-autocomplete").css("z-index", 1003);
+                                                $("#ui-id-2").css("direction", $("#company_init").css("direction"));
+                                            },
+                                            focus: function( event, ui ) {
+                                                //$("#company_initX").val( ui.item.label );
+                                                //console.log(ui.item.label);
+                                                return false;
+                                            },
+                                            select: function( event, ui ) {
+                                                $("#company_init").val( ui.item.label );
+                                                return;
+                                                if (ui.item.label == 'مسیر کوتاه فعال شود'){
+                                                    $( "#company_init" ).val('');
+                                                    forbid_short_distances = false;
+                                                    M.toast({html: "مسیرهای کوتاه فعال شد", displayLength:3000, classes: 'rounded'});
+                                                }else if (ui.item.label == 'لیست سفرهای اخیر'){
+                                                    $( "#company_init" ).val('');
+                                                    $("#panelButtonCurrentRequests").show();
+                                                }else{
+                                                    $( "#company_init" ).val( ui.item.label );
+                                                    //map.setZoom(13);
+                                                    var p = create_point(parseFloat(ui.item.lat), parseFloat(ui.item.lng));
+                                                    console.log(p);
+                                                    panToZoom(p, 15);
+                                                }
+                                                return false;
+                                            }
+                                        , minLength: 0}).focus(function(){
+                                            
+                                        });
+                                    });
+                              </script>
+                            </div>
+                         </div>
+                         <br>
+                         <div class="border-box">
+        				    <div style="margin-right:16px;color:#9e9e9e;">
+        				        زمان حرکت:
+        				        <script>
+        				            function getDateTimeMultiplierFromAll(){ // warm weather
+                                        var dt_mults = [['1403/04/21', 1.10, 1.10],
+                                                        ['1403/04/22', 1.10, 1.10],
+                                                        ['1403/04/23', 1.10, 1.10],
+                                                        ['1403/04/24', 1.10, 1.10],
+                                                        ['1403/04/25', 1.10, 1.10],
+                                                        ['1403/04/26', 1.10, 1.10],
+                                                        ['1403/04/27', 1.10, 1.10],
+                                                        ];
+                                        var date = $("#departure_init option:selected").attr('dt'); // '1400/12/19'
+        				                var hour = $("#time_init_h").val();
+        				                var mult = 1.00;
+        				                for(i=0;i<dt_mults.length;i++){
+        				                    if (date == dt_mults[i][0]){
+        				                        if (hour < 14)
+        				                            mult = dt_mults[i][1];
+        				                        else
+        				                            mult = dt_mults[i][2];
+        				                    }
+        				                }
+        				                //if (mult > 1.00 && !IsOriginInTehranOrKaraj())
+        				                    //mult = 1.00;
+
+        				                return mult;
+        				            }
+        				            
+        				            function getDateTimeMultiplierFromAllExceptNorthAndTehranKaraj(){
+        				                if (pointInPolygon(origin_point, northAll))
+        				                    return 1;
+        				                if (!isInside(destination_point, [35.919317, 50.724024, 35.298115, 52.315391])) // Not in Karaj, Tehran, IKIA
+                                            return 1;
+                                        var dt_mults = [['1403/01/12', 1.00, 1.10],
+                                                        ['1403/01/13', 1.15, 1.10],
+                                                        ['1403/01/22', 1.05, 1.10],
+                                                        ['1403/01/24', 1.10, 1.15],
+                                                        ['1403/01/25', 1.10, 1.05],
+                                                        
+                                                        ['1403/02/15', 1.10, 1.15],
+                                                        ['1403/02/16', 1.10, 1.00],
+                                                        
+                                                        ['1403/03/13', 1.10, 1.10],
+                                                        ['1403/03/18', 1.05, 1.10],
+                                                        ['1403/03/19', 1.10, 1.00],
+                                                        ];
+                                        var date = $("#departure_init option:selected").attr('dt'); // '1400/12/19'
+        				                var hour = $("#time_init_h").val();
+        				                var mult = 1.00;
+        				                for(i=0;i<dt_mults.length;i++){
+        				                    if (date == dt_mults[i][0]){
+        				                        if (hour < 14)
+        				                            mult = dt_mults[i][1];
+        				                        else
+        				                            mult = dt_mults[i][2];
+        				                    }
+        				                }
+        				                //if (mult > 1.00 && !IsOriginInTehranOrKaraj())
+        				                    //mult = 1.00;
+
+        				                return mult;
+        				            }
+        				            function getDateTimeMultiplierFromNorth(){
+        				                if (!pointInPolygon(origin_point, northAll))
+        				                    return 1;
+        				                var dt_mults = [['1402/02/03', 1.10, 1.20],
+                                                        ['1402/02/04', 1.10, 1.00],
+                                                        
+                                                        ['1402/02/29', 1.10, 1.15],
+                                                        ['1402/02/30', 1.10, 1.00],
+
+                                                        ['1402/03/15', 1.05, 1.15],
+                                                        ['1402/03/16', 1.10, 1.10],
+                                                        
+                                                        ['1402/04/09', 1.05, 1.10],
+                                                        ['1402/04/10', 1.10, 1.00],
+
+                                                        ['1402/05/06', 1.10, 1.20],
+                                                        ['1402/05/07', 1.10, 1.00],
+
+                                                        ['1402/06/17', 1.10, 1.20],
+                                                        ['1402/06/18', 1.10, 1.00],
+ 
+                                                        ['1402/06/25', 1.10, 1.20],
+                                                        ['1402/06/26', 1.10, 1.00],
+
+                                                        ['1403/01/04', 1.15, 1.20],
+                                                        ['1403/01/12', 1.15, 1.15],
+                                                        ['1403/01/13', 1.25, 1.25],
+                                                        ['1403/01/14', 1.15, 1.00],
+                                                        ['1403/01/17', 1.10, 1.15],
+                                                        ['1403/01/24', 1.10, 1.20],
+                                                        ['1403/01/25', 1.20, 1.10],
+                                                        
+                                                        ['1403/02/15', 1.15, 1.20],
+                                                        ['1403/02/16', 1.15, 1.00],
+
+                                                        ['1403/03/18', 1.15, 1.20],
+                                                        ['1403/03/19', 1.15, 1.10],
+                                                        ];
+        				                var date = $("#departure_init option:selected").attr('dt'); // '1400/12/19'
+        				                var hour = $("#time_init_h").val();
+        				                var mult = 1.00;
+        				                for(i=0;i<dt_mults.length;i++){
+        				                    if (date == dt_mults[i][0]){
+        				                        if (hour < 14)
+        				                            mult = dt_mults[i][1];
+        				                        else
+        				                            mult = dt_mults[i][2];
+        				                    }
+        				                }
+        				                //if (mult > 1.00 && !IsOriginInTehranOrKaraj())
+        				                    //mult = 1.00;
+
+        				                return mult; //-0.20;
+        				            }
+        				            function getDateTimeMultiplierFromTehranOrKaraj(){
+        				                if (!IsOriginInTehranOrKaraj())
+        				                    return 1;
+        				                var dt_mults = [
+                                                        ['1402/02/03', 1.10, 1.20],
+                                                        ['1402/02/04', 1.10, 1.00],
+                                                        ];
+        				                var date = $("#departure_init option:selected").attr('dt'); // '1400/12/19'
+        				                var hour = $("#time_init_h").val();
+        				                var mult = 1.00;
+        				                for(i=0;i<dt_mults.length;i++){
+        				                    if (date == dt_mults[i][0]){
+        				                        if (hour < 14)
+        				                            mult = dt_mults[i][1];
+        				                        else
+        				                            mult = dt_mults[i][2];
+        				                    }
+        				                }
+        				                //if (mult > 1.00 && !IsOriginInTehranOrKaraj())
+        				                    //mult = 1.00;
+
+        				                return mult; //-0.20;
+        				            }
+        				            function getDateTimeMultiplier(){
+        				                
+        				                var dt_mults = [['1400/12/22', 1.00, 1.05],
+                                                        ['1400/12/23', 1.05, 1.10],
+                                                        ['1400/12/24', 1.10, 1.20],
+                                                        ['1400/12/25', 1.20, 1.20],
+                                                        ['1400/12/26', 1.20, 1.25],
+                                                        ['1400/12/27', 1.25, 1.25],
+                                                        ['1400/12/28', 1.30, 1.30],
+                                                        ['1400/12/29', 1.35, 1.35],
+                                                        ['1401/01/01', 1.30, 1.30],
+                                                        ['1401/01/02', 1.30, 1.25],
+                                                        ['1401/01/03', 1.25, 1.25],
+                                                        ['1401/01/04', 1.25, 1.25],
+                                                        ['1401/01/05', 1.15, 1.35],
+                                                        ['1401/01/06', 1.05, 1.05],
+                                                        ['1401/01/07', 1.05, 1.05],
+                                                        ['1401/01/08', 1.05, 1.05],
+                                                        ['1401/01/09', 1.05, 1.05],
+                                                        ['1401/01/10', 1.12, 1.12],
+                                                        ['1401/01/11', 1.15, 1.15],
+                                                        ['1401/01/12', 1.20, 1.20],
+                                                        ['1401/01/13', 1.25, 1.25],
+                                                        ['1401/01/14', 1.10, 1.05],
+
+                                                        ['1401/01/31', 1.05, 1.15],
+                                                        ['1401/02/01', 1.15, 1.10],
+                                                        ['1401/02/02', 1.05, 1.05],
+                                                        ['1401/02/03', 1.10, 1.15],
+
+                                                        ['1401/02/08', 1.00, 1.10],
+
+                                                        //['1401/02/11', 1.05, 1.15],
+                                                        //['1401/02/12', 1.10, 1.05],
+                                                        //['1401/02/16', 1.10, 1.15],
+                                                        //['1401/02/17', 1.10, 1.00],
+
+                                                        ['1401/02/11', 1.05, 1.05],
+                                                        ['1401/02/12', 1.10, 1.10],
+                                                        ['1401/02/16', 1.10, 1.10],
+                                                        ['1401/02/17', 1.10, 1.00],
+
+                                                        ['1401/03/03', 1.00, 1.15],
+                                                        ['1401/03/04', 1.00, 1.00],
+                                                        ['1401/03/06', 1.05, 1.05],
+
+                                                        ['1401/03/11', 1.10, 1.30],
+                                                        ['1401/03/12', 1.25, 1.20],
+                                                        ['1401/03/13', 1.20, 1.15],
+
+                                                        ['1401/03/15', 1.20, 1.20],
+                                                        ['1401/03/16', 1.00, 1.00],
+                                                        
+                                                        ['1401/04/15', 1.00, 1.15],
+                                                        ['1401/04/16', 1.15, 1.15],
+                                                        ['1401/04/17', 1.10, 1.00],
+                                                        ['1401/04/19', 1.15, 1.15],
+                                                        ['1401/04/20', 1.10, 1.00],
+
+                                                        ['1401/05/12', 1.00, 1.05],
+                                                        ['1401/05/13', 1.10, 1.15],
+                                                        ['1401/05/15', 1.05, 1.10],
+                                                        ['1401/05/16', 1.10, 1.10],
+                                                        ['1401/05/17', 1.20, 1.20],
+                                                        
+                                                        ['1401/11/26', 1.00, 1.10],
+
+                                                        ['1401/12/16', 1.05, 1.10],
+                                                        ['1401/12/17', 1.10, 1.10],
+                                                        ['1401/12/18', 1.10, 1.10],
+                                                        ['1401/12/19', 1.05, 1.05],
+                                                        ['1401/12/20', 1.05, 1.05],
+                                                        ['1401/12/21', 1.05, 1.05],
+                                                        ['1401/12/22', 1.05, 1.05],
+                                                        ['1401/12/23', 1.15, 1.20],
+                                                        ['1401/12/24', 1.15, 1.20],
+                                                        ['1401/12/25', 1.20, 1.20],
+                                                        ['1401/12/26', 1.20, 1.20],
+                                                        ['1401/12/27', 1.20, 1.20],
+                                                        ['1401/12/28', 1.20, 1.25],
+                                                        ['1401/12/29', 1.30, 1.30],
+                                                        
+                                                        ['1402/01/01', 1.30, 1.30],
+                                                        ['1402/01/02', 1.20, 1.20],
+                                                        ['1402/01/03', 1.20, 1.20],
+                                                        ['1402/01/04', 1.20, 1.20],
+                                                        ['1402/01/05', 1.20, 1.20],
+                                                        ['1402/01/06', 1.20, 1.20],
+                                                        ['1402/01/07', 1.20, 1.20],
+                                                        ['1402/01/08', 1.10, 1.10],
+                                                        ['1402/01/09', 1.20, 1.20],
+                                                        
+                                                        ['1402/01/10', 1.30, 1.30],
+                                                        ['1402/01/11', 1.20, 1.20],
+                                                        ['1402/01/12', 1.20, 1.20],
+                                                        ['1402/01/13', 1.30, 1.30],
+                                                        //['1402/01/14', 1.25, 1.15],
+                                                        
+                                                        //['1402/01/15', 1.20, 1.20],
+                                                        //['1402/01/16', 1.20, 1.20],
+                                                        //['1402/01/17', 1.20, 1.20],
+                                                        //['1402/01/18', 1.20, 1.20],
+                                                        //['1402/01/20', 1.20, 1.20],
+
+                                                        ['1402/01/22', 1.00, 1.10],
+                                                        ['1402/01/23', 1.10, 1.10],
+
+                                                        ['1402/01/30', 1.00, 1.05],
+                                                        ['1402/01/31', 1.10, 1.10],
+
+                                                        ['1402/02/25', 1.00, 1.10],
+                                                        ['1402/02/26', 1.10, 1.00],
+
+                                                        ['1402/03/10', 1.10, 1.15],
+                                                        ['1402/03/11', 1.11, 1.05],
+                                                        
+                                                        ['1402/04/07', 1.10, 1.10],
+                                                        
+                                                        ['1402/04/24', 1.00, 1.10],
+
+                                                        ['1402/05/04', 1.10, 1.20],
+                                                        ['1402/05/05', 1.20, 1.25],
+                                                        ['1402/05/06', 1.25, 1.20],
+
+                                                        ['1402/06/14', 1.10, 1.20],
+                                                        ['1402/06/15', 1.20, 1.10],
+
+                                                        ['1402/06/22', 1.10, 1.20],
+                                                        ['1402/06/23', 1.20, 1.10],
+                                                        
+                                                        ['1402/11/18', 1.10, 1.20],
+
+                                                        ['1402/12/23', 1.10, 1.15],
+                                                        ['1402/12/24', 1.15, 1.15],
+                                                        ['1402/12/25', 1.15, 1.15],
+                                                        ['1402/12/26', 1.15, 1.15],
+                                                        ['1402/12/27', 1.15, 1.20],
+                                                        ['1402/12/28', 1.15, 1.20],
+                                                        ['1402/12/29', 1.20, 1.20],
+                                                        ['1403/01/01', 1.15, 1.15],
+                                                        ['1403/01/02', 1.15, 1.15],
+                                                        ['1403/01/03', 1.05, 1.05],
+                                                        ['1403/01/04', 1.05, 1.05],
+                                                        ['1403/01/05', 1.05, 1.05],
+                                                        ['1403/01/06', 1.05, 1.05],
+                                                        ['1403/01/07', 1.05, 1.05],
+                                                        ['1403/01/08', 1.05, 1.05],
+                                                        ['1403/01/09', 1.15, 1.10],
+                                                        ['1403/01/10', 1.05, 1.05],
+                                                        ['1403/01/11', 1.05, 1.05],
+                                                        ['1403/01/12', 1.05, 1.15],
+                                                        ['1403/01/13', 1.10, 1.10],
+                                                        ['1403/01/14', 1.05, 1.05],
+                                                        ['1403/01/15', 1.05, 1.05],
+                                                        ['1403/01/16', 1.05, 1.05],
+                                                        ['1403/01/17', 1.05, 1.05],
+                                                        ['1403/01/18', 1.05, 1.05],
+                                                        ['1403/01/19', 1.05, 1.05],
+
+                                                        ['1403/01/21', 1.10, 1.15],
+                                                        ['1403/01/22', 1.10, 1.05],
+
+                                                        ['1403/02/12', 1.00, 1.15],
+                                                        ['1403/02/13', 1.10, 1.05],
+                                                        
+                                                        ['1403/03/13', 1.10, 1.20],
+                                                        ['1403/03/14', 1.15, 1.10],
+                                                        ];
+        				                var date = $("#departure_init option:selected").attr('dt'); // '1400/12/19'
+        				                var hour = $("#time_init_h").val();
+        				                var mult = 1.00;
+        				                for(i=0;i<dt_mults.length;i++){
+        				                    if (date == dt_mults[i][0]){
+        				                        if (hour < 14)
+        				                            mult = dt_mults[i][1];
+        				                        else
+        				                            mult = dt_mults[i][2];
+        				                    }
+        				                }
+        				                if (mult > 1.00 && !IsOriginInTehranOrKaraj())
+        				                    mult = 1.00;
+
+        				                return mult; //-0.20;
+        				            }
+        				        </script>
+        				    </div>
+    
+                            <style>
+                                #departure_init li{
+                                    text-align:right;
+                                }
+                                #departure_init{
+                                    padding-right: 30px;
+                                }
+                                
+                            </style>
+                            <script>
+                                function pad(num, size) {
+                                    num = num.toString();
+                                    while (num.length < size) num = "0" + num;
+                                        return num;
+                                }
+                                function timeDiffCalc(dateNow,dateFuture) {
+                                    var newYear1 = new Date(dateNow);
+                                    var newYear2 = new Date(dateFuture);
+                                    
+                                    var dif = (newYear2 - newYear1);
+                                    var dif = Math.round((dif/1000)/60);
+                                    return dif;
+                                }
+                                function refresh_time(){
+                                    if ($("#departure_init option:selected").val() == undefined){
+                                        $("#lbl_departure_time_to").text('خطا: تاریخ سفر را تعیین نمائید');
+                                        $("#lbl_departure_time_to").css('color', '#fe2929');
+                                        return -99999;
+                                    }
+                                    var date = $("#departure_init option:selected").val().split('-')[1];
+                                    var jYear = parseInt(date.substring(0,4));
+                                    var jMonth = parseInt(date.substring(5,7));
+                                    var jDay = parseInt(date.substring(8,10));
+                                    
+                                    var GTime = jalaali.toGregorian(jYear, jMonth, jDay);
+    
+                                    var hour = $("#time_init_h option:selected").val();
+                                    var min = $("#time_init_m option:selected").val();
+                                    
+                                    var depYDate = GTime.gy+"/"+pad(GTime.gm,2)+"/"+pad(GTime.gd,2)+" "+hour+":"+min;
+                                    
+                                    var today = new Date();
+                                    var nowDate = today.getFullYear()+"/"+pad(today.getMonth()+1,2)+"/"+pad(today.getDate(),2)+" "+pad(today.getHours(),2)+":"+pad(today.getMinutes(),2);
+                                    
+                                    $("#lbl_departure_time_to").css('color', '#fe2929');
+                                    var minutes_to_departure = timeDiffCalc(nowDate, depYDate);
+                                    if (minutes_to_departure == undefined || isNaN(minutes_to_departure)){
+                                        $("#lbl_departure_time_to").text('');
+                                        return -9999;
+                                    }
+                                    if (minutes_to_departure < 0){
+                                        $("#lbl_departure_time_to").text('خطا: تاریخ یا زمان سفر در گذشته است');
+                                        return minutes_to_departure;
+                                    }
+                                    if (minutes_to_departure < 15){
+                                        $("#lbl_departure_time_to").text('خطا: زمان کمتر از 15 دقیقه قابل ثبت نیست');
+                                        return minutes_to_departure;
+                                    }
+                                    //console.log(minutes_to_departure);
+                                    var s = "";
+                                    if (minutes_to_departure < 60)
+                                        s = "حدود "+minutes_to_departure + " دقیقه تا زمان حرکت";
+                                    else if (minutes_to_departure < 25*60){
+                                        hours = Math.round(minutes_to_departure/60);
+                                        s = "حدود "+ hours + " ساعت تا زمان حرکت";
+                                    }
+                                    else{
+                                        days = Math.round((minutes_to_departure+60)/(60*24));
+                                        s = "حدود ";
+                                        s += days;
+                                        s += " روز تا زمان حرکت";
+                                    }
+                                    $("#lbl_departure_time_to").css('color', '#26a69a');
+                                    $("#lbl_departure_time_to").text(s);
+                                    return minutes_to_departure;
+    
+                                }
+                            </script>
+                            <div id="departure_init1">
+                                                                <select id="departure_init" name="departure_init" style="width:60px1;background-color: #fafafa;" class="browser-default" onchange="refresh_time();refresh_fare_total();">
+                                <option dt="1403/07/28" value="&#1588;&#1606;&#1576;&#1607;-1403/07/28">امروز &#1588;&#1606;&#1576;&#1607; &nbsp;&nbsp; <span style="direction:ltr;display:inline-block;">1403/07/28</span></option><option dt="1403/07/29" value="&#1610;&#1603;&#1588;&#1606;&#1576;&#1607;-1403/07/29">فردا &#1610;&#1603;&#1588;&#1606;&#1576;&#1607; &nbsp;&nbsp; <span style="direction:ltr;display:inline-block;">1403/07/29</span></option><option dt="1403/07/30" value="&#1583;&#1608;&#1588;&#1606;&#1576;&#1607;-1403/07/30">&#1583;&#1608;&#1588;&#1606;&#1576;&#1607; &nbsp;&nbsp; <span style="direction:ltr;display:inline-block;">1403/07/30</span></option><option dt="1403/08/01" value="&#1587;&#1607;&#32;&#1588;&#1606;&#1576;&#1607;-1403/08/01">&#1587;&#1607;&#32;&#1588;&#1606;&#1576;&#1607; &nbsp;&nbsp; <span style="direction:ltr;display:inline-block;">1403/08/01</span></option><option dt="1403/08/02" value="&#1670;&#1607;&#1575;&#1585;&#1588;&#1606;&#1576;&#1607;-1403/08/02">&#1670;&#1607;&#1575;&#1585;&#1588;&#1606;&#1576;&#1607; &nbsp;&nbsp; <span style="direction:ltr;display:inline-block;">1403/08/02</span></option><option dt="1403/08/03" value="&#1662;&#1606;&#1580;&#1588;&#1606;&#1576;&#1607;-1403/08/03">&#1662;&#1606;&#1580;&#1588;&#1606;&#1576;&#1607; &nbsp;&nbsp; <span style="direction:ltr;display:inline-block;">1403/08/03</span></option><option dt="1403/08/04" value="&#1580;&#1605;&#1593;&#1607;-1403/08/04">&#1580;&#1605;&#1593;&#1607; &nbsp;&nbsp; <span style="direction:ltr;display:inline-block;">1403/08/04</span></option>            				    </select>
+            				</div>
+            				
+        				    <style>
+        				        #time_init td{
+        				            padding:0px 0px;
+        				        }
+        				    </style>
+            				<div id="time_init">
+            				    <table style="direction:ltr;width:unset;">
+            				        
+            				        <tr>
+            				            <td>
+                                            <select id="time_init_h" name="time_init_h" style="width:110px;background-color: #fafafa;font-weight: 800;" class="browser-default" onchange="refresh_time();refresh_fare_total();">
+                                                <option value="">ساعت</option>
+                                                <option value="00">بامداد 00</option>
+                                                <option value="01">01 صبح</option>
+                                                <option value="02">02 صبح</option>
+                                                <option value="03">03 صبح</option>
+                                                <option value="04">04 صبح</option>
+                                                <option value="05">05 صبح</option>
+                                                <option value="06">06 صبح</option>
+                                                <option value="07">07 صبح</option>
+                                                <option value="08">08 صبح</option>
+                                                <option value="09">09 صبح</option>
+                                                <option value="10">10 صبح</option>
+                                                <option value="11">11 صبح</option>
+                                                <option value="12">12 ظهر</option>
+                                                <option value="13">13</option>
+                                                <option value="14">14</option>
+                                                <option value="15">15</option>
+                                                <option value="16">16</option>
+                                                <option value="17">17</option>
+                                                <option value="18">18</option>
+                                                <option value="19">19</option>
+                                                <option value="20">20</option>
+                                                <option value="21">21</option>
+                                                <option value="22">22</option>
+                                                <option value="23">23</option>
+                        				    </select>
+            				            </td>
+            				            <td style="padding:15px 0px;text-align:center;width:20px;">
+            				                :
+            				            </td>
+            				            <td>
+                                            <select id="time_init_m" name="time_init_m" style="width:90px;background-color: #fafafa;" class="browser-default" onchange="refresh_time();">
+                                                <option value="00">دقیقه</option>
+                                                <option value="00">00</option>
+                                                <option value="05">05</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                                <option value="30">30</option>
+                                                <option value="35">35</option>
+                                                <option value="40">40</option>
+                                                <option value="45">45</option>
+                                                <option value="50">50</option>
+                                                <option value="55">55</option>
+                        				    </select>
+            				                
+            				            </td>
+            				        </tr>
+            				        <tr>
+            				            <td colspan="3">
+            				                <div id="lbl_departure_time_to" style="text-align:right;color:#26a69a;font-size:13px;padding-right:24px;"></div>
+            				            </td>
+            				        </tr>
+            				    </table>
+            				</div>
+    
+                            <p id="panel_return_same_day_init" style="margin-top: 16px;margin-bottom: 0px;">
+                              <label>
+                                <input id="return_same_day_init" name="return_same_day_init" type="checkbox" class="filled-in" onchange="refresh_fare_total();return;if($(this).is(':checked'))$('#panelReturn').fadeIn();else $('#panelReturn').fadeOut();" />
+                                <span style="font-size:14px;color: black;">
+                                    بعد از کمی توقف، 
+                                    <span style="color:red;font-weight:bold;">برگشت</span>
+                                     دارید؟
+                                </span>
+                              </label>
+                            </p>
+                            <script>
+                                var animationReCheckReturnTimer;
+                                var animationReCheckReturnTimerCounter;
+                                function reCheckReturn(){
+                                    if ($("#return_same_day_init").attr("disabled") == 'disabled')
+                                        return;
+                                    if ($("#wait_init")[0].selectedIndex == 0)
+                                        return;
+                                    if ($('#return_same_day_init').is(':checked'))
+                                        return;
+                                    Swal.fire({
+                                      title: 'برگشت هم دارید؟',
+                                      showCancelButton: true,
+                                      confirmButtonText: 'بلی',
+                                      cancelButtonText: 'خیر',
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            animationReCheckReturnTimerCounter = 1;
+                                            $("#panel_return_same_day_init").fadeOut('fast', function(){$("#panel_return_same_day_init").show().css('visibility', 'hidden')});
+                                            animationReCheckReturnTimer = setInterval(function(){ 
+                                                if (animationReCheckReturnTimerCounter > 3){
+                                                    clearInterval(animationReCheckReturnTimer);
+                                                    $("#return_same_day_init").prop('checked', true);
+                                                    refresh_fare_total();
+                                                    return;
+                                                }
+                                                if (animationReCheckReturnTimerCounter % 2 == 0){
+                                                    $("#panel_return_same_day_init").fadeOut('fast', function(){$("#panel_return_same_day_init").show().css('visibility', 'hidden')});
+                                                    console.log('Hide');
+                                                }else{
+                                                    $("#panel_return_same_day_init").css('visibility', '').hide().fadeIn('fast');
+                                                    console.log('Show');
+                                                }
+                                                animationReCheckReturnTimerCounter++;
+                                            }, 300);
+                                        }
+                                    });
+                                    
+                                }
+                            </script>
+                            
+                            <div id="panelReturn" class="input-field col s6" style="display:none1;">
+                                <table>
+                                    <tr>
+                                        <td style="padding:0px;text-align:right;font-size:14px;">
+                                            تخمین ساعات توقف:
+                                        </td>
+                                        <td style="padding:0px;">
+                                            <select id="wait_init" name="wait_init" style="width:105px;background-color: #fafafa;" class="browser-default" onchange="reCheckReturn();refresh_fare_total();">
+                                                <option value="0" selected>ندارم</option>
+                                                <option value="0">کمتر از 1</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">بیشتر از 12</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+    
+    
+            				<div class="input-field col s6" style="display:none;">
+                              <input id="time_init" name="time_init" type="text" onfocus="pickATime();" onclick="pickATime();" readonly style="font-weight: 800;text-align:center;cursor:pointer;">
+                              <label for="time_init">ساعت حرکت</label>
+                            </div>
+                        </div>
+                        
+                        <br>
+                        
+    				    <div class="border-box">
+        				    <style>
+        				        #count_init td{
+        				            padding:0px 0px;
+        				        }
+        				        #count_init .labell{
+        				            text-align:center;
+        				            color:gray;
+        				            font-size:12px;
+        				        }
+        				        
+        				    </style>
+        				    <div style="color:black;margin-bottom: 10px;">
+        				        تعداد نفرات:
+        				    </div>
+            				<div id="count_init">
+            				    <table style="direction:rtl;width:100%;">
+            				        <tr>
+            				            <td>
+            				                <div class="labell" style="text-align:right;">
+                				                کودک
+                				                <span style="color:red;">(یا نوزاد)</span>
+            				                </div>
+            				                
+                                            <select id="count_init_child" name="count_init_child" style="width:90px;background-color: #fafafa;" class="browser-default" onchange="manageChilds();refresh_fare_total();">
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                        				    </select>
+            				                
+            				            </td>
+            				            <td style="width:20px;">
+            				               &nbsp;
+            				            </td>
+            				            <td>
+            				                <div class="labell" style="text-align:right;">
+                				                بزرگسال (بالای 12 سال)
+            				                </div>
+                                            <select id="count_init_adult" name="count_init_adult" style="width:120px;background-color: #fafafa;" class="browser-default" onchange="manageChilds();refresh_fare_total();">
+                                                <option value="P">ارسال بسته</option>
+                                                <option value="1" selected>1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                        				    </select>
+            				            </td>
+            				        </tr>
+            				        <tr id="panelNumberWarn" class="labell" style="display:none;">
+            				            <td colspan="3" style="color:red;text-align:right;">
+            				                سفر شما شامل 10% افزایش کرایه می گردد
+            				            </td>
+            				        </tr>
+            				    </table>
+            				</div>
+            				<script>
+            				    function manageChilds(){
+        			                $("#panelNumberWarn").hide();
+            				        var onlyBar = $("#count_init_adult").val() == 'P';
+            				        $("#count_init_child").prop( "disabled", onlyBar );
+            				        if (!onlyBar){
+            				            var adults = parseInt($("#count_init_adult").val());
+            				            var childs = parseInt($("#count_init_child").val());
+            				            if (adults >= 4 || adults+childs > 4){
+            				                $("#panelNumberWarn").fadeIn();
+            				                var i = 5+(adults==4?5:0)+(adults+childs-4)*5;
+            				                var s = "سفر شما شامل ";
+            				                s += i+"%";
+            				                s += " افزایش کرایه می گردد";
+            				                $("#panelNumberWarn").find('td').text(s);
+            				                return i;
+            				            }
+            				        }else{
+            				            $("#panelNumberWarn").fadeIn();
+            				            s = "احتمال افزایش کرایه دارد";
+        				                $("#panelNumberWarn").find('td').text(s);
+            				        }
+        				            return 0;
+            				    }
+            				</script>
+            				
+            				<p style="margin-top: 32px;margin-bottom:0px;">
+                              <label>
+                                <input id="chkPet" name="chkPet" type="checkbox" class="filled-in" onchange="if($(this).is(':checked'))$('#panelPetDesc').slideDown();else $('#panelPetDesc').slideUp();refresh_fare_total();" />
+                                <span style="font-size:12px;"><span style="color:red;">حیوان خانگی</span> همراه دارید؟</span>
+                              </label>
+                            </p>
+                            <div id="panelPetDesc" style="margin-top:8px;display:none;">
+                                <style>
+                                    #panelPetDesc table td{
+                                        padding:0px 2px;
+                                    }
+                                </style>
+                                <table>
+                                    <tr style="color:#b7b6b6;font-size:12px;">
+                                        <td style="text-align:right;padding-right:12px;">نوع
+                                        </td>
+                                        <td style="text-align:right;">تعداد
+                                        </td>
+                                        <td style="text-align:center;">در باکس/کیف خواهد بود؟ 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <select id="pet_type" name="pet_type" style="width:110px;background-color: #fafafa;" class="browser-default" onchange="refresh_fare_total();">
+                                                <option value="DOGS" selected>سگ کوچک</option>
+                                                <option value="DOGM">سگ متوسط</option>
+                                                <option value="DOGL">سگ بزرگ</option>
+                                                <option value="CAT">گربه</option>
+                                                <option value="BIRD">پرنده</option>
+                                                <option value="FISH">آکوواریوم</option>
+                                                <option value="ETC">غیره</option>
+                        				    </select>
+                                        </td>
+                                        <td>
+                                            <select id="pet_count" name="pet_count" style="width:70px;background-color: #fafafa;" class="browser-default" onchange="refresh_fare_total();">
+                                                <option value="1" selected>1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">+3</option>
+                        				    </select>
+                                        </td>
+                                        <td style="text-align: center;">
+                                          <label>
+                                            <input id="chkPetCage" name="chkPetCage" type="checkbox" class="filled-in" onchange="refresh_fare_total();" />
+                                            <span></span>
+                                          </label>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="snippet" style="padding-right:24px;">
+                                    <table>
+                                        <tr>
+                                            <td>شرایط: &nbsp;</td>
+                                            <td>
+                                                می پذیرید که ضمن همراه داشتن لوازم بهداشتی کافی، در صورتی که حیوان باعث آلودگی خودرو گردد، هزینه های پاکسازی آن را بر عهده می گیرید.
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <hr>
+                            </div>
+                            
+                            
+            				<p style="margin-top: 32px;margin-bottom:0px;">
+                              <label>
+                                <input id="chkLuggage" name="chkLuggage" type="checkbox" class="filled-in" onchange="if($(this).is(':checked'))$('#panelLuggageDesc').slideDown();else $('#panelLuggageDesc').slideUp();" />
+                                <span style="font-size:12px;">بار خاصی یا زیادی همراه دارید؟</span>
+                              </label>
+                            </p>
+                            <div id="panelLuggageDesc" class="input-field col s6" style="display:none;">
+                              <input id="luggageDesc" name="luggageDesc" type="text" maxlength="50">
+                              <label for="luggageDesc">جزئیات بار همراه</label>
+                            </div>
+            				<div class="snippet" style="padding-right:24px;">
+                                <table>
+                                    <tr>
+                                        <td>مثال: &nbsp;</td>
+                                        <td>
+                                            بار حجیم یا وزن بالا، خطرناک، آسیب زننده به اتومبیل <br>بار غیر متعارف یا موارد بالا، ممکن است باعث افزایش کرایه گردد.
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            
+                            
+                            
+                        </div>
+        				<br>
+        				
+        				<div class="border-box">
+            				جزئیات آدرس مبدا اول
+            				<div class="input-field col s6">
+                              <input id="origin_desc" name="origin_desc" type="text" maxlength="100" value="">
+                              <label for="origin_desc">کوچه، پلاک و شماره واحد</label>
+                            </div>
+            				<div style="position: relative;height: 24px;">
+            				    <img src="./images/swap.png" style="width:24px;position:absolute;top: -9px;left:17px;cursor:pointer;" onclick="swap_fields('origin_desc', 'destination_desc');">
+            				    <script>
+            				        function swap_fields(field1, field2){
+            				            var temp = $("#"+field1).val();
+            				            $("#"+field1).val($("#"+field2).val());
+            				            $("#"+field2).val(temp);
+            				            M.updateTextFields();
+            				        }
+            				    </script>
+                            </div>
+            				جزئیات آدرس مقصد
+            				<div class="input-field col s6">
+                              <input id="destination_desc" name="destination_desc" type="text" maxlength="100" value="">
+                              <label for="destination_desc">نام محله، خیابان یا کوچه</label>
+                            </div>
+                        </div>
+                        <br>
+                        
+                        <div id="panelPickup" class="border-box" style="display:none;">
+            				خدمات استقبال (پیکاپ)
+                            <p style="margin-top: 8px;margin-bottom:0px;">
+                              <label>
+                                <input id="chkPickup" name="chkPickup" type="checkbox" class="filled-in" onchange="if($(this).is(':checked'))$('#panelPickupInfo').slideDown();else $('#panelPickupInfo').slideUp();refresh_fare_total();" />
+                                <span style="font-size:12px;">تمایل به استفاده از خدمات پیکاپ  دارم</span>
+                              </label>
+                            </p>
+            				
+                            <div id="panelPickupInfo" style="margin-top:8px;display:none;">
+                                <div class="input-field col s6">
+                                  <input id="flight_number" name="flight_number" type="text" maxlength="15">
+                                  <label for="flight_number">شماره پرواز</label>
+                                </div>
+                                <ul style="list-style: unset;margin-top:12px;font-size: .8rem;">
+    				                <li>
+    				                    هزینه این خدمت  
+    				                    <span style="color:red;font-weight: bold;font-size: 1rem;">
+                                            <span id="lblPickupPrice">100,000</span>
+                                            تومان
+                                        </span>
+                                        است
+    				                </li>
+    				                <li>
+    				                    در این خدمت، راننده با در دست داشتن برگه ای حاوی نام مسافر، در گیت خروجی سالن منتظر مسافر خواهد بود
+    				                </li>
+    				                <li>
+    				                    مناسب برای اتباع خارجی یا هموطنانی که شماره تلفن همراه ایرانی جهت هماهنگ شدن با راننده ندارند
+    				                </li>
+    				                <li>
+    				                    توقف تا نیم ساعت رایگان است
+    				                </li>
+    				                <li>
+    				                    حمل بار مسافر تا درب خودرو، جزو وظایف راننده نیست
+    				                </li>
+    				            </ul>
+                            </div> 
+                            <style>
+            			        #panelPickup ul{
+            			            list-style: unset;
+            			        }
+            			        #panelPickup ul li{
+            			            list-style-type: unset;
+            			            
+            			        }
+            			        .border-box {
+                                    border: 2px solid #dfeef8;
+                                    border-radius: 9px;
+                                    padding: 6px
+                                }
+            			    </style>
+                            
+                        </div>
+                        
+                                                
+
+    				</form>
+
+    				<link1 rel="stylesheet" href="/css/timepicker.css">
+                    <script src="/js/timepicker.js"></script>
+                    
+                    
+                    <script>
+                        //var clock = new Timepicker(true);
+                        //document.getElementById('clock').appendChild(clock.getElement());
+                        //clock.show();
+                        
+                        /*clock.callback = function() {
+                            clock.show(); // prevent the widget from being closed
+                        };*/
+                        var time_init = document.getElementById('time_init'),
+                            timepicker = new Timepicker();
+                        
+                        document.getElementById('timepicker').appendChild(timepicker.getElement());
+                        
+                        timepicker.getElement().style.marginTop = '10px';
+                        timepicker.set24Hour(true);
+                        
+                        timepicker.onPicked = function() {
+                          time_init.value = timepicker.getTimeString();
+                          //time_init.selectionStart = 0;
+                          //time_init.selectionEnd = time_init.value.length;
+                          time_init.focus();
+                          $("#time_picker").hide();
+                          
+                        };
+                        
+                        $("#timepicker").find('div').height($("#timepicker").find('div').height()+16);
+                        $("#timepicker").find("button").text("تائید").css("font-family", "IRANSans");
+                        
+                        function pickATime() {
+                          timepicker.show();
+                          $("#time_picker").show();
+                          
+                        }
+                    </script>
+				    <center>
+				        <a id="btnContinueToCall" class="btn waves-effect waves-light btn-small" onclick="submit_more_info();">ادامه...</a>
+				        <img id="btnContinueToCallProgress" src="./images/progress.gif" style="height:24px;display:none;margin:4px;">
+				    </center>
+				    <div style="text-align:center;margin-top:8px;font-size:10px;height: 16px;">
+				        <span id="lblbtnContinueToCallError" style="color:red;display:none;">خطا در ثبت درخواست</span>
+				        <span id="lblbtnContinueToCallUpdateNotAllowed" style="color:red;display:none;">امکان ویرایش درخواست ثبت شده را ندارید</span>
+				        <span id="lblbtnContinueToCallSuccess" style="color:green;display:none;">ثبت گردید</span>
+				    </div>
+				</div>
+				
+			    <div id="panelServiceStopped" style="color: red;text-align: center;font-size: 20px;display:none;">
+			        <hr>
+		            		            <hr>
+		        </div> 
+
+				<div id="panelReserveType" style="text-align:center;display:none;">
+    				<div style="display:inline-block;text-align:right;">
+                        <p id="panelAutoPayThenRegisterTitle" style="margin-bottom: 0px;">
+                          <label>
+                            <input name="register_type" type="radio" onchange="$('#panelReserveContact').slideUp();$('#panelAutoPayThenRegister').slideDown();"/>
+                            <span style="white-space: nowrap;">
+                                پرداخت بیعانه و ثبت آنلاین سفر
+                            </span>
+                          </label>
+                        </p>
+                        <p id="panelAutoRegisterThenPayTitle" style="margin-bottom: 0px;margin-top: 0px;">
+                          <label>
+                            <input name="register_type" type="radio" onchange="$('#panelReserveContact').slideUp();$('#panelAutoRegisterThenPay').slideDown();"/>
+                            <span style="white-space: nowrap;">
+                                ثبت آنلاین درخواست سفر
+                            </span>
+                          </label>
+                        </p>
+    				    <p id="panelpanelContactTitle" style="margin-top: 0px;">
+                          <label>
+                            <input name="register_type" type="radio" onchange="$('#panelReserveContact').slideDown();$('#panelAutoPayThenRegister').slideUp();$('#panelAutoRegisterThenPay').slideUp();" />
+                            <span>رزرو تلفنی</span>
+                          </label>
+                        </p>
+    				</div>
+    			</div>
+    			
+    			<script>
+    			    function do_auto_register(){
+    			        $("#btnAutoRegister").hide();
+    			        $("#btnAutoRegisterProgress").show();
+    			        $("#lblAutoRegisterMessage").text('');
+    			        
+    			        var reg_type = getAutoType();
+    			        var type = 'auto_reg';
+    			        if (reg_type == 'auto_register_candidate')
+    			            type = 'auto_reg_candid';
+                        $.ajax({
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            url: "request_auto_register.php?id="+$("#id_init").val()+"&rand="+$("#rand_init").val()+"&type="+type,
+                            async: true,
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                //console.log("error: " + textStatus + " - " + errorThrown);
+                                $("#lblAutoRegisterMessage").css("color", "red").text('خطا در ثبت درخواست. مجددا سعی کنید');
+                                $("#btnAutoRegister").show();
+                            },
+                            success: function (data) {
+                                                                    console.log('Success: '+data);
+                                    if (data.indexOf('OK') >= 0){
+                                        $("#lblAutoRegisterMessage").css("color", "#33d633").text('ثبت شد. منتظر پیامک باشید...');
+                                    }else{
+                                        $("#lblAutoRegisterMessage").css("color", "red").text('خطا در ثبت درخواست. مجددا سعی کنید');
+                                        $("#btnAutoRegister").show();
+                                    }
+                                                            },
+                            complete: function(){
+                                
+            			        $("#btnAutoRegisterProgress").hide();
+                            }
+                        });
+                    }
+    			</script>
+    			
+    			<div id="panelAutoPayThenRegister" style="display:none;text-align:center;">
+    			    <div>
+    			        مبلغ بیعانه: 
+    			        <span id="lbl_auto_beianeh">58,000</span>
+    			        تومان
+    			    </div>
+    			    <span>
+                        <a id="lnkPayment" class="waves-effect waves-light btn" href="" target="_blank" onclick='return;last_requested_path="";panelModalInstance.close();undo(true);undo(true);';>پرداخت بیعانه و رزرو آنلاین</a>
+                        <img id="lnkPaymentProgress" src="./images/progress.gif" style="height:24px;display:none;margin:4px;margin: 8px 0px 4px 0px;">
+                    </span>
+                    <br>
+                    <span style="display: inline-block;margin-top: 12px;">
+				        کد رزرو شما:
+				        <span id="lblRequestId2" style="display:inline-block;color: red;"></span>
+				    </span>
+				    <br>
+				    <span style="font-size: 14px;margin-top: 11px;display: inline-block;">
+				        <span style="color:red;">توجه:</span>
+				         لطفا جهت پرداخت،
+				        <span style="color:red;">فیلترشکن</span>
+				        خاموش باشد
+				    </span>
+                </div>
+				
+				<div id="panelAutoRegisterThenPay" style="display:none;text-align:center;">
+				     
+        			    پس از یافتن سفیر، پیامکی حاوی لینک
+        			    <span style="color:red;">پرداخت بیعانه</span>
+        			    و پیگیری به شماره
+        			    <span id="lblContactCellphone" style="color:red;font-size:20px;">09124444</span>
+        			    ارسال خواهد شد.
+        			        			<div style="margin-top: 8px;margin-bottom: 8px;color: red;font-weight: bold;">
+        			    لطفا تنها در صورت قطعی بودن سفر، ثبت درخواست نمائید
+        			</div>
+    			    <div id="lblAutoRegisterMessage">
+    			        
+    			    </div>
+    			    <style>
+    			        #swal2-title{
+    			            direction:rtl;
+    			        }
+    			    </style>
+    			    <script>
+    			        function areUSure(){
+    			            Swal.fire({
+                              title: 'آیا اطمینان دارید؟',
+                              showCancelButton: true,
+                              confirmButtonText: 'بله',
+                              cancelButtonText: 'انصراف',
+                            }).then((result) => {
+                              /* Read more about isConfirmed, isDenied below */
+                              if (result.isConfirmed) {
+                                do_auto_register();
+                              }
+                            })
+    			        }
+    			    </script>
+    			    <span id="btnAutoRegister" class="waves-effect waves-light btn" onclick="areUSure();">ثبت درخواست</span>
+    			    <img id="btnAutoRegisterProgress" src="./images/progress.gif" style="height:24px;display:none;margin:4px;">
+                    <div></div>
+                    <span style="display: inline-block;margin-top: 12px;">
+				        کد رزرو شما:
+				        <span id="lblRequestId3" style="display:inline-block;color: red;" class="text-selectable"></span>
+				    </span>
+                </div>
+				
+				<div id="panelReserveContact" style="display:none;">
+    				<style>
+    					[type="radio"]+span:before, [type="radio"]+span:after{
+    						left:auto;
+    						right:0;
+    					}
+    					[type="radio"]+span{
+    						padding-right: 24px;
+    					}
+    				</style>
+    				
+    				<script>
+    					$(document).ready(function () {
+    						$(".request_type").click(function(){
+    						    return;
+    							if (rbRequest.checked){
+    								$("#panelRequest").slideDown("slow");
+    								$("#panelQuickCall").slideUp("slow");
+    							}else{
+    								$("#panelQuickCall").slideDown("slow");
+    								$("#panelRequest").slideUp("slow");
+    							}
+    							
+    						});
+    					});
+    				</script>
+    				    				
+    
+    				
+    
+    				<div id="panelQuickCall" style="text-align: center;">
+    				        				    <div style="height: 26px;">
+                            <div id="lblContactTitle" style="color: red;font-weight: bold;">تماس بگیرید</div>
+                            <script>
+                                $(document).ready(function () {
+                                    setInterval(function(){ $("#lblContactTitle").fadeOut(600, "swing", function(){$("#lblContactTitle").fadeIn(600);}) }, 1200);
+                                });
+                            </script>
+                        </div>
+
+    				    جهت رزرو قطعی، با شماره های زیر تماس حاصل فرمائید
+    					<br>
+    					و کد رزرو خود را اعلام نمائید
+    					<br>
+    					
+    					<span id="panelContactSuper" style="display: inline-block;direction:ltr;margin-top: 8px;">
+    					    <a href="tel:09125381475">0912 538 1475</a>
+    					    <span>&nbsp; - &nbsp; <a href="tel:02144994258">021 44 99 4258</a></span>
+    					</span>
+    					<span id="panelContactAdmin3" style="display: inline-block;direction:ltr;margin-top: 8px;">
+    					    <a href="tel:09014424002">0901 &nbsp;442 4002</a>
+    					    <span style="display:none1;">&nbsp; - &nbsp; <a href="tel:02144994258">021 44 99 42 58</a></span>
+    					</span>
+    					
+    					<span style="display: none;direction:ltr;margin-top: 8px;"><a href="tel:09014424002">0901 442 4002</a> &nbsp; - &nbsp; <a href="tel:02126722397">021 267 22 397</a></span>
+    					<br>
+                        <span style="display: inline-block;margin-top: 12px;visibility: hidden;">
+    				        کد رزرو شما:
+    				        <span id="lblRequestId1" style="display:inline-block;color: red;" class="text-selectable"></span>
+    				    </span>
+    
+    					<br>
+    				</div>
+    				<div id="panelQuickCall-xxx" style="text-align: center;display:none;">
+    					تماس با شماره های: 
+    					<span style="display: inline-block;direction:ltr;"><a href="tel:09014484008">0901 448 4008</a> &nbsp; - &nbsp; <a href="tel:02126722397">021 267 22 397</a></span>
+    				</span>					
+    					<br><hr>
+    				</div>
+    
+                    
+    				 
+                </div>
+                
+                
+                
+                
+				<div id="panelRequest" style="text-align: center;display:none;">
+					<center>
+					    <script>
+                            $(document).ready(function () {
+                                if (getCookie('rid') != null){
+                                    $('#rid').val(getCookie('rid'));
+                                }
+                            });
+                            
+                            $(document).ready(function () {
+                                if (getCookie('name_init') != null){
+                                    //$('#name_init').val(getCookie('name_init'));
+                                }
+                                if (getCookie('cellphone_init') != null){
+                                    //$('#cellphone_init').val(getCookie('cellphone_init'));
+                                }
+                            });
+                            
+                            function chooseAdminUser(){
+                                $("#panelContactSuper").hide();
+                                $("#panelContactAdmin3").hide();
+                                if (false && IsOriginInTehranOrKaraj())
+                                    $("#panelContactAdmin3").show();
+                                else
+                                    $("#panelContactSuper").show();
+                            }
+                            
+                            function showPanelQuickCall(){
+                                $('#panelReserveContact').fadeIn();
+                            }
+
+                            function resetReserveTypePanels(){
+                                $("#panelReserveType").find('[name="register_type"]').prop( "checked", false );
+                                $("#panelReserveType").hide();
+                                $("#panelAutoPayThenRegister").hide();
+                                $("#panelAutoRegisterThenPay").hide();
+                                $("#panelReserveContact").hide();
+                                $('#panelServiceStopped').hide();
+
+                            }
+                            
+                            function cleanString(input) {
+                                var output = "";
+                                for (var i=0; i<input.length; i++) {
+                                    if (input.charCodeAt(i) <= 127) {
+                                        output += input.charAt(i);
+                                    }
+                                }
+                                return output;
+                            }
+                            
+                            var submit_more_info_error_count = 0;
+                            function submit_more_info(){
+                                resetReserveTypePanels();
+                                $("#lblbtnContinueToCallError").hide();
+                                $("#lblbtnContinueToCallUpdateNotAllowed").hide();
+                                try {
+                                    var s = $("#cellphone_init").val()
+                                        //.replace(/&lrm;|\u200E/gi, '').replace(/&rlm;|\u200F/gi, '')
+                                        .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d))
+                                        .replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
+                                    $("#cellphone_init").val(cleanString(s));
+                                    var s = $("#name_gender_init_orderer").val()
+                                        //.replace(/&lrm;|\u200E/gi, '').replace(/&rlm;|\u200F/gi, '')
+                                        .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d))
+                                        .replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
+                                    $("#name_gender_init_orderer").val(cleanString(s));
+                                }catch (exception_var) {}
+                                try {
+                                    var s = $("#cellphone_init").val().replace(/\s/g, "").replace('+98','0');
+                                    if (s[0] != 0 && s.length == 10)
+                                        s = '0' + s;
+                                    $("#cellphone_init").val(s);
+                                    var s = $("#cellphone_init_orderer").val().replace(/\s/g, "").replace('+98','0');
+                                    if (s[0] != 0 && s.length == 10)
+                                        s = '0' + s;
+                                    $("#cellphone_init_orderer").val(s);
+                                }catch (exception_var) {}
+
+                                
+                                
+                                if ($("#chkOrdererInfo").is(':checked') == false){
+                                    $("#name_gender_init_orderer").val("M");
+                                    $("#name_init_orderer").val("");
+                                    $("#cellphone_init_orderer").val("");
+                                }
+                                if ($("#chkCompany").is(':checked') == false){
+                                    $("#company_init").val("");
+                                }
+                                
+                                if ($("#cellphone_init_orderer").val().trim() != '')
+                                    $("#lblContactCellphone").text($("#cellphone_init_orderer").val().trim());
+                                else if ($("#cellphone_init").val().trim() != '')
+                                    $("#lblContactCellphone").text($("#cellphone_init").val().trim());
+                                    
+                                
+                                setCookie('name_gender_init', $("#name_gender_init").val(), 120);
+                                setCookie('name_init', $("#name_init").val(), 120);
+                                setCookie('cellphone_init', $("#cellphone_init").val(), 120);
+                                
+                                setCookie('name_gender_init_orderer', $("#name_gender_init_orderer").val(), 120);
+                                setCookie('name_init_orderer', $("#name_init_orderer").val(), 120);
+                                setCookie('cellphone_init_orderer', $("#cellphone_init_orderer").val(), 120);
+                                
+                                
+                                
+                                setCookie('company_init', $("#company_init").val(), 120);
+                                setCookie('origin_desc', $("#origin_desc").val(), 120);
+                                setCookie('destination_desc', $("#destination_desc").val(), 120);
+                                
+
+                                
+                                if (!validate())
+                                    return false;
+                                
+                                $("#btnContinueToCall").hide();
+                                $("#btnContinueToCallProgress").show();
+                                
+
+                                $.ajax({
+                                    type: "POST",
+                                    contentType: "application/json; charset=utf-8",
+                                    url: "request_more_info.php",
+                                    data: $('#more_info').serialize(),
+                                    dataType: "json",
+                                    async: true,
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        submit_more_info_error_count++;
+                                        $("#lblbtnContinueToCallError").fadeIn();
+                                        if (submit_more_info_error_count < 3){
+                                            setTimeout(function(){ 
+                                                $("#lblbtnContinueToCallError").fadeOut();
+                                            }, 500);
+                                        }else{
+                                            AutoOrManual(true);
+                                            
+                                        }
+                                        console.log("error: " + textStatus + " - " + errorThrown);
+                                        //alert("error: " + textStatus + " - " + errorThrown);
+                                   	    //Materialize.toast("خطا در ارسال پیام. بعدا مجددا تلاش نمائید.", 3000, 'rounded');	
+                                    },
+                                    success: function (data) {
+                                        console.log('Success: '+data);
+                                        
+                                        
+                                        if (data.indexOf('OK') == 0){ 
+                                            submit_more_info_error_count = 0;
+                                            $("#lblbtnContinueToCallSuccess").fadeIn();
+                                            setTimeout(function(){ 
+                                                $("#lblbtnContinueToCallSuccess").fadeOut();
+                                            }, 500);
+                                            
+                                            var requests_list = "'"+$("#id_init").val()+'-'+$("#rand_init").val()+"'";
+                                            if (getCookie('requests_list') != null)
+                                                requests_list = getCookie('requests_list')+','+requests_list;
+                                            setCookie('requests_list', requests_list, 120);
+
+                                            AutoOrManual();
+                                        }else if (data.indexOf('NotAllowed') == 0){
+                                            
+                                            $("#lblbtnContinueToCallUpdateNotAllowed").fadeIn();
+                                        }else{
+                                            submit_more_info_error_count++;
+                                            $("#lblbtnContinueToCallError").fadeIn();
+                                            if (submit_more_info_error_count < 3){
+                                                setTimeout(function(){ 
+                                                    $("#lblbtnContinueToCallError").fadeOut();
+                                                }, 500);
+                                            }else{
+
+                                                
+
+                                                AutoOrManual(true);
+
+                                            }
+                                        }
+                                    },
+                                    complete: function(){
+                                        $("#btnContinueToCall").show();
+                                        $("#btnContinueToCallProgress").hide();
+                                        
+                                        
+                                    }
+                                });
+                            }
+                            var auto_type_setting = '';
+                            function AutoOrManual(forceManual = false){
+                                console.log("AutoOrManual: "+forceManual);
+                                if (newRequestSubmission){
+                                    newRequestSubmission = false;
+                                    if (forceManual){
+                                        var __modal = $("#panelModal").find(".modal-content");
+                                        __modal.animate({
+                                          scrollTop: __modal.get(0).scrollTop+100
+                                        }, 500, function() {
+                                            //$('#panelReserveContact').fadeIn();
+                                        });
+                                    }
+                                }
+                                chooseAdminUser();
+                                
+                                var reg_type = getAutoType();
+                                if (forceManual)
+                                    reg_type = 'manual';
+                                    
+                            //    if (reg_type == 'auto_payment')
+                            //        reg_type = 'auto_register';
+                            
+                                $('#panelServiceStopped').hide();
+                                if (reg_type != 'auto_payment'){
+                                                                    }
+                                    
+                                if (reg_type == 'manual'){ //  || !isAutoPayment()
+                                    showPanelQuickCall();
+                                    $("#panelReserveType").hide();
+                                    $("#panelAutoPayThenRegisterTitle").hide();
+                                    $("#panelAutoRegisterThenPayTitle").hide();
+                                }else if (reg_type == 'auto_payment'){
+                                    
+                                    
+                                    $("#panelReserveType").slideDown();
+                                    $("#panelReserveContact").hide();
+                                    $("#panelAutoPayThenRegisterTitle").show();
+                                    
+                                    var date = $("#departure_init option:selected").attr('dt'); // '1400/12/19'aa
+                                    
+                                    if (auto_type_setting=='max' || auto_type_setting == date){ // only for first pay option
+                                        $("#panelAutoPayThenRegisterTitle").hide();
+                                        $('#panelAutoPayThenRegister').show();
+                                        $('#panelReserveContact').hide();
+                                        $('#panelpanelContactTitle').hide();
+                                        
+                                    }else{
+                                        //$('#panelReserveContact').show();
+                                                                                    $('#panelpanelContactTitle').show();
+                                                                            }
+                                    
+                                    $("#panelAutoRegisterThenPayTitle").hide();
+                                    
+                                }else{ // auto_register or auto_register_candidate
+                                    // if forceManual == 'auto_register', first reserve then payment
+                                    
+                                    var no_contact = true;
+                                    if (no_contact){
+                                        //$("#panelReserveType").slideDown();
+                                        $("#panelReserveContact").hide();
+                                        $("#panelAutoPayThenRegister").hide();
+                                        $("#panelAutoRegisterThenPay").show();
+                                    }else{
+                                        $("#panelReserveType").slideDown();
+                                        $("#panelReserveContact").hide();
+                                        $("#panelAutoPayThenRegisterTitle").hide();
+                                        $("#panelAutoRegisterThenPayTitle").show();
+                                    }
+                                }
+                            }
+                        </script>
+                        <script>
+					        
+					        var last_requested_path = '';
+					        var newRequestSubmission;
+					        function submitFormRequest(){
+					            
+					            
+					            fillFormFromUrl();
+					            					            resetReserveTypePanels();
+					            
+					            newRequestSubmission = true;
+					            $("#lblbtnContinueToCallError").hide();
+                                $("#lblbtnContinueToCallSuccess").hide();
+                                
+                                $("#panelReserveType").hide();
+                                $("#panelAutoPayThenRegister").hide();
+                                $('#panelReserveContact').hide();
+                                
+                                $("#btnAutoRegister").show();
+            			        $("#lblAutoRegisterMessage").text('');
+            			        
+                                chkOrderInfoChange();
+    
+                                ///$("#panel_return_same_day_init").show();
+                                $("#return_same_day_init").removeAttr("disabled");
+                                if (isReturning()){
+                                    //$("#panel_return_same_day_init").hide();
+                                    $("#return_same_day_init").prop('checked', false);
+                                    $("#return_same_day_init").attr("disabled", "true");
+                                }
+
+                                GetPickupFare();
+                                
+                                if (origin_desc_favorite_point != '' && 
+                                    getDistanceFromLatLonInKmP(selected_favorite_point, points[0].point) < 0.05){
+                                    $("#origin_desc").val(origin_desc_favorite_point);
+                                }
+
+                                refresh_fare_total();
+                                
+                                var __modal = $("#panelModal").find(".modal-content");
+                                __modal.animate({
+                                  scrollTop: 0
+                                }, 100);
+                                            
+                                            
+					            var temp_requested_path = getLat(origin_point)+','+getLng(origin_point)+'-'+getLat(destination_point)+','+getLng(destination_point);
+					            if (last_requested_path == temp_requested_path){
+    					            console.log('-----------------------------------------------------');
+					                console.log('not requested');
+					                return;
+					            }
+					            
+					            var waypoints = "";
+					            var traffic_area = "";
+                                for(i=1;i<points.length-1;i++){
+                                    waypoints += getLat(points[i].point)+','+getLng(points[i].point)+"|";
+                                }
+					            $("#waypoints").val(waypoints);
+					            
+					            var temp_requested_path = getLat(origin_point)+','+getLng(origin_point)+'-'+getLat(destination_point)+','+getLng(destination_point)+waypoints;
+					            if (last_requested_path == temp_requested_path){
+    					            console.log('-----------------------------------------------------');
+					                console.log('not requested');
+					                return;
+					            }
+					            
+					            
+					            for(i=0;i<points.length;i++){
+					                if (pointInPolygon(points[i].point, TehranMainTrafficAreaCoords))
+                                        traffic_area += '1';
+                                    else if (pointInPolygon(points[i].point, TehranMain2TrafficAreaCoords))
+                                        traffic_area += '2';
+                                    else 
+                                        traffic_area += '0';
+                                }
+                                $("#traffic_area").val(traffic_area);
+                                
+                                var route_in_points_str = '';
+                                for(i=0;i<route_in_points.length;i++){
+                                    var p = route_in_points[i];
+                                    if (i > 0)
+                                        route_in_points_str += ";";
+                                    route_in_points_str += getLat(p).toString().substr(0,9)+','+getLng(p).toString().substr(0,9);
+                                }
+                                $("#route_in_points").val(route_in_points_str);
+                                console.log(route_in_points_str);
+
+					            requestId = -1;
+					            last_requested_path = temp_requested_path;
+                                $.ajax({
+                                    type: "POST",
+                                    contentType: "application/json; charset=utf-8",
+                                    url: "request.php",
+                                    data: $('#register_request_form').serialize(),
+                                    dataType: "json",
+                                    async: true,
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        console.log("error: " + textStatus + " - " + errorThrown);
+                                        //alert("error: " + textStatus + " - " + errorThrown);
+                                   	    //Materialize.toast("خطا در ارسال پیام. بعدا مجددا تلاش نمائید.", 3000, 'rounded');	
+                                    },
+                                    success: function (data) {
+                                        console.log('Success: '+data);
+                                        if (data.indexOf('OK') == 0){
+                                            requestId = data.split(';')[1];
+                                            requestId_str = requestId; //.substr(1);
+                                            rand_str = data.split(';')[2];
+                                            $("#lblRequestId").text(requestId_str).parent().css('visibility', 'visible');
+                                            $("#lblRequestId1").text(requestId_str).parent().css('visibility', 'visible');
+                                            $("#lblRequestId2").text(requestId_str);
+                                            $("#lblRequestId3").text(requestId_str);
+                                            
+                                            $("#rand_init").val(rand_str);
+                                            $("#id_init").val(requestId_str);
+                                            
+                                            
+
+                                            if (getCookie('rid') == null){
+                                                setCookie('rid', requestId, 120);
+                                                $('#rid').val(requestId);
+                                            }
+                                            
+
+                                        }
+                                        //alert('sucess: '+data);
+                                    	//if (data.substring(0,2) == "OK"){
+                                        	//$('#modalContact').modal('close');
+                                        	//$('#contactForm').trigger("reset");
+                                        	//grecaptcha.reset();
+                                    	//}
+                                   	    //Materialize.toast(data.substring(2), 4000, 'rounded');	
+                                    }
+                                });
+                            }
+                            function submitVisitLog(type){
+                                $.ajax({
+                                    type: "POST",
+                                    contentType: "application/json; charset=utf-8",
+                                    url: "visit_log.php",
+                                    data: "type="+type,
+                                    dataType: "json",
+                                    async: true,
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        //console.log("error: " + textStatus + " - " + errorThrown);
+                                        //alert("error: " + textStatus + " - " + errorThrown);
+                                   	    //Materialize.toast("خطا در ارسال پیام. بعدا مجددا تلاش نمائید.", 3000, 'rounded');	
+                                    },
+                                    success: function (data) {
+                                        //console.log('Success: '+data);
+                                        //alert('sucess: '+data);
+                                    	//if (data.substring(0,2) == "OK"){
+                                        	//$('#modalContact').modal('close');
+                                        	//$('#contactForm').trigger("reset");
+                                        	//grecaptcha.reset();
+                                    	//}
+                                   	    //Materialize.toast(data.substring(2), 4000, 'rounded');
+                                    }
+                                });
+                            }
+                            submitVisitLog('pageload');
+        			    </script>
+						<form id="register_request_form">
+							<div style="display:none;">
+							    <input id="passenger_id" name="passenger_id" type="hidden" value="">
+								<input id="token" name="token" type="hidden" value="">
+								<input id="client" name="client" type="text" value="web">
+								<input id="route_in_points" name="route_in_points" type="text">
+								
+								<input id="rid" name="rid" type="text" value="">
+								<input id="origin_address" name="origin_address" type="text" value="">
+								<input id="origin_lat" name="origin_lat" type="text" value="">
+								<input id="origin_lng" name="origin_lng" type="text" value="">
+								<input id="destination_address" name="destination_address" type="text" value="">
+								<input id="destination_lat" name="destination_lat" type="text" value="">
+								<input id="destination_lng" name="destination_lng" type="text" value="">
+								<input id="waypoints" name="waypoints" type="text" value="aa">
+								<input id="traffic_area" name="traffic_area" type="text" value="aa">
+								<input id="car_class" name="car_class" type="text" value="">
+								<input id="lblgo_datetime" name="lblgo_datetime" type="text" value="">
+								<input id="go_distance" name="go_distance" type="text" value="">
+								<input id="go_distance_str" name="go_distance_str" type="text" value="">
+								<input id="go_duration" name="go_duration" type="text" value="">
+								<input id="go_duration_str" name="go_duration_str" type="text" value="">
+								<input id="go_fare" name="go_fare" type="text" value="">
+								<input id="go_fares" name="go_fares" type="text" value="">
+								<input id="auto_beianeh" name="auto_beianeh" type="text" value="">
+								<input id="lblreturn_datetime" name="lblreturn_datetime" type="text" value="">
+								<input id="lblwait_time" name="lblwait_time" type="text" value="">
+							</div>
+							<div class="row" style="direction:rtl;">
+								<div class="input-field col s12 m6 push-m6">
+								  <input id="name_family" name="name_family" type="text" class="validate">
+								  <label for="name_family">نام و نام خانوادگی <span class="red-color">*</span></label>
+								</div>
+
+								<div class="input-field col s12 m6 pull-m6">
+								  <input id="lblCompanyName" name="lblCompanyName" type="text">
+								  <label for="lblCompanyName">نام شرکت</label>
+								</div>
+
+								<div class="input-field col s12 m6 push-m6">
+								  <input id="cellphone" name="cellphone" type="text" class="validate">
+								  <label for="cellphone">شماره همراه <span class="red-color">*</span></label>
+								</div>
+
+								<div class="input-field col s12 m6 pull-m6">
+								  <input id="lblPhone" name="lblPhone" type="text">
+								  <label for="lblPhone">شماره ثابت</label>
+								</div>
+
+								<div class="input-field col s12">
+								  <input id="lblDescription" name="lblDescription" placeholder="توضیحات ( در صورت نیاز )" type="text" >
+								</div>
+							</div>
+							<div id="captcha_element1" style="" ></div>
+						</form>
+					</center>
+					<br>
+					<a id="btnRegisterRequest" style="margin:4px;" class="btn waves-effect waves-light btn-small modal-trigger" data-target="panelModalRegisterRequest">ثبت درخواست تاکسی</a>
+				</div>
+				
+				<ul id="panelConditions0" style="list-style: unset;margin-top:32px;margin-top:32px;">
+    				<li><b>نکته:</b>
+                        بدیهیست در صورت رزرو بیش از 1 روز قبل، با توجه <span style="color:red;">عدم امکان پیش بینی هوا</span>، در صورت بارندگی یا ...، افزایش کرایه متناسب (10-20 درصد) اعمال خواهد گردید.
+                    </li>
+                        
+				    <li>
+				        لطفا توجه نمائید این مبلغ در روزها و زمان های با آب و هوای نامناسب یا ایام پر ترافیک که زمان سفر طولانی تر است، شامل ضریب خواهد بود که قبل از سفر و در هنگام هماهنگی به اطلاع شما خواهد رسید.
+				    </li>
+        			<li>
+        			    برخی مسیرهای کوهستانی یا صعب العبور، شامل افزایش کرایه جداگانه میگردند که میزان افزایش، توسط اپراتور در زمان رزرو سفر اعلام می گردد.
+				    </li>
+                    <li>
+                        بدیهیست در صورت مسدود بودن مسیر اصلی به هر علت و یا <span style="color:red;">تغییر مسیر اصلی</span> بر اساس خواست یا پیشنهاد مسافر، و در صورت طولانی تر شدن مسیر و یا نیمه کاره ماندن یا بازگشت اجباری، هزینه اضافه مسیر بر عهده مسافر می باشد.هزینه بر اساس مسافت و طبق تعرفه اولیه مسیر خواهد بود.
+                        <br>نکته: منظور از مسیر اصلی، کوتاه ترین مسیر قابل تردد یا توافق شده در زمان رزرو سفر می باشد.
+                    </li>
+                    
+                    
+                    <li>
+                        جریمه های پلیس در مواردی همچون نبستن <span style="color:red;">کمربند</span> مسافر و تعداد سرنشین اضافی تماما بر عهده خود مسافر می باشد.
+                    </li>
+				</ul>
+				
+				
+				
+				
+				<style>
+				    #cellphone_init, #cellphone_init_orderer{
+				        direction:ltr;
+				        text-align:center;
+				    }
+				    #name_init, #name_init_orderer{
+				        direction:rtl;
+				        text-align:center;
+				    }
+				    #origin_desc, #destination_desc{
+				        direction:rtl;
+				        text-align:right;
+				    }
+				    #departure_init{
+				        max-width:270px;width:90%;
+				    }
+				</style>
+				
+				
+				
+				<span id="panelConditions" style="display:none1;">
+				    <hr><br>
+				    سایر شرایط:
+				    <style>
+				        #panelConditions ul{
+				            list-style: unset;
+				        }
+				        #panelConditions ul li{
+				            list-style-type: unset;
+				            
+				        }
+				    </style>
+				    <ul style="list-style: unset;">
+				        <li style="display:none1;">در صورت گرمای هوا و به درخواست مسافر، بدون هزینه اضافه، کولر روشن می گردد. بدیهیست در مسیرهای با شیب بالا ممکن است به علت فشار شدید به موتور، به تشخیص راننده، کولر موقتا خاموش گردد</li>
+                        <li style="display:none;">
+                            در فصول گرم سال، با توجه به گرمای شدید هوا، در برخی مسیرها 10% توسط اپراتور افزایش کرایه اعلام می گردد. بدیهیست در مسیرهای با شیب بالا ممکن است به علت فشار شدید به موتور، به تشخیص راننده، کولر موقتا خاموش گردد
+                        </li>
+                        <li>
+                            در صورت لغو سفر از طرف راننده (بعلل شخصی یا نقص فنی اتومبیل یا ...)، همسفرتاکسی متعهد به تلاش برای ارائه سرویس جایگزین خواهد بود. اما با این حال در شرایط پیک سفر و یا مسیرهای فرعی و ندرتا ممکن است نتواند جایگزینی ارائه نماید. در این حالت، مبلغ پیش پرداخت فورا و بطور کامل مسترد میگردد.
+                        </li>
+                        <li>
+                            در صورت گازسوز بودن اتومبیل، میتوانید با پرداخت 25,000 تومان به ازای هر 100 کیلومتر، از راننده بخواهید از زدن گاز صرفنظر نماید.
+                        </li>
+
+				        <li style="display:none;">رزرو اقتصادی، عادی و ویژه بیش از یک روز قبل از سفر امکان پذیر نیست</li>
+				        <li>
+				            کرایه بازگشت در همان روز و همان اتومبیل، نصف رفت می باشد
+				            ( <span id="lblReturnPrice" style="font-size:14px;color: green;"></span> )
+				            <br><b>مهم: </b> 
+				            با توجه به تجربیات پیشین، سفر بدون هماهنگی با شرکت، چه برگشت و چه سفرهای بعدی با هر یک از راننده های ما، علاوه بر برخورد با راننده خاطی و جریمه وی، شرکت هیچگونه مسئولیت و پاسخگوئی در قبال هر نوع اتفاقی نخواهد داشت. بدیهیست هماهنگی سفر برگشت یا سفرهای بعدی، صرفا با تماس شخص مسافر با دفتر شرکت قابل قبول است.
+				            <br><b>مهم: </b> 
+                            هر گونه
+                            <span style="color:red;">واگذاری سفر</span>
+                            به راننده دیگر یا تغییر اجباری شرایط سفر از طرف راننده ما و بدون هماهنگی با شرکت ممنوع است. بدیهیست در صورت مواجهه، لازم است شخص مسافر، شرکت را از این موضوع مطلع سازد. در غیر اینصورت مسئولیت عواقب مشکلات پیش آمده بر عهده راننده و مسافر بوده و شرکت بعلت عدم اطلاع، مسئولیتی نخواهد داشت. در هر صورت برخورد با راننده خاطی انجام خواهد پذیرفت.
+				        </li>
+				        
+				        <li>هزینه ساعتی <span style="color:red;">توقف</span> به شرح زیر است:
+        				    <ul>
+        				        <li>اقتصادی: 50,000 تومان</li>
+        				        <li>عادی: 60,000 تومان</li>
+        				        <li>ویژه: 80,000 تومان</li>
+        				        <li><span style="display:inline-block;">VIP:</span> 120,000 تومان</li>
+        				        <li><span style="display:inline-block;">SUV:</span> 150,000 تومان</li>
+        				        <li style="display:none;"><span style="display:inline-block;">VIP و SUV</span>: 1000 ?> تومان</li>
+        				    </ul>
+				        </li>
+				        <li style="display:none;">
+				            برای سفرهای عبوری از 
+                            <span style="color:red;">
+                                آزاد راه تهران-شمال
+                            </span>
+                            ، مبلغ 50.000 تومان بابت پوشش عوارض به کرایه اعلام شده اضافه می گردد
+				        </li>
+				        <li>
+                            هزینه وعده های غذایی و اقامت راننده برای سفرهایی که شب مانی دارد، بر عهده مسافر است
+                        </li>
+                        <li>
+                            در سایر سفرها، هزینه وعده های غذایی راننده بر عهده مسافر نیست. لذا در صورت مهمان نمودن راننده، امکان کسر هزینه آن از کرایه وجود ندارد.
+                        </li>
+				        <li>در زمان رزرو، ممکن است 15-100 درصد کل کرایه با توجه به مشخصات سفر، توسط اٌپراتور بعنوان بیعانه درخواست گردد که لازم است جهت ثبت قطعی رزرو پرداخت گردد
+				            <br>توجه شود که در صورت کنسلی، تعویق یا نیمه کاره ماندن سفر، در صورتی که از جانب شرکت نباشد، بسته به میزان خسارت، بخشی یا کل مبلغ بیعانه بابت خسارت کسر میگردد و باقی مبلغ بیعانه تنها در سفرهای بعد شما قابل انتقال است و قابل استرداد نخواهد بود.
+				        </li>
+				        <li>
+				            در صورت نیاز به رسید سفر، پس از اتمام سفر مجددا تماس بگیرید. رسید بصورت الکترونیکی و بصورت یک لینک در WhatsApp یا پیامک ارسال میگردد<br>در صورت نیاز، ارسال نسخه چاپ شده بصورت جداگانه نیز امکان پذیر است.
+				        </li>
+				        <li>
+        		            حداکثر تعداد مجاز مسافر 3 بزرگسال و یک کودک زیر 12 سال است. در صورت تعداد بیشتر، بسته به مقدار بار همراه، بین 10 تا 20 درصد به کرایه اضافه می گردد
+        		        </li>
+        		        <li>
+        		            در صورت وجود اتباع خارجی بین مسافرین، لازم است این موضوع در زمان رزرو اعلام گردد. در غیر اینصورت در صورت همراه نداشن هیچ نوع مجوز تردد مجاز (گذرنامه و ...)، راننده حق لغو سفر و دریافت غرامت را خواهد داشت.
+        		        </li>
+        		        <li style="direction: ltr;text-align: left;">
+        		            Foreign passengers without any valid visa might be a reason for trip cancellation. In such a case the driver is permitted to request for fine.
+        		        </li>
+				        <li style="">برای تعداد 5 نفر یا بیشتر و جهت رزرو ون <a target="_blank" href="https://www.taxivan.ir/?openexternal">اینجا</a> را ملاحظه فرمائید</li>
+				    </ul>
+				</span>
+            </p>
+        </div>
+    </div>
+    
+   <div id="panelModalRegisterRequest" class="modal modal-fixed-footer" style="z-index:999;direction:rtl;">
+        <div class="modal-content">
+            <h4>تائید نهایی</h4>
+            <p>
+
+                                    جهت درخواست تاکسی دربستی با نرخ <span id="lblCost" style="color:green;font-size:21px;"></span>، عدد زیر را به شماره <span style="color:blue;font-size:18px;">09125381475</span>ارسال بفرمائید.<br>
+
+            <div style="text-align:center;"><span id="lblCode" style="font-size: 22px; color: red; font-weight: bold;font-family: sans-serif;"></span></div><br><br>
+                همكاران ما با شما تماس خواهند گرفت.<br><br><br>
+                <div style="text-align:right;">همچنین در صورت فوریت میتوانید پس از ارسال پیام کوتاه ذکر شده، با همین شماره نیز تماس حاصل بفرمائید.</div>
+
+                <div id="panelSendSMS"><a href="sms:+989125381475?body=A1234">Send SMS</a></div>
+                    
+            </p>
+        </div>
+        <div class="modal-footer">
+            <span class="modal-close waves-effect waves-green btn-flat">بسيار خب</span>
+        </div>
+    </div>
+
+                    
+    <style>
+        .info1{
+            position:absolute;
+            top:50%;
+            margin-top:-70px;
+            right:25%;
+            left:50%;
+            margin-left:-30px;
+            z-index: 1;
+            text-align: center;
+            font-size: 17px;
+            width: 60px;
+            cursor: pointer;
+            //pointer-events:none;
+        }
+    </style>
+    
+    
+	<style>
+		.btnPoint{
+			transform:scale(1);
+			transition: transform 250ms ease-in-out;
+			transform-origin: bottom;
+		}
+	</style>
+
+    <img id="btnoriginPoint" src="/images/org_1.png" class="info1 btnPoint not-selectable" style="display:none;">
+    <img id="btndestinationPoint" src="/images/dest_1.png" class="info1 btnPoint not-selectable" style="display:none;">
+    
+    
+    
+	<div style="display:none">
+		<img src="/images/start2.png" >
+		<img src="/images/start2_2.png" >
+		<img src="/images/start2_3.png" >
+		<img src="/images/start2_4.png" >
+		<img src="/images/end2.png">
+		<img src="/images/end2_2.png">
+		<img src="/images/end2_3.png">
+		<img src="/images/end2_4.png">
+
+		<img src="/images/car_class_super_economy.png">
+		<img src="/images/car_class_super_economy_no.png">
+		<img src="/images/car_class_economy.png">
+		<img src="/images/car_class_economy_no.png">
+		<img src="/images/car_class_vip.png">
+		<img src="/images/car_class_vip_no.png">
+		<img src="/images/car_class_vip_suv.png">
+		<img src="/images/car_class_vip_suv_no.png">
+		<img src="/images/car_class_super_vip.png">
+		<img src="/images/car_class_super_vip_no.png">
+	</div>
+    
+ 
+    <script type="text/javascript">
+        
+        $("#btnRegisterRequest").click(function(){
+            return;
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: "register_request.php",
+                data: $('#register_request_form').serialize(),
+                dataType: "json",
+                async: true,
+                error: function (jqXHR, textStatus, errorThrown) {
+                    //alert("error: " + textStatus + " - " + errorThrown);
+                    M.toast({html: "خطا در ارسال پیام. بعدا مجددا تلاش نمائید.", displayLength:3000, classes: 'rounded'});
+                },
+                success: function (data) {
+                    if (data.substring(0,2) == "OK"){
+                        $('#modalContact').modal('close');
+                        $('#contactForm').trigger("reset");
+                        grecaptcha.reset();
+                    }
+                    M.toast({html: data.substring(2), displayLength:4000, classes: 'rounded'});	
+                }
+            });
+        });
+        
+        
+        
+        function showModalPointTypeSelector(ttype){
+            var MaxPoints = 8;
+            if (routesource == 'db')
+                MaxPoints = 1;
+            if (routesource == 'neshan')
+                MaxPoints = 8;
+            if (ttype == 'from'){
+                if (points.length < MaxPoints/2 && points[points.length-1].ttype == 'from'){
+                    if (points.length == 1){
+                        $("#lblOriginPointCounter").text("دوم");
+                    }else if (points.length == 2){
+                        $("#lblOriginPointCounter").text("سوم");
+                    }else if (points.length == 3){
+                        $("#lblOriginPointCounter").text("چهارم");
+                    }
+                    $("#lblMessage").text("...");
+                    $("#panelOriginOrDest").show();
+                    $("#panelDestOrFinal").hide();
+                    panelModalPointTypeSelectorInstance.open();
+                    return 'from';
+                }
+                return 'to';
+            }else if (ttype == 'to'){
+                if (points.length-origins_count < MaxPoints/2){
+                    if (points.length-origins_count == 1){
+                        $("#lblDestPointCounter").text("دوم");
+                    }else if (points.length-origins_count == 2){
+                        $("#lblDestPointCounter").text("سوم");
+                    }else if (points.length-origins_count == 3){
+                        $("#lblDestPointCounter").text("چهارم");
+                    }
+                    $("#lblMessage").text("...");
+                    $("#panelOriginOrDest").hide();
+                    $("#panelDestOrFinal").show();
+                    panelModalPointTypeSelectorInstance.open();
+                    return 'to';
+                }
+                return 'fin';
+            }
+        }
+        
+        function setPointMessage(ttype){
+            if (points.length == 0){
+                $("#lblMessage").text("مبدا ( اول ) را مشخص نمائید");
+            }else{
+                if (ttype == 'from'){
+                    
+                    if (points.length == 1){
+                        $("#lblMessage").text("مبدا دوم را نیز مشخص نمائید");
+                    }else if (points.length == 2){
+                        $("#lblMessage").text("مبدا سوم را نیز مشخص نمائید");
+                    }else if (points.length == 3){
+                        $("#lblMessage").text("مبدا چهارم سفر را مشخص نمائید");
+                    }
+                }else{
+                    if (points.length-origins_count == 0){
+                        $("#lblMessage").text("مقصد ( اول ) را مشخص نمائید");
+                    }else if (points.length-origins_count == 1){
+                        $("#lblMessage").text("مقصد دوم را نیز مشخص نمائید");
+                    }else if (points.length-origins_count == 2){
+                        $("#lblMessage").text("مقصد سوم را نیز مشخص نمائید");
+                    }else if (points.length-origins_count == 3){
+                        $("#lblMessage").text("مقصد چهارم را نیز مشخص نمائید");
+                    }
+                }
+            }
+        }
+        
+        function simulateButtonClick(){
+            if ($("#panelModalPointTypeSelector").is(':visible'))
+                return;
+            if ($("#btnoriginPoint").is(':visible')){
+                btnPointClick(null, 'from', null);
+            }else if ($("#btndestinationPoint").is(':visible')){
+                btnPointClick(null, 'to', null);
+            }
+        }
+        
+        function showHideOriginButton(show){
+            if (show)
+                $("#btnoriginPoint").show();
+            else
+                $("#btnoriginPoint").hide();
+        }
+        function showHideDestinationButton(show){
+            if (show)
+                $("#btndestinationPoint").show();
+            else
+                $("#btndestinationPoint").hide();
+        }
+        function showHide_panel_favorite_points(){
+            if (($("#btnoriginPoint").is(':visible') || $("#btndestinationPoint").is(':visible')) && !$("#panelModalPointTypeSelector").is(':visible')){
+                if (!$("#panel_favorite_points").is(":visible")){
+                    $("#fav_search").val('');filter_fav_points();
+                }
+                $("#panel_favorite_points").show();
+            }else
+                $("#panel_favorite_points").hide();
+            
+        }
+        
+        function setNextPoint(ttype){
+            if (ttype == 'from'){
+                $('#btnoriginPoint').css('transform', 'scale(1)');
+                setPointMessage(ttype);
+            }else if (ttype == 'to'){
+                showHideOriginButton(false);
+                $('#btnoriginPoint').css('transform', 'scale(1)');
+			    showHideDestinationButton(true);
+                $('#btndestinationPoint').css('transform', 'scale(1)');
+			    setPointMessage(ttype);
+            }else{ // fin
+                showHideDestinationButton(false);
+			    $('#btndestinationPoint').css('transform', 'scale(1)');
+			    tryCalculate();
+            }
+            panelModalPointTypeSelectorInstance.close();
+            showHide_panel_favorite_points();
+        }
+        
+        function pushStack(){
+            window.history.pushState({}, '');
+        }
+        function popStack(){
+            window.history.pushState({}, '');
+        }
+        
+        function panToZoom(point, zoom){
+            if (mapsource == 'mapbox'){
+                map.jumpTo({center: point});
+                map.setZoom(zoom);
+            }else if (mapsource == 'cedar'){
+                map.setView(point, zoom);
+                //map.flyTo(point, zoom);
+            }else{
+                map.panTo(point);
+                map.setZoom(zoom);
+            }
+            console.log("PanToZoom:");
+            console.log(point);
+        }
+        
+        function panTo(point){
+            if (mapsource == 'mapbox'){
+                map.flyTo({center: point, speed: 1, easing(t) {return t;}});
+                //map.jumpTo({center: point});
+            }else if (mapsource == 'cedar')
+                map.panTo(point);
+            else
+                map.panTo(point);
+            console.log("PanTO:");
+            console.log(point);
+        }
+        
+        function getCenter(){
+            return translate_map(map.getCenter());
+        }
+        
+        
+        
+        class Point{}
+        var points = [];
+        var origins_count = 0;
+        btnPointClick = function(event, ttype, selectedPoint){ // type='from' or 'to', selectedPoint of type: google.maps.LatLng(0,0);
+            if (selectedPoint == null)
+                selectedPoint = getCenter();
+            else
+                panTo(selectedPoint);
+            console.log(ttype);
+            if (ttype == null || ttype == undefined){
+                if (map.getZoom() < 12){
+                    M.toast({html: "لازم است بیشتر زوم نمائید", displayLength:1001, classes: 'rounded'});
+                    //map.setZoom(map.getZoom() + 1);
+                    panToZoom(selectedPoint, map.getZoom() + 1);
+                    return;
+                }
+            }
+            if (this.id == "btnoriginPoint" || ttype == 'from'){ 
+                $("#enamad1").hide();
+				$('#btnoriginPoint').css('transform', 'scale(0.5)');
+				setTimeout(function(){ 
+					var newPoint = new Point();
+					newPoint.ttype = 'from';
+					newPoint.zoom = map.getZoom();
+					newPoint.point = selectedPoint;
+					origins_count++;
+					var idx = '';
+					if (origins_count > 1)
+					    idx = '_'+origins_count;
+					newPoint.marker = putMarker(selectedPoint, "/images/start2"+idx+".png", [25, 61], 0);
+					points.push(newPoint);
+					
+                    if (origins_count == 1){
+                		origin_point = newPoint.point;
+                		origin_zoom = newPoint.zoom;
+                		origin_marker = newPoint.marker;
+                    }
+                    
+					if (showModalPointTypeSelector('from') == 'to'){
+					    setPointMessage('to');
+					    showHideOriginButton(false);
+					    showHideDestinationButton(true);
+					    $('#btnoriginPoint').css('transform', 'scale(1)');
+					    showHide_panel_favorite_points();
+					}
+
+
+					
+					//$("#lblMessage").text("مقصد سفر را نیز مشخص نمائید");
+					//$("#btnUndo").attr("data-tooltip", "حذف مبدا انتخاب شده");
+					//$("#btnUndo").tooltip();
+					if (google_search)
+					    $("#pac-input").val("");
+					else
+					    $("#place").val("");
+					window.history.pushState({}, '');
+					
+
+				    panTo(create_point(getLat(selectedPoint)+(0.00003*Math.pow(2, 22-map.getZoom())), getLng(selectedPoint)));
+
+					/*if (mapsource == 'mapbox')
+					    panTo([selectedPoint[1]+(0.00003*Math.pow(2, 22-map.getZoom())), selectedPoint[0]]);
+					else if (mapsource == 'cedar')
+					    panTo([selectedPoint[0]+(0.00003*Math.pow(2, 22-map.getZoom())), selectedPoint[1]]);
+					else
+					    panTo(new google.maps.LatLng(selectedPoint.lat()+(0.00003*Math.pow(2, 22-map.getZoom())), selectedPoint.lng()));*/
+
+					
+					if (to_loc != null){
+    					setTimeout(function(){ 
+                            btnPointClick(null, 'to', to_loc); 
+                            setTimeout(function(){ 
+                                eventFire($("#"+cls).get(0), 'click');
+                            }, 300);
+                        }, 300);
+					}
+                    
+				}, 250);
+				$("#progress_bar").width("33%");
+            }else if (this.id == "btndestinationPoint" || ttype == 'to'){
+				$('#btndestinationPoint').css('transform', 'scale(0.5)');
+				setTimeout(function(){ 
+				    
+				    var newPoint = new Point();
+					newPoint.ttype = 'to';
+					newPoint.zoom = map.getZoom();
+					newPoint.point = selectedPoint;
+					var idx = '';
+					if (points.length+1-origins_count > 1){
+					    idx = '_'+(points.length+1-origins_count);
+					    if (points.length-origins_count == 1){
+					        removeMaker(points[origins_count].marker);
+    					    points[origins_count].marker = putMarker(points[origins_count].point, "/images/end2_1.png", [25, 56], 2); 
+					    }
+					}
+					newPoint.marker = putMarker(newPoint.point, "/images/end2"+idx+".png", [25, 56], 2);
+					points.push(newPoint);
+
+					
+			destination_point = newPoint.point;
+			destination_zoom = newPoint.zoom;
+			destination_marker = newPoint.marker;
+					//$("#btnUndo").attr("data-tooltip", "حذف مقصد انتخاب شده");
+					//$("#btnUndo").tooltip();
+
+                    if (showModalPointTypeSelector('to') == 'fin'){
+					    showHideDestinationButton(false);
+					    $('#btndestinationPoint').css('transform', 'scale(1)');
+					    tryCalculate();
+					    showHide_panel_favorite_points();
+					}
+					
+					if (google_search)
+					    $("#pac-input").val("");
+					else
+					    $("#place").val("");
+					window.history.pushState({}, '');
+					    
+					panTo(create_point(getLat(selectedPoint)+(0.00003*Math.pow(2, 22-map.getZoom())), getLng(selectedPoint)));
+					
+					/*if (mapsource == 'mapbox')
+					    panTo([selectedPoint[1], selectedPoint[0]+(0.00003*Math.pow(2, 22-map.getZoom()))]);
+					else if (mapsource == 'cedar')
+					    panTo([selectedPoint[0], selectedPoint[1]+(0.00003*Math.pow(2, 22-map.getZoom()))]);
+					else
+					    map.panTo(new google.maps.LatLng(selectedPoint.lat()+(0.00003*Math.pow(2, 22-map.getZoom())), selectedPoint.lng()));*/
+
+				}, 250);
+             }
+            $("#btnUndo").show();
+        } 
+        
+        function fitToBounds(){
+            if (mapsource == 'mapbox'){
+                var minLat = points[0].point[1];
+                var maxLat = points[0].point[1];
+                var minLng = points[0].point[0];
+                var maxLng = points[0].point[0];
+                for(i=1;i<points.length;i++){
+        			if (points[i].point[1] < minLat)
+        			    minLat = points[i].point[1];
+        			if (points[i].point[1] > maxLat)
+        			    maxLat = points[i].point[1];
+
+        			if (points[i].point[0] < minLng)
+        			    minLng = points[i].point[0];
+        			if (points[i].point[0] > maxLng)
+        			    maxLng = points[i].point[0];
+                }
+                var bounds = [];
+                bounds[0]=[minLng, minLat];
+                bounds[1]=[maxLng, maxLat];
+                //map.fitBounds(bounds, {padding: [60, 60]});
+                map.fitBounds(bounds, {padding: {top: 60, bottom:170, left: 50, right: 50}});
+            }else if (mapsource == 'cedar'){
+                var bounds = [];
+                for(i=0;i<points.length;i++){
+        			bounds[bounds.length]=points[i].point;
+                }
+                map.fitBounds(bounds, {padding: [50, 50]});
+            }else{
+                var bounds = new google.maps.LatLngBounds();
+                for(i=0;i<points.length;i++){
+        			bounds.extend(points[i].point);
+                }
+    			map.fitBounds(bounds, 130);
+            }
+        }
+        
+        function tryCalculate(){
+			$("#lblMessage").text("در حال محاسبه هزینه...");
+			$("#progress_bar").width("66%");
+			$("#panelWait").show();
+
+
+            fitToBounds();
+            setTimeout(function(){ 
+                fitToBounds();
+            }, 500);
+            
+            
+			
+
+            if (mapsource == 'mapbox'){
+                map.once('idle', function(e){
+                    $("#mapOverlay").show();
+                });
+            }else if (mapsource == 'cedar'){
+                map.once('load moveend', function(e){
+                    $("#mapOverlay").show();
+                });
+            }else{
+                google.maps.event.addListenerOnce(map, 'idle', function(){
+                    $("#mapOverlay").show();
+                    //$("#btnShare").show();
+                });
+            }
+
+			findDistance(origin_point, destination_point);
+        }
+        
+        var wheel_timer = null;
+        $("#btnoriginPoint, #btndestinationPoint").bind('mousewheel DOMMouseScroll', function(e){
+            if (wheel_timer != null){
+                clearTimeout (wheel_timer);
+                wheel_timer = null;
+            }
+            
+            btnoriginPoint.style.pointerEvents = "none";
+            btndestinationPoint.style.pointerEvents = "none";
+            
+            wheel_timer = setTimeout(function(){ 
+                btnoriginPoint.style.pointerEvents = "auto"; 
+                btndestinationPoint.style.pointerEvents = "auto";
+            }, 1001);
+        });
+        $("#btnoriginPoint").click(btnPointClick);
+        $("#btndestinationPoint").click(btnPointClick);
+    </script>
+    
+    <script type="application/javascript">
+
+        function detectmob() { 
+            console.log(navigator.userAgent);
+            if( navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/Mobile/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+                ){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        
+        
+        $(document).ready(function () {
+            
+            if (!detectmob()){
+                $('#panelSendSMS').hide();
+            }
+            
+            $('#panelModal').modal({dismissible: false});
+            $('select').formSelect();
+            
+    		$("#myLocation").click(function(e) {
+        		if (currentLocation != null){
+    				map.panTo(currentLocation);
+        		}
+    		});
+    		$("#zoomin").click(function(e) {
+			    if (map.getZoom() < 20)
+        		    map.setZoom(map.getZoom()+1);
+    		});
+    		$("#zoomout").click(function(e) {
+        		if (map.getZoom() > 6)
+        		    map.setZoom(map.getZoom()-1);
+    		});
+    		$("#btnSearch").click(function(e) {
+    			showHideSearchBox(true);
+    		});
+    		if (google_search){
+        		$("#pac-input").blur(function(e){
+        		    setTimeout(function(){ 
+            		    if (!onlur_disabled)
+            			    showHideSearchBox(false);
+                    }, 200);
+        		    
+        		});
+    		}else{
+        		$("#place").blur(function(e){
+        		    setTimeout(function(){ 
+            		    if (!onlur_disabled)
+            			    showHideSearchBox(false);
+                    }, 200);
+        		    
+        		});
+    		}
+        });
+        
+        window.addEventListener('load', function() {
+            //window.history.pushState({}, '');
+        })
+        
+        window.addEventListener('popstate', function() {
+            if (undoG(true)){
+                //window.history.pushState({}, '');
+            }else{
+                window.history.back();
+            }
+        })
+        
+        var activeElement;
+        $(document).keyup(function(e) {
+            if (e.keyCode == 27) { // escape key maps to keycode `27`
+                activeElement = document.activeElement;
+                console.log(document.activeElement);
+                if (document.activeElement.id == "fav_search"){
+                    $("#fav_search").slideUp().val('');filter_fav_points();
+
+                    return;
+                }
+                if (document.activeElement.tagName != "INPUT")
+                    undo(true);
+            }
+        });
+        
+        function removeMaker(marker){
+            if (mapsource == 'mapbox')
+                marker.remove();
+            else if (mapsource == 'cedar')
+                marker.remove();
+            else
+                marker.setMap(null);
+        }
+        
+        function undoIdleFunc(){
+            if (oldPoint != undefined && oldPoint.marker != null){
+                removeMaker(oldPoint.marker);
+                oldPoint.marker = null;
+            }
+            if (google_search)
+                $("#pac-input").val("");
+            else
+                $("#place").val("");
+                
+            if (oldPoint != undefined && oldPoint.ttype == 'to'){
+                showHideOriginButton(false);
+                showHideDestinationButton(true);
+                if (points.length-origins_count == 1){
+                    removeMaker(points[origins_count].marker);
+				    points[origins_count].marker = putMarker(points[origins_count].point, "/images/end2.png", [25, 56], 2);
+			    }
+            }else{
+                showHideOriginButton(true);
+                showHideDestinationButton(false);
+            }
+            //showHide_panel_favorite_points();
+        } 
+        
+        var oldPoint;
+        function undo(smooth){
+            oldPoint = points.pop();
+            if (oldPoint == undefined)
+                return false;
+            if (oldPoint.ttype == 'from')
+                origins_count--;
+            setPointMessage(oldPoint.ttype);
+            //map.setZoom(oldPoint.zoom);
+            panToZoom(oldPoint.point, oldPoint.zoom);
+            
+            $("#panelWait").hide();
+            $("#progress_bar").width("33%");
+            $("#car_classs").hide();
+        //    $("#lblMessage").text("مقصد سفر را مشخص نمائید");
+            //$("#btnUndo").attr("data-tooltip", "حذف مبدا انتخاب شده");
+            //$('#btnUndo').tooltip();
+            $("#btnContinueRequest").hide();
+            $("#panelToName").hide();
+            if (smooth){
+                if (mapsource == 'mapbox'){
+                    map.once('idle', function(e){
+                        undoIdleFunc();
+                    });
+                }else if (mapsource == 'cedar'){
+                    map.once('load moveend', function(e){
+                        undoIdleFunc();
+                    });
+                    setTimeout(function(){ 
+                        undoIdleFunc();
+                    }, 500);
+                }else{
+                    google.maps.event.addListenerOnce(map, 'idle', undoIdleFunc);
+                }
+            }else{
+                undoIdleFunc();
+            }
+            $("#mapOverlay").hide();
+			$("#btnShare").hide();
+			to_loc = null;
+			
+            //showHideOriginButton(true)
+            
+            
+            if (points.length == 0){
+                
+                $("#lblMessage").text("مبدا ( اول ) را مشخص نمائید");
+                $("#btnUndo").hide();
+                $("#enamad1").show();  
+            }
+              
+        }
+        $("#btnUndo").click(function(){ undoG(true); });
+
+
+        function insideIran(location){
+            // 25.086391 < lat < 39.987153
+            // 43.568388 < lng < 63.512844
+            if (getLat(location) < 25.086391)
+                return false;
+            if (getLat(location) > 39.987153)
+                return false;
+            if (getLng(location) < 43.568388)
+                return false;
+            if (getLng(location) > 63.512844)
+                return false;
+            return true;
+        }
+
+        var from_loc = null;
+        var to_loc = null;
+        var to_name = "";
+
+
+        var findDistanceCount = 0;
+        var map;
+        var lastZoomLevel;
+        var zoomLevel = 1; // default to large
+        function start_init() {
+            if (typeof google === "undefined" && typeof mapboxgl === "undefined" && typeof L === "undefined"){
+                console.log('google or mapbox undefined. Retry...');
+                setTimeout(function(){
+                    start_init();
+                }, 500);
+            }else{
+                initMap();
+                console.log('google or mapbox defined. Done');
+            }
+        }
+        function start(firstRun) {
+            //$("#panelAlternative").fadeIn();
+
+            if (!firstRun){
+                while(undoG(false)){}
+                way_points = [];
+                from_loc = null;
+                to_loc = null;
+                $("#driver_id").val('');
+            }
+            while(points.length > 0){
+                point = points.pop();
+                removeMaker(point.marker);
+            }
+            $("#enamad1").css("bottom", "85");
+            $('#btndestinationPoint').hide();
+            origin_point = null;
+            origins_count = 0;
+            
+            /*$('#btnoriginPoint').hide();
+            $('#btndestinationPoint').hide();
+            
+            closeModal(panelModalPointTypeSelectorInstance);
+            showModalPointTypeSelector('from');*/
+            
+            
+            $("#driver_register").hide();
+            $("#offers_link").hide();
+            
+            if (firstRun)
+                submitVisitLog('human_visit');
+            if (firstRun){
+                setTimeout(function(){
+                    start_init();
+                }, 200);
+            }else{
+                if (old_trip_redraw != ''){
+                    reDrawRequestUrlCallback(); 
+                    isFormAutofilled = false;
+                    
+                }
+            }
+            //initMap();
+            $("#mapImageInit").hide();
+            $("#mapOverlayInit").hide();
+            $("#mapOverlayInitPanel").hide();
+            
+            var from = null;
+            var to = null;
+            if (firstRun){
+                from = getParameterByName('from');
+                to = getParameterByName('to');
+            }
+            /*if (firstRun && from == null && to == null){
+                panelModalReturnInfoInstance.open();
+            }*/
+            if (from != null && to != null){
+            }else{
+                setTimeout(function(){
+                    $('#btnoriginPoint').css('transform', 'scale(0.3)').show();
+                    setTimeout(function(){
+                        $('#btnoriginPoint').css('transform', 'scale(0.5)');
+                        setTimeout(function(){
+                            $('#btnoriginPoint').css('transform', 'scale(1.0)');
+                        }, 200);
+                    }, 200);
+                }, 500);
+
+            }
+        }
+        
+        function translate_map(point){
+            if (mapsource == 'mapbox')
+                return [point.lng, point.lat];
+            if (mapsource == 'cedar')
+                return [point.lat, point.lng];
+            return point;
+        }
+        function translate_map_route(point){
+            if (mapsource == 'mapbox')
+                return new google.maps.LatLng(point.lng, point.lat);
+            if (mapsource == 'cedar')
+                return new google.maps.LatLng(point[0], point[1]);
+            return point;
+        }
+        function create_point(lat, lng, source = null){
+            if (source == null)
+                source = mapsource;
+            if (mapsource == 'mapbox')
+                return [lng, lat];
+            if (mapsource == 'cedar')
+                return [lat, lng];
+            return new google.maps.LatLng(lat, lng);
+        }
+        
+        function loadFromParameters(){  
+            //alert('loadFromParameters');
+            var from = getParameterByName('from');
+            var to = getParameterByName('to');
+            var waypoints = getParameterByName('waypoints');
+            var to_name = getParameterByName('to_name');
+            var cls = getParameterByName('cls');
+            //from = '35.715578,51.398448';
+            //to   = '36.306571,50.010375';
+            if (from != null && from != "" && to != null && to != ""){
+                from_ar = from.split(",");
+                to_ar = to.split(",");
+                from_loc = create_point(parseFloat(from_ar[0]), parseFloat(from_ar[1]));
+                to_loc = create_point(parseFloat(to_ar[0]), parseFloat(to_ar[1]));
+                if (cls != null && cls != "")
+                    cls = "imgCarClass" + cls;
+                
+                if (waypoints != null && waypoints != ''){
+                    waypoints_ar = waypoints.split("|");
+                    for(i=0;i<waypoints_ar.length;i++){
+                        if (waypoints_ar[i] != ''){
+                            waypoints_arr = waypoints_ar[i].split(",");
+                            if (waypoints_arr.length == 2){
+                                var p = create_point(parseFloat(waypoints_arr[0]), parseFloat(waypoints_arr[1]));
+                                way_points.push(p);
+                            }
+                        }
+                    };
+                }
+                $("#mapOverlay").show();
+                setTimeout(function(){ 
+                    showHideOriginButton(false);
+                    showHideDestinationButton(false);
+                    setTimeout(function(){ 
+                        showHideOriginButton(false);
+                        showHideDestinationButton(false);
+                    }, 1000);
+                }, 500);
+                //$("#btnShare").show();
+            }else if (from != null && from != ""){
+                from_ar = from.split(",");
+                from_loc = create_point(parseFloat(from_ar[0]), parseFloat(from_ar[1]));
+            }else if (to != null && to != ""){
+                to_ar = to.split(",");
+                to_loc = create_point(parseFloat(to_ar[0]), parseFloat(to_ar[1]));
+                if (to_name != "" && to_name != null){
+                    $("#lblToName").text('مقصد: ' + to_name);
+                    $("#panelToName").show();
+                }
+            }
+            
+            if (from_loc != null && to_loc != null){
+            //if (way_points.length != 0){
+                setTimeout(function(){ 
+                    reDrawRequest(from_loc, way_points, to_loc); // bbbb
+                }, 1000);
+                
+                
+            }else if (from_loc != null && to_loc != null){
+                setTimeout(function(){ 
+                    btnPointClick(null, 'from', from_loc);
+                }, 300);
+            }else if (from_loc != null){
+                setTimeout(function(){ 
+                    btnPointClick(null, 'from', from_loc);
+                }, 300);
+            } 
+            $("#enamad1").hide();
+        }
+        
+        var way_points = [];
+        function initMap() {
+            findDistanceCount = 0;
+
+            submitVisitLog('initmap');
+            centerMap = translate_map({lat: 35.705933, lng: 51.386204});
+            zoom = 11;
+            centerSelected = false;
+            
+            if (old_trip_redraw != ''){
+                //reDrawRequestUrlCallback();
+                window.history.pushState('page', '', old_trip_redraw);
+                isFormAutofilled = false;
+            }
+            
+            loadFromParameters();
+            
+            if (mapsource == 'mapbox'){
+                mapboxgl.accessToken = 'pk.eyJ1IjoicGV0bWFwaXIiLCJhIjoiY2ppaGtiamg4MTZzejNwbXljNTJ4ZXVlcCJ9.vptUcSZX5L-wJuSDsbTfTw';
+                map = new mapboxgl.Map({
+                    container: 'map',
+                    style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+                    center: centerMap, // starting position [lng, lat]
+                    zoom: 15
+                    
+                });
+                mapboxgl.setRTLTextPlugin(
+                    'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+                    null,
+                    true // Lazy load the plugin
+                );
+                // Add geolocate control to the map.
+                map.addControl(
+                    new mapboxgl.GeolocateControl({
+                        positionOptions: {
+                            enableHighAccuracy: true
+                        },
+                        trackUserLocation: true
+                    })
+                );
+            }else if (mapsource == 'cedar'){
+                L.cedarmaps.accessToken = "4a97b4c97f39adc4897e13491fb60c84d4d2cd3e";
+                var tileJSONUrl = 'https://api.cedarmaps.com/v1/tiles/cedarmaps.streets.json?access_token=' + L.cedarmaps.accessToken;
+                map = L.cedarmaps.map('map', tileJSONUrl, {
+                    scrollWheelZoom: true,
+                    zoomControl: false
+                }).setView(centerMap, 15);
+            }else{
+                // Create a map object and specify the DOM element for display.
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: centerMap,
+                    disableDefaultUI: true,
+                    zoom: zoom,
+    				draggable: true,
+    				clickableIcons: false
+    				
+                });
+            }
+            
+            
+            /*
+            northCoordsAsDest = new google.maps.Polygon({paths: northCoordsAsDest});
+            northCoordsAsDestPlus = new google.maps.Polygon({paths: northCoordsAsDestPlus});
+            chaloos_tolls_area = new google.maps.Polygon({paths: chaloos_tolls_area});
+            passing_north_gates_area = new google.maps.Polygon({paths: passing_north_gates_area});
+            
+            khoramabad_andimeshk_tolls_area = new google.maps.Polygon({paths: khoramabad_andimeshk_tolls_area});
+            
+            northCoordsAsSrc = new google.maps.Polygon({paths: northCoordsAsSrc});
+            chaloosCoords = new google.maps.Polygon({paths: chaloosCoords});
+            IsfahanCoords = new google.maps.Polygon({paths: IsfahanCoords});
+            GorganCoords = new google.maps.Polygon({paths: GorganCoords});
+            AstaraCoords = new google.maps.Polygon({paths: AstaraCoords});
+            ArdabilCoords = new google.maps.Polygon({paths: ArdabilCoords});
+            TabrizCoords = new google.maps.Polygon({paths: TabrizCoords});
+            AsaluyeCoords = new google.maps.Polygon({paths: AsaluyeCoords});
+            BandarAbbasCoords = new google.maps.Polygon({paths: BandarAbbasCoords});
+            TehranKarajCoords = new google.maps.Polygon({paths: TehranKarajCoords});
+            northAll = new google.maps.Polygon({paths: northAll});
+            westAll = new google.maps.Polygon({paths: westAll});
+            southWarmAll = new google.maps.Polygon({paths: southWarmAll});
+            FashamShemshakCoords = new google.maps.Polygon({paths: FashamShemshakCoords});
+            HarazCoords = new google.maps.Polygon({paths: HarazCoords});
+            ZanjanTaleshCoords = new google.maps.Polygon({paths: ZanjanTaleshCoords});
+            NorthOfQazvinCoords = new google.maps.Polygon({paths: NorthOfQazvinCoords});
+            SistanCoords = new google.maps.Polygon({paths: SistanCoords});
+            NoordoozCoords = new google.maps.Polygon({paths: NoordoozCoords});
+            MehranBorderAreaCoords = new google.maps.Polygon({paths: MehranBorderAreaCoords});
+            KhosraviBorderAreaCoords = new google.maps.Polygon({paths: KhosraviBorderAreaCoords});
+            ChazzabehBorderAreaCoords = new google.maps.Polygon({paths: ChazzabehBorderAreaCoords});
+            ShalamcheBorderAreaCoords = new google.maps.Polygon({paths: ShalamcheBorderAreaCoords});
+            BashmaghBorderAreaCoords = new google.maps.Polygon({paths: BashmaghBorderAreaCoords});
+            
+            TehranTrafficCoords = new google.maps.Polygon({paths: TehranTrafficCoords});
+            TehranMainTrafficAreaCoords = new google.maps.Polygon({paths: TehranMainTrafficAreaCoords});
+            TehranMain2TrafficAreaCoords = new google.maps.Polygon({paths: TehranMain2TrafficAreaCoords});
+            
+            
+            
+            for(i=0;i<bans.length;i++){
+                bans[i].endArea1    = new google.maps.Polygon({paths: bans[i].endArea1});
+                bans[i].middleArea  = new google.maps.Polygon({paths: bans[i].middleArea});
+                bans[i].endArea2    = new google.maps.Polygon({paths: bans[i].endArea2});
+            }
+            */
+            if (mapsource == 'mapbox'){
+                map.on('dragStart', function(e){
+                    showHideSearchBox(false);
+                });
+            }else if (mapsource == 'cedar'){
+                map.on('movestart', function(e){
+                    showHideSearchBox(false);
+                });
+            }else{
+    			google.maps.event.addListener(map, 'dragstart', function() {
+    				showHideSearchBox(false);
+    			});
+            }		
+            
+            if (mapsource == 'mapbox'){
+                map.on('idle', function(e){
+                    $("#map div").first().children().first().children().first().click(function(){
+        			    showHideSearchBox(false);
+        			});
+                });
+            }else if (mapsource == 'cedar'){
+                map.on('load moveend', function(e){
+                    $("#map div").first().children().first().children().first().click(function(){
+        			    showHideSearchBox(false);
+        			});
+                });
+            }else{
+    			google.maps.event.addListenerOnce(map, 'idle', function(){
+                    $("#map div").first().children().first().children().first().click(function(){
+        			    showHideSearchBox(false);
+        			});
+                });
+            }		
+            
+            
+            
+            var options = {
+              enableHighAccuracy: false,
+              timeout: 10000,
+              maximumAge: 0
+            };
+            //alert(map.getZoom());
+            navigator.geolocation.getCurrentPosition(function (location) {
+                currentLocation = create_point(location.coords.latitude, location.coords.longitude);
+                var marker = putMarker(currentLocation, "/images/my_location.png", [18, 18], 0);
+                /*var marker = new google.maps.Marker({
+                    position: currentLocation,
+                    map: map,
+                    icon: "/images/my_location.png",
+                    anchor: new google.maps.Point(18, 18),
+                    zIndex: 0
+                });*/
+                if (!insideIran(currentLocation))
+                    return;
+                $("#myLocation").show();
+                $("#zoomin").show();
+                $("#zoomout").show();
+                if (!centerSelected)
+                    panTo(currentLocation);
+                    //map.panTo(currentLocation);
+            }, function (positionError) {
+                //alert(positionError.code + " " + positionError.message);
+            }, options);
+
+            if (google_search)
+                prepareSearchBox();
+
+            if (mapsource == 'mapbox'){
+                map.on('zoomend', function(e){
+                    zoom = map.getZoom();
+                    lastZoomLevel = zoomLevel;
+                });
+            }else if (mapsource == 'cedar'){
+                map.on('zoomend', function(e){
+                    zoom = map.getZoom();
+                    lastZoomLevel = zoomLevel;
+                });
+            }else{
+    			google.maps.event.addListener(map, 'zoom_changed', function() {
+                    zoom = map.getZoom();
+                    lastZoomLevel = zoomLevel;
+                });
+            }	
+            /*if (old_trip_redraw != null){
+                reDrawRequestUrlCallback();
+            }*/
+        }
+        
+        var old_trip_redraw = '';
+        function reDrawRequestUrl(url){
+            old_trip_redraw = url;
+            panelModalOldTripsInstance.close();
+            newRequest(false);
+        }
+        
+        function reDrawRequestUrlCallback(){
+            window.history.pushState('page', '', old_trip_redraw);
+            isFormAutofilled = false;
+            loadFromParameters();
+            return;
+
+
+            var url = old_trip_redraw;
+            //old_trip_redraw = '';
+            //fillFormFromUrl();
+            
+            var from = getParameterByName('from', url);
+            var to = getParameterByName('to', url);
+            var waypoints = getParameterByName('waypoints', url);
+            //var to_name = getParameterByName('to_name', url);
+            //var cls = getParameterByName('cls', url);
+            
+            from_ar = from.split(",");
+            to_ar = to.split(",");
+            from_loc = create_point(parseFloat(from_ar[0]), parseFloat(from_ar[1])); 
+            to_loc = create_point(parseFloat(to_ar[0]), parseFloat(to_ar[1]));
+            /*if (cls != null && cls != "")
+                cls = "imgCarClass" + cls;*/
+            
+            if (waypoints != null && waypoints != ''){
+                waypoints_ar = waypoints.split("|");
+                for(i=0;i<waypoints_ar.length;i++){
+                    if (waypoints_ar[i] != ''){
+                        waypoints_arr = waypoints_ar[i].split(",");
+                        if (waypoints_arr.length == 2){
+                            var p = create_point(parseFloat(waypoints_arr[0]), parseFloat(waypoints_arr[1]));
+                            way_points.push(p);
+                        }
+                    }
+                };
+            }
+            panelModalOldTripsInstance.close();
+            reDrawRequest(from_loc, way_points, to_loc);
+        }
+        
+        function reDrawRequest(from_loc, way_points, to_loc){
+            points = [];
+            
+            var newPoint = new Point();
+            newPoint.ttype = 'from';
+			newPoint.zoom = '15';
+			newPoint.point = from_loc; 
+			
+			var idx = '';
+
+            newPoint.marker = putMarker(newPoint.point, "/images/start2"+idx+".png", [25, 61], 0);
+			points.push(newPoint);
+			origin_point = newPoint.point;
+			origins_count = 1;
+			
+			for(i=0;i<Math.min(3, way_points.length);i++){
+			    var newPoint = new Point();
+				newPoint.ttype = 'from';
+				newPoint.zoom = '15';
+				newPoint.point = way_points[i];
+				
+				idx = i+2;
+					
+                newPoint.marker = putMarker(newPoint.point, "/images/start2"+"_"+idx+".png", [25, 61], 0);
+				points.push(newPoint);
+				origins_count++;
+				
+			}
+
+			for(i=0;i<way_points.length-3;i++){ 
+			    var newPoint = new Point();
+				newPoint.ttype = 'to';
+				newPoint.zoom = '15';
+				newPoint.point = way_points[i+3];
+				
+				idx = i+1;
+					
+                newPoint.marker = putMarker(newPoint.point, "/images/end2"+"_"+idx+".png", [25, 61], 0);
+				points.push(newPoint);
+				
+			}
+			
+			btnPointClick(null, 'to', to_loc); 
+            /*setTimeout(function(){ 
+                eventFire($("#"+cls).get(0), 'click');
+            }, 300);*/
+			
+			/*idx = '';
+			if (way_points.length > 3)
+			    idx = "_"+(way_points.length-3+1);
+			
+			var newPoint = new Point();
+            newPoint.ttype = 'to';
+			newPoint.zoom = '15';
+			newPoint.point = to_loc;
+				
+            newPoint.marker = putMarker(newPoint.point, "/images/end2"+idx+".png", [25, 61], 0);
+			points.push(newPoint);*/
+			
+			
+			$("#mapOverlay").hide();
+        }
+        
+        function randomString(length) {
+            var chars = 'abcdefghijkmnopqrstuvwxyz';
+            var result = '';
+            for (var i = length; i > 0; --i)
+                result += chars[Math.floor(Math.random() * chars.length)];
+            return result;
+        }
+
+        function eventFire(el, etype){
+          if (el.fireEvent) {
+            el.fireEvent('on' + etype);
+          } else {
+            var evObj = document.createEvent('Events');
+            evObj.initEvent(etype, true, false);
+            el.dispatchEvent(evObj);
+          }
+        }
+        
+        function allowShortDistance(){
+            var from_param = getParameterByName('from');
+            var to_param = getParameterByName('to');
+            if (from_param == "35.407878,51.155274" || to_param == "35.407878,51.155274") // Iman Airport
+                return true;
+            if (from_param == "35.694041,51.325127" || to_param == "35.694041,51.325127") // MehrAbad Airport
+                return true;
+            if (from_param == "29.549481,52.595178" || to_param == "29.549481,52.595178") // MehrAbad Airport
+                return true;
+            return false;
+        }
+        
+        function getLat(p){
+            var tp = typeof (p.lat);
+            if (tp == 'function')
+                return p.lat();
+            if (tp == 'undefined' || tp == 'function'){
+                if (mapsource == 'mapbox')
+                    return p[1];
+                else if (mapsource == 'cedar')
+                    return p[0];
+                else
+                    return p.lat();
+            }
+            return p.lat;
+        }
+        function getLng(p){
+            var tp = typeof (p.lng);
+            if (tp == 'function')
+                return p.lng();
+            if (tp == 'undefined' || tp == 'function'){
+                if (mapsource == 'mapbox')
+                    return p[0];
+                else if (mapsource == 'cedar')
+                    return p[1];
+                else
+                    return p.lng();
+            }
+            return p.lng;
+        }
+        
+        var _old_go_fare;
+        
+        var last_origin_point = null, last_destination_point = null, last_path_points_count = 0;
+        var last_distance_response = null, last_distance_status = null;
+        var auto_type = false;
+        function findDistance(origin_point, destination_point){
+            findDistanceCount++;
+            submitVisitLog('findDistance');
+            submitVisitLog('findDistance_'+findDistanceCount);
+            
+            var euclideanDistance = 0;
+            for(i=0;i<points.length-1;i++){ 
+                euclideanDistance += getDistanceFromLatLonInKmP(points[i].point, points[i+1].point);
+            }
+	        //var euclideanDistance = getDistanceFromLatLonInKm(origin_point.lat(), origin_point.lng(), destination_point.lat(), destination_point.lng());
+            if (forbid_short_distances && euclideanDistance < 20){
+                $("#lblMessage").text("مسیر کوتاه: عدم سرویس دهی");
+                submitVisitLog('Short Distance: E-' + Math.floor(euclideanDistance));
+                $("#panelWait").hide();
+                return;
+            }
+            
+            var use_cache = false;
+            if (last_distance_response != null && last_origin_point != null && last_destination_point != null &&
+                getLat(origin_point) == getLat(last_origin_point) && 
+                getLng(origin_point) == getLng(last_origin_point) &&
+                last_path_points_count == points.length &&
+                last_requested_path != ''){
+                var d = getDistanceFromLatLonInKmP(destination_point, last_destination_point);
+                if (d < 1){
+                    use_cache = true;
+                    submitVisitLog('Local distance cache');
+                    console.log('Using local cache: ' + d + "km");
+                }
+            }
+            
+            last_origin_point = origin_point;
+            last_destination_point = destination_point;
+            last_path_points_count = points.length;
+
+
+	        /*
+	        if (use_cache){
+	            distanceCallback(last_distance_response, last_distance_status);
+	        }else{
+    	        var service = new google.maps.DistanceMatrixService();
+                service.getDistanceMatrix(
+                    {
+                        origins: [origin_point],
+                        destinations: [destination_point],
+                        travelMode: 'DRIVING',
+                    }, distanceCallback);
+            }*/
+            
+            auto_type = false;
+            if (points.length == 2){
+                for (i=0; i<city_distances.length; i++){
+                    cit_org = cities_loc[city_distances[i].src];
+                    cit_dst = cities_loc[city_distances[i].dst];
+                    var dist_org = getDistanceFromLatLonInKmP(origin_point, cit_org);
+                    var dist_dst = getDistanceFromLatLonInKmP(destination_point, cit_dst);
+                    
+                    if (dist_org < cit_org.rad && dist_dst < cit_dst.rad){
+                        
+                        var dist1 = getDistanceFromLatLonInKmP(origin_point, destination_point);
+                        var dist2 = getDistanceFromLatLonInKmP(cit_org, cit_dst);
+                        
+                        var dist = city_distances[i].dist;
+                        dist += (dist2 - dist1)*2;
+                        
+                        processResult('Auto', 'Auto', dist*1000,  dist+'km', 0, 'Auto');
+                        auto_type = true;
+                        return;
+                    }
+                }
+            }
+            if (use_cache){
+	            routesCallback(last_distance_response, last_distance_status);
+	        }else{
+	            var waypoints_separator = '|';
+	            if (routesource == 'neshan')
+	                waypoints_separator = '%7C';
+	            const waypts = []; 
+	            var wayptsStr1 = '';
+	            for(i=1;i<points.length-1;i++){
+	                wayptsStr1 += waypoints_separator+getLat(points[i].point)+','+getLng(points[i].point);
+	                if (routesource == 'hamsafar'){
+            			waypts.push({
+                            location: points[i].point,
+                            stopover: false,
+                        });
+	                }else if (routesource == 'neshan'){
+	                	waypts.push({
+                            location: points[i].point,
+                            stopover: false,
+                        });
+	                }else{ // google
+	                    waypts.push({
+                            location: new google.maps.LatLng(getLat(points[i].point), getLng(points[i].point)), 
+                            stopover: false,
+                        });
+	                }
+                }
+                if (points.length >= 3)
+                    wayptsStr1 = wayptsStr1.substr(waypoints_separator.length);
+
+                if (routesource == 'db'){
+                    var url = 'https://hamsafartaxi.com/local_calculate.php?src_lat='+getLat(points[0].point)+'&src_lng='+getLng(points[0].point)+'&dst_lat='+getLat(points[1].point)+'&dst_lng='+getLng(points[1].point);
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        url: url,
+                        async: true,
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            //console.log("error: " + textStatus + " - " + errorThrown);
+                            $("#panelWait").hide();
+                        },
+                        success: function (data) {
+                            console.log('Success: '+data);
+                            data = data.trim();
+                            
+                            if (data.indexOf('OK') >= 0){
+                                var ar = data.split(';');
+                                var db_distance_km = parseInt(ar[1]); // km
+                                var db_rad = parseFloat(ar[2]);
+
+                                var _org_lat = parseFloat(ar[3]);
+                                var _org_lng = parseFloat(ar[4]);
+                                var _dst_lat = parseFloat(ar[5]);
+                                var _dst_lng = parseFloat(ar[6]);
+                                
+                                var _old_req_id = parseFloat(ar[7]);
+                                _old_go_fare = parseFloat(ar[8]);
+
+                                var distance_new_km = getDistanceFromLatLonInKmP(points[0].point, points[1].point);
+                                var distance_old_km = getDistanceFromLatLonInKm(_org_lat, _org_lng, _dst_lat, _dst_lng);
+                                
+                                console.log('distance_new_km: ' + distance_new_km)
+                                console.log('distance_old_km: ' + distance_old_km)
+                                
+                                //db_distance_km = db_rad
+                                
+                                processResult('DB', 'DB', db_distance_km*1000, db_distance_km+'km', 0, 'Auto');
+                            }else{
+                                $("#panelWait").hide();
+                            }
+                        },
+                        complete: function(){
+        			        $("#panelWait").hide();
+                        }
+                    });
+                    return;
+                }else if (routesource == 'neshan'){ // https://platform.neshan.org/api/direction/#
+                    // https://api.neshan.org/v4/direction?type=car&origin=35.70439758663133,51.40130157422311&destination=36.65181973478221,51.45207240538264&avoidTrafficZone=false&avoidOddEvenZone=false&alternative=false&bearing=", requestOptions
+                    var url = 'https://api.neshan.org/v4/direction?type=car&origin='+getLat(points[0].point)+','+getLng(points[0].point)+'&destination='+getLat(points[points.length-1].point)+','+getLng(points[points.length-1].point)+'&avoidTrafficZone=false&avoidOddEvenZone=false&alternative=true&bearing=';//&waypoints='+wayptsStr1;
+                    if (wayptsStr1 != '')
+                        url = url + '&waypoints='+wayptsStr1;
+                    console.log(url);
+                    $.ajax({
+                        type: "GET",
+                        contentType: "application/json; charset=utf-8",
+                        headers: {"Api-Key": "service.XOQoCgl86X3Wqk8pxdJIkYQpN6L2ejzmEirS9hDH"},
+                        url: url,
+                        async: true,
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log("error: " + textStatus + " - " + errorThrown);
+                            $("#panelWait").hide();
+                        },
+                        success: function (data) {
+                            dataa = data;
+                            if (manual_result != '')
+                                data = manual_result;
+                            console.log('Success: ');
+                            console.log(data); // object not a string
+                            if (typeof data.routes !== 'undefined'){
+                                json = data;
+                                routesCallback(json, 'OK');
+                            }else{
+                                $("#panelWait").hide();
+                                $("#lblMessage").text("خطا در محاسبه کرایه");
+                                $("#btnContinueRequest").hide();
+                                $("#car_classs").hide();
+                                last_requested_path = '';
+                            }
+                        },
+                        complete: function(){
+        			        $("#panelWait").hide();
+                        }
+                    });
+                    return;
+                }else if (routesource == 'hamsafar'){
+                    // https://hamsafartaxi.com/google_route.php?origin=35.70968225317641,51.48106078613943&destination=35.748402500858184,51.22756350963422&&waypoints=35.66565377014952,51.41102157070676|35.60901156352773,51.275752415417045
+                    var url = 'https://hamsafartaxi.com/google_route.php?origin='+getLat(points[0].point)+','+getLng(points[0].point)+'&destination='+getLat(points[points.length-1].point)+','+getLng(points[points.length-1].point)+'&waypoints='+wayptsStr1;
+                    $.ajax({
+                        type: "GET",
+                        contentType: "application/json; charset=utf-8",
+                        url: url,
+                        async: true,
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            //console.log("error: " + textStatus + " - " + errorThrown);
+                            $("#panelWait").hide();
+                        },
+                        success: function (data) {
+                            if (manual_result != '')
+                                data = manual_result;
+                            console.log('Success: '+data);
+                            data = data.trim();
+                            
+                            if (data.indexOf('OK;') >= 0){
+                                var jsonStr = data.substr(3);
+                                var json = JSON.parse(jsonStr);
+                                console.log(json);
+                                
+                                routesCallback(json, json['status']);
+                            }else{
+                                $("#panelWait").hide();
+                                $("#lblMessage").text("خطا در محاسبه کرایه");
+                                $("#btnContinueRequest").hide();
+                                $("#car_classs").hide();
+                                last_requested_path = '';
+                            }
+                        },
+                        complete: function(){
+        			        $("#panelWait").hide();
+                        }
+                    });
+                    return;
+                }else{ // google
+    	            var directionsService = new google.maps.DirectionsService();
+                    directionsService.route(
+                        {
+                            origin: translate_map_route(points[0].point),
+                            destination: translate_map_route(points[points.length-1].point), 
+                            waypoints: waypts,
+                            optimizeWaypoints: false,
+                            travelMode: 'DRIVING',
+                            provideRouteAlternatives: true
+                        }, routesCallback);
+                }
+	        }
+        }
+        var dataa = '';
+        var manual_result = '';
+        
+        function isInside(p, arr){
+            if (arr[0] <= arr[2] || arr[1] >= arr[3]){
+                console.log("ERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRROOOOOOOOOOOOOOOOORRRRRRRRR");
+                console.trace();
+            }
+            var lat = getLat(p);
+            var lng = getLng(p);
+            if (lat < arr[0] && lat > arr[2] && lng > arr[1] && lng < arr[3])
+                return true;
+            return false;
+        }
+        
+        // pointInPolygon({lat: 36.619177, lng: 50.984180}, northCoordsAsDest)
+        // if (pointInPolygon(point, passing_north_gates_area)){
+        
+        function pointInPolygonRouteStd(p, arr) {
+            if (routesource == 'neshan'){
+                p = {lat: parseFloat(p[1]), lng: parseFloat(p[0])};
+            }
+            return pointInPolygonInt(p, arr);
+        }
+        
+        function pointInPolygonMapStd(p, arr) {
+            var tp = typeof (p.lat);
+            if (tp == 'undefined' || tp == 'function'){
+                if (typeof(p[0]) == 'undefined'){
+                    arr = new google.maps.Polygon({paths: arr});
+                    return google.maps.geometry.poly.containsLocation(new google.maps.LatLng(p.lat(), p.lng()), arr);
+                }else if (mapsource == 'mapbox'){
+                    p = {lat: parseFloat(p[1]), lng: parseFloat(p[0])};
+                }else if (mapsource == 'cedar'){
+                    p = {lat: parseFloat(p[0]), lng: parseFloat(p[1])};
+                }else{
+                    arr = new google.maps.Polygon({paths: arr});
+                    return google.maps.geometry.poly.containsLocation(new google.maps.LatLng(p.lat(), p.lng()), arr);
+                }
+            }
+            return pointInPolygonInt(p, arr);
+        }
+        
+        function pointInPolygon(p, arr) {
+            return pointInPolygonMapStd(p, arr);
+        }
+        
+        function pointInPolygonInt(p, arr) {
+            /*var tp = typeof (p.lat);
+            if (tp == 'undefined' || tp == 'function'){
+                if (typeof(p[0]) == 'undefined'){
+                    arr = new google.maps.Polygon({paths: arr});
+                    return google.maps.geometry.poly.containsLocation(new google.maps.LatLng(p.lat(), p.lng()), arr);
+                }else if (mapsource == 'mapbox'){
+                    p = {lat: parseFloat(p[1]), lng: parseFloat(p[0])};
+                }else if (mapsource == 'cedar'){
+                    p = {lat: parseFloat(p[0]), lng: parseFloat(p[1])};
+                }else{
+                    arr = new google.maps.Polygon({paths: arr});
+                    return google.maps.geometry.poly.containsLocation(new google.maps.LatLng(p.lat(), p.lng()), arr);
+                }
+            }*/
+            
+            var polygon = arr;
+            var isInside = false;
+            var minX = polygon[0].lat, maxX = polygon[0].lat;
+            var minY = polygon[0].lng, maxY = polygon[0].lng;
+            for (var n = 1; n < polygon.length; n++) {
+                var q = polygon[n];
+                minX = Math.min(q.lat, minX);
+                maxX = Math.max(q.lat, maxX);
+                minY = Math.min(q.lng, minY);
+                maxY = Math.max(q.lng, maxY);
+            }
+        
+            if (p.lat < minX || p.lat > maxX || p.lng < minY || p.lng > maxY) {
+                return false;
+            }
+        
+            var i = 0, j = polygon.length - 1;
+            for (i, j; i < polygon.length; j = i++) {
+                if ( (polygon[i].lng > p.lng) != (polygon[j].lng > p.lng) &&
+                        p.lat < (polygon[j].lat - polygon[i].lat) * (p.lng - polygon[i].lng) / (polygon[j].lng - polygon[i].lng) + polygon[i].lat ) {
+                    isInside = !isInside;
+                }
+            }
+            return isInside;
+    
+            if (mapsource == 'mapbox'){
+                return false;
+            }else if (mapsource == 'cedar'){
+                //return false;
+                return L.polygon(arr).getBounds().contains([parseFloat(p[0]), parseFloat(p[1])]);
+            }else{
+                arr = new google.maps.Polygon({paths: arr});
+                return google.maps.geometry.poly.containsLocation(new google.maps.LatLng(p.lat(), p.lng()), arr)
+            }
+            // passing_north_gates_area = new google.maps.Polygon({paths: passing_north_gates_area});
+            var polyCorners = arr.length;
+            var i, j = polyCorners - 1;
+            var oddNodes = false;
+        
+            for (i=0; i<polyCorners; i++) {
+                if (arr[i].lng < p.lng && arr[j].lng >= p.lng ||  arr[j].lng < p.lng && arr[i].lng >= p.lng) {
+                    if (arr[i].lat + (p.lng - arr[i].lng) / (arr[j].lng - arr[i].lng) * (arr[j].lat - arr[i].lat) < p.lat) {
+                        oddNodes = !oddNodes; 
+                    }
+                }
+                j = i;
+            }
+            return oddNodes;
+        }
+        
+        function neshan_route_to_std(response){
+            console.log('neshan_route_to_std');
+            for (i=0; i<response.routes.length; i++){
+                response.routes[i].overview_path = [];
+                var n = 0;
+                for (j=0; j<response.routes[i].legs.length; j++){
+                    for (k=0; k<response.routes[i].legs[j].steps.length; k++){
+                        var points = polyline.decode(response.routes[i].legs[j].steps[k].polyline, 5);
+                        for (m=0; m<points.length; m++){
+                            response.routes[i].overview_path[n++] = [points[m][0], points[m][1]];
+                            //console.log(points[m][0]+','+points[m][1]);
+                        }
+                        //var point = response.routes[i].legs[j].steps[k].start_location;
+                        //response.routes[i].overview_path[n++] = [point[0], point[1]];
+                    }
+                }
+            }
+            console.log('neshan_route_to_std end');
+            return response;
+        }
+        
+        var route_in_points = [];
+        const DISTANCE_IN_POINTS_KM = 30; 
+        
+        var banned_route_additive = 0;
+        var chaloos_tolls;
+        var haraaz_tolls;
+        var khoramabad_andimeshk_tolls;
+        var passing_north_gates = false;
+        // http://alienryderflex.com/polygon/
+        function routesCallback(response, status) {
+            last_distance_response = response;
+            last_distance_status = status;
+            if (destination_point == null){ // Cancelled by user
+                $("#panelWait").hide();
+                return;
+            }
+            
+            route_in_points = [];
+            
+            
+            //console.log(status);
+            console.log(response);
+            banned_route_additive = 0;
+            chaloos_tolls = false;
+            haraaz_tolls = false;
+            passing_north_gates = false;
+            khoramabad_andimeshk_tolls = false;
+            if (status == 'OK') {
+                //var origins = response.originAddresses;
+                //var destinations = response.destinationAddresses;
+                direction = 0; // -1 -> end2_end1   0 -> undefined   1 -> end1_end2
+                console.log("Routes found: " + response.routes.length);
+                
+                if (routesource == 'neshan'){
+                    response = neshan_route_to_std(response);
+                    console.log('NESHAN');
+                    console.log(response);
+                }
+                var i = 0;
+                for (i=0; i<response.routes.length; i++){
+					console.log('testing route ' + i);
+                    route = response.routes[i];
+                    banned_route = false;
+                    direction = 0;
+                    for (k=0; k<bans.length; k++){
+                        ban = bans[k];
+						for (j=0; j<route.overview_path.length; j++){
+                            point = route.overview_path[j];
+                            
+                            
+
+						    if (passing_north_gates == false){ // 4 ways to north
+						        if (pointInPolygon(point, passing_north_gates_area)){
+						        //if (google.maps.geometry.poly.containsLocation(create_point(point.lat(), point.lng()), passing_north_gates_area)){
+									passing_north_gates = true;
+									console.log('To North Gates');
+                                }
+						    }
+						    if (chaloos_tolls == false){ // Chaloos Tools
+						        if (pointInPolygon(point, chaloos_tolls_area)){
+									chaloos_tolls = true;
+									console.log('Chaloos Tolls');
+                                }
+						    }
+						    if (haraaz_tolls == false){ // haraaz Tools
+						        if (pointInPolygon(point, haraaz_tolls_area)){
+									haraaz_tolls = true;
+									console.log('Haraaz Tolls');
+                                }
+						    }
+						    if (khoramabad_andimeshk_tolls == false){
+						        if (pointInPolygon(point, khoramabad_andimeshk_tolls_area)){
+									khoramabad_andimeshk_tolls = true;
+									console.log('Khoramabad Andimeshk Tolls');
+                                }
+						    }
+
+                            if (direction == 0){
+                                if (pointInPolygon(point, ban.endArea1)){
+									console.log('End1: '+ j)
+                                    direction = 1;
+                                }else if (pointInPolygon(point, ban.endArea2)){
+									console.log('End2: '+ j)
+                                    direction = -1;
+                                }
+                            }else if (direction == 1){ // search of Middle and then end2
+                                if (pointInPolygon(point, ban.middleArea)){
+									console.log('Middle1: '+ j)
+                                    direction = 2;
+                                }
+                            }else if (direction == -1){ // search of Middle and then end1
+                                if (pointInPolygon(point, ban.middleArea)){
+									console.log('Middle1: '+ j)
+                                    direction = -2;
+                                }
+                            }else if (direction == 2){ // search of Middle and then end2
+                                if (pointInPolygon(point, ban.endArea2)){
+                                    banned_route = true;
+									console.log('End2: '+ j);
+                                    break;
+                                }
+                            }else if (direction == -2){ // search of Middle and then end2
+                                if (pointInPolygon(point, ban.endArea1)){
+                                    banned_route = true;
+									console.log('End1: '+ j);
+                                    break;
+                                }
+                            }
+                        }; // For j
+                        if (banned_route){
+                            if (banned_route_additive == 0){
+                                banned_route_additive = ban.additive;
+                                break;
+                            }
+                        }
+                    }; // For k
+					console.log('banned_route: ' + (banned_route || banned_route_additive>0));
+                    if (!banned_route){ // found the best unbanned way (route)
+                        console.log("Found unbanned route A");
+                        break;
+                    }
+                }; // For i
+                var route = response.routes[i];
+                if (banned_route){
+                    route = response.routes[0];
+                    console.log('No unbanned route found. Choosing first banned route with its additive ' + ban.additive);
+                    banned_route_additive = ban.additive;
+                }else{
+                    console.log("Found unbanned route B");
+                }
+                
+                
+                
+                for (i=0; i<response.routes.length; i++){
+                    for (j=0; j<route.overview_path.length; j++){
+                        point = route.overview_path[j];
+                        if (route_in_points.length == 0){
+                            route_in_points[route_in_points.length] = point;
+                        }else{
+                            var dist = getDistanceFromLatLonInKmP(point, route_in_points[route_in_points.length-1]);
+                            if (dist > DISTANCE_IN_POINTS_KM){
+                                route_in_points[route_in_points.length] = point;
+                            }
+                        }
+                        
+                    }
+                }
+                route_in_points[route_in_points.length] = response.routes[0].overview_path[response.routes[0].overview_path.length-1]; // add the destination
+                
+                
+                
+                console.log(route);
+                var start_address = route.legs[0].start_address;
+                var end_address = route.legs[route.legs.length-1].end_address;
+                var distanceValue = 0;
+                var durationValue = 0;
+                for (var i = 0; i < route.legs.length; i++) {
+                    distanceValue += route.legs[i].distance.value;
+                    durationValue += route.legs[i].duration.value;
+                }
+                distanceText = Math.floor(distanceValue/1000);
+                durationText = pad(Math.floor(durationValue/3600),2)+':'+pad(Math.floor((durationValue%3600)/60),2);
+
+                processResult(start_address, end_address, distanceValue, distanceText, durationValue, durationText);
+                //processResult(leg.start_address, leg.end_address, leg.distance.value, leg.distance.text, leg.duration.value, leg.duration.text);
+                if (chaloos_tolls){
+                    $("#lbl_tolls_message").show().html("هزینه عوارض آزاد راه شمال بر عهده <u>راننده</u> است");
+                }else if (khoramabad_andimeshk_tolls){
+                    $("#lbl_tolls_message").show().html("هزینه عوارض خرم آباد-اندیمشک بر عهده <u>راننده</u> است");
+                }else{
+                    $("#lbl_tolls_message").hide().text("");
+                }
+            }    
+        }
+            
+        function rond(val){
+            return Math.floor(val/1000)*1000;
+            //precision = Math.ceil(Math.ceil(Math.log10(val)) / 2);
+            //dv = Math.pow(10, precision);
+            //return Math.floor(val/dv)*dv;
+        }
+        
+        function getAdditive(distance_real, class_type){
+            return Math.ceil(distance_real * 2 * 1500 * 0.08);
+        }
+        
+        function getMultiplierOldPaths(old_fare, multiplierfix, multiplierfixEco){
+            console.log(old_fare);
+            console.log(multiplierfix);
+            return Math.round(old_fare*multiplierfix/multiplierfixEco/1000)*1000;
+        }
+        
+        function getMultiplier(multiplierfix, multipliercheap, multipliervar, vdistance, class_type){
+            if (calculateAsCheap()){
+                multiplierfix = multipliercheap;
+            }
+            
+
+            var nDistance = Math.min(vdistance,1000)*1.0/1000;
+            
+            //cMultiplier = (multipliervar * (1-nDistance));
+            cMultiplier = 1.2*nDistance*nDistance - 2.2*nDistance + 1;
+
+            if (cMultiplier < 0)
+                cMultiplier = 0;
+            else if (cMultiplier > 1)
+                cMultiplier = 1;
+            console.log('multipliervar*cMultiplier: ' + multipliervar*cMultiplier);
+            ret = multiplierfix*1 + multipliervar*cMultiplier;
+            ret = ret * GetTehranToNorthMultiplier(vdistance);
+            
+            ///console.log('XXXXXXXXXXXXXXXXXXXXXX: ' + GetTehranToNorthMultiplier(vdistance));
+            ret = ret * GetTehranToNorthPlusMultiplier(vdistance);
+            ret = ret * GetNorthToTehranMultiplier(vdistance);
+            
+            ret = ret * GetSouthToNorthFromChaloosOrHaraazMultiplier(vdistance);
+
+            if (class_type == 'vip_pro')
+                ret = ret * GetTehranIsfahanMultiplier(vdistance);
+            if (class_type == 'vip_suv'){
+                var mul = GetTehranIsfahanMultiplier();
+                if (mul != 1)
+                    ret = ret * mul * 1.0;
+            }
+            if (class_type == 'sip'){
+                var mul = GetTehranIsfahanMultiplier();
+                if (mul != 1)
+                    ret = ret * mul * 1.05;
+            }
+            
+            if (class_type == 'vip_pro')
+                ret = ret * GetTehranRashtMultiplier(vdistance);
+            if (class_type == 'vip_suv'){
+                var mul = GetTehranRashtMultiplier();
+                if (mul != 1)
+                    ret = ret * mul * 1.0;
+            }
+            if (class_type == 'sip'){
+                var mul = GetTehranRashtMultiplier();
+                if (mul != 1)
+                    ret = ret * mul * 1.05;
+            }
+            
+            if (class_type == 'vip_pro')
+                ret = ret * GetTehranSariMultiplier(vdistance);
+            if (class_type == 'vip_suv'){
+                var mul = GetTehranSariMultiplier();
+                if (mul != 1)
+                    ret = ret * mul * 1.0;
+            }
+            if (class_type == 'sip'){
+                var mul = GetTehranSariMultiplier();
+                if (mul != 1)
+                    ret = ret * mul * 1.0;
+            }
+            
+            if (class_type == 'vip_pro' || class_type == 'vip_suv')
+                ret = ret * GetFromVIPCheapCitiesMultiplier(vdistance);
+            if (class_type == 'vip_suv')
+                ret = ret * GetFromSUVCheapCitiesMultiplier(vdistance);
+                
+            if (class_type == 'super_eco' || class_type == 'eco')
+                ret = ret * GetFromChaloosMultiplier();
+            ret = ret * GetFromOrToGorganMultiplier();
+            ret = ret * GetToAstaraMultiplier();
+            ret = ret * GetToArdabilMultiplier();
+            if (class_type == 'super_eco' || class_type == 'eco')
+                ret = ret * GetFromTabrizMultiplier();
+            if (class_type == 'super_eco' || class_type == 'eco')
+                ret = ret * GetFromKashmarMultiplier();
+            if (class_type == 'super_eco' || class_type == 'eco')
+                ret = ret * GetFromQomMultiplier();
+            ret = ret * GetToAsaluyeMultiplier();
+            ret = ret * GetFromBandarAbbasMultiplier();
+            ret = ret * GetFromNorthAllMultiplier();
+            ret = ret * GetToWestAllMultiplier();
+            ret = ret * GetToOrFromSouthWarmAllMultiplier();
+            ret = ret * GetTaleghanPathMultiplier();
+            ret = ret * GetFashamShemshakMultiplier();
+            ret = ret * GetNonTehranToOrFromNorthMultiplier();
+            
+            ret = ret * GetHarazMultiplier();
+            ret = ret * GetZanjanTaleshMultiplier();
+            ret = ret * GetNorthOfQazvinMultiplier();
+            ret = ret * GetSistanMultiplier();
+            ret = ret * GetMehranBorderMultiplier();
+            ret = ret * GetKhosraviBorderMultiplier();
+            ret = ret * GetChazzabehBorderMultiplier();
+            ret = ret * GetShalamcheBorderMultiplier();
+            ret = ret * GetBashmaghBorderMultiplier();
+            
+            
+            
+            if (vdistance < 120 || (isReturning() && vdistance < 200))
+                ret = ret * GetFromOrToTehranShortDistanceMultiplier(); 
+            else if (vdistance < 160 || (isReturning() && vdistance < 300))
+                ret = ret * (1+(GetFromOrToTehranShortDistanceMultiplier()-1)/2); 
+
+            
+            
+            if (IsOriginInTehranOrKaraj())
+                ret = ret * 1.07 * 1                
+            
+            
+            
+            if (class_type == 'super_eco' || class_type == 'eco')
+                ret = ret * GetFromEconomyCheapCitiesMultiplier();
+            
+            //console.log('vdistance: ' + vdistance);
+            if (vdistance > 700 && (class_type == 'vip_pro' || class_type == 'vip_suv')){
+                ret = ret * 1.13            }
+            
+            if (isReturning()){
+               ret = ret * 3/4;
+            }
+            
+
+            return ret;
+        } 
+        
+        var returning_path = false;
+        var destination_idx;
+        function isReturning(){
+            returning_path = false;
+            var points_dists_matrix =  [[0,0,0,0,0,0,0,0],
+                                        [0,0,0,0,0,0,0,0],
+                                        [0,0,0,0,0,0,0,0],
+                                        [0,0,0,0,0,0,0,0],
+                                        [0,0,0,0,0,0,0,0],
+                                        [0,0,0,0,0,0,0,0],
+                                        [0,0,0,0,0,0,0,0],
+                                        [0,0,0,0,0,0,0,0]];
+
+            var max_points_dists = 0;
+            var start_end_distance = getDistanceFromLatLonInKmP(points[0].point, points[points.length-1].point);
+            for(i=0; i<points.length; i++){
+                for(j=i+1; j<points.length; j++){
+                    points_dists_matrix[i][j] = getDistanceFromLatLonInKmP(points[i].point, points[j].point);
+                    if (points_dists_matrix[i][j] > max_points_dists){
+                        max_points_dists = points_dists_matrix[i][j];
+                        destination_idx = j;
+                    }
+                }
+            }
+            if (start_end_distance < max_points_dists/10){
+                returning_path = true;
+            }    
+            return returning_path;
+        }
+        
+        function getDistanceFromLatLonInKmP(point1, point2) {
+            return getDistanceFromLatLonInKm(getLat(point1), getLng(point1), getLat(point2), getLng(point2));
+        }
+        
+        function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+            var R = 6371; // Radius of the earth in km
+            var dLat = deg2rad(lat2-lat1);  // deg2rad below
+            var dLon = deg2rad(lon2-lon1); 
+            var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2); 
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+            var d = R * c; // Distance in km
+            return d;
+        }
+    
+        function deg2rad(deg) {
+            return deg * (Math.PI/180)
+        } 
+        
+        function calculateAsCheap(){
+            if (origin_point == null)
+                return false;
+            if (getDistanceFromLatLonInKmP(create_point(35.675072, 51.351862), origin_point) < 25) // Tehran
+                return false; 
+            if (getDistanceFromLatLonInKmP(create_point(35.412520, 51.144944), origin_point) < 6) // IKIA
+                return false;
+            // 38.544661, 48.408350     38.265716, 54.183056
+            // 36.037352, 54.900738
+            if (isInside(points[0].point, [38.544661, 48.408350, 36.037352, 54.900738])){
+                if (pointInPolygon(origin_point, northCoordsAsDest)){
+                    console.log("From North (not cheap)");
+                    return false;
+                }
+            }
+            console.log("Cheap");
+            return true;
+        }
+        
+        function GetTehranToNorthMultiplier(vDistance){ 
+            if (!isInside(points[0].point, [35.919317, 50.724024, 35.298115, 52.315391])) //Tehran, IKIA
+                return 1;
+            for(i=1;i<points.length;i++){
+                if (isInside(points[i].point, [38.544661, 48.408350, 36.037352, 54.900738])){
+                    if (pointInPolygon(points[i].point, northCoordsAsDest)){
+                        console.log("From Tehran To North");
+                        var denceDistance = Math.min(140, vDistance); // xxxxxx
+                        if (isReturning())
+                            denceDistance *= 2;
+                        console.log((1.5*denceDistance + (vDistance-denceDistance))/vDistance);
+                        return (2.45025*denceDistance + (vDistance-denceDistance))/vDistance;
+                    }
+                }
+            }
+            return 1;
+        }
+        
+        function GetSouthToNorthFromChaloosOrHaraazMultiplier(vdistance){
+            if (!chaloos_tolls && !haraaz_tolls)
+                return 1;
+            if (IsOriginInTehranOrKaraj())
+                return 1;
+            var isToNorth = false;
+            for(i=1;i<points.length;i++){
+                if (pointInPolygon(points[i].point, northCoordsAsDestPlus)){
+                    isToNorth = true;
+                    break;
+                }
+            }
+            if (!isToNorth)
+                return 1;
+            console.log("South to north crossing chaloos or haraaz");
+            if (chaloos_tolls)
+                return (1.5-1)*(150/vdistance)+1;
+            else if (haraaz_tolls)
+                return (1.5-1)*(180/vdistance)+1;
+            return 1;
+        }
+        
+        function GetTehranToNorthPlusMultiplier(vDistance){
+            //if (!(points[0].point.lat() > 35.298115 && points[0].point.lat() < 35.919317 && origin_point.lng() > 50.724024 && origin_point.lng() < 52.315391)) // Not in Karaj, Tehran, IKIA
+            //    return 1;
+            for(i=1;i<points.length;i++){
+                //if (destination_point.lat() < 38.544661 && destination_point.lat() > 36.037352 && destination_point.lng() > 48.408350 && destination_point.lng() < 54.900738) {
+                    if (pointInPolygon(points[i].point, northCoordsAsDestPlus)){
+                        console.log("From Tehran To North Plus");
+                        console.log(1.04);
+                        return 1.04;
+                    }
+                //}
+            }
+            return 1;
+        }
+        
+        
+        function GetChaloosRoadTolls(){
+            if (!chaloos_tolls)
+                return 0;
+            if (isReturning())
+                return (170+50)*1000;
+            else
+                return 170*1000;
+        }
+        function GetKhoramAbad_AndimeshRoadTolls(){
+            return khoramabad_andimeshk_tolls?50000:0;
+        }
+        
+        /*function GetChaloosRoadTolls(){
+            if (!chaloos_tolls)
+                return 0;
+            if (isReturning())
+                return (200+70)*1000;
+            else
+                return 200*1000;
+        }
+        function GetKhoramAbad_AndimeshRoadTolls(){
+            return khoramabad_andimeshk_tolls?60000:0;
+        }*/
+        
+        function GetNonTehranToOrFromNorthAdditive(){ 
+            if (passing_north_gates 
+                && (pointInPolygon(points[0].point, northCoordsAsDestPlus)
+                || pointInPolygon(destination_point, northCoordsAsDestPlus))
+                ){
+                    if (!isInside(points[0].point, [35.919317,50.724024, 35.298115, 52.315391])){ // Not in Karaj, Tehran, IKIA
+                        console.log("Non Tehran To Or From North Additive");
+                        return 100000                    }
+                }
+            
+            return 0;
+        }
+        
+        function GetNonTehranToOrFromNorthMultiplier(){
+            if (passing_north_gates 
+                && (pointInPolygon(points[0].point, northCoordsAsDestPlus)
+                || pointInPolygon(destination_point, northCoordsAsDestPlus))
+                ){
+                    if (!isInside(points[0].point, [35.919317, 50.724024, 35.298115, 52.315391])){
+                        console.log("Non Tehran To Or From North Multiplier");
+                        return 1.05                    }
+                }
+            
+            return 1;
+        }
+        
+        function GetNorthToTehranMultiplier(vDistance){
+            if (!isInside(points[0].point, [35.919317, 50.724024, 35.298115, 52.315391])) // Not in Karaj, Tehran, IKIA
+                return 1;
+            if (isInside(points[0].point, [38.544661, 48.408350, 36.037352, 54.900738])){
+                if (pointInPolygon(origin_point, northCoordsAsSrc)){
+                    console.log("From North To Tehran");
+                    var denceDistance = Math.min(200, vDistance);
+                    //if (diff)
+                    return (1.32*denceDistance + (vDistance-denceDistance))/vDistance;
+                }
+            }
+            return 1;
+        }
+        
+        function GetFromChaloosMultiplier(){
+            if (isInside(points[0].point, [38.544661, 48.408350, 36.037352, 54.900738])){
+                if (pointInPolygon(origin_point, chaloosCoords)){
+                    console.log("From Chaloos to anywhere");
+                    return 1.1;
+                }
+            }
+            return 1;
+        }
+        
+        function GetFromOrToGorganMultiplier(){
+            if (isInside(points[0].point, [37.553285, 52.965320, 35.743312, 56.191272])){
+                if (pointInPolygon(origin_point, GorganCoords)){
+                    console.log("From or To Gorgan to anywhere");
+                    return 1.25;
+                }
+            }
+            else if (isInside(destination_point, [37.553285, 52.965320, 35.743312, 56.191272])){
+                if (pointInPolygon(destination_point, GorganCoords)){
+                    console.log("From or To Gorgan to anywhere");
+                    return 1.25;
+                }
+            }
+            return 1;
+        }
+        
+        function GetToAstaraMultiplier(){
+            if (isInside(destination_point, [38.612323, 48.508507, 35.743312, 49.269500])){
+                if (pointInPolygon(destination_point, AstaraCoords)){
+                    console.log("To Astara");
+                    return 1.1;
+                }
+            }
+            return 1;
+        }
+        
+        function GetToArdabilMultiplier(){
+            if (isInside(destination_point, [38.560443, 47.559579, 37.247654, 48.728239])){
+                if (pointInPolygon(destination_point, ArdabilCoords)){
+                    console.log("To Ardabil");
+                    return 1.05;
+                }
+            }
+            return 1;
+        }
+        
+        function GetFromTabrizMultiplier(){
+            if (isInside(points[0].point, [38.171772, 46.198832, 37.956784, 46.425837])){
+                if (pointInPolygon(origin_point, TabrizCoords)){
+                    console.log("From Tabriz");
+                    return 0.95;
+                }
+            }
+            return 1;
+        }
+        
+        function GetToAsaluyeMultiplier(){
+            if (isInside(points[0].point, [28.353744, 51.571234, 26.958013, 53.423334])){
+                if (pointInPolygon(destination_point, AsaluyeCoords)){
+                    console.log("To Asaluye");
+                    return 1.3;
+                }
+            }
+            return 1;
+        }
+        
+        function GetFromBandarAbbasMultiplier(){
+            if (isInside(points[0].point, [27.660382, 53.641323, 26.555576, 56.959837])){
+                if (pointInPolygon(origin_point, BandarAbbasCoords)){
+                    console.log("To BandarAbbas");
+                    return 1.1;
+                }
+            }
+            return 1;
+        }
+        
+        function IsOriginInTehranOrKaraj(){ // 
+            if (isInside(points[0].point, [36.093013, 50.493985, 35.174928, 52.405261])){
+                if (pointInPolygon(origin_point, TehranKarajCoords)){
+                    console.log("From Tehran Or Karaj");
+                    return 1;
+                }
+            }
+            return 0;
+            
+        }
+        
+        function IsOriginPickupingAirports(){
+            for(i=0;i<points.length-1;i++){
+                if (isInside(points[i].point, [35.44168611854251, 51.091178800537214, 35.39646094227727, 51.18999348865797]) || // Imam
+                    isInside(points[i].point, [35.698454, 51.320437, 35.68693591733595, 51.33446516496061])                  || // MehrAbad
+                    isInside(points[i].point, [32.75714191231226, 51.85127098867934, 32.731299761773066, 51.90548117603809]) ||  // Isfahan
+                    isInside(points[i].point, [29.55005114867062, 52.58254419106658, 29.5350951713369, 52.60004774050463])   ||  // Shiraz
+                    isInside(points[i].point, [38.136808951507966, 46.22888272475508, 38.11427799075577, 46.26473115194466]) ||  // Tabriz
+                    isInside(points[i].point, [36.238108693867176, 59.6319671198003, 36.21816326026858, 59.658381072495125]) // Mashhad
+                    ){
+                        console.log("From Airports");
+                        return 1;
+                }
+            }
+            return 0;
+        }
+        
+        function GetPickupFare(){
+            var class_type = $(selected_carClass).attr("type");
+            var val = 0;
+            if (IsOriginPickupingAirports()){
+                $('#panelPickup').show();
+                val = 20000+20000; // print+parking // toman
+                if (class_type == 'seco')
+                    val+=20000;
+                if (class_type == 'eco')
+                    val+=30000;
+                if (class_type == 'sip')
+                    val+=30000;
+                if (class_type == 'vip_pro' || class_type == 'vip_suv')
+                    val+=40000;
+            }else{
+                $('#panelPickup').hide();
+                $("#chkPickup").prop('checked', false);
+                $("#flight_number").val('');
+                
+            }
+            $("#lblPickupPrice").text(toCommas(val)); 
+            return val;
+        }
+
+
+        function GetFromNorthAllMultiplier(){ // 
+            if (pointInPolygon(origin_point, northAll)){
+                console.log("From North All");
+                return 1.2;
+            }
+            return 1;
+        }
+        
+        function GetToWestAllMultiplier(){ // 
+            if (pointInPolygon(destination_point, westAll)){
+                console.log("To West All");
+                return 1.1;
+            }
+            return 1;
+        }
+        
+        function GetToOrFromSouthWarmAllMultiplier(){ // 
+            if (pointInPolygon(origin_point, southWarmAll) || pointInPolygon(destination_point, southWarmAll)){
+                console.log("To Or From Aouth Warm West All");
+                return 1.25;
+            }
+            return 1;
+        }
+        
+        
+        function GetFashamShemshakAddtitive(){
+            if (pointInPolygon(origin_point, FashamShemshakCoords) || pointInPolygon(destination_point, FashamShemshakCoords)){
+                console.log("To Or From FashamShemshak");
+                return 50000;
+            }
+            return 0;
+        }
+        
+        
+        
+        function GetFashamShemshakMultiplier(){
+            if (pointInPolygon(origin_point, FashamShemshakCoords) || pointInPolygon(destination_point, FashamShemshakCoords)){
+                console.log("To Or From FashamShemshak");
+                return 1.05;
+            }
+            return 1;
+        }
+        
+        function GetHarazMultiplier(){
+            if (pointInPolygon(origin_point, HarazCoords) || pointInPolygon(destination_point, HarazCoords)){
+                console.log("To Or From Haraz");
+                return 1.2;
+            }
+            return 1;
+        }
+        
+        function GetZanjanTaleshMultiplier(){
+            if (pointInPolygon(origin_point, ZanjanTaleshCoords) || pointInPolygon(destination_point, ZanjanTaleshCoords)){
+                console.log("To Or From ZanjanTalesh");
+                return 1.15;
+            }
+            return 1;
+        }
+        
+        function GetNorthOfQazvinMultiplier(){
+            if (pointInPolygon(origin_point, NorthOfQazvinCoords) || pointInPolygon(destination_point, NorthOfQazvinCoords)){
+                console.log("To Or From NorthOfQazvin");
+                return 1.15;
+            }
+            return 1;
+        }
+        
+        function GetSistanMultiplier(){
+            if (pointInPolygon(origin_point, SistanCoords) || pointInPolygon(destination_point, SistanCoords)){
+                console.log("To Or From Sistan");
+                return 1.1;
+            }
+            return 1;
+        }
+        
+        function GetNoordoozAddtitive(class_type){
+            if (pointInPolygon(origin_point, NoordoozCoords) || pointInPolygon(destination_point, NoordoozCoords)){
+                console.log("To Or From Noordooz");
+                var multiplier = 1;
+                if (class_type == 'sip')
+                    multiplier = 1.3;
+                else if (class_type == 'vip_pro' || class_type == 'vip_suv')
+                    multiplier = 1.3;
+                console.log("FromNoordoozAddtitive: " + class_type + ' ' + multiplier);
+                return multiplier*160000;
+            }
+            return 0;
+        }
+        
+        function GetMehranBorderMultiplier(){
+            if (//google.maps.geometry.poly.containsLocation(create_point(origin_point.lat(), origin_point.lng()), MehranBorderAreaCoords) || 
+                pointInPolygon(destination_point, MehranBorderAreaCoords)){
+                console.log("To MehranBorder");
+                return 1.4;
+            }
+            return 1;
+        }
+        
+
+        function GetKhosraviBorderMultiplier(){
+            if (//google.maps.geometry.poly.containsLocation(create_point(origin_point.lat(), origin_point.lng()), MehranBorderAreaCoords) || 
+                pointInPolygon(destination_point, KhosraviBorderAreaCoords)){
+                console.log("To KhosraviBorder");
+                return 1.3;
+            }
+            return 1;
+        }
+        
+        function GetChazzabehBorderMultiplier(){
+            if (//google.maps.geometry.poly.containsLocation(create_point(origin_point.lat(), origin_point.lng()), MehranBorderAreaCoords) || 
+                pointInPolygon(destination_point, ChazzabehBorderAreaCoords)){
+                console.log("To ChazzabehBorder");
+                return 1.3;
+            }
+            return 1;
+        }
+        
+        function GetShalamcheBorderMultiplier(){
+            if (//google.maps.geometry.poly.containsLocation(create_point(origin_point.lat(), origin_point.lng()), MehranBorderAreaCoords) || 
+                pointInPolygon(destination_point, ShalamcheBorderAreaCoords)){
+                console.log("To ShalamcheBorder");
+                return 1.4;
+            }
+            return 1;
+        }
+        
+
+        function GetBashmaghBorderMultiplier(){
+            if (//google.maps.geometry.poly.containsLocation(create_point(origin_point.lat(), origin_point.lng()), MehranBorderAreaCoords) || 
+                pointInPolygon(destination_point, BashmaghBorderAreaCoords)){
+                console.log("To BashmaghBorder");
+                return 1;
+            }
+            return 1;
+        }
+        
+
+        function GetFromOrToTehranShortDistanceMultiplier(){
+            if (pointInPolygon(origin_point, TehranTrafficCoords) || pointInPolygon(destination_point, TehranTrafficCoords)){
+                console.log("To Or From Tehran Traffic (Short distances)");
+                return 1.2;
+            }
+            return 1;
+        }
+        
+        function IsInArea(area, point){
+            if (google.maps.geometry.poly.containsLocation(point, area)){
+                return true;
+            }
+            return false;
+        }
+
+        
+        function GetTaleghanPathMultiplier(){ // 36.099006, 50.592638       36.218096, 50.931112
+            if (isInside(points[0].point, [36.218096, 50.592638, 36.099006, 50.931112]) && isInside(destination_point, [36.218096, 50.592638, 36.099006, 50.931112])){
+                    console.log("Taleghan Path");
+                    return 1.35;
+            }
+            return 1;
+        }
+        
+        
+        
+        function GetFromKashmarMultiplier(){
+            if (isInside(points[0].point, [35.299453, 58.369495, 35.175754,58.581983])){
+                console.log("From Kashmar");
+                return 0.95;
+            }
+            return 1;
+        }
+        
+        function GetFromQomMultiplier(){ // 
+            if (isInside(points[0].point, [34.724716, 50.738890, 34.522398, 51.010929])){
+                console.log("From Qom");
+                return 0.95;
+            }
+            return 1;
+        }
+        
+        
+        
+        function GetFromEconomyCheapCitiesMultiplier(){
+            // Isfahan
+            if (isInside(points[0].point, [33.503981, 51.148896, 32.277056, 52.060761])){
+                return 1; //0.96;
+            }
+            // Mashhad  36.451879, 59.369019        36.189644, 59.805726
+            if (isInside(points[0].point, [36.451879, 59.369019, 36.189644, 59.805726])){
+                return 1;
+            }
+            // Arak     34.144161, 49.631447        34.050626, 49.784225
+            if (isInside(points[0].point, [34.144161, 49.631447, 34.050626, 49.784225])){
+                return 1; //0.97;
+            }
+            // Hamdan  34.856027, 48.458467      34.742730, 48.585077
+            if (isInside(points[0].point, [34.856027, 48.458467, 34.742730, 48.585077])){
+                return 1; //0.96;
+            }
+            // Qazvin     36.337765, 49.963783      36.236202, 50.052360
+            if (isInside(points[0].point, [36.337765, 49.963783, 36.236202, 50.052360])){
+                return 1;
+            }
+            // Karaj     35.890956, 50.852302      35.759009, 51.038383
+            if (isInside(points[0].point, [35.890956, 50.852302, 35.759009, 51.038383])){
+                return 0.96;
+            }
+            // Shiraz     29.867461, 52.278503      29.439521, 52.757105
+            if (isInside(points[0].point, [29.867461, 52.278503, 29.439521, 52.757105])){
+                return 1.00;
+            }
+            return 1;
+        }
+        
+        function GetFromVIPCheapCitiesMultiplier(){
+            // Mashhad  36.451879, 59.369019        36.189644, 59.805726
+            if (isInside(points[0].point, [36.451879, 59.369019, 36.189644, 59.805726])){
+                return 1; //0.97;
+            }
+            return 1;
+        }
+        
+        function GetFromSUVCheapCitiesMultiplier(){
+            // Mashhad  36.451879, 59.369019        36.189644, 59.805726
+            if (isInside(points[0].point, [36.451879, 59.369019, 36.189644, 59.805726])){
+                return 1; //0.90;
+            }
+            return 1;
+        }
+        
+        
+        
+        function GetTehranIsfahanMultiplier(){
+            // Tehran:  35.897195, 50.873894         35.351895, 51.727394
+            // Isfahan: 33.503981, 51.148896         32.277056, 52.060761
+            // from Tehran to Isfahan
+            if (isInside(points[0].point, [35.897195, 50.873894, 35.351895, 51.727394])){
+                if (isInside(destination_point, [33.503981, 51.148896, 32.277056, 52.060761])){
+                //if (google.maps.geometry.poly.containsLocation(create_point(origin_point.lat(), origin_point.lng()), Coords)){
+                    console.log("From Tehran to Isfahan..........................");
+                    return 0.9;
+                //}
+                }
+            }
+            // from Isfahan to Tehran
+            if (isInside(points[0].point, [33.503981, 51.148896, 32.277056, 52.060761])){
+                if (isInside(destination_point, [35.897195, 50.873894, 35.351895, 51.727394])){
+                //if (google.maps.geometry.poly.containsLocation(create_point(origin_point.lat(), origin_point.lng()), Coords)){
+                    console.log("From Isfahan To Tehran..........................");
+                    return 0.9;
+                //}
+                }
+            }
+            return 1;
+        }
+        
+        function GetTehranRashtMultiplier(){
+            // Tehran:  35.897195, 50.873894         35.351895, 51.727394
+            // Rasht: 37.538695, 49.349458         37.182606, 49.713057
+            // from Tehran to Rasht
+            if (isInside(points[0].point, [35.897195, 50.873894, 35.351895, 51.727394])){
+                if (isInside(destination_point, [37.538695, 49.349458, 37.182606, 49.713057])){
+                //if (google.maps.geometry.poly.containsLocation(create_point(origin_point.lat(), origin_point.lng()), Coords)){
+                    console.log("From Tehran to Rasht..........................");
+                    return 0.9;
+                //}
+                }
+            }
+            // from Rasht to Tehran
+            if (isInside(points[0].point, [37.538695, 49.349458, 37.182606, 49.713057])){
+                if (isInside(destination_point, [35.897195, 50.873894, 35.351895, 51.727394])){
+                //if (google.maps.geometry.poly.containsLocation(create_point(origin_point.lat(), origin_point.lng()), Coords)){
+                    console.log("From Rasht To Tehran..........................");
+                    return 0.89;
+                //}
+                }
+            }
+            return 1;
+        }
+        
+        function GetTehranSariMultiplier(){
+            // Tehran:  35.897195, 50.873894         35.351895, 51.727394
+            // Sari: 36.813022, 52.206522         36.409701, 53.378125
+            // from Tehran to Sari
+            if (isInside(points[0].point, [35.897195, 50.873894, 35.351895, 51.727394])){
+                if (isInside(destination_point, [36.813022, 52.206522, 36.409701, 53.378125])){
+                //if (google.maps.geometry.poly.containsLocation(create_point(origin_point.lat(), origin_point.lng()), Coords)){
+                    console.log("From Tehran to Sari..........................0.92");
+                    return 0.92;
+                //}
+                }
+            }
+            // from Sari to Tehran
+            if (isInside(points[0].point, [36.813022, 52.206522, 36.409701, 53.378125])){
+                if (isInside(destination_point, [35.897195, 50.873894, 35.351895, 51.727394])){
+                //if (google.maps.geometry.poly.containsLocation(create_point(origin_point.lat(), origin_point.lng()), Coords)){
+                    console.log("From Sari To Tehran..........................0.95");
+                    return 0.95;
+                //}
+                }
+            }
+            return 1;
+        }
+        
+        var forbid_short_distances = !false;
+        function processResult(fromStr, toStr, distanceValue, distanceText, durationValue, durationText){
+            //var distance = distanceText; // distance str
+            //var duration = durationText; // time str
+            durationHours = durationValue/(60*60); // hours
+            var distance = Math.floor(distanceValue/1000) + KM_ENTRANCE; // km
+            if ((forbid_short_distances && distance < 35) && !allowShortDistance()){
+                $("#lblMessage").text("مسیر کوتاه: عدم سرویس دهی");
+                submitVisitLog('Short Distance: G-' + Math.floor(distance));
+                $("#panelWait").hide();
+                return;
+            }
+            vDistance = distance * 1.07;
+            vDistance = vDistance + (points.length-2)*8;
+            distance_real = Math.floor(distanceValue/1000) * 1.07;
+                             
+            var expectedKm = 80 * durationHours;
+            if (expectedKm > distance*1.1){
+                var diffKm = expectedKm - distance;
+                var diffKmDiv2 = diffKm / 2;
+                
+                vDistance = distance + diffKmDiv2;
+            }
+            console.log('::1::'+vDistance);
+            vDistance += banned_route_additive;
+            console.log('::3::'+vDistance);
+
+            console.log('vDistance: ' + vDistance);
+            
+            var PRICE_PER_KM_Selected = PRICE_PER_KM;
+            var PRICE_PER_KM_OVER_50KM_Selected = PRICE_PER_KM_OVER_50KM;
+            
+            if (vDistance > 50){
+                cost = 50 * PRICE_PER_KM; // Toman
+                cost += (vDistance-50) * PRICE_PER_KM_OVER_50KM;
+            }else{
+                cost = vDistance * PRICE_PER_KM; // Toman
+            }
+            cost = rond(cost); // Toman
+            
+            $("#go_distance").val(Math.floor(distanceValue/1000));
+            $("#go_distance_str").val(distanceText);
+            $("#go_duration").val(Math.ceil(durationHours));
+            $("#go_duration_str").val(durationText);
+
+            $("#origin_address").val(fromStr);
+            $("#destination_address").val(toStr);
+
+            $("#origin_lat").val(getLat(origin_point));
+            $("#origin_lng").val(getLng(origin_point));
+            $("#destination_lat").val(getLat(destination_point));
+            $("#destination_lng").val(getLng(destination_point));
+            
+            $("#panelToName").hide();
+            
+
+            var class_type = $(selected_carClass).attr("type");
+            var multipliercheap = $(selected_carClass).attr("multipliercheap");
+            var multiplierfix = $(selected_carClass).attr("multiplierfix");
+            var multipliervar = $(selected_carClass).attr("multipliervar");
+            
+            
+            var cMultiplier = getMultiplier(multiplierfix, multipliercheap, multipliervar, vDistance, class_type);
+            cadditive = getAdditive(distance_real, class_type);
+            
+            //cMultiplier = cMultiplier * GetTehranToNorthMultiplier(vDistance);
+            c = cost * cMultiplier + cadditive + GetChaloosRoadTolls() + GetKhoramAbad_AndimeshRoadTolls() + GetFashamShemshakAddtitive() + GetNoordoozAddtitive(class_type) + GetNonTehranToOrFromNorthAdditive();
+            c = rond(c);
+            
+            if (getCookie('rid') == '163594')
+                c = 10000;
+            if (routesource == 'db')
+                c = getMultiplierOldPaths(_old_go_fare, multiplierfix, $('#imgCarClassEconomy').attr("multiplierfix"));
+            
+            $("#go_fare").val(c);
+            
+            $("#go_fares").val('');
+            $("#car_classs img[type]").each(function(){
+                var class_type = $(this).attr("type");
+                var multipliercheap = $(this).attr("multipliercheap");
+                var multiplierfix = $(this).attr("multiplierfix");
+                var multipliervar = $(this).attr("multipliervar");
+                
+                var cMultiplier = getMultiplier(multiplierfix, multipliercheap, multipliervar, vDistance, class_type);
+                var cadditive = getAdditive(distance_real, class_type);
+                var c = cost * cMultiplier + cadditive + GetChaloosRoadTolls() + GetKhoramAbad_AndimeshRoadTolls() + GetFashamShemshakAddtitive() + GetNoordoozAddtitive(class_type) + GetNonTehranToOrFromNorthAdditive();
+                c = rond(c);
+                
+                ret_price = rond((c)/2); //rond((c-cadditive)/2);
+                //console.log($(this).attr('src'));
+                var item = $(this).attr("type") + ":" + toCommas(c); // + " ret: " + toCommas(ret_price);
+                if ($("#go_fares").val() != "")
+                    item = "<br>" + item;
+                $("#go_fares").val($("#go_fares").val() + item);
+            });
+            $("#go_fares").val($("#go_fares").val()); //  + "<br>Gas:" + toCommas(cadditive)
+            var return_price = rond((c)/2); //rond((c-cadditive)/2);
+
+            $("#car_class").val($(selected_carClass).attr("txt"));
+            $("#lblMessage").text("کرایه این مسیر " + toCommas(c) + " تومان");
+            $("#lblPrice1").text(toCommas(c) + " تومان");
+            $("#fare_init").val(c);
+            $("#car_class_init").val($("#car_class").val());
+            $("#car_class_id_init").val(class_type);
+            
+            $("#lblPrice1_rial").text(toCommas(c*10) + " ریال");
+            $("#lblReturnPrice").text(toCommas(return_price + " تومان"));
+            fare_base = c;
+            $("#lblCost").text(toCommas(cost) + " تومان");
+            $("#lblCode").text(getLat(origin_point));
+            $("#btnContinueRequest").show();
+            $("#car_classs").show();
+            $("#panelWait").hide();
+            $("#panelNightAdd").hide();
+            var hour = new Date().getHours();
+            if (hour >= 23 || hour < 8){
+                //$("#panelNightAdd").show();
+            }
+            submitFormRequest();
+        }
+
+        var vDistance = 0;
+        var distance_real = 0;
+        var cadditive = 0;
+        var cost = 0;
+        var cost_car_class = 0;
+        var durationHours = 0;
+        function distanceCallback(response, status) {
+            last_distance_response = response;
+            last_distance_status = status;
+
+            if (destination_point == null){ // Cancelled by user
+                $("#panelWait").hide();
+                return;
+            }
+            //console.log(status);
+            console.log(response);
+            if (status == 'OK') {
+                var origins = response.originAddresses;
+                var destinations = response.destinationAddresses;
+
+                for (var i = 0; i < origins.length; i++) {
+                    var results = response.rows[i].elements;
+                    //console.log(results);
+                    for (var j = 0; j < results.length; j++) {
+                        var element = results[j];
+                        if (element.status == "OK"){
+                            //var distance = element.distance.text; // distance str
+                            //var duration = element.duration.text; // time str
+                            //var from = origins[i];
+                            //var to = destinations[j];
+                            
+                            processResult(origins[i], destinations[j], element.distance.value, element.distance.text, element.duration.value, element.duration.text);
+                            
+                            
+                            
+                    //        var distance = Math.floor(element.distance.value/1000) + KM_ENTRANCE; // km
+                            /*if (distance > 300){
+                                distance = Math.floor((distance*2)/100) * 50;
+                            }else if (distance > 100){
+                                distance = Math.floor(distance / 10) * 10;
+                            }else if (distance > 35){
+                                distance = Math.floor(distance);
+                            }else*/
+                            
+                    //        if (distance < 35 && !allowShortDistance()){
+                    //            $("#lblMessage").text("مسیر کوتاه: عدم سرویس دهی");
+                    //            $("#panelWait").hide();
+                    //            return;
+                    //        }
+                            
+                     //       vDistance = distance;
+                             
+                    //        var expectedKm = 80 * durationHours;
+                    //        if (expectedKm > distance*1.1){
+                     //           var diffKm = expectedKm - distance;
+                     //           var diffKmDiv2 = diffKm / 2;
+                     //           
+                     //           vDistance = distance + diffKmDiv2;
+                     //       }
+                            
+                            
+                    //        var PRICE_PER_KM_Selected = PRICE_PER_KM;
+                    //        var PRICE_PER_KM_OVER_50KM_Selected = PRICE_PER_KM_OVER_50KM;
+                            
+                    //        if (vDistance > 50){
+                    //            cost = 50 * PRICE_PER_KM; // Toman
+                    //            cost += (vDistance-50) * PRICE_PER_KM_OVER_50KM;
+                    //        }else{
+                     //           cost = vDistance * PRICE_PER_KM; // Toman
+                     //       }
+
+                            /*if (durationHours-(distance/80) > 0)
+                                cost += (durationHours-(distance/80))*(PRICE_PER_KM*25);*/
+                                
+                     //       cost = rond(cost); // Toman
+
+                            
+                     /*       $("#go_distance").val(Math.floor(element.distance.value/1000));
+                            $("#go_distance_str").val(element.distance.text);
+                            $("#go_duration").val(duration);
+                            $("#go_duration_str").val(element.duration.text);
+
+                            $("#origin_address").val(from);
+                            $("#destination_address").val(to);
+
+                            $("#origin_lat").val(origin_point.lat());
+                            $("#origin_lng").val(origin_point.lng());
+                            $("#destination_lat").val(destination_point.lat());
+                            $("#destination_lng").val(destination_point.lng());
+                            
+                            $("#panelToName").hide();
+                            
+
+                            var multipliercheap = $(selected_carClass).attr("multipliercheap");
+                            var multiplierfix = $(selected_carClass).attr("multiplierfix");
+                            var multipliervar = $(selected_carClass).attr("multipliervar");
+                            
+                            
+                            var cMultiplier = getMultiplier(multiplierfix, multipliercheap, multipliervar, vDistance);
+                            cMultiplier = cMultiplier * GetTehranToNorthMultiplier(vDistance);
+
+                            c = cost * cMultiplier;
+                            
+                            c = rond(c);
+
+                            $("#go_fare").val(c);
+                            $("#car_class").val($(selected_carClass).attr("txt"));
+                            
+
+                            $("#lblMessage").text("کرایه این مسیر " + toCommas(c) + " تومان");
+                            $("#lblPrice1").text(toCommas(c) + " تومان");
+                            $("#lblPrice1_rial").text(toCommas(c*10) + " ریال");
+                            $("#lblCost").text(toCommas(cost) + " تومان");
+                            $("#lblCode").text(origin_point.lat());
+                            $("#btnContinueRequest").show();
+                            $("#car_classs").show();
+                    */        
+                        }else{
+                            $("#lblMessage").text("غیر قابل سرویس دهی. مجددا تلاش کنید");
+                            $("#panelWait").hide();
+                        }
+                        
+                    }
+                }
+            }
+        }
+
+        var origin_point = null;
+        var origin_zoom;
+        var destination_point = null;
+        var destination_zoom;
+        function putMarker(latlng, icon, anchor, zIndex){
+            if (mapsource == 'mapbox'){
+                iconSize = [50, 61];
+                var el = document.createElement('div');
+                el.className = 'marker';
+                //el.style.backgroundImage = 'url('+ icon + ')';
+                //iconUrl = "https://hamsafartaxi.com/images/end2_1.png";
+                el.style.backgroundImage = 'url('+ icon + ')';
+                el.style.width = iconSize[0] + 'px';
+                el.style.height = iconSize[1] + 'px';
+                var marker = new mapboxgl.Marker(el, {anchor: 'bottom'}).setLngLat(latlng).addTo(map).addTo(map);
+                $(el).css('z-index', zIndex);
+                return marker;
+            }else if (mapsource == 'cedar'){
+                var greenIcon = L.icon({
+                    iconUrl: icon,
+                    //shadowUrl: icon,
+                
+                    iconSize:     [50, 61], // size of the icon
+                    //shadowSize:   [50, 61], // size of the shadow
+                    iconAnchor:   anchor, // point of the icon which will correspond to marker's location
+                    //shadowAnchor: [4, 62],  // the same for the shadow
+                });
+                return L.marker(latlng, {icon: greenIcon}).addTo(map);
+            }else{
+                anchor = new google.maps.Point(anchor[0], anchor[1]);
+                return new google.maps.Marker({position: latlng, map: map, icon : icon, anchor : anchor, zIndex: zIndex});
+            }
+            // selectedMarker.setMap(null);
+		}
+		
+		$("#pac-input-reset").click(function(){
+		    onlur_disabled = true;
+		    //console.log('clk: '+onlur_disabled);
+		    if (google_search)
+		        $("#pac-input").val("");
+		    else
+		        $("#place").val("");
+		    showHideSearchBox(true);
+		    setTimeout(function(){
+		        onlur_disabled = false;
+		        //console.log('clk1: '+onlur_disabled);
+		        if (google_search)
+		            $("#pac-input").focus()
+		        else
+		            $("#place").focus()
+		    }, 250);
+		});
+
+
+		var input = null;
+		var search_status = 0; // 0->btn shown, 1-> input showing or shown 2-> input disapearing
+		var google_search = false;if (mapsource != "google")google_search=false;		
+		function showHideSearchBox(show){
+		    if (show)
+		        $("#panelButtonCurrentRequests").hide();
+		    else
+		        $("#panelButtonCurrentRequests").show();
+		    if (!google_search){
+    			if (show && $("#btnSearch").is(":visible") && search_status == 0){
+    			    search_status = 1;
+    				$("#place").fadeIn(200);
+                    $("#pac-input-reset").fadeIn(200);
+    				$("#btnSearch").fadeOut(200);
+    				setTimeout(function(){ $("#place").focus(); }, 50);
+    				setTimeout(function(){ $("#place").focus(); }, 100);
+    				setTimeout(function(){ $("#place").focus(); }, 200);
+    				setTimeout(function(){ $("#place").focus(); }, 300);
+    				setTimeout(function(){ $("#place").focus(); }, 400);
+    			}else if (!show && !$("#btnSearch").is(":visible") && search_status == 1){
+    			    search_status = 2;
+    				setTimeout(function(){
+    				    $("#pac-input-reset").fadeOut(200);
+    					$("#place").fadeOut(200, function(){
+    					    search_status = 0;
+    					});
+    					$("#btnSearch").fadeIn(200);
+    				}, 100);
+    			}
+		    }else{ // google_search
+    			if (input == null)
+    				input = document.getElementById('pac-input');
+    			if (show && $("#btnSearch").is(":visible") && search_status == 0){
+    			    search_status = 1;
+    				map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    				$("#pac-input").hide();
+    				$("#pac-input").fadeIn(200);
+    				if ($("#pac-input-reset-container").children("#pac-input-reset").length > 0 || $("#pac-input-container").children("#pac-input-reset").length > 0){
+    				    var element = $("#pac-input-reset");
+    				    element.detach();
+    				    element.appendTo($("#pac-input").parent());
+    				}
+    				$("#pac-input-reset").fadeIn(200);
+    				$("#btnSearch").fadeOut(200);
+    				setTimeout(function(){ input.focus(); }, 50);
+    				setTimeout(function(){ input.focus(); }, 100);
+    				setTimeout(function(){ input.focus(); }, 200);
+    				setTimeout(function(){ input.focus(); }, 300);
+    				setTimeout(function(){ input.focus(); }, 400);
+    			}else if (!show && !$("#btnSearch").is(":visible") && search_status == 1){
+    			    search_status = 2;
+    				setTimeout(function(){
+    				    $("#pac-input-reset").fadeOut(200);
+    					$("#pac-input").fadeOut(200, function(){
+    					    search_status = 0;
+    						map.controls[google.maps.ControlPosition.TOP_LEFT].pop(input);
+    					});
+    					$("#btnSearch").fadeIn(200);
+    				}, 100);
+    			}
+		    }
+		}
+        function prepareSearchBox(){
+            $("#btnSearch").show();
+    		var input = document.getElementById('pac-input');
+            //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.addListener('bounds_changed', function () {
+                searchBox.setBounds(map.getBounds());
+            });
+            
+            searchBox.addListener('places_changed', function () {
+                var places = searchBox.getPlaces();
+        
+                if (places.length == 0) {
+                    return;
+                }
+                
+                // For each place, get the icon, name and location.
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function (place) {
+        
+                    if (!place.geometry) {
+                        console.log("Returned place contains no geometry");
+                        return;
+                    }
+                    if (place.geometry.viewport) {
+                        // Only geocodes have viewport.
+                        bounds.union(place.geometry.viewport);
+                    } else {
+                        bounds.extend(place.geometry.location);
+                    }
+                });
+                map.fitBounds(bounds);
+            });
+		}
+        
+        function toCommas(value) {
+            if (value == null || value == '')
+                return value;
+            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+
+    </script>
+            
+        
+        
+    
+
+    <script type="text/javascript">
+        var devtools = /./;
+        devtools.toString = function () {
+            this.opened = true;
+            //$("body").html("");
+        }
+        console.log('%c', devtools);
+    
+        var closeGooglePopupCount = 0;
+        function closeGooglePopup(){
+            if ($("#map").find("img[src*='google_gray.svg']").parents("div[style*='z-index: 1']").hide().length == 0)
+                if (closeGooglePopupCount < 50){
+                    setTimeout(function(){
+                        closeGooglePopup();
+                    }, 100);
+                    closeGooglePopupCount++;
+                }
+        }
+        closeGooglePopup();
+        
+    </script>
+    
+    <script src="/app.js"></script>
+
+    <script>
+        function showModal(){
+            panelModalInstance.open();
+        }
+        function showModal1(){
+            panelModalComplaintInstance.open();
+        }
+        function closeModal(modal){
+            var isOpen = modal.isOpen;
+            modal.close();
+            $("body").css("overflow-y", "hidden");
+            return isOpen;
+        }
+    </script>
+
+    <script type="text/javascript">
+    
+          var panelModalCurrentRequestsInstance;
+          var panelModalOldTripsInstance;
+          var panelModalProfileInstance;
+          var panelModalAboutInstance;
+          var panelModalRulesInstance;
+          var panelModalInstance;
+          var panelModalPointTypeSelectorInstance;
+          var panelModalReturnInfoInstance;
+          var panelModalComplaintInstance;
+          var panelModalContactInstance;
+          var panelModalInvoiceInstance;
+          var panelModalPaymentInstance;
+          
+          $(document).ready(function(){
+            $('#slide-out').sidenav({
+                'onCloseStart': function () {
+                    $("body").css("overflow-y", "hidden");
+                },
+                'onCloseEnd': function () {
+                    $("body").css("overflow-y", "hidden");
+                },
+            });
+            $('#panelModalPointTypeSelector').modal({dismissible: false});
+            $('#panelModalReturnInfo').modal({dismissible: false});
+            
+            $('#panelModalCurrentRequests').modal({dismissible: false});
+            $('#panelModalOldTrips').modal({dismissible: false});
+            $('#panelModalProfile').modal({dismissible: false});
+            $('#panelModalAbout').modal({dismissible: false});
+            $('#panelModalRules').modal({dismissible: false});
+            $('#panelModalComplaint').modal({dismissible: false});
+            $('#panelModalContact').modal({dismissible: false});
+            $('#panelModalPayment').modal({dismissible: false});
+            $('#panelModalInvoice').modal({dismissible: false});
+
+            
+            panelModalInstance = M.Modal.getInstance($('#panelModal'));
+            panelModalPointTypeSelectorInstance = M.Modal.getInstance($('#panelModalPointTypeSelector'));
+            panelModalReturnInfoInstance = M.Modal.getInstance($('#panelModalReturnInfo'));
+
+            panelModalCurrentRequestsInstance = M.Modal.getInstance($('#panelModalCurrentRequests'));
+            panelModalOldTripsInstance = M.Modal.getInstance($('#panelModalOldTrips'));
+            panelModalProfileInstance = M.Modal.getInstance($('#panelModalProfile'));
+            panelModalAboutInstance = M.Modal.getInstance($('#panelModalAbout'));
+            panelModalRulesInstance = M.Modal.getInstance($('#panelModalRules'));
+            panelModalComplaintInstance = M.Modal.getInstance($('#panelModalComplaint'));
+            panelModalContactInstance = M.Modal.getInstance($('#panelModalContact'));
+            panelModalPaymentInstance = M.Modal.getInstance($('#panelModalPayment'));
+            panelModalInvoiceInstance = M.Modal.getInstance($('#panelModalInvoice'));
+            
+            //panelModalComplaintInstance.open();
+            
+            //$("#panelModal").show();
+            //showModalPointTypeSelector();
+            
+            /*var instance = M.Modal.getInstance($('#panelModalAbout'));
+            instance.open();*/
+            
+            
+            //panelModalInstance.open();
+
+          });
+    </script>
+        <script>
+        function getBrowserName() { 
+            if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1 ) 
+            {
+                return ('Opera');
+            }
+            else if(navigator.userAgent.indexOf("Edg") != -1 )
+            {
+                return ('Edge');
+            }
+            else if(navigator.userAgent.indexOf("Chrome") != -1 )
+            {
+                return ('Chrome');
+            }
+            else if(navigator.userAgent.indexOf("Safari") != -1)
+            {
+                return ('Safari');
+            }
+            else if(navigator.userAgent.indexOf("Firefox") != -1 ) 
+            {
+                return ('Firefox');
+            }
+            else if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) //IF IE > 10
+            {
+                return ('IE'); 
+            }  
+            else 
+            {
+                return ('unknown');
+            }
+        }
+        window.onerror = function(message, url, lineNumber) { 
+            var url = 'https://hamsafartaxi.com/error_report.php?page=index&cellphone='+$("#cellphone_init").val()+'&message='+getBrowserName()+' '+lineNumber+' '+message+ ' ' + url;
+            $.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                url: url,
+                async: true,
+                error: function (jqXHR, textStatus, errorThrown) {
+                },
+                success: function (data) {
+                },
+                complete: function(){
+                }
+            });
+            return true;
+        };
+    </script>
+
+
+</body>
+</html>

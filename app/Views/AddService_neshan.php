@@ -310,6 +310,7 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 <script>
     let baseRate = <?= findRateByKey($array, "pp_km"); ?>; // قیمت پایه هر کیلومتر
+    const packages = JSON.parse('<?= json_encode($CarType) ?>');
 </script>
 
 
@@ -375,6 +376,9 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
                                         <div>نکته مهم:</div>
                                         <div class="notice"> در انتخاب مبدا و مقصد دقت کنید</div>
                                     </div>
+
+
+
                                 </main>
                             </div>
                             <div>
@@ -401,37 +405,21 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
         <div style="position: absolute; bottom:0" class="tab-pane fade show active" id="preview-tab-pane" role="tabpanel" aria-labelledby="preview-tab" tabindex="0">
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                <div class="container-fluid"> <a class="navbar-brand" href="#">تنظیمات قیمت</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+                <div class="container-fluid"> <a class="navbar-brand" href="#">انتخاب ماشین</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="width: auto;">
 
 
 
-                            <?php foreach ($options as $O): if (is_object(json_decode($O['rate']))): ?>
-                                    <?php
-                                    $OI = json_decode($O['rate']);
-                                    $VA = json_decode($O['values']);
+                            <?php foreach ($CarType as $Type): ?>
 
-                                    ?>
+                                <li class="nav-item dropdown package" data-name="<?= $Type['name']; ?>">
+                                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<?= $Type['name']; ?>">
+                                    <img src="<?= base_url() ?>assets/images/<?= $Type['tag']; ?>.jpg" width="40" />
+                                    </a>
+                                </li>
 
-                                    <li class="nav-item dropdown">
-                                        <?= ${$O['option']}; ?>
-                                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <?= $O['name'] ?> </a>
-                                        <ul class="dropdown-menu">
-
-
-                                            <?php $i = 0;
-                                            foreach ($OI as $OIO => $VAL): ?>
-                                                <li><a data-value="<?= $VAL ?>" data-name="<?= $O['option'] ?>" class="dropdown-item"><?= $VA[$i] ?></a></li>
-                                            <?php $i++;
-                                            endforeach; ?>
-
-                                        </ul>
-                                    </li>
-
-
-                            <?php endif;
-                            endforeach; ?>
+                            <?php endforeach; ?>
 
 
 
@@ -441,10 +429,10 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 
 
-                        <div style="float: left;position: fixed;left:0">
+                        <div style="float: left;position: fixed;left:0;margin-left: 10px;">
                             <button type="button" id="reset" class="btn btn-danger bg-danger bg-opacity-10 text-danger border-0 fw-semibold py-2 px-4">ریست</button>
-                            <button type="button" id="calculate-btn" class="btn btn-primary bg-primary bg-opacity-10 text-primary border-0 fw-semibold py-2 px-4">محاسبه کرایه</button>
-                            <button style="display: none;" type="button" id="submit" class="btn btn-outline-success fw-semibold py-2 px-4 hover-white ">ثبت سفارش</button>
+                            <button style="display: none;" type="button" id="submit" class="btn btn-outline-success fw-semibold py-2 px-4 hover-white ">نمایش فاکتور</button>
+                            <button style="float: left;margin:0 10px ;display: none;" class="btn btn-outline-success fw-semibold py-2 px-4 hover-white" data-bs-toggle="offcanvas" id="sabt_estelam" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" type="button"> </span> <span role="status">ثبت استعلام</span> <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span></button>
                         </div>
 
 
@@ -456,7 +444,250 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 
 
+
+    <div class="offcanvas offcanvas-end show" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" aria-modal="true">
+        <div class="offcanvas-header border-bottom p-4">
+            <h5 class="offcanvas-title fs-18 mb-0" id="offcanvasRightLabel">ثبت استعلام</h5> <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body p-4">
+
+
+
+            <form class="col-lg-12">
+                <div class="row">
+
+
+                    <div class="form-group mb-4 col-lg-12">
+                        <h3>کرایه سرویس <span class="badge bg-success base_fare">0</span></h3>
+
+                    </div>
+
+
+                    <!-- Passenger ID -->
+                    <div class="form-group mb-4 col-lg-9">
+                        <label class="label">کد اشتراک مسافر</label>
+                        <input type="text" name="passenger_id" class="form-control" placeholder="کد مسافر" required>
+                    </div>
+
+                    <div class="form-group mb-4  col-lg-3" style="margin: 30px 0;">
+                        <button type="button" id="checkID" class="btn btn-outline-danger fw-semibold py-2 px-4 mt-2 me-2 hover-white">
+                            بررسی
+                            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                        </button>
+
+                    </div>
+
+
+
+
+                    <hr />
+
+                    <!-- Passenger Name -->
+                    <div class="form-group mb-4 col-lg-6">
+                        <label class="label">نام مسافر</label>
+                        <input type="text" name="passenger_name" class="form-control" placeholder="نام مسافر" required>
+                    </div>
+
+                    <!-- Passenger Phone -->
+                    <div class="form-group mb-4 col-lg-6">
+                        <label class="label">شماره تماس مسافر</label>
+                        <input type="tel" name="passenger_tel" class="form-control" placeholder="شماره تماس مسافر" required>
+                    </div>
+
+                    <!-- Is Guest -->
+                    <div class="form-group mb-4 col-lg-6">
+                        <label class="label">مسافر شما هستید ؟</label>
+                        <select name="isGuest" class="form-control" required>
+                            <option value="1">بله</option>
+                            <option value="0">خیر</option>
+                        </select>
+                    </div>
+
+
+
+                    <div class="col-lg-6"> <label class="label d-block">تعداد مسافر</label>
+                        <div class="product-quantity">
+                            <div class="add-to-cart-counter gap-3 justify-content-between">
+                                <button type="button" class="minusBtn bg-success text-white"></button>
+                                <input name="total_passenger" type="text" size="25" value="1" class="count border-success">
+                                <button type="button" class="plusBtn bg-success text-white"></button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group mb-4 col-lg-6">
+                        <label class="label">توقف دارید ؟؟</label>
+                        <select name="isGuest" class="form-control" required>
+                            <option value="0">خیر</option>
+                            <option value="1">بله</option>
+
+                        </select>
+                    </div>
+
+
+
+                    <div class="col-lg-6"> <label class="label d-block">تعداد ساعت تاخیر</label>
+                        <div class="product-quantity">
+                            <div class="add-to-cart-counter gap-3 justify-content-between">
+                                <button type="button" class="minusBtn bg-success text-white"></button>
+                                <input name="wait_hours" type="text" size="25" value="0" class="count border-success">
+                                <button type="button" class="plusBtn bg-success text-white"></button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <hr />
+
+
+
+                    <!-- Company Name -->
+                    <div class="form-group mb-4 col-lg-12">
+                        <label class="label">نام شرکت در صورت نیاز به فاکتور</label>
+                        <input type="text" name="company_name" class="form-control" placeholder="نام شرکت">
+                    </div>
+
+                    <!-- Trip Date -->
+                    <div class="form-group mb-4 col-lg-6">
+                        <label class="label">تاریخ سفر</label>
+                        <div class="form-group position-relative"> <input name="trip_date" type="text" class="form-control text-dark ps-5 h-58" placeholder="روز/ماه/سال" data-jdp=""> <i class="ri-calendar-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i> </div>
+                    </div>
+
+                    <!-- Trip Time -->
+                    <div class="form-group mb-4 col-lg-6">
+                        <label class="label">زمان سفر</label>
+                        <div class="form-group position-relative"> <input type="text" name="trip_time" class="form-control text-dark ps-5 h-58" placeholder="--:-- --" data-jdp="" data-jdp-only-time=""> <i class="ri-time-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i> </div>
+                    </div>
+
+                    <div class="form-group mb-4 col-lg-12">
+                        <label class="label">توضیحات آدرس شروع</label>
+                        <textarea name="start_address_desc" class="form-control" placeholder="توضیحات آدرس شروع" required></textarea>
+                    </div>
+
+                    <div class="form-group mb-4 col-lg-12">
+                        <label class="label">توضیحات آدرس پایان</label>
+                        <textarea name="end_address_desc" class="form-control" placeholder="توضیحات آدرس پایان" required></textarea>
+                    </div>
+
+
+
+                    <div class="form-group mb-4 col-lg-6">
+                        <label class="label">جاده بد یا خاکی دارد ؟ </label>
+                        <select name="isGuest" class="form-control" required>
+                            <option value="0">خیر</option>
+                            <option value="1">بله</option>
+
+                        </select>
+                    </div>
+
+
+
+                    <div class="col-lg-6"> <label class="label d-block">چند کیلومتر</label>
+                        <div class="product-quantity">
+                            <div class="add-to-cart-counter gap-3 justify-content-between">
+                                <button type="button" class="minusBtn bg-success text-white"></button>
+                                <input name="badRoad_km" type="text" size="25" value="0" class="count border-success">
+                                <button type="button" class="plusBtn bg-success text-white"></button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group mb-4 col-lg-12">
+                        <label class="label">توضیحات بار</label>
+                        <textarea name="luggage" class="form-control" placeholder="توضیحات در مورد بار یا چمدان همراه" required></textarea>
+                    </div>
+
+
+                    <div class="form-group mb-4 col-lg-12">
+                        <label class="label">وضعیت آب و هوا</label>
+                        <div class="form-group mb-4 col-lg-12 weather">
+
+                            <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="آفتابی">
+                                <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
+                                    <path d="M23,11H18.92a6.924,6.924,0,0,0-.429-1.607l3.527-2.044a1,1,0,1,0-1-1.731l-3.53,2.047a7.062,7.062,0,0,0-1.149-1.15l2.046-3.531a1,1,0,0,0-1.731-1L14.607,5.509A6.9,6.9,0,0,0,13,5.08V1a1,1,0,0,0-2,0V5.08a6.9,6.9,0,0,0-1.607.429L7.349,1.982a1,1,0,0,0-1.731,1L7.664,6.515a7.062,7.062,0,0,0-1.149,1.15L2.985,5.618a1,1,0,1,0-1,1.731L5.509,9.393A6.924,6.924,0,0,0,5.08,11H1a1,1,0,0,0,0,2H5.08a6.924,6.924,0,0,0,.429,1.607L1.982,16.651a1,1,0,1,0,1,1.731l3.53-2.047a7.062,7.062,0,0,0,1.149,1.15L5.618,21.016a1,1,0,0,0,1.731,1l2.044-3.527A6.947,6.947,0,0,0,11,18.92V23a1,1,0,0,0,2,0V18.92a6.947,6.947,0,0,0,1.607-.429l2.044,3.527a1,1,0,0,0,1.731-1l-2.046-3.531a7.062,7.062,0,0,0,1.149-1.15l3.53,2.047a1,1,0,1,0,1-1.731l-3.527-2.044A6.924,6.924,0,0,0,18.92,13H23A1,1,0,0,0,23,11ZM12,17c-6.608-.21-6.606-9.791,0-10C18.608,7.21,18.606,16.791,12,17Z" />
+                                </svg>
+                            </a>
+
+                            <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="بارانی">
+                                <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
+                                    <path d="M14,24a1,1,0,0,1-1-1V18a1,1,0,0,1,2,0v5A1,1,0,0,1,14,24ZM6,24a1,1,0,0,1-1-1V18a1,1,0,0,1,2,0v5A1,1,0,0,1,6,24Zm12-2a1,1,0,0,1-1-1V16a1,1,0,0,1,2,0v5A1,1,0,0,1,18,22Zm-8,0a1,1,0,0,1-1-1V16a1,1,0,0,1,2,0v5A1,1,0,0,1,10,22ZM2,18.328a1,1,0,0,1-.777-.371A5.532,5.532,0,0,1,1.8,10.43a1,1,0,0,0,.345-.9,8.147,8.147,0,0,1-.033-2.889A7.945,7.945,0,0,1,8.5.138a8.052,8.052,0,0,1,8.734,4.438,1.039,1.039,0,0,0,.743.57A7.55,7.55,0,0,1,22.846,16.5a1,1,0,0,1-1.692-1.068,5.537,5.537,0,0,0-3.571-8.325,3.009,3.009,0,0,1-2.158-1.672A6,6,0,0,0,4.086,6.967a6.136,6.136,0,0,0,.024,2.18,3,3,0,0,1-.964,2.763A3.518,3.518,0,0,0,2.777,16.7,1,1,0,0,1,2,18.328Z" />
+                                </svg>
+                            </a>
+
+                            <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="برفی">
+                                <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
+                                    <path d="M17.914,5.132a1.033,1.033,0,0,1-.683-.555C13.1-3.756.516.231,2.146,9.528a1,1,0,0,1-.345.9A5.54,5.54,0,0,0,2.214,18.9a.988.988,0,0,0,1.524-.486,5.5,5.5,0,0,1,10.554.08A2.063,2.063,0,0,0,16.5,20C25.123,20.017,27.132,7.12,17.914,5.132ZM17,11H15.726l.633,1.105a1,1,0,1,1-1.734.995L14,12.01l-.625,1.09a1,1,0,1,1-1.734-.995L12.274,11H11a1,1,0,0,1,0-2h1.274L11.641,7.9A1,1,0,1,1,13.375,6.9L14,7.99l.625-1.09a1,1,0,1,1,1.734.995L15.726,9H17A1,1,0,0,1,17,11Zm-4,9a1,1,0,0,1-1,1H10.726l.633,1.105a1,1,0,1,1-1.734,1L9,22.01,8.375,23.1a1,1,0,1,1-1.734-1L7.274,21H6a1,1,0,0,1,0-2H7.274L6.641,17.9a1,1,0,1,1,1.734-1L9,17.99l.625-1.09a1,1,0,1,1,1.734,1L10.726,19H12A1,1,0,0,1,13,20Z" />
+                                </svg>
+                            </a>
+
+
+
+
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="form-group d-flex gap-3">
+                    <button id="insertReq" class="btn btn-primary text-white fw-semibold py-2 px-4" type="submit">ثبت سفر</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+
+
     <style>
+        li.nav-item.dropdown.package {
+            border-radius: 50px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .package_selected {
+            border-radius: 50px;
+            border: 1px solid;
+            box-shadow:1px 1px 10px #ccc;
+        }
+
+        .weather svg {
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            float: none;
+            color: #3b3b3b;
+            border-radius: 80px;
+            padding: 10px;
+        }
+
+        .svg_select {
+            border: 3px solid rgba(var(--bs-success-rgb), var(--bs-bg-opacity)) !important;
+            color: rgba(var(--bs-success-rgb), var(--bs-bg-opacity)) !important;
+        }
+
+        .weather a {
+            text-decoration: auto;
+            cursor: pointer;
+        }
+
+        .rtl .offcanvas.show {
+            transform: translateX(0);
+            box-shadow: 40px 0 38px #ccc;
+        }
+
+        jdp-container {
+            z-index: 99999 !important;
+        }
+
+
         li.nav-item.dropdown {
             margin: 0 10px;
         }
@@ -467,7 +698,7 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
         }
 
         #map * {
-            z-index: 0;
+            z-index: 0 !important;
         }
 
         .fare,
@@ -535,6 +766,11 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/jalaali-js@1.2.3/index.js"></script>
+
+
+
 <script>
     var base = "<?= base_url() ?>";
 </script>
@@ -568,12 +804,24 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
             var name = $(this).find('ul.dropdown-menu li:first a').data("name");
             var value = $(this).find('ul.dropdown-menu li:first a').data("value");
+            var rate1 = $(this).find('ul.dropdown-menu li:first a').data("rate1");
+            var rate2 = $(this).find('ul.dropdown-menu li:first a').data("rate2");
 
             tripData[name] = value
+            tripData[name + '_Name'] = firstItemText;
 
             // Set the text of the dropdown-toggle to the first item's text
             $(this).find('a.dropdown-toggle').text(firstItemText);
         });
+
+
+        
+
+
+
+
+        // const ecoPackage = packages.find(pkg => pkg.name === "Eco");
+        // console.log(ecoPackage.base_fare);
 
 
 

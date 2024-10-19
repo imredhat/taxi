@@ -24,7 +24,6 @@ $name =  $session -> user_name;;
 <link rel="stylesheet" href="<?=base_url()?>assets/css/quill.snow.css">
 <link rel="stylesheet" href="<?=base_url()?>assets/css/style.css">
 
-<link rel="icon" type="image/png" href="<?=base_url()?><?=base_url()?>assets/images/favicon.png">
 
 <style>
 

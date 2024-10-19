@@ -8,6 +8,7 @@ use App\Models\DriverModel;
 use App\Models\ServiceModel;
 use App\Models\UserModel;
 use App\Models\FareModel;
+use App\Models\CarTypeModel;
 
 class Service extends BaseController
 {
@@ -101,11 +102,22 @@ class Service extends BaseController
     public function AddService()
     {
 
+        $data['CarType']    = (new CarTypeModel())->findAll();
         $data['Users']      = (new UserModel())->findAll();
         $data['Drivers']    = (new DriverModel())->withDeleted()->findAll();
         $data['options']    = (new FareModel())->findAll();
+        $data['CarRate']    = (new FareModel())->where("option", "car_type_rate")->findAll()[0]['rate'];
 
-        // print_r($data['Drivers']);
+        unset($data['options'][5]);
+
+        
+        // echo "<pre>";
+        // print_r( $data['CarType']);
+        // die();
+
+        // $A = json_decode($data['CarRate']);
+
+        // print_r(($A -> Eco));
         // die();
 
 
