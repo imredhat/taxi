@@ -11,7 +11,8 @@ let tripData = {
     endAdd: null,
     roadCondition: null,
     weather: null,
-    carType: null
+    carType: null,
+    finalFare: null
 };
 
 let no = 0;
@@ -21,7 +22,10 @@ function initiate() {
     $(".factor").empty();
     $(".package:first-child").addClass("package_selected");
     var currentPackage = $(".package_selected").data("name");
+
     tripData.Packgae = currentPackage;
+    tripData.holiDayRate = holiDayRate;
+    tripData.extraPassenger = extraPassenger;
 
 }
 
@@ -157,10 +161,6 @@ $(document).ready(function () {
     });
 
 
-
-
-
-
     // تابع دریافت آدرس متنی از مختصات
     function getAddressFromCoordinates(coordinates, label) {
         const [lat, lng] = coordinates;
@@ -186,8 +186,6 @@ $(document).ready(function () {
             })
             .catch(error => console.error('Error:', error));
     }
-
-
 
 
     // تابع رسم مسیر با API نشان
@@ -231,14 +229,6 @@ $(document).ready(function () {
             });
     }
 
-
-
-
-    console.log(getPackageField("Eco", "base_fare")); // نتیجه: 50000
-
-
-
-
     // تابع محاسبه کرایه
     function calculateFare() {
 
@@ -247,17 +237,13 @@ $(document).ready(function () {
         const roadCondition = tripData.roadCondition;
         const Packgae = tripData.Packgae;
         const toll = 0; // دریافت مبلغ عوارض
-        const isHoliday = tripData.isHoliday = checkIfHoliday();
+        // const isHoliday = tripData.isHoliday = checkIfHoliday();
 
         // const toll = getRandomToll(); // دریافت مبلغ عوارض
 
-
-        if (isHoliday) {
-            baseRate *= 1.2; // 20% افزایش در روزهای تعطیل
-        }
-
         const fare = PackagePrice(tripData.Packgae, distance, tripData.TimeMin);
         tripData.fare = fare;
+        tripData.finalFare = fare;
 
 
         $("#submit").fadeIn();
@@ -277,15 +263,6 @@ $(document).ready(function () {
         const toll = Math.floor(Math.random() * (100000 - 10000 + 1)) + 10000;
         tripData.toll = toll;
         return toll;
-    }
-
-    // تابع بررسی تعطیلی
-    function checkIfHoliday() {
-        const today = new Date();
-        const day = today.getDay();
-
-        // در ایران روز جمعه (day=5) تعطیل است
-        return day === 5;
     }
 
 
@@ -332,8 +309,6 @@ $(document).ready(function () {
 
         console.log("نقاط و مسیر ریست شد.");
     });
-
-
 
 
 
@@ -517,25 +492,6 @@ $(document).ready(function () {
 
 
 
-    //==========================================================
-    function persianToCalendars(year, month, day, op = {}) {
-        const formatOut = gD => "toCal" in op ? (op.calendar = op.toCal, new Intl.DateTimeFormat(op.locale ?? "en", op).format(gD)) : gD,
-            dFormat = new Intl.DateTimeFormat('en-u-ca-persian', { dateStyle: 'short', timeZone: "UTC" });
-        let gD = new Date(Date.UTC(2000, month, day));
-        gD = new Date(gD.setUTCDate(gD.getUTCDate() + 226867));
-        const gY = gD.getUTCFullYear() - 2000 + year;
-        gD = new Date(((gY < 0) ? "-" : "+") + ("00000" + Math.abs(gY)).slice(-6) + "-" + ("0" + (gD.getUTCMonth() + 1)).slice(-2) + "-" + ("0" + (gD.getUTCDate())).slice(-2));
-        let [pM, pD, pY] = [...dFormat.format(gD).split("/")], i = 0;
-        gD = new Date(gD.setUTCDate(gD.getUTCDate() +
-            ~~(year * 365.25 + month * 30.44 + day - (pY.split(" ")[0] * 365.25 + pM * 30.44 + pD * 1)) - 2));
-        while (i < 4) {
-            [pM, pD, pY] = [...dFormat.format(gD).split("/")];
-            if (pD == day && pM == month && pY.split(" ")[0] == year) return formatOut(gD);
-            gD = new Date(gD.setUTCDate(gD.getUTCDate() + 1)); i++;
-        }
-        throw new Error('Invalid Persian Date!');
-    }
-    //==========================================================
 
 
 
@@ -544,29 +500,27 @@ $(document).ready(function () {
         var val = $(this).val();
 
         const result = convertDateAndCheckFriday(val);
-        console.log(`Converted Date: ${result.formattedDate}, Is Friday: ${result.isFriday}`);
+        if (result.isFriday) {
+            tripData.finalFare = tripData.finalFare * tripData.hiliDayRate;
+            $(".base_fare").html(formatFare((tripData.finalFare).toFixed(0)) + 'تومان')
+        }
 
     });
 
 
 
+    $('input[name="total_passenger"]').on("change", function () {
 
+        var val = $(this).val();
+        if (val > 3) {
+            qty =Math.pow(tripData.extraPassenger,(val-3));
 
+            console.log(qty)
+            // tripData.finalFare = tripData.finalFare * qty;
+            // $(".base_fare").html(formatFare((tripData.finalFare).toFixed(0)) + 'تومان')
+        }
 
-
-    function convertDateAndCheckFriday(persianDate) {
-        const [jy, jm, jd] = persianDate.split('/').map(Number);
-        const gregorian = jalaali.toGregorian(jy, jm, jd);
-        const gregorianDate = new Date(gregorian.gy, gregorian.gm - 1, gregorian.gd); // month is zero-based
-        const dayOfWeek = gregorianDate.getDay();
-        const isFriday = dayOfWeek === 5;
-        const formattedDate = `${gregorian.gy}-${String(gregorian.gm).padStart(2, '0')}-${String(gregorian.gd).padStart(2, '0')}`;
-
-        return {
-            formattedDate,
-            isFriday
-        };
-    }
+    });
 
 
 
@@ -610,6 +564,93 @@ $(document).ready(function () {
 
         });
     });
+
+
+
+
+    //==========================================================
+    function jalaliToGregorian(jy, jm, jd) {
+        const g_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        const j_days_in_month = [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29];
+
+        jy = jy - 979;
+        jm = jm - 1;
+        jd = jd - 1;
+
+        let j_day_no = 365 * jy + Math.floor(jy / 33) * 8 + Math.floor((jy % 33 + 3) / 4);
+        for (let i = 0; i < jm; ++i) {
+            j_day_no += j_days_in_month[i];
+        }
+        j_day_no += jd;
+
+        let g_day_no = j_day_no + 79;
+
+        let gy = 1600 + 400 * Math.floor(g_day_no / 146097); // 146097 = 365*400 + 400/4 - 400/100 + 400/400
+        g_day_no = g_day_no % 146097;
+
+        let leap = true;
+        if (g_day_no >= 36525) { // 36525 = 365*100 + 100/4
+            g_day_no--;
+            gy += 100 * Math.floor(g_day_no / 36524); // 36524 = 365*100 + 100/4 - 100/100
+            g_day_no = g_day_no % 36524;
+
+            if (g_day_no >= 365) {
+                g_day_no++;
+            } else {
+                leap = false;
+            }
+        }
+
+        gy += 4 * Math.floor(g_day_no / 1461); // 1461 = 365*4 + 4/4
+        g_day_no %= 1461;
+
+        if (g_day_no >= 366) {
+            leap = false;
+
+            g_day_no--;
+            gy += Math.floor(g_day_no / 365);
+            g_day_no = g_day_no % 365;
+        }
+
+        let gm;
+        for (gm = 0; gm < 12; gm++) {
+            let days_in_month = g_days_in_month[gm];
+            if (leap && gm == 1) days_in_month++; // February has 29 days in leap years
+            if (g_day_no < days_in_month) break;
+            g_day_no -= days_in_month;
+        }
+
+        let gd = g_day_no + 1;
+
+        return { gy, gm: gm + 1, gd }; // Return as {year, month, day}
+    }
+
+    function convertDateAndCheckFriday(persianDate) {
+        // Split the input date string (1403/07/11)
+        const [jy, jm, jd] = persianDate.split('/').map(Number);
+
+        // Convert the Persian date to Gregorian
+        const { gy, gm, gd } = jalaliToGregorian(jy, jm, jd);
+
+        // Create a Date object for the Gregorian date
+        const gregorianDate = new Date(gy, gm - 1, gd); // month is zero-based in JavaScript Date
+
+        // Get the day of the week (0 = Sunday, 6 = Saturday)
+        const dayOfWeek = gregorianDate.getDay();
+
+        // Check if the day is Friday (5)
+        const isFriday = dayOfWeek === 5;
+
+        // Format the Gregorian date as "YYYY-MM-DD"
+        const formattedDate = `${gy}-${String(gm).padStart(2, '0')}-${String(gd).padStart(2, '0')}`;
+
+        return {
+            formattedDate,
+            isFriday
+        };
+    }
+
+    //==========================================================
 
 
 });

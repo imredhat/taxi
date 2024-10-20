@@ -106,9 +106,9 @@ class Service extends BaseController
         $data['Users']      = (new UserModel())->findAll();
         $data['Drivers']    = (new DriverModel())->withDeleted()->findAll();
         $data['options']    = (new FareModel())->findAll();
-        $data['CarRate']    = (new FareModel())->where("option", "car_type_rate")->findAll()[0]['rate'];
+        // $data['CarRate']    = (new FareModel())->where("option", "car_type_rate")->findAll()[0]['rate'];
 
-        unset($data['options'][5]);
+        // unset($data['options'][5]);
 
         
         // echo "<pre>";

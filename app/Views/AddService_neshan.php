@@ -271,6 +271,10 @@
 
 <?php
 
+//query
+//INSERT INTO `option` (`id`, `option`, `name`, `values`, `rate`) VALUES (NULL, 'extraPassenger', 'مسافر اضافه', '', '1.1');
+
+
 $array['options'] = $options;
 function findRateByKey($array, $key)
 {
@@ -278,24 +282,11 @@ function findRateByKey($array, $key)
 
     // Loop through the main options array
     foreach ($array['options'] as $option) {
-        // Handle level 1 elements like 'pp_km' and 'isHoliday'
-        if (in_array($option['option'], ['pp_km', 'isHoliday'])) {
+
             if ($option['option'] === $key) {
                 return $option['rate']; // Return the value directly from the 'rate' field
             }
-        }
 
-        // Handle level 2 elements where 'rate' is a JSON string
-        if (isset($option['rate'])) {
-            // Try to decode the 'rate' if it's a JSON string
-            $rates = json_decode($option['rate'], true);
-
-            // If decoding is successful and it is an array
-            if (is_array($rates) && array_key_exists($key, $rates)) {
-                return $rates[$key];
-                // Return the value of the matching key
-            }
-        }
     }
 
 
@@ -309,8 +300,9 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 ?>
 
 <script>
-    let baseRate = <?= findRateByKey($array, "pp_km"); ?>; // قیمت پایه هر کیلومتر
     const packages = JSON.parse('<?= json_encode($CarType) ?>');
+    let = holiDayRate = <?= findRateByKey($array, "isHoliday"); ?>; 
+    let = extraPassenger = <?= findRateByKey($array, "extraPassenger"); ?>; 
 </script>
 
 
@@ -414,8 +406,8 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
                             <?php foreach ($CarType as $Type): ?>
 
                                 <li class="nav-item dropdown package" data-name="<?= $Type['name']; ?>">
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<?= $Type['name']; ?>">
-                                    <img src="<?= base_url() ?>assets/images/<?= $Type['tag']; ?>.jpg" width="40" />
+                                    <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<?= $Type['name']; ?>">
+                                        <img src="<?= base_url() ?>assets/images/<?= $Type['tag']; ?>.jpg" width="40" />
                                     </a>
                                 </li>
 
@@ -655,7 +647,7 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
         .package_selected {
             border-radius: 50px;
             border: 1px solid;
-            box-shadow:1px 1px 10px #ccc;
+            box-shadow: 1px 1px 10px #ccc;
         }
 
         .weather svg {
@@ -767,7 +759,6 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/jalaali-js@1.2.3/index.js"></script>
 
 
 
@@ -797,25 +788,25 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 <script>
     var Dropdowns = function() {
 
-        $('.nav-item.dropdown').each(function() {
-            var firstItem = $(this).find('ul.dropdown-menu li:first');
+        // $('.nav-item.dropdown').each(function() {
+        //     var firstItem = $(this).find('ul.dropdown-menu li:first');
 
-            var firstItemText = $(this).find('ul.dropdown-menu li:first a').text();
+        //     var firstItemText = $(this).find('ul.dropdown-menu li:first a').text();
 
-            var name = $(this).find('ul.dropdown-menu li:first a').data("name");
-            var value = $(this).find('ul.dropdown-menu li:first a').data("value");
-            var rate1 = $(this).find('ul.dropdown-menu li:first a').data("rate1");
-            var rate2 = $(this).find('ul.dropdown-menu li:first a').data("rate2");
+        //     var name = $(this).find('ul.dropdown-menu li:first a').data("name");
+        //     var value = $(this).find('ul.dropdown-menu li:first a').data("value");
+        //     var rate1 = $(this).find('ul.dropdown-menu li:first a').data("rate1");
+        //     var rate2 = $(this).find('ul.dropdown-menu li:first a').data("rate2");
 
-            tripData[name] = value
-            tripData[name + '_Name'] = firstItemText;
+        //     // tripData[name] = value
+        //     // tripData[name + '_Name'] = firstItemText;
 
-            // Set the text of the dropdown-toggle to the first item's text
-            $(this).find('a.dropdown-toggle').text(firstItemText);
-        });
+        //     // Set the text of the dropdown-toggle to the first item's text
+        //     $(this).find('a.dropdown-toggle').text(firstItemText);
+        // });
 
 
-        
+
 
 
 
