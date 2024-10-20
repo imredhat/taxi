@@ -271,9 +271,6 @@
 
 <?php
 
-//query
-//INSERT INTO `option` (`id`, `option`, `name`, `values`, `rate`) VALUES (NULL, 'extraPassenger', 'مسافر اضافه', '', '1.1');
-
 
 $array['options'] = $options;
 function findRateByKey($array, $key)
@@ -283,10 +280,9 @@ function findRateByKey($array, $key)
     // Loop through the main options array
     foreach ($array['options'] as $option) {
 
-            if ($option['option'] === $key) {
-                return $option['rate']; // Return the value directly from the 'rate' field
-            }
-
+        if ($option['option'] === $key) {
+            return $option['rate']; // Return the value directly from the 'rate' field
+        }
     }
 
 
@@ -301,8 +297,9 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 <script>
     const packages = JSON.parse('<?= json_encode($CarType) ?>');
-    let = holiDayRate = <?= findRateByKey($array, "isHoliday"); ?>; 
-    let = extraPassenger = <?= findRateByKey($array, "extraPassenger"); ?>; 
+    let = holiDayRate = <?= findRateByKey($array, "isHoliday"); ?>;
+    let = extraPassenger = <?= findRateByKey($array, "extraPassenger"); ?>;
+    let = badRoad = <?= findRateByKey($array, "bad_road"); ?>;
 </script>
 
 
@@ -437,7 +434,7 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 
 
-    <div class="offcanvas offcanvas-end show" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" aria-modal="true">
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" aria-modal="true">
         <div class="offcanvas-header border-bottom p-4">
             <h5 class="offcanvas-title fs-18 mb-0" id="offcanvasRightLabel">ثبت استعلام</h5> <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
@@ -488,10 +485,10 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
                     <!-- Is Guest -->
                     <div class="form-group mb-4 col-lg-6">
-                        <label class="label">مسافر شما هستید ؟</label>
+                        <label class="label">مسافر کسی دیگر است ؟؟</label>
                         <select name="isGuest" class="form-control" required>
-                            <option value="1">بله</option>
                             <option value="0">خیر</option>
+                            <option value="1">بله</option>
                         </select>
                     </div>
 
@@ -511,8 +508,8 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 
                     <div class="form-group mb-4 col-lg-6">
-                        <label class="label">توقف دارید ؟؟</label>
-                        <select name="isGuest" class="form-control" required>
+                        <label class="label">توقف دارد ؟</label>
+                        <select name="isWait" class="form-control" required>
                             <option value="0">خیر</option>
                             <option value="1">بله</option>
 
@@ -524,9 +521,9 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
                     <div class="col-lg-6"> <label class="label d-block">تعداد ساعت تاخیر</label>
                         <div class="product-quantity">
                             <div class="add-to-cart-counter gap-3 justify-content-between">
-                                <button type="button" class="minusBtn bg-success text-white"></button>
-                                <input name="wait_hours" type="text" size="25" value="0" class="count border-success">
-                                <button type="button" class="plusBtn bg-success text-white"></button>
+                                <button disabled type="button" class="minusBtn bg-success text-white"></button>
+                                <input disabled name="wait_hours" type="text" size="25" value="0" class="count border-success">
+                                <button disabled type="button" class="plusBtn bg-success text-white"></button>
                             </div>
                         </div>
                     </div>
@@ -568,7 +565,7 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
                     <div class="form-group mb-4 col-lg-6">
                         <label class="label">جاده بد یا خاکی دارد ؟ </label>
-                        <select name="isGuest" class="form-control" required>
+                        <select name="badRoad" class="form-control" required>
                             <option value="0">خیر</option>
                             <option value="1">بله</option>
 
@@ -580,9 +577,9 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
                     <div class="col-lg-6"> <label class="label d-block">چند کیلومتر</label>
                         <div class="product-quantity">
                             <div class="add-to-cart-counter gap-3 justify-content-between">
-                                <button type="button" class="minusBtn bg-success text-white"></button>
-                                <input name="badRoad_km" type="text" size="25" value="0" class="count border-success">
-                                <button type="button" class="plusBtn bg-success text-white"></button>
+                                <button disabled type="button" class="minusBtn bg-success text-white"></button>
+                                <input disabled name="badRoad_km" type="text" size="25" value="0" class="count border-success">
+                                <button disabled type="button" class="plusBtn bg-success text-white"></button>
                             </div>
                         </div>
                     </div>
@@ -598,19 +595,19 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
                         <label class="label">وضعیت آب و هوا</label>
                         <div class="form-group mb-4 col-lg-12 weather">
 
-                            <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="آفتابی">
+                            <a class="changeWeather" data-rate="1" data-name="sunny" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="آفتابی">
                                 <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
                                     <path d="M23,11H18.92a6.924,6.924,0,0,0-.429-1.607l3.527-2.044a1,1,0,1,0-1-1.731l-3.53,2.047a7.062,7.062,0,0,0-1.149-1.15l2.046-3.531a1,1,0,0,0-1.731-1L14.607,5.509A6.9,6.9,0,0,0,13,5.08V1a1,1,0,0,0-2,0V5.08a6.9,6.9,0,0,0-1.607.429L7.349,1.982a1,1,0,0,0-1.731,1L7.664,6.515a7.062,7.062,0,0,0-1.149,1.15L2.985,5.618a1,1,0,1,0-1,1.731L5.509,9.393A6.924,6.924,0,0,0,5.08,11H1a1,1,0,0,0,0,2H5.08a6.924,6.924,0,0,0,.429,1.607L1.982,16.651a1,1,0,1,0,1,1.731l3.53-2.047a7.062,7.062,0,0,0,1.149,1.15L5.618,21.016a1,1,0,0,0,1.731,1l2.044-3.527A6.947,6.947,0,0,0,11,18.92V23a1,1,0,0,0,2,0V18.92a6.947,6.947,0,0,0,1.607-.429l2.044,3.527a1,1,0,0,0,1.731-1l-2.046-3.531a7.062,7.062,0,0,0,1.149-1.15l3.53,2.047a1,1,0,1,0,1-1.731l-3.527-2.044A6.924,6.924,0,0,0,18.92,13H23A1,1,0,0,0,23,11ZM12,17c-6.608-.21-6.606-9.791,0-10C18.608,7.21,18.606,16.791,12,17Z" />
                                 </svg>
                             </a>
 
-                            <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="بارانی">
+                            <a data-bs-toggle="tooltip" data-rate="1.05" data-name="rainy"="" data-bs-placement="top" data-bs-title="بارانی">
                                 <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
                                     <path d="M14,24a1,1,0,0,1-1-1V18a1,1,0,0,1,2,0v5A1,1,0,0,1,14,24ZM6,24a1,1,0,0,1-1-1V18a1,1,0,0,1,2,0v5A1,1,0,0,1,6,24Zm12-2a1,1,0,0,1-1-1V16a1,1,0,0,1,2,0v5A1,1,0,0,1,18,22Zm-8,0a1,1,0,0,1-1-1V16a1,1,0,0,1,2,0v5A1,1,0,0,1,10,22ZM2,18.328a1,1,0,0,1-.777-.371A5.532,5.532,0,0,1,1.8,10.43a1,1,0,0,0,.345-.9,8.147,8.147,0,0,1-.033-2.889A7.945,7.945,0,0,1,8.5.138a8.052,8.052,0,0,1,8.734,4.438,1.039,1.039,0,0,0,.743.57A7.55,7.55,0,0,1,22.846,16.5a1,1,0,0,1-1.692-1.068,5.537,5.537,0,0,0-3.571-8.325,3.009,3.009,0,0,1-2.158-1.672A6,6,0,0,0,4.086,6.967a6.136,6.136,0,0,0,.024,2.18,3,3,0,0,1-.964,2.763A3.518,3.518,0,0,0,2.777,16.7,1,1,0,0,1,2,18.328Z" />
                                 </svg>
                             </a>
 
-                            <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="برفی">
+                            <a data-bs-toggle="tooltip" data-rate="1.1" data-name="snowy" data-bs-placement="top" data-bs-title="برفی">
                                 <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
                                     <path d="M17.914,5.132a1.033,1.033,0,0,1-.683-.555C13.1-3.756.516.231,2.146,9.528a1,1,0,0,1-.345.9A5.54,5.54,0,0,0,2.214,18.9a.988.988,0,0,0,1.524-.486,5.5,5.5,0,0,1,10.554.08A2.063,2.063,0,0,0,16.5,20C25.123,20.017,27.132,7.12,17.914,5.132ZM17,11H15.726l.633,1.105a1,1,0,1,1-1.734.995L14,12.01l-.625,1.09a1,1,0,1,1-1.734-.995L12.274,11H11a1,1,0,0,1,0-2h1.274L11.641,7.9A1,1,0,1,1,13.375,6.9L14,7.99l.625-1.09a1,1,0,1,1,1.734.995L15.726,9H17A1,1,0,0,1,17,11Zm-4,9a1,1,0,0,1-1,1H10.726l.633,1.105a1,1,0,1,1-1.734,1L9,22.01,8.375,23.1a1,1,0,1,1-1.734-1L7.274,21H6a1,1,0,0,1,0-2H7.274L6.641,17.9a1,1,0,1,1,1.734-1L9,17.99l.625-1.09a1,1,0,1,1,1.734,1L10.726,19H12A1,1,0,0,1,13,20Z" />
                                 </svg>
@@ -757,9 +754,16 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 
 
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="bottom: 55px !important;">
+    <div id="liveToast" class="toast bg-success text-white fade hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body"></div>
+    </div>
+</div>
+
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
 
 
 <script>
@@ -771,73 +775,11 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 
 
-
-
-
 <link href="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.css" rel="stylesheet" type="text/css">
 <script src="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mapbox-polyline/1.2.1/polyline.min.js"></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet' />
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js'></script>
-
-
-
-
-<!-- بارگذاری SDK نقشه نشان -->
-
-<script>
-    var Dropdowns = function() {
-
-        // $('.nav-item.dropdown').each(function() {
-        //     var firstItem = $(this).find('ul.dropdown-menu li:first');
-
-        //     var firstItemText = $(this).find('ul.dropdown-menu li:first a').text();
-
-        //     var name = $(this).find('ul.dropdown-menu li:first a').data("name");
-        //     var value = $(this).find('ul.dropdown-menu li:first a').data("value");
-        //     var rate1 = $(this).find('ul.dropdown-menu li:first a').data("rate1");
-        //     var rate2 = $(this).find('ul.dropdown-menu li:first a').data("rate2");
-
-        //     // tripData[name] = value
-        //     // tripData[name + '_Name'] = firstItemText;
-
-        //     // Set the text of the dropdown-toggle to the first item's text
-        //     $(this).find('a.dropdown-toggle').text(firstItemText);
-        // });
-
-
-
-
-
-
-
-        // const ecoPackage = packages.find(pkg => pkg.name === "Eco");
-        // console.log(ecoPackage.base_fare);
-
-
-
-
-
-        var t = $(".dropup, .dropright, .dropdown, .dropleft"),
-            e = $(".dropdown-menu"),
-            r = $(".dropdown-menu .dropdown-menu");
-        $(".dropdown-menu .dropdown-toggle").on("click", function() {
-                var a;
-                return (a = $(this)).closest(t).siblings(t).find(e).removeClass("show"),
-                    a.next(r).toggleClass("show"),
-                    !1
-            }),
-            t.on("hide.bs.dropdown", function() {
-                var a, t;
-                a = $(this),
-                    (t = a.find(r)).length && t.removeClass("show")
-            })
-    }()
-</script>
-
-
-
-
 
 
 <link rel="stylesheet" href="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css">

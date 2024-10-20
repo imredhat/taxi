@@ -75,7 +75,7 @@ $routes->get('Contacts', to: 'User::AllUser');
 
 
 // $routes->post(from: 'Service/(:any)', to: 'Service::AllServices/$1');
-$routes->get('Service/(edit|read|success)/(:any)', to: 'Service::AllServices/$1');
+$routes->get('Service/(edit|read|success|update)/(:any)', to: 'Service::AllServices/$1');
 $routes->get('Service', to: 'Service::index');
 $routes->get('Service/Add', to: 'Service::AddService');
 
@@ -86,7 +86,11 @@ $routes->post('Service/createOrder', 'Service::createOrder');
 
 
 
-$routes->get('Option', 'Option::index');
+$routes->get('Option/Other', 'Option::index');
+$routes->get('Option/Packages', 'Option::Packages');
+$routes->get('Option/Packages/(edit|read|success|update)/(:any)', to: 'Option::Packages/$1');
+
+
 $routes->post('Option/saveSettings', 'Option::saveSettings');
 
 

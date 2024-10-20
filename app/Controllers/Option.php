@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Libraries\GroceryCrud;
 use App\Models\FareModel;
 
 
@@ -56,83 +57,55 @@ class Option extends BaseController
     }
 
 
+
+    public function Packages()
+    {
+        $crud = new GroceryCrud();
+
+        $crud->setLanguage("Persian");
+        $crud->setTheme('bootstrap');
+        $crud->setTable('packages');
+        $crud->setSubject('پکیج', 'پکیج ها');
+        $crud->unsetDelete();
+        // $crud->unsetRead();
+        $crud->columns(['id', 'name', 'base_fare', 'long_fare', 'distance_rate', 'wait_rate']);
+        $crud->fields(['name', 'base_fare', 'long_fare', 'distance_rate', 'wait_rate']);
+        $crud->displayAs('id', "شناسه");
+        $crud->displayAs('name', "نام");
+        $crud->displayAs('base_fare', "کرایه ورودی زیر 50 کیلومتر");
+        $crud->displayAs('long_fare', "کرایه  ورودی بیشتر از 50 کیلومتر");
+
+        $crud->displayAs('distance_rate', "مبلغ به ازای هر کیلومتر");
+        $crud->displayAs('wait_rate', "هزینه هر ساعت توقف");
+
+        $output = $crud->render();
+
+        echo view('parts/header');
+        echo view('parts/side');
+        echo view('crud', (array) $output);
+        echo view('parts/footer_crud');
+    }
+
     public function saveSettings()
     {
-        // بررسی اینکه درخواست از نوع POST است یا خیر
-
-        $packages = [];
-        $weather = [];
-        $road = [];
-
         $model = new FareModel();
 
-        // گرفتن مقادیر ورودی از فرم
+        $isHoliday          = $this->request->getPost('isHoliday');
+        $extraPassenger     = $this->request->getPost('extraPassenger');
+        $bad_road           = $this->request->getPost('bad_road');
 
-        $price_per_km           = $this->request->getPost('price_per_km');
-        $holiday_rate           = $this->request->getPost('holiday_rate');
 
-        $eco_rate               = $this->request->getPost('eco_rate');
-        $eco_plus_rate          = $this->request->getPost('eco_plus_rate');
-        $vip_rate               = $this->request->getPost('vip_rate');
-        $vip_plus_rate          = $this->request->getPost('vip_plus_rate');
-        $vip_suv_rate           = $this->request->getPost('vip_suv_rate');
-
-        $sunny_rate             = $this->request->getPost('sunny_rate');
-        $rainy_rate             = $this->request->getPost('rainy_rate');
-        $snowy_rate             = $this->request->getPost('snowy_rate');
-
-        $normal_road_rate       = $this->request->getPost('normal_road_rate');
-        $good_highway_rate      = $this->request->getPost('good_highway_rate');
-        $bad_highway_rate       = $this->request->getPost('bad_highway_rate');
-        $good_dirt_road_rate    = $this->request->getPost('good_dirt_road_rate');
-        $bad_dirt_road_rate     = $this->request->getPost('bad_dirt_road_rate');
-
-        $packages = [
-            'eco_rate' => $eco_rate,
-            'eco_plus_rate' => $eco_plus_rate,
-            'vip_rate' => $vip_rate,
-            'vip_plus_rate' => $vip_plus_rate,
-            'vip_suv_rate' => $vip_suv_rate
-        ];
-
-        $weather = [
-            'sunny_rate' => $sunny_rate,
-            'rainy_rate' => $rainy_rate,
-            'snowy_rate' => $snowy_rate
-        ];
-
-        $road = [
-            'normal_road_rate' => $normal_road_rate,
-            'good_highway_rate' => $good_highway_rate,
-            'bad_highway_rate' => $bad_highway_rate,
-            'good_dirt_road_rate' => $good_dirt_road_rate,
-            'bad_dirt_road_rate' => $bad_dirt_road_rate
-        ];
-
-        // Update isHoliday rate
-        $data1 = ["rate" => $holiday_rate];
-
+        $data1 = ["rate" => $isHoliday];
         $model->where("option", "isHoliday")->set($data1)->update();
 
+        $data2 = ["rate" => $extraPassenger];
+        $model->where("option", "extraPassenger")->set($data2)->update();
 
-        // Update price per km
-        $data2 = ["rate" => $price_per_km];
-        $model->where("option", "pp_km")->set($data2)->update();
-
-        // Update packages rates
-        $data3 = ["rate" => json_encode($packages)];
-        $model->where("option", "carType")->set($data3)->update();
-
-        // Update weather rates
-        $data4 = ["rate" => json_encode($weather)];
-        $model->where("option", "weather")->set($data4)->update();
-
-        // Update road condition rates
-        $data5 = ["rate" => json_encode($road)];
-        $model->where("option", "roadCondition")->set($data5)->update();
+        $data3 = ["rate" => $bad_road];
+        $model->where("option", "bad_road")->set($data3)->update();
 
         echo "<script>alert('تنظیمات ذخیره شد') </script>";
 
-        return redirect()->to('Option');
+        return redirect()->to('Option/Other');
     }
 }

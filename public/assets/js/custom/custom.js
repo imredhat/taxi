@@ -399,7 +399,7 @@
 		for (var i = 0; i < plusMinusWidgets.length; i++) {
 			plusMinusWidgets[i].querySelector(".minusBtn").addEventListener("click", clickHandler);
 			plusMinusWidgets[i].querySelector(".plusBtn").addEventListener("click", clickHandler);
-			plusMinusWidgets[i].querySelector(".count").addEventListener("change", changeHandler);
+			// plusMinusWidgets[i].querySelector(".count").addEventListener("change", changeHandler);
 		}
 		function clickHandler(event) {
 			var countEl = event.target.parentNode.querySelector(".count");
@@ -411,12 +411,12 @@
 			}
 			triggerEvent(countEl, "change");
 		};
-		function changeHandler(event) {
-			resultEl.value = 0;
-			for (var i = 0; i < plusMinusWidgets.length; i++) {
-				resultEl.value = Number(resultEl.value) + Number(plusMinusWidgets[i].querySelector('.count').value);
-			}
-		};
+		// function changeHandler(event) {
+		// 	resultEl.value = 0;
+		// 	for (var i = 0; i < plusMinusWidgets.length; i++) {
+		// 		resultEl.value = Number(resultEl.value) + Number(plusMinusWidgets[i].querySelector('.count').value);
+		// 	}
+		// };
 		function triggerEvent(el, type) {
 			if ('createEvent' in document) {
 				var e = document.createEvent('HTMLEvents');

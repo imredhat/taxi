@@ -51,45 +51,43 @@ class Trips extends ResourceController
     {
         // Get POST data
         $model = new TripModel();
-        $data = [
-            'start_loc'         => implode(',', $this->request->getPost('startPoint')),
-            'end_loc'           => implode(',', $this->request->getPost('endPoint')),
-            'start_loc_text'    => $this->request->getPost('startAdd'),
-            'end_loc_text'      => $this->request->getPost('endAdd'),
-            'distance'          => $this->request->getPost('distance'),
-            'travelTime'        => $this->request->getPost('travelTime'),
-            'roadCondition'     => $this->request->getPost('roadCondition'),
-            'weather'           => $this->request->getPost('weather'),
-            'carType'           => $this->request->getPost('carType'),
-            'isHoliday'         => $this->request->getPost('isHoliday') === 'true' ? 1 : 0,
-            'fare'              => $this->request->getPost('fare'),
 
-            'passenger_id'      => $this->request->getPost('fare'),
-            'isGuest'           => $this->request->getPost('isGuest'),
-            'trip_date'         => $this->request->getPost('trip_date'),
-            'trip_time'         => $this->request->getPost('trip_time'),
-            'company_name'      => $this->request->getPost('company_name'),
-            'passenger_name'    => $this->request->getPost('passenger_name'),
-            'passenger_tel'     => $this->request->getPost('passenger_tel'),
-            'total_passenger'   => $this->request->getPost('total_passenger'),
-            'end_address_desc'  => $this->request->getPost('end_address_desc'),
-            'start_address_desc'=> $this->request->getPost('start_address_desc'),
-        ];
+        $data = $this->request->getPost();
 
-        if(!empty($this->request->getPost('company_name'))){
+
+
+        $data['startPoint'] = implode(',', $this->request->getPost('startPoint'));
+        $data['endPoint'] = implode(',', $this->request->getPost('endPoint'));
+
+
+
+
+        if (!empty($this->request->getPost('company_name'))) {
             $data['company_factor'] = "Yes";
         }
 
-        if(($this->request->getPost('isGuest')) == "0"){
+        if (($this->request->getPost('isGuest')) == "0") {
+
+
+            if (isset(($ID)) && $ID > 0) {
+                $User = new UserModel();
+                $User = $User->find($ID);
+
+                $data['passenger_name'] = $User['name'] . " " . $User['lname'];
+                $data['passenger_tel'] = $User['mobile'];
+            } else {
+                $data['guest_name'] = $this->request->getPost('passenger_name');
+                $data['guest_tel'] = $this->request->getPost('passenger_tel');
+
+                $data['passenger_name'] = "";
+                $data['passenger_tel'] = "";
+            }
+        } else {
             $ID = $this->request->getPost('passenger_id');
-
-            $data['guest_name'] = $this->request->getPost('passenger_name');
-            $data['guest_tel'] = $this->request->getPost('passenger_tel');
-
             $User = new UserModel();
             $User = $User->find($ID);
 
-            $data['passenger_name'] = $User['name']." ".$User['lname'] ;
+            $data['passenger_name'] = $User['name'] . " " . $User['lname'];
             $data['passenger_tel'] = $User['mobile'];
         }
 

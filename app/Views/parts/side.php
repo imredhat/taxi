@@ -120,7 +120,8 @@
                 <ul class="menu-sub">
                     <li class="menu-item"> <a href="<?= base_url() ?>Brands" class="menu-link"> برند خودرو </a> </li>
                     <li class="menu-item"> <a href="<?= base_url() ?>Company" class="menu-link"> لیست شرکت ها </a> </li>
-                    <li class="menu-item"> <a href="<?= base_url() ?>Option" class="menu-link"> تنظیمات کرایه </a> </li>
+                    <li class="menu-item"> <a href="<?= base_url() ?>Option/Packages" class="menu-link">  پکیج ها </a> </li>
+                    <li class="menu-item"> <a href="<?= base_url() ?>Option/Other" class="menu-link">  ضرایب اضافه  </a> </li>
                 </ul>
             </li>
 

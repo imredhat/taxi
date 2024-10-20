@@ -8,7 +8,7 @@ use App\Models\DriverModel;
 use App\Models\ServiceModel;
 use App\Models\UserModel;
 use App\Models\FareModel;
-use App\Models\CarTypeModel;
+use App\Models\PackagesModel;
 
 class Service extends BaseController
 {
@@ -102,7 +102,7 @@ class Service extends BaseController
     public function AddService()
     {
 
-        $data['CarType']    = (new CarTypeModel())->findAll();
+        $data['Packages']    = (new Packages())->findAll();
         $data['Users']      = (new UserModel())->findAll();
         $data['Drivers']    = (new DriverModel())->withDeleted()->findAll();
         $data['options']    = (new FareModel())->findAll();
