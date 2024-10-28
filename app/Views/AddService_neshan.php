@@ -296,7 +296,7 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 ?>
 
 <script>
-    const packages = JSON.parse('<?= json_encode($CarType) ?>');
+    const packages = JSON.parse('<?= json_encode($Packages) ?>');
     let = holiDayRate = <?= findRateByKey($array, "isHoliday"); ?>;
     let = extraPassenger = <?= findRateByKey($array, "extraPassenger"); ?>;
     let = badRoad = <?= findRateByKey($array, "bad_road"); ?>;
@@ -400,7 +400,7 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 
 
-                            <?php foreach ($CarType as $Type): ?>
+                            <?php foreach ($Packages as $Type): ?>
 
                                 <li class="nav-item dropdown package" data-name="<?= $Type['name']; ?>">
                                     <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<?= $Type['name']; ?>">
@@ -787,4 +787,5 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 <script>
     jalaliDatepicker.startWatch();
+    
 </script>

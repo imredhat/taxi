@@ -4,12 +4,10 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class TripModel extends Model
+class TripsModel extends Model
 {
-    protected $table      = 'trips';  // Update with your actual table name
+    protected $table      = 'trips';  
     protected $primaryKey = 'id';
-
-    protected $useSoftDeletes = true;  // If you are using soft deletes (deleted_at)
 
     protected $allowedFields = [
         'toll',
@@ -48,17 +46,26 @@ class TripModel extends Model
         'total_passenger',
         'end_address_desc',
         'start_address_desc',
+        'status',
         'created_at',
         'updated_at',
         'deleted_at'
     ];
 
 
-    protected $useTimestamps = true;
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
-
+    protected $useAutoIncrement = true;
+    protected $returnType = 'array';
+    protected $validationRules = [];
     protected $validationMessages = [];
     protected $skipValidation = false;
+
+    public function isAcceptedExists($tripID, $notifID)
+    {
+        $result = $this->where('tripID', $tripID)
+                       ->where('notifID', $notifID)
+                       ->where('isAccepted', true)
+                       ->countAllResults();
+        
+        return $result > 0;
+    }
 }

@@ -1,3 +1,9 @@
+<style>
+    .overflow-auto{
+        overflow:inherit !important ;
+    }
+</style>
+
 <div class="preloader" id="preloader">
     <div class="preloader">
         <div>
@@ -27,6 +33,61 @@
                 </a>
 
             </li>
+
+
+            <li class="menu-title small text-uppercase">
+                <span class="menu-title-text">مدیریت سفارشات</span>
+            </li>
+
+            <li class="menu-item">
+                <a href="<?= base_url() ?>Trips/New" class="menu-link">
+                    <svg class="feather feather-dollar-sign menu-icon tf-icons" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24">
+                        <path d="m12,13c0,1.657-2.686,3-6,3S0,14.657,0,13s2.686-3,6-3,6,1.343,6,3Zm0,5.5v2c0,1.995-2.579,3.5-6,3.5s-6-1.505-6-3.5v-2c0,1.971,2.5,3.5,6,3.5s6-1.529,6-3.5Zm0-4v2c0,1.995-2.579,3.5-6,3.5s-6-1.505-6-3.5v-2c0,1.971,2.5,3.5,6,3.5s6-1.529,6-3.5Zm6-8.5h-8v2h8v-2Zm1-6h-10c-2.757,0-5,2.243-5,5v3.139c.633-.091,1.302-.139,2-.139s1.367.048,2,.139v-2.139c0-1.103.897-2,2-2h8c1.103,0,2,.897,2,2v2c0,1.103-.897,2-2,2h-5.469c.655.574,1.112,1.25,1.328,2h1.14c.553,0,1,.448,1,1v1c0,.552-.447,1-1,1h-1v2h5c.553,0,1,.448,1,1s-.447,1-1,1h-5v1.5c0,1.365-.617,2.569-1.687,3.5h6.687c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm1,14c0,.552-.447,1-1,1s-1-.448-1-1v-1c0-.552.447-1,1-1s1,.448,1,1v1Z" />
+                    </svg>
+
+
+
+
+
+                    <span class="title">استعلام کرایه </span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a href="<?= base_url() ?>Trips" class="menu-link">
+                    <svg class="feather feather-dollar-sign menu-icon tf-icons" style="margin-left: 10px;" class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M12 2a7 7 0 0 0-7 7 3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1a1 1 0 0 0 1-1V9a5 5 0 1 1 10 0v7.083A2.919 2.919 0 0 1 14.083 19H14a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h1a2 2 0 0 0 1.732-1h.351a4.917 4.917 0 0 0 4.83-4H19a3 3 0 0 0 3-3v-2a3 3 0 0 0-3-3 7 7 0 0 0-7-7Zm1.45 3.275a4 4 0 0 0-4.352.976 1 1 0 0 0 1.452 1.376 2.001 2.001 0 0 1 2.836-.067 1 1 0 1 0 1.386-1.442 4 4 0 0 0-1.321-.843Z" clip-rule="evenodd" />
+                    </svg>
+
+
+
+                    <span class="title">استعلام ها</span>
+                </a>
+            </li>
+
+
+
+
+            
+            <li class="menu-item">
+                <a href="<?= base_url() ?>Service" class="menu-link">
+                    <svg class="feather feather-dollar-sign menu-icon tf-icons" style="margin-left: 10px;" class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M12 2a7 7 0 0 0-7 7 3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1a1 1 0 0 0 1-1V9a5 5 0 1 1 10 0v7.083A2.919 2.919 0 0 1 14.083 19H14a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h1a2 2 0 0 0 1.732-1h.351a4.917 4.917 0 0 0 4.83-4H19a3 3 0 0 0 3-3v-2a3 3 0 0 0-3-3 7 7 0 0 0-7-7Zm1.45 3.275a4 4 0 0 0-4.352.976 1 1 0 0 0 1.452 1.376 2.001 2.001 0 0 1 2.836-.067 1 1 0 1 0 1.386-1.442 4 4 0 0 0-1.321-.843Z" clip-rule="evenodd" />
+                    </svg>
+
+
+
+                    <span class="title">سرویس های جاری</span>
+                </a>
+            </li>
+
+
+
+
+
+
+
+
             <li class="menu-title small text-uppercase">
                 <span class="menu-title-text">مدیریت وسایل نقلیه</span>
             </li>
@@ -163,36 +224,7 @@
 
 
 
-            <li class="menu-title small text-uppercase">
-                <span class="menu-title-text">مدیریت سفارشات</span>
-            </li>
-
-
-            <li class="menu-item">
-                <a href="<?= base_url() ?>Service" class="menu-link">
-                    <svg class="feather feather-dollar-sign menu-icon tf-icons" style="margin-left: 10px;" class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                        <path fill-rule="evenodd" d="M12 2a7 7 0 0 0-7 7 3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1a1 1 0 0 0 1-1V9a5 5 0 1 1 10 0v7.083A2.919 2.919 0 0 1 14.083 19H14a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h1a2 2 0 0 0 1.732-1h.351a4.917 4.917 0 0 0 4.83-4H19a3 3 0 0 0 3-3v-2a3 3 0 0 0-3-3 7 7 0 0 0-7-7Zm1.45 3.275a4 4 0 0 0-4.352.976 1 1 0 0 0 1.452 1.376 2.001 2.001 0 0 1 2.836-.067 1 1 0 1 0 1.386-1.442 4 4 0 0 0-1.321-.843Z" clip-rule="evenodd" />
-                    </svg>
-
-
-
-                    <span class="title">سرویس ها</span>
-                </a>
-            </li>
-
-            <li class="menu-item">
-                <a href="<?= base_url() ?>Service/Add" class="menu-link">
-                    <svg class="feather feather-dollar-sign menu-icon tf-icons" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24">
-                        <path d="m12,13c0,1.657-2.686,3-6,3S0,14.657,0,13s2.686-3,6-3,6,1.343,6,3Zm0,5.5v2c0,1.995-2.579,3.5-6,3.5s-6-1.505-6-3.5v-2c0,1.971,2.5,3.5,6,3.5s6-1.529,6-3.5Zm0-4v2c0,1.995-2.579,3.5-6,3.5s-6-1.505-6-3.5v-2c0,1.971,2.5,3.5,6,3.5s6-1.529,6-3.5Zm6-8.5h-8v2h8v-2Zm1-6h-10c-2.757,0-5,2.243-5,5v3.139c.633-.091,1.302-.139,2-.139s1.367.048,2,.139v-2.139c0-1.103.897-2,2-2h8c1.103,0,2,.897,2,2v2c0,1.103-.897,2-2,2h-5.469c.655.574,1.112,1.25,1.328,2h1.14c.553,0,1,.448,1,1v1c0,.552-.447,1-1,1h-1v2h5c.553,0,1,.448,1,1s-.447,1-1,1h-5v1.5c0,1.365-.617,2.569-1.687,3.5h6.687c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm1,14c0,.552-.447,1-1,1s-1-.448-1-1v-1c0-.552.447-1,1-1s1,.448,1,1v1Z" />
-                    </svg>
-
-
-
-
-
-                    <span class="title">استعلام کرایه </span>
-                </a>
-            </li>
+           
 
 
             <li class="menu-item">

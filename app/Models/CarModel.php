@@ -29,9 +29,9 @@ class CarModel extends Model
 
     public function GetDriverCars($id)
     {
-        return $this->select('cars.cid,cars.driver_id ,cars.brand,cars.pelak,cars.iran,cars.harf,cars.pelak_last,brand.brand as car_brand' )
-        ->join('brand', 'brand.TiD = cars.brand')
-        ->where('driver_id' , $id)
-        ->findAll();
-}
+        return $this->select('cars.cid,cars.driver_id ,cars.brand,cars.pelak,cars.iran,cars.harf,cars.pelak_last,brand.brand as car_brand')
+            ->join('brand', 'brand.TiD = cars.brand')
+            ->where('driver_id', $id)
+            ->findAll();
+    }
 }

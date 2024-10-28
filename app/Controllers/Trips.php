@@ -2,14 +2,17 @@
 
 namespace App\Controllers;
 
-use App\Models\TripModel;
+use App\Models\FareModel;
 use App\Models\UserModel;
+use App\Models\TripsModel;
+use App\Models\PackagesModel;
+use App\Models\NotificationModel;
 use CodeIgniter\RESTful\ResourceController;
 
 class Trips extends ResourceController
 {
 
-    protected $modelName = \App\Models\TripModel::class;
+    protected $modelName = \App\Models\TripsModel::class;
     protected $format    = 'json';
 
 
@@ -24,8 +27,40 @@ class Trips extends ResourceController
         }
     }
 
-
     public function index()
+    {
+
+        $data['Trip'] = (new TripsModel())->findAll();
+        $data['Package'] = (new PackagesModel())->findAll();
+
+        echo view('parts/header');
+        echo view('parts/side');
+        echo view('service_list', $data);
+        echo view('modal/PayingFare');
+        echo view('modal/UpdateStatus');
+        echo view('modal/ViewItem');
+        echo view('modal/Request');
+        echo view('modal/Dwt');
+        echo view('modal/toasts');
+
+        echo view('parts/footer');
+    }
+
+    public function NewTrip()
+    {
+
+        $data['Packages']    = (new PackagesModel())->findAll();
+        $data['options']    = (new FareModel())->findAll();
+
+
+        echo view('parts/header');
+        echo view('parts/side');
+        echo view('AddService_neshan', $data);
+        echo view('parts/footer');
+    }
+
+
+    public function getJSON()
     {
         $trips = $this->model->findAll();
         return $this->respond($trips);
@@ -50,7 +85,7 @@ class Trips extends ResourceController
     public function AddTrip()
     {
         // Get POST data
-        $model = new TripModel();
+        $model = new TripsModel();
 
         $data = $this->request->getPost();
 
@@ -128,6 +163,18 @@ class Trips extends ResourceController
 
 
 
+    public function GetTrip()
+    {
+        $uri = service('uri');
+        $ID = $uri->getSegment(3);
+
+        $Trip = new TripsModel();
+        if ($data['Trip'] = $Trip->find($ID)) {
+            echo view("modal/TripDetail", $data);
+        } else {
+            return $this->fail('NotFound');
+        }
+    }
 
 
 
@@ -135,7 +182,107 @@ class Trips extends ResourceController
 
 
 
+    public function CreateNotif()
+    {
+        $ID = $this->request->getPost('tripID');
+        $UserFare = $this->request->getPost('UserFare');
+        $DriverFare = $this->request->getPost('DriverFare');
 
+        $data = [
+            'tripID' => $ID,
+            'userCustomFare' => $UserFare,
+            'diiverCustomFare' => $DriverFare,
+        ];
+
+        $Notif = new NotificationModel();
+        $Notif = $Notif->save($data);
+        if ($Notif) {
+
+            $tdata = [
+                'status' => 'Notifed'
+            ];
+
+            $Trip = new TripsModel();
+            $Trip->update($ID, $tdata);
+
+            return $this->respond([
+                'status' => "OK",
+                'message' => 'Notification created successfully',
+            ], 201);
+        } else {
+            return $this->fail('Failed to save the notification data');
+        }
+    }
+
+
+
+
+
+    public function UpdateStatus()
+    {
+        $ID = $this->request->getPost('tripID');
+        $Status = $this->request->getPost('Status');
+
+
+        $tdata = [
+            'status' => $Status
+        ];
+
+        $Trip = new TripsModel();
+        $Trip->update($ID, $tdata);
+
+        if ($Trip) {
+            return $this->respond([
+                'status' => "OK",
+                'message' => 'Status changed successfully',
+                'class' => $this -> getServiceDIV($Status)
+            ], 201);
+        } else {
+            return $this->fail('Failed to update the status');
+        }
+    }
+
+
+    public function Dwt()
+    {
+        $ID = $this->request->getPost('tripID');
+
+        $Trip = new TripsModel();
+        $Trip->delete($ID);
+
+        if ($Trip) {
+            return $this->respond([
+                'status' => "OK",
+                'message' => 'trip deleted successfully'
+            ], 201);
+        } else {
+            return $this->fail('Failed to delete the trip');
+        }
+    }
+
+
+
+
+    
+function getServiceDIV($status)
+{
+    switch ($status) {
+        case 'Called':
+            return 'bg-primary ';
+        case 'Reserve':
+            return 'bg-secondary ';
+        case 'Confirm':
+            return 'bg-success ';
+        case 'Notifed':
+            return 'bg-warning ';
+        case 'Cancled':
+            return 'bg-danger ';
+        case 'Requested':
+            return 'bg-info ';
+        case 'Done':
+            return 'bg-dark ';
+    }
+}
 
 
 

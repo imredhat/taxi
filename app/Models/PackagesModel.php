@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class CarTypeModel extends Model
+class PackagesModel extends Model
 {
     protected $table = 'packages';
     protected $primaryKey = 'id';

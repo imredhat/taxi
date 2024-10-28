@@ -315,7 +315,9 @@ $(document).ready(function () {
     }
 
     // دکمه ریست کردن نقاط و مسیر
-    document.getElementById('reset').addEventListener('click', reset());
+    document.getElementById('reset').addEventListener('click', function () {
+        reset();
+    });
 
     function reset() {
         no = 0;
@@ -340,6 +342,7 @@ $(document).ready(function () {
         $('input[name="wait_hours"]').val(0);
         $('input[name="total_passenger"]').val(1);
         $(".changeWeather svg").removeClass("svg_select");
+        $("#insertReq").removeAttr("disabled");
 
         console.log("نقاط و مسیر ریست شد.");
     }
@@ -627,10 +630,8 @@ $(document).ready(function () {
                     reset();
                     $(".btn-close").click();
                     // alert('استعلام با موفقیت صبت شد');
-
                     toast('استعلام با موفقیت ثبت شد');
-
-
+                    map.setView([35.6892, 51.3890], 8);
 
 
                     // window.location.href = base + 'Trips/Step2/' + data.ID;
@@ -654,10 +655,10 @@ $(document).ready(function () {
 
         const toastLiveExample = document.getElementById('liveToast')
         const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-        
+
         $('.toast-body').html(text);
         toastBootstrap.show();
-        
+
     }
 
 

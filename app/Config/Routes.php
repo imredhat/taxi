@@ -94,6 +94,14 @@ $routes->get('Option/Packages/(edit|read|success|update)/(:any)', to: 'Option::P
 $routes->post('Option/saveSettings', 'Option::saveSettings');
 
 
+$routes->get('Trips', 'Trips::index');
+$routes->get('Trips/New', 'Trips::NewTrip');
+$routes->get('Trips/getJSON', 'Trips::getJSON');
+$routes->get('Trips/GetTrip(:any)', 'Trips::GetTrip/$1');
+$routes->post('Trips/CreateNotif(:any)', 'Trips::CreateNotif/$1');
+$routes->post('Trips/UpdateStatus(:any)', 'Trips::UpdateStatus/$1');
+$routes->post('Trips/Dwt(:any)', 'Trips::Dwt/$1');
+
 $routes->get('Trips/AddTrip', 'Trips::AddTrip');
 $routes->post('Trips/AddTrip', 'Trips::AddTrip');
 
@@ -104,3 +112,9 @@ $routes->get('Trips/Step2(:any)', 'Trips::Step2/$1');
 
 
 service('auth')->routes($routes);
+
+// ______________________________________ Request _______________________________________
+
+$routes->add('Request/imReady', 'Request::imReady');
+$routes->add('Request/getTripDrivers', 'Request::getTripDrivers');
+$routes->add('Request/ConfirmReq', 'Request::ConfirmReq');

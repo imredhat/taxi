@@ -38,4 +38,32 @@ class DriverModel extends Model
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
 
+
+    public function getDriverCarInfo($driverId, $carId)
+    {
+        return $this->db->table('driver d')
+            ->select('
+                d.name AS driver_name,
+                d.lname AS driver_lname,
+                d.mobile,
+                d.ax,
+
+                c.fuel,
+                c.iran,
+                c.pelak,
+                c.harf,
+                c.pelak_last,
+                c.type,
+
+                b.brand AS brand_name,
+            ')
+            ->join('cars c', 'd.did = c.driver_id')
+            ->join('brand b', 'c.brand = b.TiD')
+            ->where('d.did', $driverId)
+            ->where('c.cid', $carId)
+            ->get()
+            ->getRowArray();
+    }
+
+
 }

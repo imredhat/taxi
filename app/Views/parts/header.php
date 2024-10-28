@@ -35,7 +35,7 @@ $name =  $session -> user_name;;
 </style>
 <title>Taxi</title>
 </head>
-<body></body>
+<body>
 
 
 

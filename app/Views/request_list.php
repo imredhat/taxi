@@ -249,22 +249,13 @@ function getRandomColorPair()
                                                 <li>
                                                     <a data-bs-toggle="modal" data-bs-target="#ViewItem" class="dropdown-item view_item" href="javascript:;" data-id="<?= $S['id'] ?>">
                                                         <svg class="feather feather-link-2" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
-                                                            <path fill="#5b5b98"d="M23.707,22.293l-5.969-5.969a10.016,10.016,0,1,0-1.414,1.414l5.969,5.969a1,1,0,0,0,1.414-1.414ZM10,18a8,8,0,1,1,8-8A8.009,8.009,0,0,1,10,18Z" />
+                                                            <path d="M23.707,22.293l-5.969-5.969a10.016,10.016,0,1,0-1.414,1.414l5.969,5.969a1,1,0,0,0,1.414-1.414ZM10,18a8,8,0,1,1,8-8A8.009,8.009,0,0,1,10,18Z" />
                                                         </svg>
                                                         نمایش </a>
                                                 </li>
 
                                                 <li>
                                                     <a data-bs-toggle="modal" data-bs-target="#Delete" class="dropdown-item" data-id="<?= $S['id'] ?>"  href="javascript:;"> <i data-feather="trash-2"></i> حذف </a>
-                                                </li>
-
-
-                                                <li>
-                                                    <a data-bs-toggle="modal" data-bs-target="#Request" class="dropdown-item" data-id="<?= $S['id'] ?>"  href="javascript:;"> 
-                                                    <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24">
-                                                        <path fill="#5b5b98" d="m8,12c3.309,0,6-2.691,6-6S11.309,0,8,0,2,2.691,2,6s2.691,6,6,6Zm0-10c2.206,0,4,1.794,4,4s-1.794,4-4,4-4-1.794-4-4,1.794-4,4-4Zm8,17v5h-2v-5c0-1.654-1.346-3-3-3h-6c-1.654,0-3,1.346-3,3v5H0v-5c0-2.757,2.243-5,5-5h6c2.757,0,5,2.243,5,5Zm7.957-9.52l-4.926,4.926c-.396.395-.915.593-1.434.593s-1.038-.198-1.433-.592l-2.871-2.871,1.414-1.414,2.87,2.871,4.965-4.926,1.414,1.414Z"/>
-                                                        </svg>                                                    
-                                                    درخواست ها </a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -279,12 +270,136 @@ function getRandomColorPair()
 </div>
 
 
+<div class="modal fade" id="updateStatus" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">تغییر وضعیت</h1> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group position-relative">
+                    <select name="status" class="form-select form-control ps-5 h-58">
+                        <option value="Called">استعلام</option>
+                        <option value="Reserved">رزرو</option>
+                        <option value="Notifed">اطلاع رسانی شده</option>
+                        <option value="Requested">درخواست شده</option>
+                        <option value="Confirm">تایید شده</option>
+                        <option value="Cancled">کنسل شده</option>
+                        <option value="Done">به پایان رسیده</option>
+
+
+                    </select>
+
+                </div>
+                <input type="hidden" name="ClickedTripID" value="" id="ClickedTripID" />
+                <input type="hidden" name="ClickedStatus" value="" id="ClickedStatus" />
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger text-white" data-bs-dismiss="modal">بستن</button>
+                <button type="button" class="btn btn-primary text-white ChangeStatus"><span role="status">ذخیره تغییرات</span> <span class="spinner-grow spinner-grow-sm change_status" aria-hidden="true"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="PayingFare" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">اعلام سرویس</h1> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group mb-4 col-lg-12">
+                    <h3>کرایه سرویس <span class="badge bg-success base_fare">0</span> تومان</h3>
+
+                </div>
+
+                <div class="form-group position-relative">
+                    <input type="text" name="passenger_custom_fare" class="form-control text-dark ps-5 h-58" placeholder="مبلغ اعللامی به مسافر">
+                    <i class="ri-user-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
+                </div>
+                <div class="form-group position-relative pt-20">
+                    <input type="text" name="driver_custom_fare" class="form-control text-dark ps-5 h-58" placeholder="مبلغ پرداختی به راننده">
+                    <i class="ri-exchange-dollar-line position-absolute top-50 start-0 translate-middle-y pt-20 fs-20 text-gray-light ps-20"></i>
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger text-white" data-bs-dismiss="modal">بستن</button>
+                <button type="button" class="btn btn-primary text-white notif"><span role="status">اعلام سرویس</span> <span class="spinner-grow spinner-grow-sm notif_spinner" aria-hidden="true"></span></button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="ViewItem" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">نمایش سرویس</h1> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+
+                <div class="spinner-grow text-primary" role="status"> <span class="visually-hidden">بارگذاری...</span> </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 
 
 
 
+
+<div class="modal fade" id="Delete" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">حذف مورد</h1> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                آیا از حذف این مورد مطمئن هستید ؟
+                <input type="hidden" id="DeleteID" />
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger text-white" data-bs-dismiss="modal">خیر</button>
+                <button type="button" class="btn btn-primary text-white delete"><span role="status">تایید</span></button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="bottom: 55px !important;">
+    <div id="liveToast" class="toast bg-success text-white fade hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body"></div>
+    </div>
+</div>
+
+
+<div class="toast-warning-container position-fixed bottom-0 end-0 p-3" style="bottom: 55px !important;z-index: 9999;">
+    <div id="warnToast" class="toast bg-danger   text-white fade hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body"></div>
+    </div>
+</div>
 
 
 
