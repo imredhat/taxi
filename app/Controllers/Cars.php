@@ -7,16 +7,6 @@ use CodeIgniter\HTTP\URI;
 class Cars extends BaseController
 {
 
-    function __construct()
-    {
-        $session = service('session');
-        
-        // echo($session -> user_id);
-        if (!$session->has('user_id')) {
-            return redirect()->to('auth');
-        }
-    }
-
     public function index()
     {
         $data = ['title' => 'Welcome to My Page'];

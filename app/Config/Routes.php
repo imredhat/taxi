@@ -11,11 +11,12 @@ $routes->get('/', 'User::index');
 
 // Autentication
 $routes->get('auth', 'Auth::index');
+$routes->get('auth/login', 'Auth::index');
 $routes->post('auth/verify', 'Auth::verify');
 $routes->get('auth/logout', 'Auth::logout');
 
 
-$routes->get('/', 'Auth::index');
+// $routes->get('/', 'Auth::index');
 $routes->get('/Cars', 'Cars::Cars');
 $routes->get('/Cars/(:any)', 'Cars::Cars/$1');
 $routes->post('/Cars/(:any)', 'Cars::Cars/$1');
@@ -110,8 +111,6 @@ $routes->post('Trips/FindID', 'Trips::FindID');
 
 $routes->get('Trips/Step2(:any)', 'Trips::Step2/$1');
 
-
-service('auth')->routes($routes);
 
 // ______________________________________ Request _______________________________________
 

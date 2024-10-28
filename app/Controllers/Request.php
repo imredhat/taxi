@@ -15,14 +15,6 @@ class Request extends ResourceController
     protected $format    = 'json';
 
 
-    function __construct()
-    {
-        $session = service('session');
-        if (!$session->has('user_id')) {
-            return redirect()->to('auth');
-        }
-    }
-
     public function index()
     {
         $data['Request'] = (new RequestModel())->findAll();

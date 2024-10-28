@@ -14,16 +14,6 @@ use App\Models\TripsModel;
 class Service extends BaseController
 {
 
-    function __construct()
-    {
-        $session = service('session');
-
-        // echo($session -> user_id);
-        if (!$session->has('user_id')) {
-            return redirect()->to('auth');
-        }
-    }
-
     public function index()
     {
 
@@ -59,7 +49,7 @@ class Service extends BaseController
     {
         $id = $this->request->getPost('driver_id');
 
-        $Cars = ((new CarModel())->GetDriverCars($id));
+        $Cars = (new CarModel())->GetDriverCars($id);
 
         echo json_encode($Cars);
 
@@ -79,6 +69,7 @@ class Service extends BaseController
             $serviceType = "OneWay";
         }
 
+        
         $serviceNumber = $this->generateRandomNumber();
 
 

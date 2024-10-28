@@ -3,18 +3,20 @@
 namespace App\Controllers;
 
 use App\Libraries\GroceryCrud;
-use App\Helpers\AuthHelper;
 
 class User extends BaseController
 {
-    public function index(){
-        
-        if (!AuthHelper::isLoggedIn()) {
-            return redirect()->to('auth');
-        }
-        // $Brand = new BrandModel();
-        // $data['Brands'] = $Brand ->orderBy('brand')->withDeleted()->findAll();
 
+    function __construct()
+    {
+        if (!session()->has('user_id')) {
+            header('location:/auth');
+            exit();
+        }
+    }
+
+    
+    public function index(){
         echo view('parts/header');
         echo view('parts/side');
         echo view('Home');

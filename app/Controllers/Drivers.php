@@ -9,17 +9,6 @@ use App\Models\DriverModel;
 
 class Drivers extends BaseController
 {
-
-    function __construct()
-    {
-        $session = service('session');
-        
-        // echo($session -> user_id);
-        if (!$session->has('user_id')) {
-            return redirect()->to('auth');
-        }
-    }
-
     public function index()
     {
         $Brand = new BrandModel();

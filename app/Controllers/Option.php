@@ -8,17 +8,6 @@ use App\Models\FareModel;
 
 class Option extends BaseController
 {
-
-    function __construct()
-    {
-        $session = service('session');
-
-        // echo($session -> user_id);
-        if (!$session->has('user_id')) {
-            return redirect()->to('auth');
-        }
-    }
-
     public function index()
     {
 

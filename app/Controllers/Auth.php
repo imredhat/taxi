@@ -10,41 +10,36 @@ class Auth extends BaseController
     protected $adminModel;
     protected $session;
 
-    public function __construct()
-    {
-        $this->adminModel = new AdminModel();
-        $this->session = service('session');
-    }
 
     public function index()
+    {
+        echo view('auth/login');
+    }
+    public function login()
     {
         echo view('auth/login');
     }
 
     public function verify()
     {
-
         // echo password_hash("S@ber2365", PASSWORD_DEFAULT);
-
         // die();
 
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
 
-        $user = $this->adminModel->where('user', $username)->first();
-
-
-
-
-        // echo "<pre>";
-        // print_r($user);
-        // die();
-
+        $user = new AdminModel();
+        $user = $user->where('user', $username)->first();
 
         if ($user && password_verify($password, $user['pass'])) {
-            $this->session->set('user_id', $user['id']);
-            $this->session->set('user_name', $user['name']);
+
+            session()->set([
+                'user_id' => $user['id'],
+                'name' => $user['name'],
+                'isLoggedIn' => true
+            ]);
+
             return redirect()->to(base_url());
         } else {
             return redirect()->back()->with('error', 'نام کاربری یا رمز عبور اشتباه است');
@@ -81,7 +76,7 @@ class Auth extends BaseController
 
     public function logout()
     {
-        $this->session->destroy();
+        session()->destroy();
         return redirect()->to('/auth')->with('success', 'Logged out successfully');
     }
 }

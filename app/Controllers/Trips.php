@@ -11,21 +11,9 @@ use CodeIgniter\RESTful\ResourceController;
 
 class Trips extends ResourceController
 {
-
     protected $modelName = \App\Models\TripsModel::class;
     protected $format    = 'json';
 
-
-
-    function __construct()
-    {
-        $session = service('session');
-
-        // echo($session -> user_id);
-        if (!$session->has('user_id')) {
-            return redirect()->to('auth');
-        }
-    }
 
     public function index()
     {
@@ -42,7 +30,6 @@ class Trips extends ResourceController
         echo view('modal/Request');
         echo view('modal/Dwt');
         echo view('modal/toasts');
-
         echo view('parts/footer');
     }
 
@@ -103,7 +90,8 @@ class Trips extends ResourceController
 
         if (($this->request->getPost('isGuest')) == "0") {
 
-
+            $ID = $this->request->getPost('passenger_id');
+            
             if (isset(($ID)) && $ID > 0) {
                 $User = new UserModel();
                 $User = $User->find($ID);
