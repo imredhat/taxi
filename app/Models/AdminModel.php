@@ -17,3 +17,5 @@ class AdminModel extends Model
     ];
     protected $skipValidation = false;
 }
+
+
