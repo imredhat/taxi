@@ -26,16 +26,9 @@ class DriverModel extends Model
         'date_created'
     ];
 
-    // Optionally, you can define validation rules
-    protected $validationRules = [
-        'name' => 'required|min_length[3]|max_length[255]',
-        'lname' => 'required|min_length[3]|max_length[255]',
-        'mobile' => 'required|numeric',
-        // Add other validation rules as needed
-    ];
+
     protected $returnType = 'array';
-    protected $useSoftDeletes = true;
-    protected bool $allowEmptyInserts = false;
+    protected bool $allowEmptyInserts = true;
     protected bool $updateOnlyChanged = true;
 
 
@@ -65,5 +58,12 @@ class DriverModel extends Model
             ->getRowArray();
     }
 
-
+    public function getDriverWithCars($driverId)
+    {
+        $builder = $this->db->table($this->table);
+        $builder->where('did', $driverId);
+        $builder->join('cars', 'driver.did = cars.driver_id', 'left');
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
 }

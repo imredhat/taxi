@@ -33,7 +33,7 @@ Events::on('pre_system', static function (): void {
             ob_end_flush();
         }
 
-        ob_start(static fn ($buffer) => $buffer);
+        ob_start(static fn($buffer) => $buffer);
     }
 
     /*
@@ -53,3 +53,36 @@ Events::on('pre_system', static function (): void {
         }
     }
 });
+
+
+// Events::on('DBQuery', function($query) {
+//     $db = \Config\Database::connect();
+
+
+//     $table_name = getTableNameFromQuery($query);
+//     $builder = $db->table('logs');
+//     $user_id = session()->get('user_id') ?? null;
+
+//     $builder->insert([
+//         'action' => 'query',
+//         'table_name' => $table_name,
+//         'record_id' => null,
+//         'user_id' => $user_id,
+//         'query' => $query,
+//     ]);
+// });
+
+// /**
+//  *
+//  * @param string $query
+//  * @return string|null
+//  */
+// function getTableNameFromQuery($query)
+// {
+//     // استخراج نام جدول پس از کلمات کلیدی INSERT INTO، UPDATE، DELETE FROM یا SELECT * FROM
+//     if (preg_match('/\b(?:FROM|INTO|UPDATE)\s+`?(\w+)`?/i', $query, $matches)) {
+//         return $matches[1];
+//     }
+
+//     return null;
+// }

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Libraries\GroceryCrud;
+use App\Models\UserModel;
 
 class User extends BaseController
 {
@@ -15,8 +16,9 @@ class User extends BaseController
         }
     }
 
-    
-    public function index(){
+
+    public function index()
+    {
         echo view('parts/header');
         echo view('parts/side');
         echo view('Home');
@@ -70,6 +72,10 @@ class User extends BaseController
         $crud->setSubject('کاربران', 'کاربر');
         $crud->setRead();
 
+        $crud->setActionButton('کارت مشترک', 'fa fa-user UserTab', function ($row) {
+            return '/UserCard/' . $row;
+        }, true);
+
 
         $crud->requiredFields(['name']);
         $crud->columns([
@@ -108,21 +114,21 @@ class User extends BaseController
 
         $crud->fieldType('gender', 'dropdown', [
             '' => 'انتخاب جنسیت',
-            'male' => 'مرد',
-            'female' => 'زن'
+            'مرد' => 'مرد',
+            'زن' => 'زن'
         ]);
 
         $crud->fieldType('type', 'dropdown', [
             '' => 'انتخاب جنسیت',
-            'person' => 'حقیقی',
-            'company' => 'حقوقی'
+            'حقیقی' => 'حقیقی',
+            'حقوقی' => 'حقوقی'
         ]);
 
 
         $crud->fieldType('status', 'dropdown', [
             '' => 'انتخاب وضعیت',
-            'V' => 'تایید شده',
-            'NV' => 'تایید نشده'
+            'تایید شده' => 'تایید شده',
+            'تایید نشده' => 'تایید نشده'
         ]);
 
 
@@ -134,5 +140,23 @@ class User extends BaseController
         echo view('parts/side');
         echo view('crud', (array) $output);
         echo view('parts/footer_crud');
+
+        
+    }
+
+
+    
+    public function UserCard()
+    {
+        $uri = service('uri');
+        $ID = $uri->getSegment(2);
+
+        $User = new UserModel();
+        $User = $User->where('id', $ID)->find()[0];
+        $data['user'] = $User;
+
+        echo view('parts/print/header');
+        echo view('user_card', $data);
+        echo view('parts/print/footer');
     }
 }

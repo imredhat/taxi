@@ -267,9 +267,12 @@ $(document).ready(function () {
         const passengerRate = tripData.passengerRate;
         const badRoadRate = tripData.badRoadRate;
         const badRoadKM = tripData.badRoadKM;
+        const Friday = (isFriday == 0) ? 1 : holiDayRate;
 
 
-        fare = FinalFare * weatherRate * passengerRate * isFriday + (Waithours * WaitRate) + (badRoadRate * badRoadKM)
+
+
+        fare = FinalFare * weatherRate * passengerRate * Friday + (Waithours * WaitRate) + (badRoadRate * badRoadKM)
 
         tripData.finalFare = fare;
 
@@ -322,8 +325,6 @@ $(document).ready(function () {
     function reset() {
         no = 0;
 
-        tripData.startPoint = null;
-        tripData.endPoint = null;
 
         if (endMarker) endMarker.remove();
         if (startMarker) startMarker.remove();
@@ -343,6 +344,21 @@ $(document).ready(function () {
         $('input[name="total_passenger"]').val(1);
         $(".changeWeather svg").removeClass("svg_select");
         $("#insertReq").removeAttr("disabled");
+
+
+        Object.keys(tripData).forEach(key => {
+            tripData[key] = null;
+        });
+
+        const inputs = document.querySelectorAll('input[type="text"]');
+        inputs.forEach(input => input.value = '');
+
+        $(".package:first-child").click();
+        $(".fareHolder").hide();
+
+
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach(text => text.value = '');
 
         console.log("نقاط و مسیر ریست شد.");
     }
@@ -495,10 +511,10 @@ $(document).ready(function () {
 
         const result = convertDateAndCheckFriday(val);
         if (result.isFriday) {
-            tripData.isFriday = tripData.holiDayRate;
+            tripData.isFriday = 1;
             calculateFinalFare();
         } else {
-            tripData.isFriday = 1;
+            tripData.isFriday = 0;
             calculateFinalFare();
         }
 
@@ -598,23 +614,23 @@ $(document).ready(function () {
 
         e.preventDefault();
 
-        tripData.badRoad = $('select[name="badRoad"]').val();
-        tripData.isWait = $('select[name="isWait"]').val();
+        tripData.badRoad = document.querySelector("select[name='badRoad']").value;
+        tripData.isWait = document.querySelector("select[name='isWait']").value;
 
-        tripData.isGuest = $('select[name="isGuest"]').val();
-        tripData.trip_date = $('input[name="trip_date"]').val();
-        tripData.trip_time = $('input[name="trip_time"]').val();
-        tripData.company_name = $('input[name="company_name"]').val();
-        tripData.passenger_id = $('input[name="passenger_id"]').val();
-        tripData.passenger_tel = $('input[name="passenger_tel"]').val();
-        tripData.passenger_name = $('input[name="passenger_name"]').val();
-        tripData.total_passenger = $('input[name="total_passenger"]').val();
-        tripData.end_address_desc = $('textarea[name="end_address_desc"]').val();
-        tripData.start_address_desc = $('textarea[name="start_address_desc"]').val();
+        tripData.isGuest = document.querySelector("select[name='isGuest']").value;
+        tripData.trip_date = document.querySelector("input[name='trip_date']").value;
+        tripData.trip_time = document.querySelector("input[name='trip_time']").value;
+        tripData.company_name = document.querySelector("input[name='company_name']").value;
+        tripData.passenger_id = document.querySelector("input[name='passenger_id']").value;
+        tripData.passenger_tel = document.querySelector("input[name='passenger_tel']").value;
+        tripData.passenger_name = document.querySelector("input[name='passenger_name']").value;
+        tripData.total_passenger = document.querySelector("input[name='total_passenger']").value;
+        tripData.end_address_desc = document.querySelector("[name='end_address_desc']").value;
+        tripData.start_address_desc = document.querySelector("textarea[name='start_address_desc']").value;
 
-        tripData.wait_hours = $('input[name="wait_hours"]').val();
-        tripData.badRoad_km = $('input[name="badRoad_km"]').val();
-        tripData.luggage = $('input[name="luggage"]').val();
+        tripData.wait_hours = document.querySelector("input[name='wait_hours']").value;
+        tripData.badRoad_km = document.querySelector("input[name='badRoad_km']").value;
+        tripData.luggage = document.querySelector("[name='luggage']").value;
 
         $(this).attr("disabled", 'disabled');
         $(".spinner-grow").fadeIn();
@@ -726,6 +742,7 @@ $(document).ready(function () {
         const dayOfWeek = gregorianDate.getDay();
         const isFriday = dayOfWeek === 5;
         const formattedDate = `${gy}-${String(gm).padStart(2, '0')}-${String(gd).padStart(2, '0')}`;
+
         return {
             formattedDate,
             isFriday

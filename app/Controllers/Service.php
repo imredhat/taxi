@@ -9,6 +9,7 @@ use App\Models\ServiceModel;
 use App\Models\UserModel;
 use App\Models\FareModel;
 use App\Models\PackagesModel;
+use App\Models\RequestModel;
 use App\Models\TripsModel;
 
 class Service extends BaseController
@@ -17,10 +18,12 @@ class Service extends BaseController
     public function index()
     {
 
-        $data['Trip'] = (new TripsModel())->findAll();
+        $Request = new RequestModel();
+        $res = $Request -> getAllRequestWithDetail();
+        $data['Request'] =$res;
 
         // echo "<pre>";
-        // print_r($data);
+        // print_r($res);
         // die();
 
         echo view('parts/header');

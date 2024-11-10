@@ -22,8 +22,6 @@ class Auth extends BaseController
 
     public function verify()
     {
-        // echo password_hash("S@ber2365", PASSWORD_DEFAULT);
-        // die();
 
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');

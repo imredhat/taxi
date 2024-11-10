@@ -12,38 +12,35 @@ class Drivers extends BaseController
     public function index()
     {
         $Brand = new BrandModel();
-        $data['Brands'] = $Brand ->orderBy('brand')->withDeleted()->findAll();
+        $data['Brands'] = $Brand->orderBy('brand')->withDeleted()->findAll();
 
         echo view('parts/header');
         echo view('parts/side');
-        echo view('driver_add',$data);
+        echo view('driver_add', $data);
         echo view('parts/footer');
     }
 
     public function AddDriver()
     {
         $Brand = new BrandModel();
-        $data['Brands'] = $Brand ->orderBy('brand')->withDeleted()->findAll();
+        $data['Brands'] = $Brand->orderBy('brand')->withDeleted()->findAll();
 
         echo view('parts/header');
         echo view('parts/side');
-        echo view('driver_add',$data);
+        echo view('driver_add', $data);
         echo view('parts/footer');
     }
 
     public function AddDriverToDatabase()
     {
-        // Load the database library
         $db = \Config\Database::connect();
 
-        // Get data from POST request
         $name = $this->request->getPost('name');
         $l_name = $this->request->getPost('l_name');
         $address = $this->request->getPost('address');
         $phone = $this->request->getPost('phone');
         $mobile = $this->request->getPost('mobile');
 
-        // Check if phone number is unique
         $builder = $db->table('drivers');
         $builder->where('phone', $phone);
         $query = $builder->get();
@@ -77,7 +74,13 @@ class Drivers extends BaseController
         $crud->setTheme('bootstrap');
         $crud->setTable('driver');
         $crud->setSubject('راننده', 'رانندگان');
+        $crud->unsetAdd();
         // $crud->unsetRead();
+
+        $crud->setActionButton('کارت راننده', 'fa fa-user DriverTab', function ($row) {
+            return '/DriverCard/' . $row;
+        }, false);
+
         $crud->columns(['did', 'ax', 'name', 'lname', 'gender', 'mobile', 'work_type', 'date_created']);
         $crud->fields(['name', 'lname', 'gender', 'mobile', 'mobile2', 'phone', 'address', 'work_type', 'melli', 'bank', 'scan_melli', 'ax']);
         $crud->displayAs('did', "شناسه");
@@ -95,8 +98,8 @@ class Drivers extends BaseController
         $crud->displayAs('date_created', "تاریخ ایجاد");
         $crud->displayAs('ax', "تصویر پرسنلی");
 
-        $crud->fieldType("gender", "dropdown", ["male" => "مرد", "female" => "زن"]);
-        $crud->fieldType("work_type", "dropdown", ["azad" => "ازاد", "sherkati" => "شرکتی"]);
+        $crud->fieldType("gender", "dropdown", ["مرد" => "مرد", "زن" => "زن"]);
+        $crud->fieldType("work_type", "dropdown", ["ازاد" => "ازاد", "شرکتی" => "شرکتی"]);
 
 
         $this->UploadCallback($crud, 'ax');
@@ -109,6 +112,35 @@ class Drivers extends BaseController
         echo view('parts/side');
         echo view('crud', (array) $output);
         echo view('parts/footer_crud');
+    }
+
+    /*---------------------------------------------------------\
+      |                   Driver Card
+      |---------------------------------------------------------/
+     */
+
+    public function DriverCard()
+    {
+        $uri = service('uri');
+        $ID = $uri->getSegment(2);
+
+
+        $Driver = new DriverModel();
+        $Driver = $Driver->where('did', $ID)->find()[0];
+        $data['driver'] = $Driver;
+
+        $Cars = new CarModel();
+        $Cars = $Cars->GetDriverCars($ID);
+        $data['car'] = $Cars;
+
+
+        // echo "<pre>";
+        // print_r($data);
+        // die();
+
+        echo view('parts/print/header');
+        echo view('driver_card', $data);
+        echo view('parts/print/footer');
     }
 
 
@@ -192,6 +224,7 @@ class Drivers extends BaseController
 
 
 
+
     public function RD()
     {
         $uri = service('uri');
@@ -267,6 +300,7 @@ class Drivers extends BaseController
             $DID = $Driver->getInsertID();
 
 
+
             $car = array(
                 'driver_id'        => $DID,
                 'brand'            => $this->request->getPost('brand'),
@@ -313,8 +347,4 @@ class Drivers extends BaseController
             }
         }
     }
-
-
-
-
 }

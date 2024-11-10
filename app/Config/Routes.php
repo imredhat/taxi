@@ -56,9 +56,12 @@ $routes->post('add-driver', 'Drivers::AddDriverToDatabase');
 $routes->get('all-drivers', 'Drivers::All');
 $routes->get('all-drivers/(:any)', 'Drivers::All/$1');
 $routes->post('all-drivers/(:any)', 'Drivers::All/$1');
+$routes->add('DriverCard/(:any)', 'Drivers::DriverCard/$1');
+$routes->add('PrintC/DriverCard(:any)', 'PrintC::DriverCard/$1');
+
+$routes->add('UserCard(:any)', 'User::UserCard/$1');
 
 $routes->post('OneStep', to: 'Drivers::OneStep');
-
 
 
 
@@ -110,7 +113,7 @@ $routes->get('Trips/FindID', 'Trips::FindID');
 $routes->post('Trips/FindID', 'Trips::FindID');
 
 $routes->get('Trips/Step2(:any)', 'Trips::Step2/$1');
-
+$routes->add('TripsDetail/(:any)', 'Trips::Detail/$1');
 
 // ______________________________________ Request _______________________________________
 

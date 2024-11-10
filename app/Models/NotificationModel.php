@@ -6,13 +6,13 @@ use CodeIgniter\Model;
 
 class NotificationModel extends Model
 {
-    protected $table      = 'nitification';  
+    protected $table      = 'notification';  
     protected $primaryKey = 'id';
 
     protected $allowedFields = [
         'tripID',
         'userCustomFare',
-        'diiverCustomFare',
+        'driverCustomFare',
         'created_at'
     ];
 

@@ -7,6 +7,7 @@ use App\Models\UserModel;
 use App\Models\TripsModel;
 use App\Models\PackagesModel;
 use App\Models\NotificationModel;
+use App\Models\RequestModel;
 use CodeIgniter\RESTful\ResourceController;
 
 class Trips extends ResourceController
@@ -23,7 +24,7 @@ class Trips extends ResourceController
 
         echo view('parts/header');
         echo view('parts/side');
-        echo view('service_list', $data);
+        echo view('trip_list', $data);
         echo view('modal/PayingFare');
         echo view('modal/UpdateStatus');
         echo view('modal/ViewItem');
@@ -166,6 +167,29 @@ class Trips extends ResourceController
 
 
 
+    public function Detail()
+    {
+        $uri = service('uri');
+        $ID = $uri->getSegment(2);
+
+        $Request = new TripsModel();
+        $res = $Request -> getTripDetails($ID);
+        $data['trip'] =$res;
+
+        
+        // echo "<pre>";
+        // print_r($res);
+        // die();
+
+
+
+        echo view('parts/header');
+        echo view('parts/side');
+        echo view('modal/trip_factor', $data);
+        echo view('parts/footer');
+    }
+
+
 
 
 
@@ -179,9 +203,11 @@ class Trips extends ResourceController
         $data = [
             'tripID' => $ID,
             'userCustomFare' => $UserFare,
-            'diiverCustomFare' => $DriverFare,
+            'driverCustomFare' => $DriverFare,
         ];
 
+
+    
         $Notif = new NotificationModel();
         $Notif = $Notif->save($data);
         if ($Notif) {
