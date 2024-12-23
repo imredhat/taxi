@@ -63,11 +63,11 @@
                                         <?php }
                                     }
                                     ?>
-                                    <?php if (!$unset_read) { ?>
+                                    <?php  ?>
                                         <li>
                                             <a href="<?php echo $row->read_url?>"><i class="fa fa-eye"></i> <?php echo $this->l('list_view')?></a>
                                         </li>
-                                    <?php } ?>
+                                    <?php  ?>
                                     <?php if (!$unset_delete) { ?>
                                         <li>
                                             <a data-target="<?php echo $row->delete_url?>" href="javascript:void(0)" title="<?php echo $this->l('list_delete')?>" class="delete-row">

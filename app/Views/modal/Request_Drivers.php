@@ -125,7 +125,7 @@
 
         $.ajax({
             type: "POST",
-            url: "Request/ConfirmReq/",
+            url: "Request/ConfirmReq",
             data: {
                 tripID: tripID,
                 RqID: RqID,
@@ -163,7 +163,7 @@
 
         $.ajax({
             type: "POST",
-            url: "Request/ConfirmReq/",
+            url: "Request/ConfirmReq",
             data: {
                 tripID: tripID,
                 RqID: RqID,

@@ -208,6 +208,9 @@ class Trips extends ResourceController
 
 
     
+
+
+    
         $Notif = new NotificationModel();
         $Notif = $Notif->save($data);
         if ($Notif) {

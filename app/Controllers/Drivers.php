@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Libraries\GroceryCrud;
+use App\Libraries\PersianDate;
 use App\Models\BrandModel;
 use App\Models\CarModel;
 use App\Models\DriverModel;
@@ -11,6 +12,14 @@ class Drivers extends BaseController
 {
     public function index()
     {
+
+      
+
+
+
+        
+
+
         $Brand = new BrandModel();
         $data['Brands'] = $Brand->orderBy('brand')->withDeleted()->findAll();
 
@@ -81,8 +90,8 @@ class Drivers extends BaseController
             return '/DriverCard/' . $row;
         }, false);
 
-        $crud->columns(['did', 'ax', 'name', 'lname', 'gender', 'mobile', 'work_type', 'date_created']);
-        $crud->fields(['name', 'lname', 'gender', 'mobile', 'mobile2', 'phone', 'address', 'work_type', 'melli', 'bank', 'scan_melli', 'ax']);
+        $crud->columns(['did', 'ax', 'name', 'lname', 'gender', 'mobile','melli', 'date_created']);
+        $crud->fields(['name', 'lname', 'gender', 'mobile', 'mobile2', 'phone', 'address',  'melli', 'bank', 'scan_melli', 'ax']);
         $crud->displayAs('did', "شناسه");
         $crud->displayAs('name', "نام");
         $crud->displayAs('lname', "نام خانوادگی");
@@ -99,11 +108,17 @@ class Drivers extends BaseController
         $crud->displayAs('ax', "تصویر پرسنلی");
 
         $crud->fieldType("gender", "dropdown", ["مرد" => "مرد", "زن" => "زن"]);
-        $crud->fieldType("work_type", "dropdown", ["ازاد" => "ازاد", "شرکتی" => "شرکتی"]);
+        //$crud->fieldType("work_type", "dropdown", ["ازاد" => "ازاد", "شرکتی" => "شرکتی"]);
 
 
         $this->UploadCallback($crud, 'ax');
         $this->UploadCallback($crud, 'scan_melli');
+
+        $crud->callbackColumn('date_created', function ($value) {
+            $date = new PersianDate();
+            list($gy, $gm, $gd) = explode('-', substr($value, 0, 10));
+            return $date->gregorianToJalali($gy, $gm, $gd, '/');
+        });
 
 
         $output = $crud->render();

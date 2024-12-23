@@ -1,6 +1,6 @@
 <div class="container" id="print">
     <!------------------------------ First card container --------------------------------------->
-    <div class="card-container">
+    <div class="card-container" id="bg" >
         <div class="top-box">
             <div class="top-menu">
                 <div class="col-sm-12 text-center text-white header bg-primary">کارت عضویت رانندگان</div>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="user-info">
-                <span class="name"> کد ملی : <?= $driver['melli'] ?> </span>
+                <span class="name"> &ensp;</span>
             </div>
 
             <div class="car" style="background: url('<?= base_url("uploads/cars/pic_front/") ?><?= $car[0]['pic_front'] ?>' )  no-repeat center center;"></div>
@@ -66,7 +66,7 @@
 
             <div class="bottom">
                 <div class="col-sm-12">پویش تاکسی </div>
-                <div class="col-sm-12" style="font-size: 8px;">www.PoyeshTak30.ir | 09655484545</div>
+                <div class="col-sm-12" style="font-size: 8px;">www.PoyeshTak30.ir | 09229247081</div>
             </div>
 
             <!---------------------------- End of button box ------------------------------>
@@ -78,6 +78,37 @@
 
         <!---------------------------- End of Animated circles ------------------------------>
     </div>
+
+    <style>
+    #print {
+        letter-spacing: 0px; /* or specify a value, e.g., 0px */
+    }
+
+    .card-container ,.container{
+        background: #fff !important;
+    }
+</style>
+
+    <button id="download" class="btn btn-primary">دانلود کارت</button>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        document.getElementById('download').addEventListener('click', function() {
+            document.getElementById('download').style.display = 'none';
+
+            // document.getElementById('bg').style.zoom = '1.2';
+            html2canvas(document.getElementById('print')).then(canvas => {
+                let link = document.createElement('a');
+                link.download = 'driver_card_<?= $driver['did'] ?>.jpg';
+                link.href = canvas.toDataURL('image/jpeg');
+                link.click();
+                document.getElementById('download').style.display = 'block';
+            });
+        });
+    </script>
+
+    
 
 
 </div>

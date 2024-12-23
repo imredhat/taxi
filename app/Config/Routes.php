@@ -103,6 +103,7 @@ $routes->get('Trips/New', 'Trips::NewTrip');
 $routes->get('Trips/getJSON', 'Trips::getJSON');
 $routes->get('Trips/GetTrip(:any)', 'Trips::GetTrip/$1');
 $routes->post('Trips/CreateNotif(:any)', 'Trips::CreateNotif/$1');
+$routes->get('Trips/CreateNotif(:any)', 'Trips::CreateNotif/$1');
 $routes->post('Trips/UpdateStatus(:any)', 'Trips::UpdateStatus/$1');
 $routes->post('Trips/Dwt(:any)', 'Trips::Dwt/$1');
 

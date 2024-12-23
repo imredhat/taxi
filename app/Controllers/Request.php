@@ -2,18 +2,16 @@
 
 namespace App\Controllers;
 
-use App\Models\RequestModel;
 use App\Models\DriverModel;
+use App\Models\RequestModel;
 use App\Models\TripsModel;
 use CodeIgniter\RESTful\ResourceController;
-
 
 class Request extends ResourceController
 {
 
     protected $modelName = \App\Models\RequestModel::class;
-    protected $format    = 'json';
-
+    protected $format = 'json';
 
     public function index()
     {
@@ -34,25 +32,24 @@ class Request extends ResourceController
         $data = [
             'tripID' => $tripID,
             'notifID' => $notifID,
-            'driverID' => $driverID
+            'driverID' => $driverID,
         ];
 
         $Rq = new RequestModel();
-        $Rq  = $Rq->save($data);
+        $Rq = $Rq->save($data);
 
         if ($Rq) {
             return $this->response->setStatusCode(200)->setJSON([
                 'status' => 'success',
-                'message' => 'request created'
+                'message' => 'request created',
             ]);
         } else {
             return $this->response->setStatusCode(400)->setJSON([
                 'status' => 'fail',
-                'message' => 'failed to create request'
+                'message' => 'failed to create request',
             ]);
         }
     }
-
 
     public function getTripDrivers()
     {
@@ -66,7 +63,7 @@ class Request extends ResourceController
             foreach ($Rq as $I => $R) {
                 $driverID = $R['driverID'];
                 $carID = $R['carID'];
-                if ($RZ =  $Dr->getDriverCarInfo($driverID, $carID)) {
+                if ($RZ = $Dr->getDriverCarInfo($driverID, $carID)) {
                     foreach ($RZ as $Z => $V) {
                         $Rq[$I][$Z] = $V;
                     }
@@ -78,7 +75,6 @@ class Request extends ResourceController
 
         return view('modal/Request_Drivers', $data);
     }
-
 
     public function ConfirmReq()
     {
@@ -92,24 +88,25 @@ class Request extends ResourceController
         $Rq = new RequestModel();
         $Rq->update($reqID, $data);
 
-
         if ($Rq) {
 
             // $model = new TripsModel();
             // $isAccepted = $model->isAcceptedExists($tripID, $notifID);
 
             if ($isAccepet == "YES") {
-                $Trip = new TripsModel();
-                $Trip = $Trip->update($tripID, ["status" => "Confirm"]);
+                $data = ["status" => "Confirm"];
+
+                $Rq = new TripsModel();
+                $Rq->update($reqID, $data);
 
                 return $this->response->setJSON([
                     'status' => 'success',
-                    'final' => true
+                    'final' => true,
                 ]);
             } else {
                 return $this->response->setJSON([
                     'status' => 'success',
-                    'final' => false
+                    'final' => false,
                 ]);
             }
         }

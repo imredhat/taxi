@@ -111,6 +111,8 @@ $(document).ready(function () {
         var UserFare = $("input[name='driver_custom_fare']").val().replace(/[^0-9a-z-A-Z ]/g, "").replace(/ +/, " ");
         var DriverFare = $("input[name='passenger_custom_fare']").val().replace(/[^0-9a-z-A-Z ]/g, "").replace(/ +/, " ");
 
+        console.log(ID);
+
         if (UserFare.length <= 0 || DriverFare.length <= 0) {
             // alert('لطفا اطلاعات را با دقت پر کنید');
             warn('لطفا اطلاعات را با دقت پر کنید');
@@ -120,7 +122,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: "POST",
-                url: "Trips/CreateNotif/",
+                url: "Trips/CreateNotif",
                 data: {
                     tripID: ID,
                     UserFare: UserFare,
@@ -162,7 +164,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "Trips/UpdateStatus/",
+            url: "Trips/UpdateStatus",
             data: {
                 tripID: ID,
                 Status: Status
@@ -191,7 +193,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "Trips/Dwt/",
+            url: "Trips/Dwt",
             data: {
                 tripID: ID,
             },
@@ -315,7 +317,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "Request/getTripDrivers/",
+            url: "Request/getTripDrivers",
             data: { tripID: ID },
             success: function (data) {
                 $(".driver_list").html(data);
@@ -324,21 +326,4 @@ $(document).ready(function () {
 
     });
 
-
-    $('a[data-bs-target="#Request"]').click(function () {
-        modal = $("#Request");
-        ID = $(this).data("id");
-
-        $("#ViewItem").empty();
-
-        $.ajax({
-            type: "POST",
-            url: "Request/getTripDrivers/",
-            data: { tripID: ID },
-            success: function (data) {
-                $(".driver_list").html(data);
-            }
-        });
-
-    });
 });
