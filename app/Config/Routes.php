@@ -121,3 +121,40 @@ $routes->add('TripsDetail/(:any)', 'Trips::Detail/$1');
 $routes->add('Request/imReady', 'Request::imReady');
 $routes->add('Request/getTripDrivers', 'Request::getTripDrivers');
 $routes->add('Request/ConfirmReq', 'Request::ConfirmReq');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ______________________________________ API Routes _______________________________________
+
+$routes->post('api/auth', 'API\Auth::verify');
+$routes->post('api/auth/start', 'API\Auth::start');
+$routes->post('api/auth/createUser', 'API\Auth::createUser');
+
+// $routes->get('api/auth/logout', 'API\Auth::logout');

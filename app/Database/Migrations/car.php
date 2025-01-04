@@ -140,7 +140,7 @@ class CreateDriversAndCarTypeTables extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 100
             ],
-            'scan_car_id' => [
+            'scan_govahiname' => [
                 'type' => 'VARCHAR',
                 'constraint' => 100
             ],

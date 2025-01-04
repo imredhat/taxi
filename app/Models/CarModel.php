@@ -23,7 +23,7 @@ class CarModel extends Model
         'pic_front',
         'pic_in_back',
         'pic_in_front',
-        'scan_car_id',
+        'scan_govahiname',
         'shasi',
         'type',
         'vin'

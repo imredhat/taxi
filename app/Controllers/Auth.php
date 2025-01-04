@@ -23,6 +23,8 @@ class Auth extends BaseController
     public function verify()
     {
 
+ 
+
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 

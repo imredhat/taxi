@@ -3,7 +3,7 @@
         'name' => 'codeigniter4/framework',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'bcabfdafda22747d2067d166eede64d83773d85e',
+        'reference' => '563967e132239e8d6f29d64664fc614d60198310',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -37,7 +37,7 @@
         'codeigniter4/framework' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'bcabfdafda22747d2067d166eede64d83773d85e',
+            'reference' => '563967e132239e8d6f29d64664fc614d60198310',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -260,6 +260,15 @@
             'install_path' => __DIR__ . '/../phpunit/phpunit',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'pishran/ippanel-client' => array(
+            'pretty_version' => 'v1.0.3',
+            'version' => '1.0.3.0',
+            'reference' => 'c240d7e2a7e0c1b53be5957e1c9c798a02b248a0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../pishran/ippanel-client',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'predis/predis' => array(
             'pretty_version' => 'v2.2.2',

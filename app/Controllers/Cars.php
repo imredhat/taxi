@@ -60,9 +60,9 @@ class Cars extends BaseController
         $crud->setSubject('خودرو', 'خودروها');
 
         // $crud->setRead();
-        $crud->columns(['brand', 'cid', 'driver_id', 'fuel', 'harf', 'motor', 'pelak', 'pic_front', 'scan_car_id', 'shasi', 'type', 'vin']);
-        $crud->fields(['brand', 'driver_id',  'fuel', 'harf', 'motor', 'pelak', 'pic_back', 'pic_front', 'pic_in_back', 'pic_in_front', 'scan_car_id', 'shasi', 'type', 'vin']);
-        $crud->readFields(['brand', 'driver_id', 'fuel', 'harf', 'motor', 'pelak', 'pic_back', 'pic_front', 'pic_in_back', 'pic_in_front', 'scan_car_id', 'shasi', 'type', 'vin']);
+        $crud->columns(['brand', 'cid', 'driver_id', 'fuel', 'harf', 'motor', 'pelak', 'pic_front', 'scan_govahiname', 'shasi', 'type', 'vin']);
+        $crud->fields(['brand', 'driver_id',  'fuel', 'harf', 'motor', 'pelak', 'pic_back', 'pic_front', 'pic_in_back', 'pic_in_front', 'scan_govahiname', 'shasi', 'type', 'vin']);
+        $crud->readFields(['brand', 'driver_id', 'fuel', 'harf', 'motor', 'pelak', 'pic_back', 'pic_front', 'pic_in_back', 'pic_in_front', 'scan_govahiname', 'shasi', 'type', 'vin']);
         $crud->displayAs('cid', "شناسه خودرو");
         $crud->displayAs('driver_id', " راننده");
         $crud->displayAs('fuel', "نوع سوخت");
@@ -73,7 +73,7 @@ class Cars extends BaseController
         $crud->displayAs('pic_front', "تصویر جلو خودرو");
         $crud->displayAs('pic_in_back', "تصویر داخلی پشت خودرو");
         $crud->displayAs('pic_in_front', "تصویر داخلی جلو خودرو");
-        $crud->displayAs('scan_car_id', "اسکن کارت خودرو");
+        $crud->displayAs('scan_govahiname', "اسکن گواهینامه");
         $crud->displayAs('shasi', "شاسی");
         $crud->displayAs('type', "نوع خودرو");
         $crud->displayAs('vin', "وین");
@@ -90,7 +90,7 @@ class Cars extends BaseController
         $this->UploadCallback($crud, 'pic_front');
         $this->UploadCallback($crud, 'pic_in_back');
         $this->UploadCallback($crud, 'pic_in_front');
-        $this->UploadCallback($crud, 'scan_car_id');
+        $this->UploadCallback($crud, 'scan_govahiname');
 
         $output = $crud->render();
 
@@ -165,12 +165,12 @@ class Cars extends BaseController
                 }
             }
 
-            $scan = $this->request->getfile('scan_car_id');
+            $scan = $this->request->getfile('scan_govahiname');
             if (isset($scan)) {
-                if (!file_exists(base_url('uploads/cars/scan_car_id/' . $scan->getName()))) {
+                if (!file_exists(base_url('uploads/cars/scan_govahiname/' . $scan->getName()))) {
                     if ($scan->isValid()) {
-                        $scan->move('uploads/cars/scan_car_id', $scan->getName());
-                        $stateParameters->data['scan_car_id'] = $scan->getName();
+                        $scan->move('uploads/cars/scan_govahiname', $scan->getName());
+                        $stateParameters->data['scan_govahiname'] = $scan->getName();
                     }
                 }
             }
@@ -229,7 +229,7 @@ class Cars extends BaseController
         $segment3 = $uri->getSegment(2);
         $segment4 = $uri->getSegment(3);
 
-        $fields = ['pic_back', 'pic_front', 'pic_in_back', 'pic_in_front', 'scan_car_id'];
+        $fields = ['pic_back', 'pic_front', 'pic_in_back', 'pic_in_front', 'scan_govahiname'];
 
 
 

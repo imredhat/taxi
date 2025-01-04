@@ -15,6 +15,7 @@ class DriverModel extends Model
         'gender',
         'mobile',
         'mobile2',
+        'password',
         'phone',
         'address',
         'work_type',
@@ -23,13 +24,16 @@ class DriverModel extends Model
         'bank',
         'shaba',
         'note',
-        'date_created'
+        'date_created',
+        'hash'
     ];
 
 
     protected $returnType = 'array';
     protected bool $allowEmptyInserts = true;
     protected bool $updateOnlyChanged = true;
+
+    protected $skipValidation = false;
 
 
     public function getDriverCarInfo($driverId, $carId)

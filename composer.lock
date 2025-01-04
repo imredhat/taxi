@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ecbfe3ce01673e6e5255f573c88f3e26",
+    "content-hash": "47cf280d05493687c26f7909ff80d6da",
     "packages": [
         {
             "name": "codeigniter4/settings",
@@ -250,6 +250,56 @@
                 }
             ],
             "time": "2023-10-10T08:35:13+00:00"
+        },
+        {
+            "name": "pishran/ippanel-client",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pishran/ippanel-client.git",
+                "reference": "c240d7e2a7e0c1b53be5957e1c9c798a02b248a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pishran/ippanel-client/zipball/c240d7e2a7e0c1b53be5957e1c9c798a02b248a0",
+                "reference": "c240d7e2a7e0c1b53be5957e1c9c798a02b248a0",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pishran\\IpPanel\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Farid Aghili",
+                    "email": "info@faridaghili.ir",
+                    "homepage": "https://www.faridaghili.ir",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP client for ippanel api.",
+            "homepage": "https://github.com/pishran/ippanel-client",
+            "keywords": [
+                "IPPanel",
+                "persian",
+                "sms"
+            ],
+            "support": {
+                "issues": "https://github.com/pishran/ippanel-client/issues",
+                "source": "https://github.com/pishran/ippanel-client/tree/v1.0.3"
+            },
+            "time": "2024-02-16T01:54:34+00:00"
         },
         {
             "name": "psr/log",
@@ -4702,6 +4752,6 @@
         "ext-intl": "*",
         "ext-mbstring": "*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }

@@ -1,6 +1,6 @@
 <div class="container" id="print">
     <!------------------------------ First card container --------------------------------------->
-    <div class="card-container" id="bg" >
+    <div class="card-container" id="bg"  style="border:1px solid #ccc">
         <div class="top-box">
             <div class="top-menu">
                 <div class="col-sm-12 text-center text-white header bg-primary">کارت عضویت رانندگان</div>
@@ -89,24 +89,34 @@
     }
 </style>
 
-    <button id="download" class="btn btn-primary">دانلود کارت</button>
+<button id="download" onclick="return downloadJPG()" class="btn btn-primary">دانلود کارت</button>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script>
-        document.getElementById('download').addEventListener('click', function() {
-            document.getElementById('download').style.display = 'none';
+<script>
+  function downloadJPG() {
+  // گرفتن کل محتوای صفحه
+  const element = document.body;
+  document.getElementById('download').style.display = 'none';
 
-            // document.getElementById('bg').style.zoom = '1.2';
-            html2canvas(document.getElementById('print')).then(canvas => {
-                let link = document.createElement('a');
-                link.download = 'driver_card_<?= $driver['did'] ?>.jpg';
-                link.href = canvas.toDataURL('image/jpeg');
-                link.click();
-                document.getElementById('download').style.display = 'block';
-            });
-        });
-    </script>
+  // استفاده از html2canvas برای گرفتن اسکرین‌شات
+  html2canvas(element, {
+    scale: 2, // افزایش کیفیت خروجی
+    useCORS: true, // برای رفع مشکلات CORS
+    backgroundColor: null // برای شفاف نگه‌داشتن پس‌زمینه
+  }).then((canvas) => {
+    // تبدیل Canvas به تصویر
+    const imgData = canvas.toDataURL('image/jpg', 0.98);
+
+    // ساخت لینک دانلود
+    const link = document.createElement('a');
+    link.href = imgData;
+    link.download = 'driver<?=$driver['did']?>.jpg';
+    link.click();
+  });
+}
+    
+</script>
 
     
 

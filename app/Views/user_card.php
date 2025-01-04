@@ -1,9 +1,49 @@
+<?php
+
+    function gregorianToJalali($gy, $gm, $gd, $mod='') {
+        $g_d_m = array(0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334);
+        $gy2 = ($gm > 2)? ($gy + 1) : $gy;
+        $days = 355666 + (365 * $gy) + ((int)(($gy2 + 3) / 4)) - ((int)(($gy2 + 99) / 100)) + ((int)(($gy2 + 399) / 400)) + $gd + $g_d_m[$gm - 1];
+        $jy = -1595 + (33 * ((int)($days / 12053)));
+        $days %= 12053;
+        $jy += 4 * ((int)($days / 1461));
+        $days %= 1461;
+        if ($days > 365) {
+            $jy += (int)(($days - 1) / 365);
+            $days = ($days - 1) % 365;
+        }
+        if ($days < 186) {
+            $jm = 1 + (int)($days / 31);
+            $jd = 1 + ($days % 31);
+        } else{
+            $jm = 7 + (int)(($days - 186) / 30);
+            $jd = 1 + (($days - 186) % 30);
+        }
+        return ($mod == '')? array($jy, $jm, $jd) : $jy.$mod.$jm.$mod.$jd;
+    }
+
+
+
+
+
+?>
+
+<style>
+
+body *{
+    line-height: 1.5; /* مقدار استاندارد */
+    letter-spacing: normal;
+    word-spacing: normal;
+}
+    </style>
+
+
 <div class="container" id="print">
     <!------------------------------ First card container --------------------------------------->
-    <div class="card-container">
+    <div class="card-container" style="border:1px solid #ccc;">
         <div class="top-box">
             <div class="top-menu">
-                <div class="col-sm-12 text-center text-white header" style="background: #31687f;">کارت عضویت مشترک</div>
+                <div class="col-sm-12 text-center text-white header" style="background: #31687f;">کارت عضویت مشتری</div>
 
             </div>
         </div>
@@ -11,37 +51,72 @@
         <div class="image-box">
             <?php if (empty($user['ax'])): ?>
                 <?php if ($user['gender'] == "مرد"): ?>
-                    <img width="150" height="150" src="<?= base_url() ?>assets/images/male.svg" alt="user-profile">
+                    <img width="150" height="150" src="<?=base_url()?>assets/images/male.png" alt="user-profile">
                 <?php else: ?>
-                    <img width="150" height="150" src="<?= base_url() ?>assets/images/female.svg" alt="user-profile">
+                    <img width="150" height="150" src="<?=base_url()?>assets/images/female.png" alt="user-profile">
 
-                <?php endif; ?>
+                <?php endif;?>
             <?php else: ?>
-                <img width="150" height="150" src="<?= base_url() ?>uploads/users/ax/<?= esc($user['ax']) ?>" alt="user-profile">
-            <?php endif; ?>
+                <img width="150" height="150" src="<?=base_url()?>uploads/users/ax/<?=esc($user['ax'])?>" alt="user-profile">
+            <?php endif;?>
         </div>
         <!-------------------------- End of Image Box ---------------------------------->
         <div class="main-box">
-            <div class="user-info">
-                <span class="name"><?= $user['name'] ?> <?= $user['lname'] ?></span>
-                <span class="job">- <?= $user['mobile'] ?> -</span>
+        <div style="border:1px solid #ccc;padding: 10px; width: 70%;  margin: auto;  border-radius: 10px;">
+                <div class="user-info" style="font-size:10px !important ; text-decoration:underline">
 
-            </div>
-            <!-------------------------- End of user information ---------------------------------->
+                    <?php if ($user['gender'] == "مرد"): ?>
 
+                        <span  class="name">  جناب آقای</span>
+                <?php else: ?>
+                    <span  class="name">  سرکار خانم</span>
 
-
-            <div class="user-info mb-5">
-                <span class="name"> جنسیت : <?= $user['gender'] ?> </span>
-            </div>
+                <?php endif;?>
 
 
-            <!---------------------------- End of Social icons ------------------------------>
+                </div>
+                <div class="user-info">
+                    <span class="name"><?=$user['name']?> <?=$user['lname']?></span>
+                </div>
+        </div>
 
-            <div class="bottom">
-                <div class="col-sm-12">پویش تاکسی </div>
-                <div class="col-sm-12" style="font-size: 8px;">www.PoyeshTak30.ir | 09655484545</div>
-            </div>
+
+      
+        <div style="padding: 10px; width: 70%;  margin: auto;  border-radius: 10px;">
+            <table style="width: 100%; font-size: 10px;">
+                <tr>
+                    <td >شناسه اشتراک</td>
+                    <td>- <?=$user['id'] + 1000 ?> -</td>
+                </tr>
+                <tr>
+                    <td >تاریخ شروع اشتراک</td>
+                    <td>- <?php 
+                    
+                    list($gy, $gm, $gd) = explode('-', substr($user['created_at'], 0, 10));
+                    echo gregorianToJalali($gy, $gm, $gd, '/');
+
+                    // echo $user['created_at'];
+                                    
+                    
+                    
+                    ?> -</td>
+                </tr>
+
+                <tr>
+                    <td >شماره همراه</td>
+                    <td>- <?=$user['mobile']?>  -</td>
+                </tr>
+
+                <tr>
+                    <td >جنسیت</td>
+                    <td>- <?=$user['gender']?>  -</td>
+                </tr>
+            </table>
+        </div>
+
+
+
+          
 
             <!---------------------------- End of button box ------------------------------>
         </div>
@@ -53,10 +128,43 @@
         <!---------------------------- End of Animated circles ------------------------------>
     </div>
 
+    <button id="download" onclick="return downloadJPG()" class="btn btn-primary">دانلود کارت</button>
 
 </div>
 
-<link href="<?= base_url() ?>assets/css/user_card.css" rel="stylesheet" />
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+  function downloadJPG() {
+  // گرفتن کل محتوای صفحه
+  const element = document.body;
+  document.getElementById('download').style.display = 'none';
+
+  // استفاده از html2canvas برای گرفتن اسکرین‌شات
+  html2canvas(element, {
+    scale: 2, // افزایش کیفیت خروجی
+    useCORS: true, // برای رفع مشکلات CORS
+    backgroundColor: null // برای شفاف نگه‌داشتن پس‌زمینه
+  }).then((canvas) => {
+    // تبدیل Canvas به تصویر
+    const imgData = canvas.toDataURL('image/jpg', 0.98);
+
+    // ساخت لینک دانلود
+    const link = document.createElement('a');
+    link.href = imgData;
+    link.download = 'user<?=$user['id']?>.jpg';
+    link.click();
+  });
+}
+    
+</script>
+
+
+<link href="<?=base_url()?>assets/css/user_card.css" rel="stylesheet" />
+
+
 
 
 

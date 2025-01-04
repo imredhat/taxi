@@ -57,6 +57,7 @@ class ComposerStaticInit38b7560a54ed0fe71d838d82fb63ee54
             'Psr\\EventDispatcher\\' => 20,
             'Psr\\Container\\' => 14,
             'Predis\\' => 7,
+            'Pishran\\IpPanel\\' => 16,
             'PhpParser\\' => 10,
             'PhpCsFixer\\' => 11,
         ),
@@ -206,6 +207,10 @@ class ComposerStaticInit38b7560a54ed0fe71d838d82fb63ee54
         'Predis\\' => 
         array (
             0 => __DIR__ . '/..' . '/predis/predis/src',
+        ),
+        'Pishran\\IpPanel\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pishran/ippanel-client/src',
         ),
         'PhpParser\\' => 
         array (
@@ -3267,6 +3272,15 @@ class ComposerStaticInit38b7560a54ed0fe71d838d82fb63ee54
         'PhpParser\\PrettyPrinter\\Standard' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/PrettyPrinter/Standard.php',
         'PhpParser\\Token' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Token.php',
         'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
+        'Pishran\\IpPanel\\Client' => __DIR__ . '/..' . '/pishran/ippanel-client/src/Client.php',
+        'Pishran\\IpPanel\\Http' => __DIR__ . '/..' . '/pishran/ippanel-client/src/Http.php',
+        'Pishran\\IpPanel\\Models\\Base' => __DIR__ . '/..' . '/pishran/ippanel-client/src/Models/Base.php',
+        'Pishran\\IpPanel\\Models\\InboxMessage' => __DIR__ . '/..' . '/pishran/ippanel-client/src/Models/InboxMessage.php',
+        'Pishran\\IpPanel\\Models\\Message' => __DIR__ . '/..' . '/pishran/ippanel-client/src/Models/Message.php',
+        'Pishran\\IpPanel\\Models\\PaginationInfo' => __DIR__ . '/..' . '/pishran/ippanel-client/src/Models/PaginationInfo.php',
+        'Pishran\\IpPanel\\Models\\Pattern' => __DIR__ . '/..' . '/pishran/ippanel-client/src/Models/Pattern.php',
+        'Pishran\\IpPanel\\Models\\Recipient' => __DIR__ . '/..' . '/pishran/ippanel-client/src/Models/Recipient.php',
+        'Pishran\\IpPanel\\Models\\Response' => __DIR__ . '/..' . '/pishran/ippanel-client/src/Models/Response.php',
         'Predis\\Autoloader' => __DIR__ . '/..' . '/predis/predis/src/Autoloader.php',
         'Predis\\Client' => __DIR__ . '/..' . '/predis/predis/src/Client.php',
         'Predis\\ClientConfiguration' => __DIR__ . '/..' . '/predis/predis/src/ClientConfiguration.php',

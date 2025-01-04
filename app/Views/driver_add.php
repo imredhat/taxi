@@ -31,7 +31,7 @@
                     </ul>
                     <div class="tab-content" id="myTabstep2Content">
                         <div class="tab-pane fade show active" id="step1-tab-pane" role="tabpanel" aria-labelledby="step1-tab" tabindex="0">
-                            <form action="<?= base_url() ?>OneStep" method="post" enctype="multipart/form-data">
+                            <form action="<?=base_url()?>OneStep" method="post" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group mb-4" bis_skin_checked="1"> <label class="label">جنسیت</label>
@@ -55,36 +55,47 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
-                                        <div class="form-group mb-4"> <label class="label">موبایل</label>
+                                        <div class="form-group mb-4"> <label class="label">کد ملی</label>
+                                            <div class="form-group position-relative"> <input type="number" class="form-control text-dark ps-5 h-58" placeholder="کد ملی" name="national_id"> <i class="ri-numbers-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="form-group mb-4"> <label class="label">تاریخ تولد</label>
+                                            <div class="form-group position-relative"> <input type="text" class="form-control text-dark ps-5 h-58" placeholder="تاریخ تولد" name="birthday"> <i class="ri-anticlockwise-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="form-group mb-4"> <label class="label">تلفن منزل</label>
+                                            <div class="form-group position-relative"> <input type="number" class="form-control text-dark ps-5 h-58" placeholder="021XXXXXXXXX" name="phone"> <i class="ri-phone-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-4"> <label class="label">موبایل 1</label>
                                             <div class="form-group position-relative"> <input type="number" class="form-control text-dark ps-5 h-58" placeholder="موبایل" name="mobile"> <i class="ri-smartphone-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group mb-4"> <label class="label">موبایل</label>
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-4"> <label class="label">موبایل 2</label>
                                             <div class="form-group position-relative"> <input type="number" class="form-control text-dark ps-5 h-58" placeholder="موبایل" name="mobile_2"> <i class="ri-cellphone-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group mb-4"> <label class="label">تلفن</label>
-                                            <div class="form-group position-relative"> <input type="number" class="form-control text-dark ps-5 h-58" placeholder="تلفن" name="phone"> <i class="ri-phone-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                     <div class="col-lg-12">
                                         <div class="form-group mb-4"> <label class="label">آدرس</label>
                                             <div class="form-group position-relative"> <input type="text" class="form-control text-dark ps-5 h-58" placeholder="آدرس" name="address"> <i class="ri-map-pin-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group mb-4"> <label class="label">کد ملی</label>
-                                            <div class="form-group position-relative"> <input type="number" class="form-control text-dark ps-5 h-58" placeholder="کد ملی" name="national_id"> <i class="ri-numbers-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
+
+                                    <!-- <div class="col-lg-6">
                                         <div class="form-group mb-4" bis_skin_checked="1"> <label class="label">نوع همکاری</label>
                                             <div class="form-group position-relative" bis_skin_checked="1">
                                                 <select class="form-select form-control h-58" aria-label="Default select example" name="cooperation_type">
@@ -93,7 +104,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-lg-6">
                                         <div class="form-group mb-4"> <label class="label">شماره کارت بانکی</label>
                                             <div class="form-group position-relative"> <input type="number" class="form-control text-dark ps-5 h-58" placeholder="شماره کارت بدون فاصله وارد کنید" name="bank_card_number"> <i class="ri-bank-card-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
@@ -177,7 +188,43 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+
+                                <div class="col-lg-4">
+                                    <div class="form-group mb-4"> <label class="label">نام مالک خودرو</label>
+                                        <div class="form-group position-relative"> <input type="text" class="form-control ps-5 text-gray-light h-58" placeholder="نام مالک خودرو" name="owner">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group mb-4"> <label class="label">سیستم خودرو</label>
+                                        <div class="form-group position-relative"> <input type="text" class="form-control ps-5 text-gray-light h-58" placeholder="سیستم خودرو" name="car_system">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group mb-4"> <label class="label">تیپ خودرو</label>
+                                        <div class="form-group position-relative"> <input type="text" class="form-control ps-5 text-gray-light h-58" placeholder="تیپ خودرو" name="car_type">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group mb-4"> <label class="label">سال ساخت</label>
+                                        <div class="form-group position-relative"> <input type="text" class="form-control ps-5 text-gray-light h-58" placeholder="سال ساخت" name="year">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group mb-4"> <label class="label">رنگ خودرو</label>
+                                        <div class="form-group position-relative"> <input type="text" class="form-control ps-5 text-gray-light h-58" placeholder="رنگ خودرو" name="color">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-4">
                                     <div class="form-group mb-4"> <label class="label">نوع سوخت</label>
                                         <div class="form-group position-relative"> <select class="form-select form-control ps-5 h-58" aria-label="Default select example" name="fuel_type">
                                                 <option value="بنزینی">بنزینی</option>
@@ -185,23 +232,11 @@
                                                 <option value="گازوئیل">گازوئیل</option>
                                                 <option value="دوگانه سوز">دوگانه سوز</option>
                                                 <option value="هیبریدی">هیبریدی</option>
-                                            </select> <i class="ri-gas-station-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-4"> <label class="label">نوع خودرو</label>
-                                        <div class="form-group position-relative"> <select class="form-select form-control ps-5 h-58" aria-label="Default select example" name="car_type">
-                                                <option value="سواری">سواری</option>
-                                                <option value="باری">باری</option>
-                                                <option value="ون">ون</option>
-                                                <option value="اتوبوس">اتوبوس</option>
-                                                <option value="میدل باس">میدل باس</option>
-                                                <option value="مینی بوس">مینی بوس</option>
-                                            </select> <i class="ri-car-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
-                                        </div>
-                                    </div>
-                                </div>
+
 
 
 
@@ -209,9 +244,11 @@
                                     <div class="form-group mb-4"> <label class="label">&ensp;</label>
                                         <div class="form-group position-relative"> <select class="brand" style="width: 100%;" name="brand">
 
-                                                <?php foreach ($Brands as $B) : ?>
-                                                    <option value="<?= $B['TiD'] ?>"><?= $B['brand'] ?></option>
-                                                <?php endforeach; ?>
+                                        <option disabled selected>انتخاب خودرو</option>
+
+                                                <?php foreach ($Brands as $B): ?>
+                                                    <option value="<?=$B['TiD']?>"><?=$B['brand']?></option>
+                                                <?php endforeach;?>
 
                                             </select>
                                         </div>
@@ -226,21 +263,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-4"> <label class="label">شناسه موتور</label>
-                                        <div class="form-group position-relative"> <input type="text" class="form-control ps-5 text-gray-light h-58" placeholder="شناسه موتور" name="engine_id"> <i class="ri-hashtag position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-4">
-                                        <label class="label">شماره شاسی</label>
-                                        <div class="form-group position-relative">
-                                            <input type="number" class="form-control ps-5 text-gray-light h-58" placeholder="شماره شاسی" name="chassis_number">
-                                            <i class="ri-hashtag position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
-                                        </div>
-                                    </div>
-                                </div>
+
+
                                 <div class="col-lg-12">
                                     <div class="form-group d-flex gap-3">
                                         <button class="btn btn-primary bg-primary bg-opacity-10 text-primary py-3 px-5 fw-semibold border-0 prev-tab" data-bs-target="#step1-tab-pane" type="button"> قبلی</button>
@@ -251,13 +275,11 @@
 
                         </div>
                         <div class="tab-pane fade" id="step3-tab-pane" role="tabpanel" aria-labelledby="step3-tab" tabindex="0">
-                            <h4 class="fs-18 fw-semibold">اطلاعات اجتماعی</h4>
-                            <p class="text-gray-light mb-4">تمام اطلاعات را به صورت زیر پر کنید</p>
 
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
-                                        <label class="label">عکس شخصی</label>
+                                        <label class="label">تصویر سلفی از چهره </label>
                                         <div class="form-group position-relative">
                                             <input type="file" class="form-control text-dark ps-5 h-58" name="ax">
                                             <i class="ri-user-3-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
@@ -266,7 +288,7 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
-                                        <label class="label">اسکن کارت ملی</label>
+                                        <label class="label">تصویر کارت ملی</label>
                                         <div class="form-group position-relative">
                                             <input type="file" class="form-control text-dark ps-5 h-58" name="scan_melli">
                                             <i class="ri-user-3-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
@@ -275,9 +297,9 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
-                                        <label class="label">اسکن کارت خودرو</label>
+                                        <label class="label">تصویر گواهینامه</label>
                                         <div class="form-group position-relative">
-                                            <input type="file" class="form-control text-dark ps-5 h-58" name="scan_car_id">
+                                            <input type="file" class="form-control text-dark ps-5 h-58" name="scan_govahiname">
                                             <i class="ri-user-3-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
                                         </div>
                                     </div>
@@ -292,13 +314,58 @@
 
                         </div>
                         <div class="tab-pane fade" id="step4-tab-pane" role="tabpanel" aria-labelledby="step4-tab" tabindex="0">
-                            <h4 class="fs-18 fw-semibold">اطلاعات اجتماعی</h4>
-                            <p class="text-gray-light mb-4">تمام اطلاعات را به صورت زیر پر کنید</p>
+                            <p class="text-gray-light mb-4">عکسها را طبق نمونه و با کیفیت بارگذاری کنید . به عکسهای غیر از نمونه ترتیب اثر داده نخواهد شد</p>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+
+                                    <div class="row" style="margin-bottom:50px">
+                                        <div class="col-lg-3">
+                                            <div class="image-container">
+                                                <img src="<?=base_url()?>assets/images/front.jpg" class="img-fluid" alt="Front View">
+                                            </div>
+                                            <p class="text-center mt-2">تصویر جلو</p>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="image-container">
+                                                <img src="<?=base_url()?>assets/images/back.jpg" class="img-fluid" alt="Back View">
+                                            </div>
+                                            <p class="text-center mt-2">تصویر عقب</p>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="image-container">
+                                                <img src="<?=base_url()?>assets/images/in_back.jpg" class="img-fluid" alt="Interior Back View">
+                                            </div>
+                                            <p class="text-center mt-2">تصویر فضای داخلی پشت</p>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="image-container">
+                                                <img src="<?=base_url()?>assets/images/in_front.jpg" class="img-fluid" alt="Interior Front View">
+                                            </div>
+                                            <p class="text-center mt-2">تصویر از فضای داخلی جلو</p>
+                                        </div>
+                                    </div>
+
+<style>
+    .image-container {
+        width: 100%;
+        height: 300px;
+        overflow: hidden;
+    }
+
+    .image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
+                                </div>
+                                </div>
 
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
-                                        <label class="label">تصویر پشت خودرو</label>
+                                        <label class="label">تصویر جلوی خودرو ( نمای جلو با پالک و بغل ماشین در 1 عکس واضح)</label>
                                         <div class="form-group position-relative">
                                             <input type="file" class="form-control text-dark ps-5 h-58" name="pic_back">
                                             <i class="ri-user-3-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
@@ -381,8 +448,8 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script src="<?= base_url() ?>assets/chosen/chosen.jquery.min.js"></script>
-<link rel="stylesheet" href="<?= base_url() ?>assets/chosen/chosen.min.css" />
+<script src="<?=base_url()?>assets/chosen/chosen.jquery.min.js"></script>
+<link rel="stylesheet" href="<?=base_url()?>assets/chosen/chosen.min.css" />
 <script>
     $(document).ready(function() {
         $('.next-tab').click(function() {
@@ -401,3 +468,10 @@
         $(".brand").chosen();
     });
 </script>
+
+
+<link rel="stylesheet" href="https://behzadi.github.io/persianDatepicker/css/persianDatepicker-default.css" />
+    <script src="https://behzadi.github.io/persianDatepicker/js/persianDatepicker.js"></script>
+    <script>
+        $("input[name='birthday']").persianDatepicker();
+    </script>

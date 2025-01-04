@@ -3,12 +3,13 @@
 namespace App\Controllers;
 
 use App\Libraries\GroceryCrud;
+use App\Libraries\PersianDate;
 use App\Models\UserModel;
 
 class User extends BaseController
 {
 
-    function __construct()
+    public function __construct()
     {
         if (!session()->has('user_id')) {
             header('location:/auth');
@@ -16,14 +17,12 @@ class User extends BaseController
         }
     }
 
-
     public function index()
     {
         echo view('parts/header');
         echo view('parts/side');
         echo view('Home');
     }
-
 
     public function Company()
     {
@@ -34,7 +33,6 @@ class User extends BaseController
         $crud->setTable('company');
         $crud->setSubject('شرکت');
         $crud->unsetRead();
-
 
         $crud->requiredFields(['name']);
         $crud->columns(['cid', 'name', 'address', 'city', 'state', 'zip', 'phone', 'fax', 'email', 'website', 'industry', 'description']);
@@ -54,13 +52,11 @@ class User extends BaseController
 
         $output = $crud->render();
 
-
         echo view('parts/header');
         echo view('parts/side');
         echo view('crud', (array) $output);
         echo view('parts/footer_crud');
     }
-
 
     public function AllUser()
     {
@@ -76,7 +72,6 @@ class User extends BaseController
             return '/UserCard/' . $row;
         }, true);
 
-
         $crud->requiredFields(['name']);
         $crud->columns([
             'id',
@@ -86,6 +81,7 @@ class User extends BaseController
             'mobile',
             'type',
             'status',
+            'created_at'
         ]);
 
         $crud->fields([
@@ -95,7 +91,7 @@ class User extends BaseController
             'mobile',
             'phone',
             'type',
-            'status'
+            'status',
         ]);
 
         $crud->displayAs([
@@ -105,47 +101,48 @@ class User extends BaseController
             'gender' => 'جنسیت',
             'mobile' => 'موبایل',
             'phone' => 'تلفن',
-            'type' => 'نوع',
+            'type' => 'نوع اشتراک',
             'status' => 'وضعیت',
-            'created_at' => 'تاریخ ایجاد',
+            'created_at' => 'شروع اشتراک',
             'updated_at' => 'تاریخ بروزرسانی',
-            'deleted_at' => 'تاریخ حذف'
+            'deleted_at' => 'تاریخ حذف',
         ]);
 
         $crud->fieldType('gender', 'dropdown', [
             '' => 'انتخاب جنسیت',
             'مرد' => 'مرد',
-            'زن' => 'زن'
+            'زن' => 'زن',
         ]);
 
         $crud->fieldType('type', 'dropdown', [
             '' => 'انتخاب جنسیت',
             'حقیقی' => 'حقیقی',
-            'حقوقی' => 'حقوقی'
+            'حقوقی' => 'حقوقی',
         ]);
-
 
         $crud->fieldType('status', 'dropdown', [
             '' => 'انتخاب وضعیت',
             'تایید شده' => 'تایید شده',
-            'تایید نشده' => 'تایید نشده'
+            'تایید نشده' => 'تایید نشده',
         ]);
 
 
+        $crud->callbackColumn('created_at', function ($value) {
+            $date = new PersianDate();
+            list($gy, $gm, $gd) = explode('-', substr($value, 0, 10));
+            return $date->gregorianToJalali($gy, $gm, $gd, '/');
+        });
+
 
         $output = $crud->render();
-
 
         echo view('parts/header');
         echo view('parts/side');
         echo view('crud', (array) $output);
         echo view('parts/footer_crud');
 
-        
     }
 
-
-    
     public function UserCard()
     {
         $uri = service('uri');

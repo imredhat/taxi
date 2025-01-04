@@ -1770,6 +1770,59 @@
             "install-path": "../phpunit/phpunit"
         },
         {
+            "name": "pishran/ippanel-client",
+            "version": "v1.0.3",
+            "version_normalized": "1.0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pishran/ippanel-client.git",
+                "reference": "c240d7e2a7e0c1b53be5957e1c9c798a02b248a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pishran/ippanel-client/zipball/c240d7e2a7e0c1b53be5957e1c9c798a02b248a0",
+                "reference": "c240d7e2a7e0c1b53be5957e1c9c798a02b248a0",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=7.0"
+            },
+            "time": "2024-02-16T01:54:34+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Pishran\\IpPanel\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Farid Aghili",
+                    "email": "info@faridaghili.ir",
+                    "homepage": "https://www.faridaghili.ir",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP client for ippanel api.",
+            "homepage": "https://github.com/pishran/ippanel-client",
+            "keywords": [
+                "IPPanel",
+                "persian",
+                "sms"
+            ],
+            "support": {
+                "issues": "https://github.com/pishran/ippanel-client/issues",
+                "source": "https://github.com/pishran/ippanel-client/tree/v1.0.3"
+            },
+            "install-path": "../pishran/ippanel-client"
+        },
+        {
             "name": "predis/predis",
             "version": "v2.2.2",
             "version_normalized": "2.2.2.0",

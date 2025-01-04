@@ -23,7 +23,7 @@
         let url = $(this).attr("href");
 
         const width = 500;
-        const height = 500;
+        const height = 800;
         const left = (screen.width - width) / 2;
         const top = (screen.height - height) / 2;
 

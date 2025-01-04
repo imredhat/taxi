@@ -234,7 +234,7 @@
                     </svg>
 
 
-                    <span class="title">مخاطبین</span>
+                    <span class="title">مشترکین</span>
                 </a>
             </li>
 

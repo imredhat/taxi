@@ -84,7 +84,7 @@ class Drivers extends BaseController
         $crud->setTable('driver');
         $crud->setSubject('راننده', 'رانندگان');
         $crud->unsetAdd();
-        // $crud->unsetRead();
+        // $crud->setRead();
 
         $crud->setActionButton('کارت راننده', 'fa fa-user DriverTab', function ($row) {
             return '/DriverCard/' . $row;
@@ -293,6 +293,7 @@ class Drivers extends BaseController
             'gender'                => $this->request->getPost('gender'),
             'name'                  => $this->request->getPost('first_name'),
             'lname'                 => $this->request->getPost('last_name'),
+            'birthday'              => $this->request->getPost('birthday'),
             'mobile'                => $this->request->getPost('mobile'),
             'mobile2'               => $this->request->getPost('mobile_2'),
             'phone'                 => $this->request->getPost('phone'),
@@ -303,7 +304,8 @@ class Drivers extends BaseController
             'shaba'                 => $this->request->getPost('iban'),
             'note'                  => $this->request->getPost('notes'),
             'ax'                    => $this->upload_file('ax', type: "drivers"),
-            'scan_melli'            => $this->upload_file('scan_melli', type: "drivers")
+            'scan_melli'            => $this->upload_file('scan_melli', type: "drivers"),
+            'scan_govahiname'       => $this->upload_file('scan_govahiname', type: "drivers")
         ];
 
         // print_r($driver);
@@ -318,19 +320,23 @@ class Drivers extends BaseController
 
             $car = array(
                 'driver_id'        => $DID,
+                'year'             => $this->request->getPost('year'),
+                'car_system'       => $this->request->getPost('car_system'),
+                'color'            => $this->request->getPost('color'),
                 'brand'            => $this->request->getPost('brand'),
+
                 'iran'             => $this->request->getPost('plate_part1'),
                 'pelak'            => $this->request->getPost('plate_part2'),
                 'pelak_last'       => $this->request->getPost('plate_part3'),
                 'harf'             => $this->request->getPost('plate_letter'),
+
                 'fuel'             => $this->request->getPost('fuel_type'),
                 'type'             => $this->request->getPost('car_type'),
                 'vin'              => $this->request->getPost('vin'),
-                'motor'            => $this->request->getPost('engine_id'),
-                'shasi'            => $this->request->getPost('chassis_number'),
-                'scan_car_id'      => $this->upload_file('scan_car_id', "cars"),
+
+                'scan_govahiname'  => $this->upload_file('scan_govahiname', "drivers"),
                 'pic_back'         => $this->upload_file('pic_back', "cars"),
-                'pic_front'        => $this->upload_file('pic_front', type: "cars"),
+                'pic_front'        => $this->upload_file('pic_front', "cars"),
                 'pic_in_back'      => $this->upload_file('pic_in_back', "cars"),
                 'pic_in_front'     => $this->upload_file('pic_in_front', "cars"),
             );
