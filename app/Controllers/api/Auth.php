@@ -106,6 +106,7 @@ class Auth extends ResourceController
             'national_id' => 'required|numeric',
             'bank_card_number' => 'required|numeric',
             'iban' => 'required',
+            'password' => 'required|min_length[8]',
         ]);
 
         // Run validation
@@ -114,7 +115,7 @@ class Auth extends ResourceController
         }
 
         // Validation successful, insert data into database
-        $driver = [
+        $data = [
             'gender'                => $this->request->getPost('gender'),
             'name'                  => $this->request->getPost('first_name'),
             'lname'                 => $this->request->getPost('last_name'),
@@ -127,10 +128,10 @@ class Auth extends ResourceController
             'cooperation_type'      => $this->request->getPost('cooperation_type'),
             'bank_card_number'      => $this->request->getPost('bank_card_number'),
             'shaba'                 => $this->request->getPost('iban'),
-            'note'                  => $this->request->getPost('notes'),
             'ax'                    => $this->upload_file('ax', "drivers"),
             'scan_melli'            => $this->upload_file('scan_melli', "drivers"),
-            'scan_govahiname'       => $this->upload_file('scan_govahiname', "drivers")
+            'scan_govahiname'       => $this->upload_file('scan_govahiname', "drivers"),
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
         ];
 
         // print_r($driver);
@@ -138,7 +139,7 @@ class Auth extends ResourceController
 
         $Driver = new DriverModel();
 
-        if ($Driver->insert($driver)) {
+        if ($Driver->insert($data)) {
             $DID = $Driver->getInsertID();
 
 
@@ -169,11 +170,11 @@ class Auth extends ResourceController
             $Car = new CarModel();
             $Car->insert($car);
 
-
-            //create hash for user and return to mobile
-
-            // Redirect to a success page
-            return $this->respond(['status' => 'success', 'message' => 'راننده با موفقیت ثبت شد']);
+            // print_r($data['password']);
+            // die();
+            
+            $hash = md5($DID.$data['password'].date('Y-m-d H:i:s'));
+            return $this->respond(['status' => 'success', 'message' => 'راننده با موفقیت ثبت شد', 'DriverID' => $DID, 'Hash' => $hash]);
         }
     }
 
