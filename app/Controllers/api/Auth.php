@@ -51,10 +51,8 @@ class Auth extends ResourceController
 
     }
 
-    public function verify()
+    public function login()
     {
-
-        // echo password_hash('1234', PASSWORD_DEFAULT);die();
 
         $mobile = $this->request->getPost('mobile');
         $password = $this->request->getPost('password');
@@ -198,6 +196,11 @@ class Auth extends ResourceController
             }
         }
     }
+
+
+
+
+
 
 
 

@@ -75,22 +75,73 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <div class="form-group mb-4"> <label class="label">رمز عبور</label>
+                                            <div class="form-group position-relative"> <input type="password" class="form-control text-dark ps-5 h-58" placeholder="رمز عبور" name="password"> <i class="ri-smartphone-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
                                         <div class="form-group mb-4"> <label class="label">موبایل 1</label>
                                             <div class="form-group position-relative"> <input type="number" class="form-control text-dark ps-5 h-58" placeholder="موبایل" name="mobile"> <i class="ri-smartphone-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="form-group mb-4"> <label class="label">موبایل 2</label>
                                             <div class="form-group position-relative"> <input type="number" class="form-control text-dark ps-5 h-58" placeholder="موبایل" name="mobile_2"> <i class="ri-cellphone-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-4">
+                                        <div class="form-group mb-4"> <label class="label">میزان تحصیلات</label>
+                                            <div class="form-group position-relative">
+                                                <select class="form-select form-control h-58" aria-label="Default select example" name="education_level">
+                                                    <option value="بدون تحصیلات">بدون تحصیلات</option>
+                                                    <option value="سیکل">سیکل</option>
+                                                    <option value="دیپلم">دیپلم</option>
+                                                    <option value="کاردانی">کاردانی</option>
+                                                    <option value="کارشناسی">کارشناسی</option>
+                                                    <option value="کارشناسی ارشد">کارشناسی ارشد</option>
+                                                    <option value="دکترا">دکترا</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="form-group mb-4"> <label class="label">زبان خارجی</label>
+                                            <div class="form-group position-relative"> <input type="text" class="form-control text-dark ps-5 h-58" placeholder="زبان خارجی" name="foreign_language"> <i class="ri-global-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="form-group mb-4"> <label class="label">میزان آشنایی با زبان خارجه</label>
+                                            <div class="form-group position-relative">
+                                                <select  class="form-select form-control h-58" aria-label="Default select example" name="foreign_language_proficiency">
+                                                    <option value="-" class="text-dark">-</option>
+                                                    <option value="مبتدی">مبتدی</option>
+                                                    <option value="متوسط">متوسط</option>
+                                                    <option value="پیشرفته">پیشرفته</option>
+                                                    <option value="مسلط">مسلط</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-9">
                                         <div class="form-group mb-4"> <label class="label">آدرس</label>
                                             <div class="form-group position-relative"> <input type="text" class="form-control text-dark ps-5 h-58" placeholder="آدرس" name="address"> <i class="ri-map-pin-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group mb-4"> <label class="label">کد پستی</label>
+                                            <div class="form-group position-relative"> <input type="text" class="form-control text-dark ps-5 h-58" placeholder="کد پستی" name="postal_code"> <i class="ri-mail-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -196,19 +247,42 @@
                                     </div>
                                 </div>
 
+
                                 <div class="col-lg-4">
-                                    <div class="form-group mb-4"> <label class="label">سیستم خودرو</label>
-                                        <div class="form-group position-relative"> <input type="text" class="form-control ps-5 text-gray-light h-58" placeholder="سیستم خودرو" name="car_system">
+                                    <div class="form-group mb-4"> <label class="label">&ensp;</label>
+                                        <div class="form-group position-relative"> <select class="brand" style="width: 100%;" name="brand">
+
+                                        <option disabled selected>برند خودرو</option>
+
+                                                <?php foreach ($Brands as $B): ?>
+                                                    <option value="<?=$B['TiD']?>"><?=$B['brand']?></option>
+                                                <?php endforeach;?>
+
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
 
+
+
+
+
+
+
                                 <div class="col-lg-4">
-                                    <div class="form-group mb-4"> <label class="label">تیپ خودرو</label>
-                                        <div class="form-group position-relative"> <input type="text" class="form-control ps-5 text-gray-light h-58" placeholder="تیپ خودرو" name="car_type">
+                                    <div class="form-group mb-4"> <label class="label">&ensp;</label>
+                                        <div class="form-group position-relative"> <select class="chosen" style="width: 100%;" name="type">
+
+                                        <option disabled selected>تیپ خودرو</option>
+
+
+
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
+
+
 
                                 <div class="col-lg-4">
                                     <div class="form-group mb-4"> <label class="label">سال ساخت</label>
@@ -240,26 +314,21 @@
 
 
 
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-4"> <label class="label">&ensp;</label>
-                                        <div class="form-group position-relative"> <select class="brand" style="width: 100%;" name="brand">
-
-                                        <option disabled selected>انتخاب خودرو</option>
-
-                                                <?php foreach ($Brands as $B): ?>
-                                                    <option value="<?=$B['TiD']?>"><?=$B['brand']?></option>
-                                                <?php endforeach;?>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
 
 
                                 <div class="col-lg-6">
                                     <div class="form-group mb-4"> <label class="label">شناسه VIN</label>
                                         <div class="form-group position-relative"> <input type="text" class="form-control ps-5 text-gray-light h-58" placeholder="شناسه VIN" name="vin"> <i class="ri-hashtag position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-4">
+                                        <label class="label">تاریخ اعتبار بیمه</label>
+                                        <div class="form-group position-relative">
+                                            <input type="text" class="form-control ps-5 text-gray-light h-58" placeholder="تاریخ اعتبار بیمه" name="insurance_expiry_date">
+                                            <i class="ri-calendar-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -407,6 +476,8 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <input type="hidden" name="type_class" value="" >
                             </form>
                         </div>
                     </div>
@@ -466,12 +537,48 @@
         });
 
         $(".brand").chosen();
+        $(".chosen").chosen();
     });
 </script>
 
+
+
+
+<script>
+        $(document).ready(function() {
+            $('.brand').on('change', function() {
+                var brandId = $(this).val();
+                $.ajax({
+                    url: '<?=base_url()?>GetBrandCars/'+brandId,
+                    type: 'GET',
+                    success: function(response) {
+                        var typeSelect = $('select[name="type"]');
+                        typeSelect.empty();
+                        typeSelect.append('<option disabled selected>تیپ خودرو</option>');
+                        $.each(response, function(index, carType) {
+                            typeSelect.append('<option data-class="' + carType.type_class + '" value="' + carType.bid + '">' + carType.type_name + '</option>');
+                        });
+                        typeSelect.trigger("chosen:updated");
+                    }
+                });
+            });
+        });
+
+
+
+        $('select[name="type"]').on('change', function() {
+            var selectedOption = $(this).find('option:selected');
+            var typeClass = selectedOption.data('class');
+            $('input[name="type_class"]').val(typeClass);
+        });
+
+
+
+    </script>
 
 <link rel="stylesheet" href="https://behzadi.github.io/persianDatepicker/css/persianDatepicker-default.css" />
     <script src="https://behzadi.github.io/persianDatepicker/js/persianDatepicker.js"></script>
     <script>
         $("input[name='birthday']").persianDatepicker();
+        $("input[name='insurance_expiry_date']").persianDatepicker();
     </script>

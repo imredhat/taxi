@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Libraries\GroceryCrud;
 use CodeIgniter\HTTP\URI;
+use App\Models\TypeModel;
 
 class Cars extends BaseController
 {
@@ -31,6 +32,7 @@ class Cars extends BaseController
         $crud->unsetRead();
         // $crud->requiredFields(['city']);
         $crud->columns(['TiD', 'brand']);
+        $crud->fields(['brand']);
         $crud->displayAs('TiD', "شناسه");
         $crud->displayAs('brand', "برند");
 
@@ -44,6 +46,49 @@ class Cars extends BaseController
         echo view('parts/footer_crud');
     }
 
+
+
+
+    public function Type()
+    {
+
+        $crud = new GroceryCrud();
+
+        $crud->setLanguage("Persian");
+        $crud->setTheme('bootstrap');
+        $crud->setTable('brand_type');
+        $crud->setSubject('تیپ خودرو');
+        $crud->unsetRead();
+        // $crud->requiredFields(['city']);
+        $crud->columns(['bid','type_brand', 'type_name' , 'type_class']);
+        $crud->fields(['type_brand','type_name' , 'type_class']);
+        $crud->displayAs('bid', "شناسه");
+        $crud->displayAs('type_brand', "برند");
+        $crud->displayAs('type_class', "کلاس خودرو");
+        $crud->displayAs('type_name', "تیپ");
+
+        $crud->setRelation('type_class', 'packages', 'name');
+        $crud->setRelation('type_brand', 'brand', 'brand');
+
+
+
+        $output = $crud->render();
+
+
+        echo view('parts/header');
+        echo view('parts/side');
+        echo view('crud', (array) $output);
+        echo view('parts/footer_crud');
+    }
+
+
+    public function GetBrandCars($Brand){
+
+        $typeModel = new TypeModel();       
+        $typeModel = $typeModel->where('type_brand' , $Brand)->withDeleted()->findAll();
+
+        return $this->response->setJSON($typeModel);
+    }
 
     /*---------------------------------------------------------\
       |                   List Drivers

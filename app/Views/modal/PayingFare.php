@@ -22,6 +22,16 @@
                 </div>
 
 
+                <div class="form-group mb-4 col-lg-12 " style="margin-top: 20px;">
+                    
+                    <select class="form-control" id="packageSelect" name="package">
+                        <?php foreach ($Package as $item): ?>
+                            <option value="<?= htmlspecialchars($item['name']) ?>"><?= htmlspecialchars($item['name']) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+
 
             </div>
             <div class="modal-footer">
@@ -32,3 +42,5 @@
         </div>
     </div>
 </div>
+
+

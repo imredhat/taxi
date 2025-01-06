@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
 use CodeIgniter\Events\Events;
-
+use CodeIgniter\Model;
 
 class CarModel extends Model
 {
@@ -26,9 +25,19 @@ class CarModel extends Model
         'scan_govahiname',
         'shasi',
         'type',
-        'vin'
+        'vin',
+        'scan_govahiname',
+        'pic_back',
+        'pic_front',
+        'pic_in_back',
+        'pic_in_front',
+        'type_class',
+        'insurance_expiry_date',
+        'year',
+        'car_system',
+        'color',
+        'brand',
     ];
-    
 
     public function GetDriverCars($id)
     {
@@ -41,7 +50,7 @@ class CarModel extends Model
     public function __construct()
     {
         parent::__construct();
-        
+
         // ثبت رویدادها
         Events::on('afterInsert', [$this, 'logInsert']);
         Events::on('afterUpdate', [$this, 'logUpdate']);
@@ -83,7 +92,7 @@ class CarModel extends Model
             session()->get('user_id') ?? null,
             $queryText, // متن کامل Query
             $database_name,
-            $description
+            $description,
         ]);
     }
 }

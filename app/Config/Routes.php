@@ -25,10 +25,14 @@ $routes->get('Brands', 'Cars::Brands');
 $routes->get('Brands/(:any)', 'Cars::Brands/$1');
 $routes->post('Brands/(:any)', 'Cars::Brands/$1');
 
+$routes->get('Type', 'Cars::Type');
+$routes->get('Type/(:any)', 'Cars::Type/$1');
+$routes->post('Type/(:any)', 'Cars::Type/$1');
+
 $routes->get('/Cars/Drivers/(:any)', to: 'Cars::Drivers/$1');
 $routes->post('/Cars/Drivers/(:any)', 'Cars::Drivers/$1');
 
-// $routes->get('(:any)/RDI/(:any)', 'Cars::$1/RDI/$2');
+$routes->get('Driver/Info/(:any)', 'Drivers::Info/$1');
 
 $routes->get('RC/(:any)', to: 'Cars::RC/$1/$2');
 $routes->get('RD/(:any)', to: 'Drivers::RD/$1/$2');
@@ -107,6 +111,11 @@ $routes->get('Trips/CreateNotif(:any)', 'Trips::CreateNotif/$1');
 $routes->post('Trips/UpdateStatus(:any)', 'Trips::UpdateStatus/$1');
 $routes->post('Trips/Dwt(:any)', 'Trips::Dwt/$1');
 
+
+
+$routes->get('GetBrandCars/(:any)', 'Cars::GetBrandCars/$1');
+
+
 $routes->get('Trips/AddTrip', 'Trips::AddTrip');
 $routes->post('Trips/AddTrip', 'Trips::AddTrip');
 
@@ -153,8 +162,11 @@ $routes->add('Request/ConfirmReq', 'Request::ConfirmReq');
 
 // ______________________________________ API Routes _______________________________________
 
-$routes->post('api/auth', 'API\Auth::verify');
-$routes->post('api/auth/start', 'API\Auth::start');
-$routes->post('api/auth/createUser', 'API\Auth::createUser');
+$routes->post('api/auth/login', 'api\Auth::login');
+$routes->post('api/auth/start', 'api\Auth::start');
+$routes->post('api/auth/createUser', 'api\Auth::createUser');
+
+$routes->post('api/driver/cars', 'api\Driver::Cars');
+$routes->get('api/car/brands', 'api\Driver::Brands');
 
 // $routes->get('api/auth/logout', 'API\Auth::logout');

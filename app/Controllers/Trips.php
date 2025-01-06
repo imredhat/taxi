@@ -199,36 +199,35 @@ class Trips extends ResourceController
         $ID = $this->request->getPost('tripID');
         $UserFare = $this->request->getPost('UserFare');
         $DriverFare = $this->request->getPost('DriverFare');
+        $DriverPackage = $this->request->getPost('DriverPackage');
 
         $data = [
             'tripID' => $ID,
             'userCustomFare' => $UserFare,
             'driverCustomFare' => $DriverFare,
+            'package' => $DriverPackage
         ];
 
-
-    
-
-
-    
         $Notif = new NotificationModel();
-        $Notif = $Notif->save($data);
-        if ($Notif) {
+        $existingNotif = $Notif->where('tripID', $ID)->first();
 
-            $tdata = [
-                'status' => 'Notifed'
-            ];
-
-            $Trip = new TripsModel();
-            $Trip->update($ID, $tdata);
-
-            return $this->respond([
-                'status' => "OK",
-                'message' => 'Notification created successfully',
-            ], 201);
+        if ($existingNotif) {
+            $Notif->update($existingNotif['id'], $data);
         } else {
-            return $this->fail('Failed to save the notification data');
+            $Notif->save($data);
         }
+
+        $tdata = [
+            'status' => 'Notifed'
+        ];
+
+        $Trip = new TripsModel();
+        $Trip->update($ID, $tdata);
+
+        return $this->respond([
+            'status' => "OK",
+            'message' => 'Notification processed successfully',
+        ], 201);
     }
 
 

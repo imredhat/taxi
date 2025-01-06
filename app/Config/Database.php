@@ -50,6 +50,9 @@ class Database extends Config
         ],
     ];
 
+
+    
+
     //    /**
     //     * Sample database connection for SQLite3.
     //     *
@@ -194,8 +197,18 @@ class Database extends Config
         // Ensure that we always set the database group to 'tests' if
         // we are currently running an automated test suite, so that
         // we don't overwrite live data on accident.
-        if (ENVIRONMENT === 'testing') {
-            $this->defaultGroup = 'tests';
+
+        // echo "<pre>";
+        // print_r($_SERVER);
+        // die();
+  
+
+        if ($_SERVER['SERVER_NAME'] !== 'localhost') {
+            $this->default = [
+                'username'     => 'bgtwzrob_uih43t897h49htg9jg0',
+                'password'     => 'x!suD%&}m?8r',
+                'database'     => 'bgtwzrob_portal',
+            ];
         }
     }
 }

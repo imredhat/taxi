@@ -33,6 +33,7 @@ class Drivers extends BaseController
     {
         $Brand = new BrandModel();
         $data['Brands'] = $Brand->orderBy('brand')->withDeleted()->findAll();
+        // $data['Type'] = $Brand->orderBy('brand_type')->withDeleted()->findAll();
 
         echo view('parts/header');
         echo view('parts/side');
@@ -88,6 +89,11 @@ class Drivers extends BaseController
 
         $crud->setActionButton('کارت راننده', 'fa fa-user DriverTab', function ($row) {
             return '/DriverCard/' . $row;
+        }, false);
+
+
+        $crud->setActionButton('نمایش جزئیات', 'fa fa-user DriverTab', function ($row) {
+            return 'Driver/Info/' . $row;
         }, false);
 
         $crud->columns(['did', 'ax', 'name', 'lname', 'gender', 'mobile','melli', 'date_created']);
@@ -160,23 +166,40 @@ class Drivers extends BaseController
 
 
 
+
+    public function Info($ID){
+
+        $Driver = new DriverModel();
+        $data['driver'] = $Driver->where('did', $ID)->first();
+
+        $Car = new CarModel();
+        $data['cars'] = $Car->where('driver_id', $ID)->findAll();
+
+        echo view('parts/print/header');
+        echo view('driver_info', $data);
+        echo view('parts/print/footer');
+    }
+
     function UploadCallback($crud, $field)
     {
 
 
-        $crud->callbackColumn($field, function ($row) use ($field) {
-            return '<img src="' . base_url('uploads/drivers/' . $field . '/' . $row) . '" width="100" height="200">';
+        $crud->callbackColumn($field, function ($row, $data) use ($field) {
+
+
+            return '<img src="' . base_url('uploads/drivers/' . $data -> did . '/' . $row) . '" width="100" height="200">';
         });
 
-        $crud->callbackAddField($field, function () use ($field) {
-            return ' <input name="' . $field . '" id="file-upload" type="file"> <div id="drop_zone"></div>
-            <div id="progress"></div> ';
-        });
+        // $crud->callbackAddField($field, function () use ($field) {
+        //     return ' <input name="' . $field . '" id="file-upload" type="file"> <div id="drop_zone"></div>
+        //     <div id="progress"></div> ';
+        // });
 
 
         $crud->callbackEditField($field, function ($row, $pid) use ($field) {
+            
             if (!empty($row)) {
-                return '<img src="' . base_url('uploads/drivers/' . $field . '/' . $row) . '" width="500" height="500"> <a class="cls" href="' . base_url(relativePath: "RD/") . $field . '/' . $pid . '" ><img src="' . base_url('assets/images/close.png') . '" width="25" /> </a>';
+                return '<img src="' . base_url('uploads/drivers/' . $pid . '/' . $row) . '" width="500" height="500"> <a class="cls" href="' . base_url(relativePath: "RD/") . $field . '/' . $pid . '" ><img src="' . base_url('assets/images/close.png') . '" width="25" /> </a>';
             } else {
                 return ' <input name="' . $field . '" id="file-upload" type="file"> ';
             }
@@ -186,9 +209,9 @@ class Drivers extends BaseController
 
             $file = $this->request->getFile('ax');
             if (isset($file)) {
-                if (!file_exists(base_url('uploads/drivers/ax/' . $file->getName()))) {
+                if (!file_exists(base_url('uploads/drivers/' . $file->getName()))) {
                     if ($file->isValid()) {
-                        $file->move('uploads/drivers/ax', $file->getName());
+                        $file->move('uploads/drivers/', $file->getName());
                         $stateParameters->data['ax'] = $file->getName();
                     }
                 }
@@ -196,9 +219,9 @@ class Drivers extends BaseController
 
             $scan = $this->request->getfile('scan_melli');
             if (isset($scan)) {
-                if (!file_exists(base_url('uploads/drivers/scan_melli/' . $scan->getName()))) {
+                if (!file_exists(base_url('uploads/drivers/' . $scan->getName()))) {
                     if ($scan->isValid()) {
-                        $scan->move('uploads/drivers/scan_melli', $scan->getName());
+                        $scan->move('uploads/drivers/', $scan->getName());
                         $stateParameters->data['scan_melli'] = $scan->getName();
                     }
                 }
@@ -213,9 +236,9 @@ class Drivers extends BaseController
         $crud->callbackBeforeInsert(function ($stateParameters) use ($field) {
             $file = $this->request->getFile('ax');
             if (isset($file)) {
-                if (!file_exists(base_url('uploads/drivers/ax/' . $file->getName()))) {
+                if (!file_exists(base_url('uploads/drivers/' . $file->getName()))) {
                     if ($file->isValid()) {
-                        $file->move('uploads/drivers/ax', $file->getName());
+                        $file->move('uploads/drivers/', $file->getName());
                         $stateParameters->data['ax'] = $file->getName();
                     }
                 }
@@ -223,9 +246,9 @@ class Drivers extends BaseController
 
             $scan = $this->request->getfile('scan_melli');
             if (isset($scan)) {
-                if (!file_exists(base_url('uploads/drivers/scan_melli/' . $scan->getName()))) {
+                if (!file_exists(base_url('uploads/drivers/' . $scan->getName()))) {
                     if ($scan->isValid()) {
-                        $scan->move('uploads/drivers/scan_melli', $scan->getName());
+                        $scan->move('uploads/drivers/', $scan->getName());
                         $stateParameters->data['scan_melli'] = $scan->getName();
                     }
                 }
@@ -299,13 +322,15 @@ class Drivers extends BaseController
             'phone'                 => $this->request->getPost('phone'),
             'address'               => $this->request->getPost('address'),
             'melli'                 => $this->request->getPost('national_id'),
-            'cooperation_type'      => $this->request->getPost('cooperation_type'),
             'bank_card_number'      => $this->request->getPost('bank_card_number'),
             'shaba'                 => $this->request->getPost('iban'),
             'note'                  => $this->request->getPost('notes'),
-            'ax'                    => $this->upload_file('ax', type: "drivers"),
-            'scan_melli'            => $this->upload_file('scan_melli', type: "drivers"),
-            'scan_govahiname'       => $this->upload_file('scan_govahiname', type: "drivers")
+            'education_level'      => $this->request->getPost('education_level'),                           /////////////////////////////////////
+            'foreign_language'      => $this->request->getPost('foreign_language'),                         ////////////////////////////////////
+            'foreign_language_proficiency'      => $this->request->getPost('foreign_language_proficiency'), ////////////////////////////////////
+            
+            'postal_code'      => $this->request->getPost('postal_code'),
+
         ];
 
         // print_r($driver);
@@ -314,7 +339,18 @@ class Drivers extends BaseController
         $Driver = new DriverModel();
 
         if ($Driver->insert($driver)) {
+
+
+            //-------------------------------------------------------------//
+
             $DID = $Driver->getInsertID();
+            $driver = [
+                'ax'                    => $this->upload_file('ax', "drivers" , $DID),
+                'scan_melli'            => $this->upload_file('scan_melli', "drivers" , $DID),
+            ];
+            $Driver->update($DID, $driver);
+
+            //-------------------------------------------------------------//
 
 
 
@@ -325,6 +361,10 @@ class Drivers extends BaseController
                 'color'            => $this->request->getPost('color'),
                 'brand'            => $this->request->getPost('brand'),
 
+                'type'                          => $this->request->getPost('type'),                     ////////////////////////////////////
+                'type_class'                    => $this->request->getPost('type_class'),               ////////////////////////////////////
+                'insurance_expiry_date'         => $this->request->getPost('insurance_expiry_date'),   ////////////////////////////////////
+
                 'iran'             => $this->request->getPost('plate_part1'),
                 'pelak'            => $this->request->getPost('plate_part2'),
                 'pelak_last'       => $this->request->getPost('plate_part3'),
@@ -334,11 +374,11 @@ class Drivers extends BaseController
                 'type'             => $this->request->getPost('car_type'),
                 'vin'              => $this->request->getPost('vin'),
 
-                'scan_govahiname'  => $this->upload_file('scan_govahiname', "drivers"),
-                'pic_back'         => $this->upload_file('pic_back', "cars"),
-                'pic_front'        => $this->upload_file('pic_front', "cars"),
-                'pic_in_back'      => $this->upload_file('pic_in_back', "cars"),
-                'pic_in_front'     => $this->upload_file('pic_in_front', "cars"),
+                'scan_govahiname'  => $this->upload_file('scan_govahiname', "drivers" , $DID),
+                'pic_back'         => $this->upload_file('pic_back', "drivers" , $DID),
+                'pic_front'        => $this->upload_file('pic_front', "drivers" , $DID),
+                'pic_in_back'      => $this->upload_file('pic_in_back', "drivers" , $DID),
+                'pic_in_front'     => $this->upload_file('pic_in_front', "drivers" , $DID),
             );
 
             $Car = new CarModel();
@@ -349,12 +389,12 @@ class Drivers extends BaseController
         }
     }
 
-    private function upload_file($field_name, $type)
+    private function upload_file($field_name, $type , $DID)
     {
         $file = $this->request->getFile($field_name);
         if (!empty($file)) {
             $config = [
-                'uploadPath' => './uploads/' . $type . "/" . $field_name,
+                'uploadPath' => './uploads/' . $type . "/" . $DID,
                 'allowedTypes' => 'jpg|jpeg|png',
                 'maxSize' => 1024,
             ];

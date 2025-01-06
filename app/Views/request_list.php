@@ -243,7 +243,7 @@ function getRandomColorPair()
                                                     <a data-bs-toggle="modal" data-bs-target="#updateStatus" data-id="<?= $S['id'] ?>" data-status="<?= $S['status'] ?>" class="dropdown-item" href="javascript:;"> <i data-feather="share-2"></i> تغییر وضعیت </a>
                                                 </li>
                                                 <li>
-                                                    <a data-bs-toggle="modal" data-fare="<?= number_format($S['finalFare']) ?>" data-id="<?= $S['id'] ?>" data-bs-target="#PayingFare" class="dropdown-item" href="javascript:;"> <i data-feather="link-2"></i> اعلام به رانندگان </a>
+                                                    <a data-bs-toggle="modal" data-package="<?=$S['Package'] ?>" data-fare="<?= number_format($S['finalFare']) ?>" data-id="<?= $S['id'] ?>" data-bs-target="#PayingFare" class="dropdown-item" href="javascript:;"> <i data-feather="link-2"></i> اعلام به رانندگان </a>
 
                                                 </li>
                                                 <li>
@@ -327,6 +327,8 @@ function getRandomColorPair()
                     <input type="text" name="driver_custom_fare" class="form-control text-dark ps-5 h-58" placeholder="مبلغ پرداختی به راننده">
                     <i class="ri-exchange-dollar-line position-absolute top-50 start-0 translate-middle-y pt-20 fs-20 text-gray-light ps-20"></i>
                 </div>
+
+
 
 
 

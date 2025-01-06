@@ -9,32 +9,34 @@ class DriverModel extends Model
     protected $table = 'driver';
     protected $primaryKey = 'did';
     protected $allowedFields = [
-        'ax',
-        'name',
-        'lname',
-        'gender',
-        'mobile',
-        'mobile2',
-        'password',
-        'phone',
-        'address',
-        'work_type',
-        'melli',
-        'scan_melli',
-        'bank',
-        'shaba',
+        'ax', 
+        'name', 
+        'lname', 
+        'gender', 
+        'mobile', 
+        'mobile2', 
+        'password', 
+        'birthday', 
+        'phone', 
+        'address', 
+        'work_type', 
+        'melli', 
+        'scan_melli', 
+        'bank', 
+        'shaba', 
+        'education_level', 
+        'foreign_language', 
+        'foreign_language_proficiency', 
+        'postal_code', 
         'note',
-        'date_created',
         'hash'
     ];
-
 
     protected $returnType = 'array';
     protected bool $allowEmptyInserts = true;
     protected bool $updateOnlyChanged = true;
 
     protected $skipValidation = false;
-
 
     public function getDriverCarInfo($driverId, $carId)
     {

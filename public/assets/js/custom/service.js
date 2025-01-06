@@ -45,6 +45,9 @@ $(document).ready(function () {
 
     $('a[data-bs-target="#PayingFare"]').click(function () {
         $('.base_fare').html($(this).data("fare") + '<input name="tripID" type="hidden" value="' + $(this).data("id") + '" />');
+        var package = $(this).data('package');
+
+        $("select.form-control#packageSelect").val(package).change();
     });
 
     // ====================================================================================
@@ -110,8 +113,9 @@ $(document).ready(function () {
         var ID = $("input[name='tripID']").val();
         var UserFare = $("input[name='driver_custom_fare']").val().replace(/[^0-9a-z-A-Z ]/g, "").replace(/ +/, " ");
         var DriverFare = $("input[name='passenger_custom_fare']").val().replace(/[^0-9a-z-A-Z ]/g, "").replace(/ +/, " ");
+        var package = $("select[name='package']").val();
 
-        console.log(ID);
+        console.log(package);
 
         if (UserFare.length <= 0 || DriverFare.length <= 0) {
             // alert('لطفا اطلاعات را با دقت پر کنید');
@@ -126,7 +130,8 @@ $(document).ready(function () {
                 data: {
                     tripID: ID,
                     UserFare: UserFare,
-                    DriverFare: DriverFare
+                    DriverFare: DriverFare,
+                    DriverPackage : package
                 },
                 success: function (data) {
                     if (data.status == 'OK') {

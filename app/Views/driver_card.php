@@ -9,7 +9,7 @@
         </div>
         <!-------------------------- End of top Box(Menu) ---------------------------------->
         <div class="image-box">
-            <img width="150" height="150" src="<?= base_url() ?>uploads/drivers/ax/<?= esc($driver['ax']) ?>" alt="user-profile">
+            <img width="150" height="150" src="<?= base_url() ?>uploads/drivers/<?=$driver['did']?>/<?= esc($driver['ax']) ?>" alt="user-profile">
         </div>
         <!-------------------------- End of Image Box ---------------------------------->
         <div class="main-box">
@@ -33,7 +33,7 @@
                 <span class="name"> &ensp;</span>
             </div>
 
-            <div class="car" style="background: url('<?= base_url("uploads/cars/pic_front/") ?><?= $car[0]['pic_front'] ?>' )  no-repeat center center;"></div>
+            <div class="car" style="background: url('<?= base_url("uploads/drivers/") ?><?=$driver['did']?>/<?= $car[0]['pic_front'] ?>' )  no-repeat center center;"></div>
 
             <div class="stats-box style-four card bg-white border-0 rounded-10 mb-4 mt-1 my-5">
                 <div class="card-body p-4">
