@@ -92,7 +92,7 @@ class Drivers extends BaseController
         }, false);
 
 
-        $crud->setActionButton('نمایش جزئیات', 'fa fa-user DriverTab', function ($row) {
+        $crud->setActionButton('نمایش جزئیات', 'fa fa-user Info', function ($row) {
             return 'Driver/Info/' . $row;
         }, false);
 
@@ -169,11 +169,24 @@ class Drivers extends BaseController
 
     public function Info($ID){
 
+        $uri = service('uri');
+        $ID = $uri->getSegment(3);
+
         $Driver = new DriverModel();
-        $data['driver'] = $Driver->where('did', $ID)->first();
+        $data['Driver'] = $Driver->where('did', $ID)->first();
 
         $Car = new CarModel();
-        $data['cars'] = $Car->where('driver_id', $ID)->findAll();
+        $data['cars'] = $Car->getAllCarsWithLinkedData($ID);
+
+
+        // echo $ID;
+
+        // echo "<pre>";
+        // print_r($data);
+        // die();
+
+        // echo json_encode( $data['cars']); 
+        // die();
 
         echo view('parts/print/header');
         echo view('driver_info', $data);
@@ -310,6 +323,10 @@ class Drivers extends BaseController
 
 
 
+        // echo "<pre>";
+        // print_r($_POST);
+        // die();
+
         // Validation successful, insert data into database
 
         $driver = [
@@ -322,7 +339,7 @@ class Drivers extends BaseController
             'phone'                 => $this->request->getPost('phone'),
             'address'               => $this->request->getPost('address'),
             'melli'                 => $this->request->getPost('national_id'),
-            'bank_card_number'      => $this->request->getPost('bank_card_number'),
+            'bank'                  => $this->request->getPost('bank_card_number'),
             'shaba'                 => $this->request->getPost('iban'),
             'note'                  => $this->request->getPost('notes'),
             'education_level'      => $this->request->getPost('education_level'),                           /////////////////////////////////////
@@ -330,6 +347,9 @@ class Drivers extends BaseController
             'foreign_language_proficiency'      => $this->request->getPost('foreign_language_proficiency'), ////////////////////////////////////
             
             'postal_code'      => $this->request->getPost('postal_code'),
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            
+            
 
         ];
 
@@ -347,6 +367,8 @@ class Drivers extends BaseController
             $driver = [
                 'ax'                    => $this->upload_file('ax', "drivers" , $DID),
                 'scan_melli'            => $this->upload_file('scan_melli', "drivers" , $DID),
+                'scan_govahiname'       => $this->upload_file('scan_govahiname', "drivers" , $DID),
+                'hash'                  => md5($DID.$this->request->getPost('password').date('Y-m-d H:i:s'))
             ];
             $Driver->update($DID, $driver);
 
@@ -364,6 +386,7 @@ class Drivers extends BaseController
                 'type'                          => $this->request->getPost('type'),                     ////////////////////////////////////
                 'type_class'                    => $this->request->getPost('type_class'),               ////////////////////////////////////
                 'insurance_expiry_date'         => $this->request->getPost('insurance_expiry_date'),   ////////////////////////////////////
+                'owner'             => $this->request->getPost('owner'),                                    ////////////////////////////////////
 
                 'iran'             => $this->request->getPost('plate_part1'),
                 'pelak'            => $this->request->getPost('plate_part2'),
@@ -374,7 +397,7 @@ class Drivers extends BaseController
                 'type'             => $this->request->getPost('car_type'),
                 'vin'              => $this->request->getPost('vin'),
 
-                'scan_govahiname'  => $this->upload_file('scan_govahiname', "drivers" , $DID),
+                
                 'pic_back'         => $this->upload_file('pic_back', "drivers" , $DID),
                 'pic_front'        => $this->upload_file('pic_front', "drivers" , $DID),
                 'pic_in_back'      => $this->upload_file('pic_in_back', "drivers" , $DID),

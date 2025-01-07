@@ -271,7 +271,7 @@
 
                                 <div class="col-lg-4">
                                     <div class="form-group mb-4"> <label class="label">&ensp;</label>
-                                        <div class="form-group position-relative"> <select class="chosen" style="width: 100%;" name="type">
+                                        <div class="form-group position-relative"> <select class="chosen" style="width: 100%;" name="car_type">
 
                                         <option disabled selected>تیپ خودرو</option>
 
@@ -373,6 +373,19 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+                                <div class="col-lg-12">
+                                    <div class="form-group mb-4">
+                                        <label class="label">تصویر کارت ماشین</label>
+                                        <div class="form-group position-relative">
+                                            <input type="file" class="form-control text-dark ps-5 h-58" name="scan_car_card">
+                                            <i class="ri-user-3-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                                 <div class="col-lg-12">
                                     <div class="form-group d-flex gap-3">
                                         <button class="btn btn-primary bg-primary bg-opacity-10 text-primary py-3 px-5 fw-semibold border-0 prev-tab" data-bs-target="#step3-tab-pane" type="button"> قبلی</button>
@@ -436,15 +449,6 @@
                                     <div class="form-group mb-4">
                                         <label class="label">تصویر جلوی خودرو ( نمای جلو با پالک و بغل ماشین در 1 عکس واضح)</label>
                                         <div class="form-group position-relative">
-                                            <input type="file" class="form-control text-dark ps-5 h-58" name="pic_back">
-                                            <i class="ri-user-3-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group mb-4">
-                                        <label class="label">تصویر جلو خودرو</label>
-                                        <div class="form-group position-relative">
                                             <input type="file" class="form-control text-dark ps-5 h-58" name="pic_front">
                                             <i class="ri-user-3-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
                                         </div>
@@ -452,13 +456,14 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
-                                        <label class="label">تصویر داخلی پشت خودرو</label>
+                                        <label class="label">تصویر پشت خودرو</label>
                                         <div class="form-group position-relative">
-                                            <input type="file" class="form-control text-dark ps-5 h-58" name="pic_in_back">
+                                            <input type="file" class="form-control text-dark ps-5 h-58" name="pic_back">
                                             <i class="ri-user-3-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
                                         <label class="label">تصویر داخلی جلو خودرو</label>
@@ -468,6 +473,17 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-lg-12">
+                                    <div class="form-group mb-4">
+                                        <label class="label">تصویر داخلی پشت خودرو</label>
+                                        <div class="form-group position-relative">
+                                            <input type="file" class="form-control text-dark ps-5 h-58" name="pic_in_back">
+                                            <i class="ri-user-3-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                
 
                                 <div class="col-lg-12">
                                     <div class="form-group d-flex gap-3">
@@ -552,7 +568,7 @@
                     url: '<?=base_url()?>GetBrandCars/'+brandId,
                     type: 'GET',
                     success: function(response) {
-                        var typeSelect = $('select[name="type"]');
+                        var typeSelect = $('select[name="car_type"]');
                         typeSelect.empty();
                         typeSelect.append('<option disabled selected>تیپ خودرو</option>');
                         $.each(response, function(index, carType) {
@@ -566,7 +582,7 @@
 
 
 
-        $('select[name="type"]').on('change', function() {
+        $('select[name="car_type"]').on('change', function() {
             var selectedOption = $(this).find('option:selected');
             var typeClass = selectedOption.data('class');
             $('input[name="type_class"]').val(typeClass);

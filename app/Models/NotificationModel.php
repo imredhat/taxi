@@ -26,13 +26,5 @@ class NotificationModel extends Model
     protected $dateFormat = 'datetime';
     protected $createdField = 'created_at';
 
-    public function getAllNotificationsWithTrips($DriverID)
-    {
-        return $this->select('notification.*, trips.*')
-            ->join('trips', 'notification.tripID = trips.id')
-            ->where('trips.status', 'Notified')
-            ->where('trips.status', 'Notified')
-            ->findAll();
-    }
-
+    
 }

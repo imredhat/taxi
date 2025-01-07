@@ -16,12 +16,12 @@ class App extends BaseConfig
      *
      * E.g., http://example.com/
      */
-    public string $baseURL = '';
+    public string $baseURL = 'http://localhost:8080/';
 
-    public function __construct()
-    {
-        $this->baseURL = explode('/', $_SERVER['SERVER_PROTOCOL'])[0]."://" . $_SERVER['HTTP_HOST'];
-    }
+    // public function __construct()
+    // {
+    //     $this->baseURL = explode('/', $_SERVER['SERVER_PROTOCOL'])[0]."://" . $_SERVER['HTTP_HOST'];
+    // }
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.

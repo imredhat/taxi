@@ -29,7 +29,8 @@ class DriverModel extends Model
         'foreign_language_proficiency', 
         'postal_code', 
         'note',
-        'hash'
+        'hash',
+        'scan_govahiname'
     ];
 
     protected $returnType = 'array';
@@ -72,4 +73,7 @@ class DriverModel extends Model
         $query = $builder->get();
         return $query->getResultArray();
     }
+
+
+    
 }

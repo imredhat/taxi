@@ -168,5 +168,6 @@ $routes->post('api/auth/createUser', 'api\Auth::createUser');
 
 $routes->post('api/driver/cars', 'api\Driver::Cars');
 $routes->get('api/car/brands', 'api\Driver::Brands');
+$routes->post('api/driver/NewService', 'api\Driver::NewService');
 
 // $routes->get('api/auth/logout', 'API\Auth::logout');

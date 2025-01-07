@@ -37,6 +37,8 @@ class CarModel extends Model
         'car_system',
         'color',
         'brand',
+        'owner',
+        'scan_car_card'
     ];
 
     public function GetDriverCars($id)
@@ -45,6 +47,27 @@ class CarModel extends Model
             ->join('brand', 'brand.TiD = cars.brand')
             ->where('driver_id', $id)
             ->findAll();
+    }
+
+
+    public function getAllCarsWithLinkedData($driverId)
+    {
+        
+        $builder = $this->db->table($this->table);
+        $builder->select('
+            cars.*,
+            brand.TiD , brand.brand,
+            brand_type.type_name as type_name,
+            packages.name as package_name
+        ');
+        $builder->where('driver_id', $driverId);
+        
+        $builder->join('brand', 'cars.brand = brand.TiD', 'left');
+        $builder->join('brand_type', 'cars.type = brand_type.bid', 'left');
+        $builder->join('packages', 'cars.type_class = packages.id', 'left');
+
+        $query = $builder->get();
+        return $query->getResultArray();
     }
 
     public function __construct()
