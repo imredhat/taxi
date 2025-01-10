@@ -13,13 +13,6 @@ class Drivers extends BaseController
     public function index()
     {
 
-      
-
-
-
-        
-
-
         $Brand = new BrandModel();
         $data['Brands'] = $Brand->orderBy('brand')->withDeleted()->findAll();
 
@@ -87,44 +80,104 @@ class Drivers extends BaseController
         $crud->unsetAdd();
         // $crud->setRead();
 
-        $crud->setActionButton('کارت راننده', 'fa fa-user DriverTab', function ($row) {
+        $crud->setActionButton('', 'fa fa-credit-card DriverTab', function ($row) {
             return '/DriverCard/' . $row;
         }, false);
 
 
-        $crud->setActionButton('نمایش جزئیات', 'fa fa-user Info', function ($row) {
+        $crud->setActionButton('', 'fa fa-info-circle Info', function ($row) {
             return 'Driver/Info/' . $row;
         }, false);
 
-        $crud->columns(['did', 'ax', 'name', 'lname', 'gender', 'mobile','melli', 'date_created']);
-        $crud->fields(['name', 'lname', 'gender', 'mobile', 'mobile2', 'phone', 'address',  'melli', 'bank', 'scan_melli', 'ax']);
-        $crud->displayAs('did', "شناسه");
-        $crud->displayAs('name', "نام");
-        $crud->displayAs('lname', "نام خانوادگی");
-        $crud->displayAs('gender', "جنسیت");
-        $crud->displayAs('mobile', "موبایل");
-        $crud->displayAs('mobile2', "موبایل دوم");
-        $crud->displayAs('phone', "تلفن");
-        $crud->displayAs('address', "آدرس");
-        $crud->displayAs('work_type', "نوع کار");
-        $crud->displayAs('melli', "کد ملی");
-        $crud->displayAs('scan_melli', "اسکن کارت ملی");
-        $crud->displayAs('bank', "شماره کارت بانکی");
-        $crud->displayAs('date_created', "تاریخ ایجاد");
-        $crud->displayAs('ax', "تصویر پرسنلی");
+        $crud->setActionButton('', 'fa fa-car', function ($row) {
+            return 'Driver/Cars/' . $row;
+        }, false);
+
+        $crud->columns(['dod', 'ax', 'name', 'lname', 'gender', 'mobile','melli', 'date_created']);
+        $crud->fields(['ax', 'name', 'lname', 'gender', 'mobile', 'mobile2', 'password', 'birthday', 'phone', 'address',  'melli', 'scan_melli', 'scan_govahiname', 'bank', 'shaba', 'education_level', 'foreign_language', 'foreign_language_proficiency', 'postal_code', 'note']);
+
+        $crud->displayAs('ax', 'عکس')
+             ->displayAs('name', 'نام')
+             ->displayAs('lname', 'نام خانوادگی')
+             ->displayAs('gender', 'جنسیت')
+             ->displayAs('mobile', 'موبایل')
+             ->displayAs('mobile2', 'موبایل دوم')
+             ->displayAs('password', 'رمز عبور')
+             ->displayAs('birthday', 'تاریخ تولد')
+             ->displayAs('phone', 'تلفن')
+             ->displayAs('address', 'آدرس')
+             ->displayAs('work_type', 'نوع کار')
+             ->displayAs('melli', 'کد ملی')
+             ->displayAs('scan_melli', 'اسکن کارت ملی')
+             ->displayAs('scan_govahiname', 'اسکن گواهینامه')
+             ->displayAs('bank', 'شماره کارت بانکی')
+             ->displayAs('shaba', 'شماره شبا')
+             ->displayAs('education_level', 'سطح تحصیلات')
+             ->displayAs('foreign_language', 'زبان خارجی')
+             ->displayAs('foreign_language_proficiency', 'مهارت زبان خارجی')
+             ->displayAs('postal_code', 'کد پستی')
+             ->displayAs('note', 'یادداشت')
+             ->displayAs('dod', 'شناسه')
+             ->displayAs('date_created', 'تاریخ ثبت');
+    
 
         $crud->fieldType("gender", "dropdown", ["مرد" => "مرد", "زن" => "زن"]);
-        //$crud->fieldType("work_type", "dropdown", ["ازاد" => "ازاد", "شرکتی" => "شرکتی"]);
+        $crud->fieldType("password", "password");
+        $crud->fieldType("work_type", "dropdown", ["ازاد" => "ازاد", "شرکتی" => "شرکتی"]);
 
+        $crud->fieldType("education_level", "dropdown", [
+            "دیپلم" => "دیپلم",
+            "کاردانی" => "کاردانی",
+            "کارشناسی" => "کارشناسی",
+            "کارشناسی ارشد" => "کارشناسی ارشد",
+            "دکتری" => "دکتری"
+        ]);
+
+        $crud->fieldType("foreign_language_proficiency", "dropdown", [
+            "مبتدی" => "مبتدی",
+            "متوسط" => "متوسط",
+            "پیشرفته" => "پیشرفته"
+        ]);
+
+        $crud->callbackBeforeInsert(function ($stateParameters) {
+            $stateParameters->data['password'] = password_hash($stateParameters->data['password'], PASSWORD_DEFAULT);
+            return $stateParameters;
+        });
+
+        $crud->callbackBeforeUpdate(function ($stateParameters) {
+            if (!empty($stateParameters->data['password'])) {
+                $stateParameters->data['password'] = password_hash($stateParameters->data['password'], PASSWORD_DEFAULT);
+            } else {
+                unset($stateParameters->data['password']);
+            }
+            return $stateParameters;
+        });
 
         $this->UploadCallback($crud, 'ax');
         $this->UploadCallback($crud, 'scan_melli');
+        $this->UploadCallback($crud, 'scan_govahiname');
 
         $crud->callbackColumn('date_created', function ($value) {
             $date = new PersianDate();
             list($gy, $gm, $gd) = explode('-', substr($value, 0, 10));
             return $date->gregorianToJalali($gy, $gm, $gd, '/');
         });
+
+        $crud->callbackColumn('dod', function ($value, $row) {
+            $current_date = $row->date_created;
+            $date = new PersianDate();
+            list($gy, $gm, $gd) = explode('-', substr($current_date, 0, 10));
+            $persian_date = $date->gregorianToJalali($gy, $gm, $gd, '');
+            $persian_date = $persian_date[0] . $persian_date[1] . $persian_date[2];
+
+
+            $driver = $row->did;
+            $driver_code = $persian_date . '-' . (1000 + $driver);
+            return $driver_code;
+        });
+        
+
+        
 
 
         $output = $crud->render();
@@ -134,6 +187,9 @@ class Drivers extends BaseController
         echo view('crud', (array) $output);
         echo view('parts/footer_crud');
     }
+
+
+
 
     /*---------------------------------------------------------\
       |                   Driver Card
@@ -166,7 +222,6 @@ class Drivers extends BaseController
 
 
 
-
     public function Info($ID){
 
         $uri = service('uri');
@@ -193,21 +248,13 @@ class Drivers extends BaseController
         echo view('parts/print/footer');
     }
 
+
+
     function UploadCallback($crud, $field)
     {
-
-
         $crud->callbackColumn($field, function ($row, $data) use ($field) {
-
-
             return '<img src="' . base_url('uploads/drivers/' . $data -> did . '/' . $row) . '" width="100" height="200">';
         });
-
-        // $crud->callbackAddField($field, function () use ($field) {
-        //     return ' <input name="' . $field . '" id="file-upload" type="file"> <div id="drop_zone"></div>
-        //     <div id="progress"></div> ';
-        // });
-
 
         $crud->callbackEditField($field, function ($row, $pid) use ($field) {
             
@@ -217,27 +264,22 @@ class Drivers extends BaseController
                 return ' <input name="' . $field . '" id="file-upload" type="file"> ';
             }
         });
+        
 
         $crud->callbackBeforeUpdate(function ($stateParameters) {
 
-            $file = $this->request->getFile('ax');
+
+            $fields = ['scan_melli', 'scan_govahiname','ax'];
+            foreach ($fields as $field) {
+            $file = $this->request->getFile($field);
             if (isset($file)) {
-                if (!file_exists(base_url('uploads/drivers/' . $file->getName()))) {
-                    if ($file->isValid()) {
-                        $file->move('uploads/drivers/', $file->getName());
-                        $stateParameters->data['ax'] = $file->getName();
-                    }
+                if (!file_exists(base_url('uploads/drivers/' . $stateParameters->primaryKeyValue . '/' . $file->getName()))) {
+                if ($file->isValid()) {
+                    $file->move('uploads/drivers/' . $stateParameters->primaryKeyValue, $file->getName());
+                    $stateParameters->data[$field] = $file->getName();
+                }
                 }
             }
-
-            $scan = $this->request->getfile('scan_melli');
-            if (isset($scan)) {
-                if (!file_exists(base_url('uploads/drivers/' . $scan->getName()))) {
-                    if ($scan->isValid()) {
-                        $scan->move('uploads/drivers/', $scan->getName());
-                        $stateParameters->data['scan_melli'] = $scan->getName();
-                    }
-                }
             }
 
             return $stateParameters;
@@ -270,10 +312,12 @@ class Drivers extends BaseController
             return $stateParameters;
         });
 
+
+
+
+
         return $crud;
     }
-
-
 
 
     public function RD()
@@ -282,9 +326,7 @@ class Drivers extends BaseController
         $segment3 = $uri->getSegment(2);
         $segment4 = $uri->getSegment(3);
 
-
-
-
+        
         if ($segment3 == 'ax' || $segment3 == 'scan_melli') {
 
             $db = \Config\Database::connect();
@@ -301,12 +343,16 @@ class Drivers extends BaseController
                     $builder->set('ax', '');
                     $builder->where('did', $segment4);
                     $builder->update();
-                    unlink($file);
+                    if (is_file($file)) {
+                        unlink($file);
+                    }
                 } elseif ($segment3 == 'scan_melli') {
                     $builder->set('scan_melli', '');
                     $builder->where('did', $segment4);
                     $builder->update();
-                    unlink($file);
+                    if (is_file($file)) {
+                        unlink($file);
+                    }
                 }
                 return redirect()->back()->with('success', 'Field updated successfully.');
             } else {
@@ -402,6 +448,11 @@ class Drivers extends BaseController
                 'pic_front'        => $this->upload_file('pic_front', "drivers" , $DID),
                 'pic_in_back'      => $this->upload_file('pic_in_back', "drivers" , $DID),
                 'pic_in_front'     => $this->upload_file('pic_in_front', "drivers" , $DID),
+
+                'scan_car_card'                  => $this->upload_file('scan_car_card', "drivers" , $DID),
+                'scan_car_card_back'             => $this->upload_file('scan_car_card_back', "drivers" , $DID),
+                'scan_insurance'                => $this->upload_file('scan_insurance', "drivers" , $DID),
+                'scan_insurance_addendum'       => $this->upload_file('scan_insurance_Addendum', "drivers" , $DID),
             );
 
             $Car = new CarModel();
@@ -419,7 +470,7 @@ class Drivers extends BaseController
             $config = [
                 'uploadPath' => './uploads/' . $type . "/" . $DID,
                 'allowedTypes' => 'jpg|jpeg|png',
-                'maxSize' => 1024,
+                'maxSize' => 10240,
             ];
             if ($file->isValid()) {
                 if (!$file->move($config['uploadPath'])) {

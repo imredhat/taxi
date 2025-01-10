@@ -39,16 +39,35 @@
                 <div class="card-body p-4">
 
                     <div class="row">
+
+                  
+
+
                         <div class="col-sm-3 icon_glass">
                             <div class="wheel"> <svg style="margin-top: -7px;" xmlns="http://www.w3.org/2000/svg" id="Layer_1" fill="#757FEF" data-name="Layer 1" viewBox="0 0 24 24" width="30" height="30">
                                     <path d="M12,0A12,12,0,0,0,0,12v0c.59,15.905,23.416,15.89,24,0v0A12,12,0,0,0,12,0Zm0,2a10.01,10.01,0,0,1,8.878,5.4l-7.049,1.41a9.64,9.64,0,0,1-3.8,0L3.108,7.428A10.01,10.01,0,0,1,12,2ZM9,21.54a10.027,10.027,0,0,1-6.935-8.4l3.9.78a2.994,2.994,0,0,1,2.05,1.515l.624,1.153A3,3,0,0,1,9,18.014Zm6,0V18.014a3,3,0,0,1,.362-1.428l.624-1.154a3,3,0,0,1,2.05-1.514l3.9-.78A10.027,10.027,0,0,1,15,21.54Zm2.644-9.583a4.987,4.987,0,0,0-3.416,2.522L13.6,15.633a5.009,5.009,0,0,0-.6,2.381V21.95a10.126,10.126,0,0,1-2,0V18.014a5.009,5.009,0,0,0-.6-2.381L9.772,14.48a4.985,4.985,0,0,0-3.416-2.523l-4.314-.863a9.82,9.82,0,0,1,.324-1.775l7.272,1.454a11.629,11.629,0,0,0,4.583,0l7.406-1.481a9.845,9.845,0,0,1,.331,1.8Z" />
                                 </svg>
                             </div>
                         </div>
+
+
                         <div class="col-sm-9 glass">
-                            <div class=""> <span class=""><?= $car[0]['type'] ?></span>
+                            <div class=""> <span style="font-family: monospace !important;">
+
+                            <?php
+                            require_once APPPATH.'Libraries/jdf.php'; 
+                            $date_created = new DateTime($driver['date_created']);
+                            $gregorian_date = explode('-', $date_created->format('Y-m-d'));
+                            $persian_date_array = gregorian_to_jalali($gregorian_date[0], $gregorian_date[1], $gregorian_date[2]);
+                            $persian_date = implode('', $persian_date_array);
+
+                            $driver_code = $persian_date . '-' . (1000 + $driver['did']);
+                            echo $driver_code;
+                            ?>
+
+                            </span>
                                 <div class="">
-                                    <h3 class=""><?= $car[0]['car_brand'] ?></h3>
+                                    <h3 class="text-truncate" style="font-size: calc(1vw + 1vh + 0vmin);"><?= $car[0]['car_brand'] .' '. $car[0]['type_name'].' '. $car[0]['color']?></h3>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +85,7 @@
 
             <div class="bottom">
                 <div class="col-sm-12">پویش تاکسی </div>
-                <div class="col-sm-12" style="font-size: 8px;">www.PoyeshTak30.ir | 09229247081</div>
+                <div class="col-sm-12" style="font-size: 8px;">www.PooyeshTak30.ir | 09229247081</div>
             </div>
 
             <!---------------------------- End of button box ------------------------------>

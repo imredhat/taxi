@@ -38,13 +38,17 @@ class CarModel extends Model
         'color',
         'brand',
         'owner',
-        'scan_car_card'
+        'scan_car_card',
+        'scan_car_card_back',
+        'scan_insurance',
+        'scan_insurance_addendum'
     ];
 
     public function GetDriverCars($id)
     {
-        return $this->select('cars.cid,cars.driver_id ,cars.brand,cars.pelak,cars.iran,cars.harf,cars.pelak_last,brand.brand as car_brand , cars.type,cars.*')
+        return $this->select('cars.cid,cars.driver_id ,cars.brand,cars.pelak,cars.iran,cars.harf,cars.pelak_last,brand.brand as car_brand , cars.type,cars.*, brand_type.type_name')
             ->join('brand', 'brand.TiD = cars.brand')
+            ->join('brand_type', 'brand_type.bid = cars.type', 'left')
             ->where('driver_id', $id)
             ->findAll();
     }

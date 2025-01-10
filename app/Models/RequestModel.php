@@ -8,7 +8,16 @@ class RequestModel extends Model
 {
     protected $table = 'request';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['notifID', 'tripID', 'driverID', 'carID', 'isAccepted', 'status', 'created_at', 'updated_at'];
+    protected $allowedFields = [
+        'notifID', 
+        'tripID', 
+        'driverID', 
+        'carID', 
+        'isAccepted', 
+        'status', 
+        'created_at', 
+        'updated_at'
+    ];
 
     public function getAllRequestWithDetail($requestId)
     {

@@ -26,8 +26,6 @@
         const height = 800;
         const left = (screen.width - width) / 2;
         const top = (screen.height - height) / 2;
-
-        // باز کردن پنجره جدید با تنظیمات ابعاد و مکان
         window.open(url, '_blank', `width=${width},height=${height},top=${top},left=${left}`);
 
     })
@@ -44,7 +42,6 @@
         const left = (screen.width - width) / 2;
         const top = (screen.height - height) / 2;
 
-        // باز کردن پنجره جدید با تنظیمات ابعاد و مکان
         window.open(url, '_blank', `width=${width},height=${height},top=${top},left=${left}`);
 
     })
@@ -60,7 +57,6 @@
         const left = (screen.width - width) / 2;
         const top = (screen.height - height) / 2;
 
-        // باز کردن پنجره جدید با تنظیمات ابعاد و مکان
         window.open(url, '_blank', `width=${width},height=${height},top=${top},left=${left}`);
 
     })

@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Libraries\GroceryCrud;
 use CodeIgniter\HTTP\URI;
 use App\Models\TypeModel;
+use App\Models\CarModel;
 
 class Cars extends BaseController
 {
@@ -45,8 +46,6 @@ class Cars extends BaseController
         echo view('crud', (array) $output);
         echo view('parts/footer_crud');
     }
-
-
 
 
     public function Type()
@@ -105,30 +104,88 @@ class Cars extends BaseController
         $crud->setSubject('خودرو', 'خودروها');
 
         // $crud->setRead();
-        $crud->columns(['brand', 'cid', 'driver_id', 'fuel', 'harf', 'motor', 'pelak', 'pic_front', 'scan_govahiname', 'shasi', 'type', 'vin']);
-        $crud->fields(['brand', 'driver_id',  'fuel', 'harf', 'motor', 'pelak', 'pic_back', 'pic_front', 'pic_in_back', 'pic_in_front', 'scan_govahiname', 'shasi', 'type', 'vin']);
-        $crud->readFields(['brand', 'driver_id', 'fuel', 'harf', 'motor', 'pelak', 'pic_back', 'pic_front', 'pic_in_back', 'pic_in_front', 'scan_govahiname', 'shasi', 'type', 'vin']);
-        $crud->displayAs('cid', "شناسه خودرو");
+        $crud->columns(['brand', 'cid', 'driver_id', 'fuel', 'pelak_mix', 'pic_front',   'type', 'type_class']);
+        $crud->fields([
+            'owner','driver_id', 'brand','type', 'type_class', 'fuel', 'iran', 'pelak', 'harf', 'pelak_last',  
+            'pic_back', 'pic_front', 'pic_in_back', 'pic_in_front', 'scan_car_card', 
+            'scan_car_card_back', 'scan_insurance', 'scan_insurance_addendum', 
+             'vin',  'year', 'color', 'insurance_expiry_date'
+        ]);
+        $crud->displayAs('cid', "شناسه ");
         $crud->displayAs('driver_id', " راننده");
         $crud->displayAs('fuel', "نوع سوخت");
         $crud->displayAs('harf', "حرف");
         $crud->displayAs('motor', "موتور");
-        $crud->displayAs('pelak', "پلاک");
+        $crud->displayAs('pelak', "سه رقم پلاک");
+        $crud->displayAs('pelak_mix', "پلاک خودرو");
         $crud->displayAs('pic_back', "تصویر پشت خودرو");
         $crud->displayAs('pic_front', "تصویر جلو خودرو");
         $crud->displayAs('pic_in_back', "تصویر داخلی پشت خودرو");
         $crud->displayAs('pic_in_front', "تصویر داخلی جلو خودرو");
-        $crud->displayAs('scan_govahiname', "اسکن گواهینامه");
+        $crud->displayAs('scan_car_card', "اسکن کارت خودرو");
+        $crud->displayAs('scan_car_card_back', "اسکن پشت کارت خودرو");
+        $crud->displayAs('scan_insurance', "اسکن بیمه");
+        $crud->displayAs('scan_insurance_addendum', "اسکن الحاقیه بیمه");
         $crud->displayAs('shasi', "شاسی");
         $crud->displayAs('type', "نوع خودرو");
         $crud->displayAs('vin', "وین");
         $crud->displayAs('brand', "برند");
+        $crud->displayAs('owner', "مالک");
+        $crud->displayAs('iran', "ایران");
+        $crud->displayAs('pelak_last', "دو رقم آخر پلاک");
+        $crud->displayAs('type_class', "کلاس خودرو");
+        $crud->displayAs('car_system', "سیستم خودرو");
+        $crud->displayAs('year', "سال");
+        $crud->displayAs('color', "رنگ");
+        $crud->displayAs('insurance_expiry_date', "تاریخ انقضای بیمه");
 
-        $crud->fieldType("fuel", "dropdown", ["بنزینی" => "بنزینی", "گازسوز" => "گازسوز", "گازوئیل" => "گازوئیل", "دوگانه سوز" => "دوگانه سوز", "هیبریدی" => "هیبریدی"]);
-        $crud->fieldType("type", "dropdown", ["سواری" => "سواری", "اتوبوس" => "اتوبوس", "میدل باس" => "میدل باس", "مینی بوس" => "مینی بوس", "ون" => "ون"]);
+        $crud->unsetColumns(['pelak_last', 'harf', 'iran', 'pelak']);
 
+        $crud->callbackColumn('pelak_mix', function ($value, $row) {
+            return "ایران".$row->iran . '-' . $row->harf . ' ' . $row->pelak . ' ' . $row->pelak_last;
+        });
+
+        $crud->setRelation('type_class', 'packages', 'name');
+        
+
+        $crud->fieldType("fuel", "dropdown", [
+            "بنزینی" => "بنزینی", 
+            "گاز سوز" => "گاز سوز", 
+            "گازوئیل" => "گازوئیل", 
+            "دوگانه سوز" => "دوگانه سوز", 
+            "هیبریدی" => "هیبریدی"
+        ]);
+        $crud->setRelation('type', 'brand_type', 'type_name');
         $crud->setRelation('driver_id', 'driver', '{name} {lname}');
         $crud->setRelation('brand', 'brand', 'brand');
+        $crud->setRelation('type_class', 'packages', 'name');
+        $crud->fieldType("harf", "dropdown", [
+            "الف" => "الف",
+            "ب" => "ب",
+            "پ" => "پ",
+            "ت" => "ت",
+            "ث" => "ث",
+            "ج" => "ج",
+            "د" => "د",
+            "ز" => "ز",
+            "س" => "س",
+            "ش" => "ش",
+            "ص" => "ص",
+            "ط" => "ط",
+            "ع" => "ع",
+            "ف" => "ف",
+            "ق" => "ق",
+            "ک" => "ک",
+            "گ" => "گ",
+            "ل" => "ل",
+            "م" => "م",
+            "ن" => "ن",
+            "و" => "و",
+            "ه" => "ه",
+            "ی" => "ی",
+            "معلولین" => "معلولین",
+            "تشریفات" => "تشریفات"
+        ]);
 
 
         $this->UploadCallback($crud, 'pic_back');
@@ -136,6 +193,10 @@ class Cars extends BaseController
         $this->UploadCallback($crud, 'pic_in_back');
         $this->UploadCallback($crud, 'pic_in_front');
         $this->UploadCallback($crud, 'scan_govahiname');
+        $this->UploadCallback($crud, 'scan_car_card');
+        $this->UploadCallback($crud, 'scan_car_card_back');
+        $this->UploadCallback($crud, 'scan_insurance');
+        $this->UploadCallback($crud, 'scan_insurance_addendum');
 
         $output = $crud->render();
 
@@ -145,23 +206,142 @@ class Cars extends BaseController
         echo view('parts/footer_crud');
     }
 
+
+
+
+
+
+
+
+
+
+    public function DriverCars($ID)
+    {
+        $crud = new GroceryCrud();
+
+        $crud->setLanguage("Persian");
+        $crud->setTheme('bootstrap');
+        $crud->setTable('cars');
+        $crud->setSubject('خودرو', 'خودروها');
+
+        $crud->where('driver_id', $ID);
+
+        // $crud->setRead();
+        // $crud->setRead();
+        $crud->columns(['brand', 'cid', 'driver_id', 'fuel', 'pelak_mix', 'pic_front',   'type', 'type_class']);
+        $crud->fields([
+            'owner','driver_id', 'brand','type', 'type_class', 'fuel', 'iran', 'pelak', 'harf', 'pelak_last',  
+            'pic_back', 'pic_front', 'pic_in_back', 'pic_in_front', 'scan_car_card', 
+            'scan_car_card_back', 'scan_insurance', 'scan_insurance_addendum', 
+             'vin',  'year', 'color', 'insurance_expiry_date'
+        ]);
+        $crud->displayAs('cid', "شناسه ");
+        $crud->displayAs('driver_id', " راننده");
+        $crud->displayAs('fuel', "نوع سوخت");
+        $crud->displayAs('harf', "حرف");
+        $crud->displayAs('motor', "موتور");
+        $crud->displayAs('pelak', "سه رقم پلاک");
+        $crud->displayAs('pelak_mix', "پلاک خودرو");
+        $crud->displayAs('pic_back', "تصویر پشت خودرو");
+        $crud->displayAs('pic_front', "تصویر جلو خودرو");
+        $crud->displayAs('pic_in_back', "تصویر داخلی پشت خودرو");
+        $crud->displayAs('pic_in_front', "تصویر داخلی جلو خودرو");
+        $crud->displayAs('scan_car_card', "اسکن کارت خودرو");
+        $crud->displayAs('scan_car_card_back', "اسکن پشت کارت خودرو");
+        $crud->displayAs('scan_insurance', "اسکن بیمه");
+        $crud->displayAs('scan_insurance_addendum', "اسکن الحاقیه بیمه");
+        $crud->displayAs('shasi', "شاسی");
+        $crud->displayAs('type', "نوع خودرو");
+        $crud->displayAs('vin', "وین");
+        $crud->displayAs('brand', "برند");
+        $crud->displayAs('owner', "مالک");
+        $crud->displayAs('iran', "ایران");
+        $crud->displayAs('pelak_last', "دو رقم آخر پلاک");
+        $crud->displayAs('type_class', "کلاس خودرو");
+        $crud->displayAs('car_system', "سیستم خودرو");
+        $crud->displayAs('year', "سال");
+        $crud->displayAs('color', "رنگ");
+        $crud->displayAs('insurance_expiry_date', "تاریخ انقضای بیمه");
+
+        $crud->unsetColumns(['pelak_last', 'harf', 'iran', 'pelak']);
+
+        $crud->callbackColumn('pelak_mix', function ($value, $row) {
+            return "ایران".$row->iran . '-' . $row->harf . ' ' . $row->pelak . ' ' . $row->pelak_last;
+        });
+
+        $crud->setRelation('type_class', 'packages', 'name');
+        $crud->fieldType("harf", "dropdown", [
+            "الف" => "الف",
+            "ب" => "ب",
+            "پ" => "پ",
+            "ت" => "ت",
+            "ث" => "ث",
+            "ج" => "ج",
+            "د" => "د",
+            "ز" => "ز",
+            "س" => "س",
+            "ش" => "ش",
+            "ص" => "ص",
+            "ط" => "ط",
+            "ع" => "ع",
+            "ف" => "ف",
+            "ق" => "ق",
+            "ک" => "ک",
+            "گ" => "گ",
+            "ل" => "ل",
+            "م" => "م",
+            "ن" => "ن",
+            "و" => "و",
+            "ه" => "ه",
+            "ی" => "ی",
+            "معلولین" => "معلولین",
+            "تشریفات" => "تشریفات"
+        ]);
+
+
+        $this->UploadCallback($crud, 'pic_back');
+        $this->UploadCallback($crud, 'pic_front');
+        $this->UploadCallback($crud, 'pic_in_back');
+        $this->UploadCallback($crud, 'pic_in_front');
+        $this->UploadCallback($crud, 'scan_govahiname');
+        $this->UploadCallback($crud, 'scan_car_card');
+        $this->UploadCallback($crud, 'scan_car_card_back');
+        $this->UploadCallback($crud, 'scan_insurance');
+        $this->UploadCallback($crud, 'scan_insurance_addendum');
+
+        $output = $crud->render();
+
+        echo view('parts/header');
+        echo view('parts/side');
+        echo view('crud', (array) $output);
+        echo view('parts/footer_crud');
+    }
+
+
+
+
+
+
+
+
+
     function UploadCallback($crud, $field)
     {
 
-
-        $crud->callbackColumn($field, function ($row) use ($field) {
-            return '<img src="' . base_url(relativePath: 'uploads/cars/' . $field . '/' . $row) . '" width="100" height="200">';
-        });
-
-        $crud->callbackAddField($field, function () use ($field) {
-            return ' <input name="' . $field . '" id="file-upload" type="file"> <div id="drop_zone"></div>
-            <div id="progress"></div> ';
+        $crud->callbackColumn($field, function ($row , $data) use ($field) {
+            return '<img src="' . base_url(relativePath: 'uploads/drivers/' . $data -> driver_id . '/' . $row) . '" width="100" height="200">';
         });
 
 
-        $crud->callbackEditField($field, function ($row, $pid) use ($field) {
+        $crud->callbackEditField($field, function ($row, $pid , $rowData) use ($field) {
+
+            
+            $CarModel = new CarModel();
+            $car = $CarModel->where('cid', $pid)->first();
+            $driver_id = $car['driver_id'];
+
             if (!empty($row)) {
-                return '<img src="' . base_url('uploads/cars/' . $field . '/' . $row) . '" width="500" height="500"> <a class="cls" href="' . base_url(relativePath: "RC/") . $field . '/' . $pid . '" ><img src="' . base_url('assets/images/close.png') . '" width="25" /> </a>';
+                return '<img src="' . base_url('uploads/drivers/' . $driver_id . '/' . $row) . '" width="500" height="500"> <a class="cls" href="' . base_url(relativePath: "RC/") . $field . '/' . $pid . '" ><img src="' . base_url('assets/images/close.png') . '" width="25" /> </a>';
             } else {
                 return ' <input name="' . $field . '" id="file-upload" type="file"> ';
             }
@@ -169,97 +349,36 @@ class Cars extends BaseController
 
         $crud->callbackBeforeUpdate(function ($stateParameters) {
 
-            $file = $this->request->getFile('pic_back');
-            if (isset($file)) {
-                if (!file_exists(base_url('uploads/cars/pic_back/' . $file->getName()))) {
+            $fields = ['pic_back', 'pic_front', 'pic_in_back', 'pic_in_front', 'scan_car_card', 'scan_car_card_back','scan_insurance', 'scan_insurance_addendum'];
+            foreach ($fields as $field) {
+                $file = $this->request->getFile($field);
+                if (isset($file)) {
+                if (!file_exists(base_url('uploads/drivers/' . $stateParameters->data['driver_id'] . '/' . $file->getName()))) {
                     if ($file->isValid()) {
-                        $file->move('uploads/cars/pic_back', $file->getName());
-                        $stateParameters->data['pic_back'] = $file->getName();
+                    $file->move('uploads/drivers/' . $stateParameters->data['driver_id'], $file->getName());
+                    $stateParameters->data[$field] = $file->getName();
                     }
                 }
-            }
-
-            $scan = $this->request->getfile('pic_front');
-            if (isset($scan)) {
-                if (!file_exists(base_url('uploads/cars/pic_front/' . $scan->getName()))) {
-                    if ($scan->isValid()) {
-                        $scan->move('uploads/cars/pic_front', $scan->getName());
-                        $stateParameters->data['pic_front'] = $scan->getName();
-                    }
                 }
-            }
-
-
-            $scan = $this->request->getfile('pic_in_back');
-            if (isset($scan)) {
-                if (!file_exists(base_url('uploads/cars/pic_in_back/' . $scan->getName()))) {
-                    if ($scan->isValid()) {
-                        $scan->move('uploads/cars/pic_in_back', $scan->getName());
-                        $stateParameters->data['pic_in_back'] = $scan->getName();
-                    }
-                }
-            }
-
-            $scan = $this->request->getfile('pic_in_front');
-            if (isset($scan)) {
-                if (!file_exists(base_url('uploads/cars/pic_in_front/' . $scan->getName()))) {
-                    if ($scan->isValid()) {
-                        $scan->move('uploads/cars/pic_in_front', $scan->getName());
-                        $stateParameters->data['pic_in_front'] = $scan->getName();
-                    }
-                }
-            }
-
-            $scan = $this->request->getfile('scan_govahiname');
-            if (isset($scan)) {
-                if (!file_exists(base_url('uploads/cars/scan_govahiname/' . $scan->getName()))) {
-                    if ($scan->isValid()) {
-                        $scan->move('uploads/cars/scan_govahiname', $scan->getName());
-                        $stateParameters->data['scan_govahiname'] = $scan->getName();
-                    }
-                }
-            }
+        }
 
             return $stateParameters;
         });
+        
 
-
-
-        // $crud->callbackBeforeUpdate(function ($stateParameters) use ($field) {
-
-        //     $file = $this->request->getFile($field);
-        //     if(isset($file)){
-        //     if (!file_exists(base_url('uploads/cars/' . $field . '/' . $file->getName()))) {
-        //         if ($file->isValid()) {
-        //             $file->move('uploads/cars/' . $field . '/', $file->getName());
-        //             $stateParameters->data[$field] = $file->getName();
-        //         }
-        //     }
-        // }
-        //     return $stateParameters;
-        // });
-
-        $crud->callbackBeforeInsert(function ($stateParameters) use ($field) {
-            $file = $this->request->getFile('ax');
+        $crud->callbackBeforeInsert(function ($stateParameters) {
+            $fields = ['pic_back', 'pic_front', 'pic_in_back', 'pic_in_front', 'scan_govahiname'];
+            foreach ($fields as $field) {
+            $file = $this->request->getFile($field);
             if (isset($file)) {
-                if (!file_exists(base_url('uploads/cars/ax/' . $file->getName()))) {
-                    if ($file->isValid()) {
-                        $file->move('uploads/cars/ax', $file->getName());
-                        $stateParameters->data['ax'] = $file->getName();
-                    }
+                if (!file_exists('uploads/drivers/' . $stateParameters->data['driver_id'] . '/' . $file->getName())) {
+                if ($file->isValid()) {
+                    $file->move('uploads/drivers/' . $stateParameters->data['driver_id'], $file->getName());
+                    $stateParameters->data[$field] = $file->getName();
+                }
                 }
             }
-
-            $scan = $this->request->getfile('scan_melli');
-            if (isset($scan)) {
-                if (!file_exists(base_url('uploads/cars/scan_melli/' . $scan->getName()))) {
-                    if ($scan->isValid()) {
-                        $scan->move('uploads/cars/scan_melli', $scan->getName());
-                        $stateParameters->data['scan_melli'] = $scan->getName();
-                    }
-                }
             }
-
             return $stateParameters;
         });
 
@@ -274,7 +393,16 @@ class Cars extends BaseController
         $segment3 = $uri->getSegment(2);
         $segment4 = $uri->getSegment(3);
 
+
+        $referer = $this->request->getServer('HTTP_REFERER');
+        $referer = str_replace(base_url(), '', $referer);
+
+
         $fields = ['pic_back', 'pic_front', 'pic_in_back', 'pic_in_front', 'scan_govahiname'];
+
+        $CarModel = new CarModel();
+        $car = $CarModel->where('cid', $segment4)->first();
+        $driver_id = $car['driver_id'];
 
 
 
@@ -288,18 +416,22 @@ class Cars extends BaseController
 
             if ($query->getNumRows() > 0) {
 
-                $file = 'uploads/cars/' . $segment3 . '/' . $query->getResultArray()[0][$segment3];
+                $file = 'uploads/drivers/' . $driver_id . '/' . $query->getResultArray()[0][$segment3];
 
                 $builder->set($segment3, '');
                 $builder->where('cid', $segment4);
                 $builder->update();
-                unlink($file);
-                return redirect()->back()->with('success', 'Field updated successfully.');
+                if (is_file($file)) {
+                    unlink($file);
+                }
+                return redirect()->to($referer)->with('success', 'Field updated successfully.');
             } else {
-                return redirect()->back()->with('error', 'Car not found.');
+                return redirect()->to($referer)->with('error', 'Car not found.');
             }
         } else {
-            return redirect()->back()->with('error', 'Invalid field type.');
+            return redirect()->to($referer)->with('error', 'Invalid field type.');
         }
     }
+
+
 }

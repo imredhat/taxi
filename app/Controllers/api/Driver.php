@@ -11,6 +11,7 @@ use CodeIgniter\RESTful\ResourceController;
 
 class Driver extends ResourceController
 {
+    
 
     public function Cars()
     {
@@ -54,7 +55,7 @@ class Driver extends ResourceController
 
     }
 
-    public function NewService(){
+    public function getNotifications(){
         $hash = $this->request->getPost('hash');
         $carID = $this->request->getPost('carID');        
 

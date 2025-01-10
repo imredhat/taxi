@@ -34,6 +34,19 @@ $routes->post('/Cars/Drivers/(:any)', 'Cars::Drivers/$1');
 
 $routes->get('Driver/Info/(:any)', 'Drivers::Info/$1');
 
+$routes->get('Driver/Cars/(:any)', 'Cars::DriverCars/$1');
+
+
+$routes->get('Driver/Cars/(:any)/(:any)/(:any)', 'Cars::DriverCars::All/$1/$2/$3');
+$routes->post('Driver/Cars/(:any)(:any)/(:any)', 'Cars::DriverCars::All/$1/$2/$3');
+
+
+// $routes->get('all-drivers/(:any)', 'Drivers::All/$1');
+// $routes->post('all-drivers/(:any)', 'Drivers::All/$1');
+
+// http://localhost:8080/all-drivers/edit/2
+// // Driver/Cars/2/edit/1
+
 $routes->get('RC/(:any)', to: 'Cars::RC/$1/$2');
 $routes->get('RD/(:any)', to: 'Drivers::RD/$1/$2');
 
@@ -133,7 +146,13 @@ $routes->add('Request/ConfirmReq', 'Request::ConfirmReq');
 
 
 
+// ______________________________________ Request _______________________________________
 
+$routes->get('Pay/UserPay', 'Pay::UserPay');
+$routes->post('Pay/UserPay', 'Pay::UserPay');
+
+$routes->get('Pay/UserPayStart', 'Pay::UserPayStart');
+$routes->post('Pay/UserPayStart', 'Pay::UserPayStart');
 
 
 
@@ -168,6 +187,8 @@ $routes->post('api/auth/createUser', 'api\Auth::createUser');
 
 $routes->post('api/driver/cars', 'api\Driver::Cars');
 $routes->get('api/car/brands', 'api\Driver::Brands');
-$routes->post('api/driver/NewService', 'api\Driver::NewService');
+$routes->post('api/driver/NewService', 'api\Driver::getNotifications');
+
+$routes->post('api/request/Send', 'api\Request::Send');
 
 // $routes->get('api/auth/logout', 'API\Auth::logout');

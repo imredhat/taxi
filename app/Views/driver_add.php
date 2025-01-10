@@ -387,6 +387,38 @@
 
 
                                 <div class="col-lg-12">
+                                    <div class="form-group mb-4">
+                                        <label class="label"> تصویر پشت کارت ماشین</label>
+                                        <div class="form-group position-relative">
+                                            <input type="file" class="form-control text-dark ps-5 h-58" name="scan_car_card_back">
+                                            <i class="ri-user-3-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-12">
+                                    <div class="form-group mb-4">
+                                        <label class="label"> تصویر برگه بیمه</label>
+                                        <div class="form-group position-relative">
+                                            <input type="file" class="form-control text-dark ps-5 h-58" name="scan_insurance">
+                                            <i class="ri-user-3-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="form-group mb-4">
+                                        <label class="label"> تصویر الحاقیه برگه بیمه</label>
+                                        <div class="form-group position-relative">
+                                            <input type="file" class="form-control text-dark ps-5 h-58" name="scan_insurance_Addendum">
+                                            <i class="ri-user-3-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-12">
                                     <div class="form-group d-flex gap-3">
                                         <button class="btn btn-primary bg-primary bg-opacity-10 text-primary py-3 px-5 fw-semibold border-0 prev-tab" data-bs-target="#step3-tab-pane" type="button"> قبلی</button>
                                         <button class="btn btn-primary py-3 px-5 fw-semibold text-white next-tab" data-bs-target="#step4-tab-pane" type="button"> بعدی</button>
@@ -428,19 +460,19 @@
                                         </div>
                                     </div>
 
-<style>
-    .image-container {
-        width: 100%;
-        height: 300px;
-        overflow: hidden;
-    }
+                        <style>
+                            .image-container {
+                                width: 100%;
+                                height: 300px;
+                                overflow: hidden;
+                            }
 
-    .image-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-</style>
+                            .image-container img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                            }
+                        </style>
                                 </div>
                                 </div>
 

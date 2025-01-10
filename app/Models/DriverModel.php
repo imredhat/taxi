@@ -30,7 +30,7 @@ class DriverModel extends Model
         'postal_code', 
         'note',
         'hash',
-        'scan_govahiname'
+        'scan_govahiname',
     ];
 
     protected $returnType = 'array';

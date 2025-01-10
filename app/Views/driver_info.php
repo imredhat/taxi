@@ -57,7 +57,30 @@
                 <?=$Driver['name'] . ' ' . $Driver['lname']?>
             </h3>
             <div class="row mt-4">
-                <li
+                
+
+            <li class="d-flex justify-content-between align-items-center border-bottom border-color-gray pb-10 mb-10">
+                    <span>کد راننده</span>
+                    <div class="d-flex align-content-center">
+                        <span class="fs-14 d-flex align-items-center">
+                            <?php
+                            
+                            require_once APPPATH.'Libraries/jdf.php'; 
+
+                            $date_created = new DateTime($Driver['date_created']);
+                            $gregorian_date = explode('-', $date_created->format('Y-m-d'));
+                            $persian_date_array = gregorian_to_jalali($gregorian_date[0], $gregorian_date[1], $gregorian_date[2]);
+                            $persian_date = implode('', $persian_date_array); 
+
+                            $driver_code = $persian_date . '-' . (1000 + $Driver['did']);
+                            echo $driver_code;
+                            ?>
+                        </span>
+                    </div>
+                </li> 
+        
+            
+            <li
                     class="d-flex justify-content-between align-items-center border-bottom border-color-gray pb-10 mb-10">
                     <span>موبایل</span>
                     <div class="d-flex align-content-center">
@@ -147,7 +170,7 @@
                 <span>کارت ملی</span>
                 <div class="d-flex align-content-center">
                     <a href="<?=base_url()?>uploads/drivers/<?=$Driver['did']?>/<?=$Driver['scan_melli']?>"
-                        data-bs-toggle="modal" data-bs-target="#scanMelliModal">
+                    data-bs-toggle="modal" data-bs-target="#scanModal">
                         <img style="width: 50px;"
                             src="<?=base_url()?>uploads/drivers/<?=$Driver['did']?>/<?=$Driver['scan_melli']?>"
                             alt="اسکن کارت ملی" class="img-fluid" style="max-width: 100px;">
@@ -160,7 +183,7 @@
                 <span>گواهینامه</span>
                 <div class="d-flex align-content-center">
                     <a href="<?=base_url()?>uploads/drivers/<?=$Driver['did']?>/<?=$Driver['scan_govahiname']?>"
-                        data-bs-toggle="modal" data-bs-target="#scanGovahinameModal">
+                    data-bs-toggle="modal" data-bs-target="#scanModal">
                         <img style="width: 50px;"
                             src="<?=base_url()?>uploads/drivers/<?=$Driver['did']?>/<?=$Driver['scan_govahiname']?>"
                             alt="اسکن گواهینامه" class="img-fluid" style="max-width: 100px;">
@@ -171,45 +194,6 @@
 
       
 
-            <!-- Lightbox Modal for Scan Melli -->
-            <div class="modal fade" id="scanMelliModal" tabindex="-1" aria-labelledby="scanMelliModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <img src="" id="scanMelliImage" class="img-fluid" alt="اسکن کارت ملی">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Lightbox Modal for Scan Govahiname -->
-            <div class="modal fade" id="scanGovahinameModal" tabindex="-1" aria-labelledby="scanGovahinameModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <img src="" id="scanGovahinameImage" class="img-fluid" alt="اسکن گواهینامه">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <script>
-            document.querySelector('[data-bs-target="#scanGovahinameModal"]').addEventListener('click', function() {
-                var src = this.getAttribute('href');
-                document.querySelector('#scanGovahinameModal img').setAttribute('src', src);
-            });
-            </script>
-
-
-            <script>
-            document.querySelector('[data-bs-target="#scanMelliModal"]').addEventListener('click', function() {
-                var src = this.getAttribute('href');
-                document.querySelector('#scanMelliModal img').setAttribute('src', src);
-            });
-            </script>
         </div>
 
         <!-- Car Information Section -->
@@ -301,9 +285,12 @@
 
                     <div class="col-md-6">
 
-                        <li
-                            class="d-flex justify-content-between align-items-center border-bottom border-color-gray pb-10 mb-10">
-                            <span>برند</span>
+                    <li class="d-flex justify-content-between align-items-center border-bottom border-color-gray pb-10 mb-10">
+                        <span>برند</span>
+                        <div class="d-flex align-content-center">
+                            <span class="fs-14 d-flex align-items-center"><?=$car['brand']?></span>
+                        </div>
+                    </li>
 
 
 
@@ -372,7 +359,7 @@
                             <span>کارت ماشین</span>
                             <div class="d-flex align-content-center">
                                 <a href="<?=base_url()?>uploads/drivers/<?=$Driver['did']?>/<?=$car['scan_car_card']?>"
-                                    data-bs-toggle="modal" data-bs-target="#scanCarCardModal">
+                                data-bs-toggle="modal" data-bs-target="#scanModal">
                                     <img style="width: 50px;"
                                         src="<?=base_url()?>uploads/drivers/<?=$Driver['did']?>/<?=$car['scan_car_card']?>"
                                         alt="اسکن کارت ماشین" class="img-fluid" style="max-width: 100px;">
@@ -381,6 +368,59 @@
                         </li>
 
 
+                    <li class="d-flex justify-content-between align-items-center border-bottom border-color-gray pb-10 mb-10">
+                        <span>تصویر پشت کارت ماشین</span>
+                        <div class="d-flex align-content-center">
+                            <?php if (isset($car['scan_car_card_back']) && !empty($car['scan_car_card_back'])): ?>
+                                <a href="<?=base_url()?>uploads/drivers/<?=$Driver['did']?>/<?=$car['scan_car_card_back']?>" data-bs-toggle="modal" data-bs-target="#scanModal">
+                                    <img style="width: 50px;" src="<?=base_url()?>uploads/drivers/<?=$Driver['did']?>/<?=$car['scan_car_card_back']?>" alt="تصویر پشت کارت ماشین" class="img-fluid" style="max-width: 100px;">
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    </li>
+
+                    <li class="d-flex justify-content-between align-items-center border-bottom border-color-gray pb-10 mb-10">
+                        <span>تصویر بیمه ماشین</span>
+                        <div class="d-flex align-content-center">
+                            <?php if (isset($car['scan_insurance']) && !empty($car['scan_insurance'])): ?>
+                                <a href="<?=base_url()?>uploads/drivers/<?=$Driver['did']?>/<?=$car['scan_insurance']?>" data-bs-toggle="modal" data-bs-target="#scanModal">
+                                    <img style="width: 50px;" src="<?=base_url()?>uploads/drivers/<?=$Driver['did']?>/<?=$car['scan_insurance']?>" alt="تصویر بیمه ماشین" class="img-fluid" style="max-width: 100px;">
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    </li>
+
+                    <li class="d-flex justify-content-between align-items-center border-bottom border-color-gray pb-10 mb-10">
+                        <span>تصویر الحاقیه بیمه</span>
+                        <div class="d-flex align-content-center">
+                            <?php if (isset($car['scan_insurance_addendum']) && !empty($car['scan_insurance_addendum'])): ?>
+                                <a href="<?=base_url()?>uploads/drivers/<?=$Driver['did']?>/<?=$car['scan_insurance_addendum']?>" data-bs-toggle="modal" data-bs-target="#scanModal">
+                                    <img style="width: 50px;" src="<?=base_url()?>uploads/drivers/<?=$Driver['did']?>/<?=$car['scan_insurance_addendum']?>" alt="تصویر الحاقیه بیمه" class="img-fluid" style="max-width: 100px;">
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    </li>
+
+                    <!-- Lightbox Modal for Scans -->
+                    <div class="modal fade" id="scanModal" tabindex="-1" aria-labelledby="scanModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <img src="" id="scanImage" class="img-fluid mt-2" alt="تصویر">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                    document.querySelectorAll('[data-bs-target="#scanModal"]').forEach(function(element) {
+                        element.addEventListener('click', function() {
+                            var src = this.getAttribute('href');
+                            document.querySelector('#scanModal img').setAttribute('src', src);
+                        });
+                    });
+                    </script>
 
                     </div>
 
