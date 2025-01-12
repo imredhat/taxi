@@ -80,18 +80,28 @@ class Drivers extends BaseController
         $crud->unsetAdd();
         // $crud->setRead();
 
-        $crud->setActionButton('', 'fa fa-credit-card DriverTab', function ($row) {
-            return '/DriverCard/' . $row;
-        }, false);
+        $crud->setActionButton('', 'fa-credit-card', function ($row) {
+            return 'DriverCard/'.$row;
+        }, true , "DriverTab");
+
+        
+
+        $crud->setActionButton('', 'fa-info-circle', function ($row) {
+            return 'Driver/Info/'.$row;
+        }, true , "Info");
+        
+        $crud->setActionButton('', 'fa-car', function ($row) {
+            return 'Driver/Cars/'.$row;
+        }, true );
 
 
-        $crud->setActionButton('', 'fa fa-info-circle Info', function ($row) {
-            return 'Driver/Info/' . $row;
-        }, false);
+        // $crud->setActionButton('', 'fa-info-circle Info', function ($row) {
+        //     return 'Driver/Info/' . $row;
+        // }, true);
 
-        $crud->setActionButton('', 'fa fa-car', function ($row) {
-            return 'Driver/Cars/' . $row;
-        }, false);
+        // $crud->setActionButton('', 'fa-car', function ($row) {
+        //     return 'Driver/Cars/' . $row;
+        // }, true);
 
         $crud->columns(['dod', 'ax', 'name', 'lname', 'gender', 'mobile','melli', 'date_created']);
         $crud->fields(['ax', 'name', 'lname', 'gender', 'mobile', 'mobile2', 'password', 'birthday', 'phone', 'address',  'melli', 'scan_melli', 'scan_govahiname', 'bank', 'shaba', 'education_level', 'foreign_language', 'foreign_language_proficiency', 'postal_code', 'note']);

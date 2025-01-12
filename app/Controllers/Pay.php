@@ -15,7 +15,7 @@ class Pay extends BaseController
 
     public function UserPayStart()
     {
-      
+
         $name = $this->request->getPost('name');
         $mobile = $this->request->getPost('mobile');
         $amount = $this->request->getPost('amount');
@@ -30,6 +30,7 @@ class Pay extends BaseController
 
         // load the config file from your project
         // $paymentConfig = require('/vendor/shetabit/multipay/config/payment.php');
+
         $payment = new Payment();
 
         $invoice = new Invoice;
@@ -42,18 +43,13 @@ class Pay extends BaseController
             ->detail('amount', $data['amount'])
             ->detail('description', $data['description']);
 
-
-            $payment->purchase($invoice,function($driver, $transactionId) {
-                // We can store $transactionId in database.
-                print_r($transactionId);
-            });
-
-            
-
-
-        echo "<pre>";
-        print_r($invoice);
-        die();
+            return $payment->purchase(
+                (new Invoice)->amount(1000), 
+                function($driver, $transactionId) {
+                    // Store transactionId in database.
+                    // We need the transactionId to verify payment in the future.
+                }
+            )->pay()->render();
 
         // $data['payment_id'] = $payment->getPaymentId();
 

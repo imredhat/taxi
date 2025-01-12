@@ -82,8 +82,9 @@
                                 if(!empty($row->action_urls)){
                                     foreach($row->action_urls as $action_unique_id => $action_url){
                                         $action = $actions[$action_unique_id];
+
                                         ?>
-                                        <a href="<?php echo $action_url; ?>" class="btn btn-default">
+                                        <a  href="<?php echo $action_url; ?>" class="btn btn-default" id="<?php echo $action->aClass; ?>">
                                             <i class="fa <?php echo $action->css_class; ?>"></i> <?php echo $action->label?>
                                         </a>
                                     <?php }

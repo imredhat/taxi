@@ -51,7 +51,7 @@ class Saman extends Driver
     public function purchase()
     {
         $data = array(
-            'MID' => $this->settings->merchantId,
+            'MID' => 14642597,
             'ResNum' => $this->invoice->getUuid(),
             'Amount' => $this->invoice->getAmount() * ($this->settings->currency == 'T' ? 10 : 1), // convert to rial
             'CellNumber' => ''
@@ -76,6 +76,7 @@ class Saman extends Driver
         );
 
         $response = $soap->RequestToken($data['MID'], $data['ResNum'], $data['Amount'], $data['CellNumber']);
+        
 
         $status = (int)$response;
 

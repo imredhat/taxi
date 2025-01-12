@@ -5078,11 +5078,12 @@ class GroceryCrud extends grocery_CRUD_States
      *
      * @param string $label
      * @param string $cssClass
+     * @param string $aClass
      * @param callable|null $urlCallback
      * @param bool $newTab
      * @return $this
      */
-    public function setActionButton(string $label, string $cssClass, callable $urlCallback, $newTab = false)
+    public function setActionButton(string $label, string $cssClass, callable $urlCallback, $newTab = false , $aClass=null)
     {
         $this->actions[]  = (object)array(
             'label' 		=> $label,
@@ -5091,7 +5092,8 @@ class GroceryCrud extends grocery_CRUD_States
             'css_class' 	=> $cssClass,
             'url_callback' 	=> $urlCallback,
             'url_has_http'	=> false,
-            'new_tab'       => $newTab
+            'new_tab'       => $newTab,
+            'aClass'        => $aClass
         );
 
         return $this;
