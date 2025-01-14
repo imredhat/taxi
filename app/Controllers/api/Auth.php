@@ -13,7 +13,7 @@ class Auth extends ResourceController
     protected $session;
 
 
-    public function start(){
+    public function checIn(){
         $tel = $this->request->getPost('tel');
 
         // Convert Persian numbers to English
@@ -26,10 +26,10 @@ class Auth extends ResourceController
             return $this->respond(['status' => 'error', 'message' => 'شماره تلفن نامعتبر است'], 400);
         }
 
-        $client = new \Pishran\IpPanel\Client('QDGci7cuayxnUK0O9pjrtQ49XLLBc6q3OceICtwt8G4=');
+        $client = new \Pishran\IpPanel\Client('SA11ECEv6ZmVGJbalKfGGhGcLKjXNA00fxoN5DMoFPs=');
 
         $patternCode = 's108sjij14ar631'; // شناسه الگو
-        $originator = '+985000125475'; // شماره فرستنده
+        $originator = '+983000505'; // شماره فرستنده
         $recipient = $tel; // شماره گیرنده
 
         $code = rand(1000, 9999);
@@ -116,6 +116,18 @@ class Auth extends ResourceController
             return $this->respond(['status' => 'error', 'message' => $validation->getErrors()], 400);
         }
 
+        
+        // Initialize the DriverModel
+        $Driver = new DriverModel();
+        // Query the database to check if a user with the mobile number exists
+        $user = $Driver->where('mobile', $this->request->getPost('mobile'))->first();
+
+        // Check if the user exists
+        if ($user) {
+            return $this->respond(['status' => 'success', 'message' => 'User  exists']);
+        } 
+
+
         $data = [
             'gender'                            => $this->request->getPost('gender'),
             'name'                              => $this->request->getPost('first_name'),
@@ -190,7 +202,7 @@ class Auth extends ResourceController
                 'scan_car_card'                 => $this->upload_file('scan_car_card', "drivers" , $DID),
                 'scan_car_card_back'            => $this->upload_file('scan_car_card_back', "drivers" , $DID),
                 'scan_insurance'                => $this->upload_file('scan_insurance', "drivers" , $DID),
-                'scan_insurance_addendum'       => $this->upload_file('scan_insurance_Addendum', "drivers" , $DID),
+                'scan_insurance_addendum'       => $this->upload_file('scan_insurance_addendum', "drivers" , $DID),
             );
 
             $Car = new CarModel();
@@ -202,12 +214,12 @@ class Auth extends ResourceController
     }
 
 
-    private function upload_file($field_name, $type)
+    private function upload_file($field_name, $type, $DID)
     {
         $file = $this->request->getFile($field_name);
         if (!empty($file)) {
             $config = [
-                'uploadPath' => './uploads/' . $type . "/" . $field_name,
+                'uploadPath' => './uploads/' . $type . "/" . $DID,
                 'allowedTypes' => 'jpg|jpeg|png',
                 'maxSize' => 1024,
             ];

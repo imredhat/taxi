@@ -9,7 +9,7 @@
         </div>
         <!-------------------------- End of top Box(Menu) ---------------------------------->
         <div class="image-box">
-            <img width="150" height="150" src="<?= base_url() ?>uploads/drivers/<?=$driver['did']?>/<?= esc($driver['ax']) ?>" alt="user-profile">
+            <img width="100%" height="100%" src="<?= base_url() ?>uploads/drivers/<?=$driver['did']?>/<?= esc($driver['ax']) ?>" alt="user-profile" style="object-fit: cover;">
         </div>
         <!-------------------------- End of Image Box ---------------------------------->
         <div class="main-box">

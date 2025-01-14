@@ -32,10 +32,10 @@ class Pay extends BaseController
         // $paymentConfig = require('/vendor/shetabit/multipay/config/payment.php');
 
         $payment = new Payment();
-
-        $invoice = new Invoice;
+        $invoice = new Invoice();
 
         // Set invoice amount.
+
         $invoice->amount(1000);
 
         $invoice->detail('name', $data['name'])
@@ -51,9 +51,33 @@ class Pay extends BaseController
                 }
             )->pay()->render();
 
+
         // $data['payment_id'] = $payment->getPaymentId();
 
         // $this->sendToBank($data);
+    }
+
+    public function Check()
+    {
+
+        print_r($_POST);
+        die();
+        $amount = $this->request->getPost('amount');
+        $transaction_id = $this->request->getPost('transactionId');
+
+        $payment = new Payment();
+
+        try {
+            $receipt = $payment->amount($amount)->transactionId($transaction_id)->verify();
+
+            // You can show payment referenceId to the user.
+            echo $receipt->getReferenceId();
+
+        } catch (InvalidPaymentException $exception) {
+
+            echo $exception->getMessage();
+        }
+
     }
 
 }

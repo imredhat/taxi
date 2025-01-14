@@ -7,6 +7,7 @@ use App\Models\BrandModel;
 use App\Models\CarModel;
 use App\Models\DriverModel;
 use App\Models\RequestModel;
+use App\Models\TypeModel;
 use CodeIgniter\RESTful\ResourceController;
 
 class Driver extends ResourceController
@@ -102,5 +103,32 @@ class Driver extends ResourceController
 
         return $this->respond(['status' => 'success', 'brands' => $brandsData]);
     }
+
+
+
+    public function Types()
+    {
+        
+        $Types = new TypeModel();
+        $AllTypes = $Types->orderBy('bid')->withDeleted()->findAll();
+
+        if (!$AllTypes) {
+            return $this->respond(['status' => 'error', 'message' => 'هیچ تیپ خودرویی یافت نشد'], 404);
+        }
+
+        $TypeData = [];
+        foreach ($AllTypes as $type) {
+            $TypeData[] = [
+                'id' => $type['bid'],
+                'name' => $type['type_name'],
+                'class' => $type['type_class'],
+                'brand' => $type['type_brand'],
+            ];
+        }
+
+        return $this->respond(['status' => 'success', 'types' => $TypeData]);
+    }
+
+
 
 }

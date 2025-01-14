@@ -10,7 +10,7 @@ return [
     | You can switch to a different driver at runtime.
     |
     */
-    'default' => 'saman',
+    'default' => 'sep',
 
     /*
     |--------------------------------------------------------------------------
@@ -306,14 +306,23 @@ return [
             'description' => 'payment using saman',
             'currency' => 'T', //Can be R, T (Rial, Toman)
         ],
+        'sep_user' => [
+            'apiGetToken' => 'https://sep.shaparak.ir/onlinepg/onlinepg',
+            'apiPaymentUrl' => 'https://sep.shaparak.ir/OnlinePG/OnlinePG',
+            'apiVerificationUrl' => 'https://sep.shaparak.ir/verifyTxnRandomSessionkey/ipg/VerifyTransaction',
+            'terminalId' => '14642597',
+            'callbackUrl' => '/userPay/callback',
+            'description' => 'Saman Electronic Payment for Saderat & Keshavarzi',
+            'currency' => 'T', //Can be R, T (Rial, Toman)
+        ],
         'sep' => [
             'apiGetToken' => 'https://sep.shaparak.ir/onlinepg/onlinepg',
             'apiPaymentUrl' => 'https://sep.shaparak.ir/OnlinePG/OnlinePG',
             'apiVerificationUrl' => 'https://sep.shaparak.ir/verifyTxnRandomSessionkey/ipg/VerifyTransaction',
-            'terminalId' => '',
-            'callbackUrl' => '',
+            'terminalId' => '14642597',
+            'callbackUrl' => '/userPay/callback',
             'description' => 'Saman Electronic Payment for Saderat & Keshavarzi',
-            'currency' => 'T', //Can be R, T (Rial, Toman)
+            'currency' => 'R', //Can be R, T (Rial, Toman)
         ],
         'sepehr' => [
             'apiGetToken' => 'https://sepehr.shaparak.ir:8081/V1/PeymentApi/GetToken',

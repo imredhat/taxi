@@ -49,6 +49,7 @@ $routes->post('Driver/Cars/(:any)(:any)/(:any)', 'Cars::DriverCars::All/$1/$2/$3
 
 $routes->get('RC/(:any)', to: 'Cars::RC/$1/$2');
 $routes->get('RD/(:any)', to: 'Drivers::RD/$1/$2');
+$routes->get('RU/(:any)', to: 'User::RD/$1/$2');
 
 
 
@@ -154,6 +155,10 @@ $routes->post('Pay/UserPay', 'Pay::UserPay');
 $routes->get('Pay/UserPayStart', 'Pay::UserPayStart');
 $routes->post('Pay/UserPayStart', 'Pay::UserPayStart');
 
+$routes->post('usePay/callback', 'Pay::Check');
+
+
+
 
 
 
@@ -182,11 +187,14 @@ $routes->post('Pay/UserPayStart', 'Pay::UserPayStart');
 // ______________________________________ API Routes _______________________________________
 
 $routes->post('api/auth/login', 'api\Auth::login');
-$routes->post('api/auth/start', 'api\Auth::start');
+
+$routes->post('api/auth/checIn', 'api\Auth::checIn');
+
 $routes->post('api/auth/createUser', 'api\Auth::createUser');
 
 $routes->post('api/driver/cars', 'api\Driver::Cars');
 $routes->get('api/car/brands', 'api\Driver::Brands');
+$routes->get('api/car/type', 'api\Driver::Types');
 $routes->post('api/driver/NewService', 'api\Driver::getNotifications');
 
 $routes->post('api/request/Send', 'api\Request::Send');

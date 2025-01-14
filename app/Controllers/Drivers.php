@@ -262,6 +262,7 @@ class Drivers extends BaseController
 
     function UploadCallback($crud, $field)
     {
+        
         $crud->callbackColumn($field, function ($row, $data) use ($field) {
             return '<img src="' . base_url('uploads/drivers/' . $data -> did . '/' . $row) . '" width="100" height="200">';
         });
@@ -375,6 +376,9 @@ class Drivers extends BaseController
 
     public function OneStep()
     {
+        // echo "<pre>";
+        // print_r($_FILES);
+        // die();
         // Load the form validation library
 
 
@@ -413,6 +417,17 @@ class Drivers extends BaseController
         // die();
 
         $Driver = new DriverModel();
+
+         // Query the database to check if a user with the mobile number exists
+         $user = $Driver->where('mobile', $this->request->getPost('mobile'))->first();
+ 
+         // Check if the user exists
+         if ($user) {
+             echo "<script>alert('چنسن کاربری با این شماره تلفن از قبل وجود دارد ')</script>";
+             return redirect()->to('add-drivers');
+         } 
+
+ 
 
         if ($Driver->insert($driver)) {
 

@@ -10,7 +10,8 @@ class TypeModel extends Model
     protected $primaryKey = 'bid';
     protected $allowedFields = [
         'type_name',
-        'type_class'
+        'type_class',
+        'type_brand'
         ];
 
     protected $returnType = 'array';

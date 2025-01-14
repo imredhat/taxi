@@ -43,7 +43,7 @@
         <!-- Driver Information Section -->
         <div class="driver-info text-center">
             <img src="<?=base_url()?>uploads/drivers/<?=$Driver['did']?>/<?=$Driver['ax']?>" alt="عکس راننده"
-                class="driver-photo">
+                class="driver-photo" style="width: 100%; height: 100%; object-fit: cover;">
             <h3 class="mt-3">
                 <span class="border-color-gray" style="font-size: 13px;">
                     <?php if ($Driver['gender'] == 'مرد') {

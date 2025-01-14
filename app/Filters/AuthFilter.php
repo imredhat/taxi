@@ -15,14 +15,8 @@ class AuthFilter implements FilterInterface
         // حذف این قانون برای درخواست‌های API
         $request = service('request');
         $uri = $request->getUri()->getPath();
-        $excludedPaths = ['api', 'Payment'];
-        if ($request->isAJAX() || strpos($request->getHeaderLine('Accept'), 'application/json') !== false) {
+        if ($request->isAJAX() || strpos($request->getHeaderLine('Accept'), 'application/json') !== false || strpos($uri, 'api') || strpos($uri, 'Pay') !== false) {
             return;
-        }
-        foreach ($excludedPaths as $path) {
-            if (strpos($uri, $path) !== false) {
-            return;
-            }
         }
 
         if (!session()->get('user_id')) {

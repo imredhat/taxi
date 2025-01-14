@@ -21,9 +21,8 @@ class UserModel extends Model
         'phone',
         'type',
         'status',
-        'created_at',
-        'updated_at',
-        'deleted_at'
+        'ax',
+        'start_date'
     ];
 
     protected $useTimestamps = true;

@@ -226,8 +226,6 @@ class Cars extends BaseController
 
         $crud->where('driver_id', $ID);
 
-        // $crud->setRead();
-        // $crud->setRead();
         $crud->columns(['brand', 'cid', 'driver_id', 'fuel', 'pelak_mix', 'pic_front',   'type', 'type_class']);
         $crud->fields([
             'owner','driver_id', 'brand','type', 'type_class', 'fuel', 'iran', 'pelak', 'harf', 'pelak_last',  
@@ -269,6 +267,19 @@ class Cars extends BaseController
             return "ایران".$row->iran . '-' . $row->harf . ' ' . $row->pelak . ' ' . $row->pelak_last;
         });
 
+        $crud->setRelation('type_class', 'packages', 'name');
+        
+
+        $crud->fieldType("fuel", "dropdown", [
+            "بنزینی" => "بنزینی", 
+            "گاز سوز" => "گاز سوز", 
+            "گازوئیل" => "گازوئیل", 
+            "دوگانه سوز" => "دوگانه سوز", 
+            "هیبریدی" => "هیبریدی"
+        ]);
+        $crud->setRelation('type', 'brand_type', 'type_name');
+        $crud->setRelation('driver_id', 'driver', '{name} {lname}');
+        $crud->setRelation('brand', 'brand', 'brand');
         $crud->setRelation('type_class', 'packages', 'name');
         $crud->fieldType("harf", "dropdown", [
             "الف" => "الف",
