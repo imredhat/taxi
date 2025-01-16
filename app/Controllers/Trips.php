@@ -76,6 +76,7 @@ class Trips extends ResourceController
         $model = new TripsModel();
 
         $data = $this->request->getPost();
+        
 
 
 
@@ -88,6 +89,10 @@ class Trips extends ResourceController
         if (!empty($this->request->getPost('company_name'))) {
             $data['company_factor'] = "Yes";
         }
+
+
+        print_r($data);
+        die();
 
         if (($this->request->getPost('isGuest')) == "0") {
 

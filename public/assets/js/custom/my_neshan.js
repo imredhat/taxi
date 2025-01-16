@@ -186,11 +186,17 @@ $(document).ready(function () {
             .then(response => response.json())
             .then(data => {
 
+ 
+
                 if (label == "start") {
                     tripData.startAdd = data.state + '-' + data.city + '-' + data.address;
+                    tripData.startAdd = tripData.startAdd.replace(/-undefined/g, '').replace(/undefined-/g, '');
                 } else {
                     tripData.endAdd = data.state + '-' + data.city + '-' + data.address;
+                    tripData.endAdd = tripData.endAdd.replace(/-undefined/g, '').replace(/undefined-/g, '');
                 }
+
+
 
 
             })
@@ -628,6 +634,7 @@ $(document).ready(function () {
         tripData.end_address_desc = document.querySelector("[name='end_address_desc']").value;
         tripData.start_address_desc = document.querySelector("textarea[name='start_address_desc']").value;
 
+        tripData.trip_type = document.querySelector("select[name='trip_type']").value;
         tripData.wait_hours = document.querySelector("input[name='wait_hours']").value;
         tripData.badRoad_km = document.querySelector("input[name='badRoad_km']").value;
         tripData.luggage = document.querySelector("[name='luggage']").value;

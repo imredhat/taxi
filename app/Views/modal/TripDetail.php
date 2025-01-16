@@ -61,7 +61,7 @@ function getServiceStatus($status)
                             <p style="margin: 0;" class="text-muted text-center">شرکت: <?= $Trip['company_name'] ?></p>
                         <?php endif; ?>
 
-                        <p style="margin: 0;" class="text-muted text-center">شناسه: <?= $Trip['id'] ?></p>
+                        <p style="margin: 0;" class="text-muted text-center">شناسه: <?= 1000 + $Trip['id'] ?></p>
 
                         <div class="row my-3">
                             <div class="col-md-6">
