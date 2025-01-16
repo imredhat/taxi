@@ -28,6 +28,7 @@ class Trips extends ResourceController
         echo view('modal/PayingFare');
         echo view('modal/UpdateStatus');
         echo view('modal/ViewItem');
+        echo view('modal/EditModal');
         echo view('modal/Request');
         echo view('modal/Dwt');
         echo view('modal/toasts');
@@ -90,9 +91,6 @@ class Trips extends ResourceController
             $data['company_factor'] = "Yes";
         }
 
-
-        print_r($data);
-        die();
 
         if (($this->request->getPost('isGuest')) == "0") {
 
@@ -305,6 +303,24 @@ function getServiceDIV($status)
     }
 }
 
+
+
+
+
+
+public function EditTrip(){
+    $uri = service('uri');
+    $ID = $uri->getSegment(2);
+
+    $Trip = new TripsModel();
+    $data['Trip'] = $Trip->find($ID);
+
+    $data['Packages']    = (new PackagesModel())->findAll();
+    $data['options']    = (new FareModel())->findAll();
+
+
+    echo view('modal/EditTrip', $data);
+}
 
 
 

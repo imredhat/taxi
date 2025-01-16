@@ -255,6 +255,12 @@ function getRandomColorPair()
                                                 </li>
 
                                                 <li>
+                                                    <a data-bs-toggle="modal" data-bs-target="#EditTrip" class="dropdown-item" data-id="<?= $S['id'] ?>" href="javascript:;">
+                                                        <i data-feather="edit"></i> ویرایش
+                                                    </a>
+                                                </li>
+
+                                                <li>
                                                     <a data-bs-toggle="modal" data-bs-target="#Delete" class="dropdown-item" data-id="<?= $S['id'] ?>"  href="javascript:;"> <i data-feather="trash-2"></i> حذف </a>
                                                 </li>
 
@@ -293,7 +299,20 @@ function getRandomColorPair()
 
 
 
+<link rel="stylesheet" href="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css">
+<script type="text/javascript" src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"></script>
 
+<script>
+    jalaliDatepicker.startWatch();
+    
+</script>
+
+<style>
+
+jdp-container {
+    z-index: 99999 !important;
+}
+</style>
 
 
 

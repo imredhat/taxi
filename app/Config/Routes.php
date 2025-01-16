@@ -125,6 +125,7 @@ $routes->get('Trips/CreateNotif(:any)', 'Trips::CreateNotif/$1');
 $routes->post('Trips/UpdateStatus(:any)', 'Trips::UpdateStatus/$1');
 $routes->post('Trips/Dwt(:any)', 'Trips::Dwt/$1');
 
+$routes->get('EditTrip/(:any)', 'Trips::EditTrip/$1');
 
 
 $routes->get('GetBrandCars/(:any)', 'Cars::GetBrandCars/$1');

@@ -91,6 +91,60 @@ $(document).ready(function () {
         });
     });
 
+
+    $('a[data-bs-target="#EditTrip"]').click(function () {
+        var tripID = $(this).data("id");
+
+        $.ajax({
+            type: "GET",
+            url: "EditTrip/" + tripID,
+            success: function (data) {
+
+                $("#EditItem").modal('show');
+
+                $("#EditItem").html(data);
+
+                // if (data.status == 'OK') {
+                //     $("#EditItem").modal('show');
+                // } else {
+                //     warn('مشکلی در دریافت اطلاعات سفر رخ داده است');
+                // }
+            }
+        });
+    });
+
+    $("#saveTripChanges").click(function () {
+        var tripID = $("#EditTripModal input[name='tripID']").val();
+        var passengerFare = $("#EditTripModal input[name='passenger_custom_fare']").val().replace(/,/g, '');
+        var driverFare = $("#EditTripModal input[name='driver_custom_fare']").val().replace(/,/g, '');
+        var package = $("#EditTripModal select[name='package']").val();
+
+        if (passengerFare.length <= 0 || driverFare.length <= 0) {
+            warn('لطفا اطلاعات را با دقت پر کنید');
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "Trips/UpdateTrip",
+            data: {
+                tripID: tripID,
+                passengerFare: passengerFare,
+                driverFare: driverFare,
+                package: package
+            },
+            success: function (data) {
+                if (data.status == 'OK') {
+                    toast('ویرایش سفر با موفقیت انجام شد');
+                    $("#EditTripModal").modal('hide');
+                    location.reload();
+                } else {
+                    warn('مشکلی در ویرایش سفر رخ داده است');
+                }
+            }
+        });
+    });
+
     // $("#ViewItem").click(function (e) {
     //     $("#ViewItem").empty();
     //     e.preventDefault();

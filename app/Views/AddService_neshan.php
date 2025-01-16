@@ -520,17 +520,7 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
                     
 
 
-                    <!-- Trip Type -->
-                    <div class="form-group mb-4 col-lg-12">
-                        <label class="label">نوع سفر</label>
-                        <select name="trip_type" class="form-control" required>
-                            <option value="one_way">یک طرفه رفت</option>
-                            <option value="round_trip_with_stop">رفت ، توقف ، برگشت</option>
-                            <option value="round_trip_with_service">رفت ، در اختیار ، برگشت</option>
-                        </select>
-                    </div>
-
-
+                   
 
 
                     <div class="col-lg-6"> <label class="label d-block">تعداد ساعت تاخیر</label>
@@ -545,6 +535,19 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 
                     <hr />
+
+
+                     <!-- Trip Type -->
+                     <div class="form-group mb-4 col-lg-12">
+                        <label class="label">نوع سفر</label>
+                        <select name="trip_type" class="form-control" required>
+                            <option value="one_way">یک طرفه رفت</option>
+                            <option value="round_trip_with_stop">رفت ، توقف ، برگشت</option>
+                            <option value="round_trip_with_service">رفت ، در اختیار ، برگشت</option>
+                        </select>
+                    </div>
+
+
 
 
 
@@ -785,6 +788,7 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
     var base = "<?= base_url() ?>";
 </script>
 <script src="<?= base_url() ?>assets/js/custom/my_neshan.js"></script>
+<script src="<?= base_url() ?>assets/js/custom/custom.js"></script>
 <script src="<?= base_url() ?>assets/chosen/chosen.jquery.min.js"></script>
 <link rel="stylesheet" href="<?= base_url() ?>assets/chosen/chosen.min.css" />
 
