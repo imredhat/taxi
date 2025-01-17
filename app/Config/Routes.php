@@ -127,6 +127,8 @@ $routes->post('Trips/Dwt(:any)', 'Trips::Dwt/$1');
 
 $routes->get('EditTrip/(:any)', 'Trips::EditTrip/$1');
 
+$routes->post('Trips/UpdateTrip', 'Trips::UpdateTrip');
+
 
 $routes->get('GetBrandCars/(:any)', 'Cars::GetBrandCars/$1');
 

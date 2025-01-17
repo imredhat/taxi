@@ -1,46 +1,7 @@
-<?php
-function getWeather($category)
-{
-    switch ($category) {
-        case 'snowy':
-            return 'برفی';
-        case 'rainy':
-            return 'بارانی';
-        default:
-            return 'آفتابی';
-    }
-}
-
-
-function getServiceStatus($status)
-{
-    switch ($status) {
-        case 'Called':
-            return 'استعلام';
-        case 'Reserve':
-            return 'رزرو';
-        case 'Confirm':
-            return 'تایید شده';
-        case 'Notifed':
-            return 'اطلاع رسانی شده';
-        case 'Cancled':
-            return 'کنسل شده';
-        case 'Requested':
-            return 'درخواست شده';
-        case 'Done':
-            return 'به پایان رسیده';
-    }
-}
-
-
-?>
-
-
-
-<div class="modal-dialog modal-dialog-centered">
+<div class="modal-dialog modal-dialog-centered" style="max-width: 800px;">
     <form action="/updateTrip" method="post">
         <input type="hidden" name="trip_id" value="<?= $Trip['id'] ?>">
-        <div class="modal-content">
+        <div class="modal-content" style="width: 800px !important">
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -64,18 +25,26 @@ function getServiceStatus($status)
                             <div class="row my-2">
                                 <div class="col-md-6">
                                     <label for="trip_date"><strong>تاریخ سفر:</strong></label>
-                                    <input type="text" id="trip_date" name="trip_date" class="form-control"  placeholder="روز/ماه/سال" data-jdp=""  value="<?= $Trip['trip_date'] ?>">
+                                    <input type="text" id="trip_date" name="trip_date" class="form-control" placeholder="روز/ماه/سال" data-jdp="" value="<?= $Trip['trip_date'] ?>">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="trip_time"><strong>زمان سفر:</strong></label>
-                                    <input type="text" id="trip_time" name="trip_time" class="form-control"  data-jdp="" data-jdp-only-time="" value="<?= $Trip['trip_time'] ?>">
+                                    <input type="text" id="trip_time" name="trip_time" class="form-control" data-jdp="" data-jdp-only-time="" value="<?= $Trip['trip_time'] ?>">
                                 </div>
                             </div>
                             <div class="row my-2">
+
+
                                 <div class="col-md-6">
                                     <label for="weather"><strong>وضعیت هوا:</strong></label>
-                                    <input type="text" id="weather" name="weather" class="form-control" value="<?= $Trip['weather'] ?>">
+                                    <select id="weather" name="weather" class="form-control">
+                                        <option value="sunny" <?= $Trip['weather'] == 'sunny' ? 'selected' : '' ?>>آفتابی</option>
+                                        <option value="rainy" <?= $Trip['weather'] == 'rainy' ? 'selected' : '' ?>>بارانی</option>
+                                        <option value="snowy" <?= $Trip['weather'] == 'snowy' ? 'selected' : '' ?>>برفی</option>
+                                    </select>
                                 </div>
+
+
                                 <div class="col-md-6">
                                     <label for="travelTime"><strong>زمان تقریبی سفر:</strong></label>
                                     <input type="text" id="travelTime" name="travelTime" class="form-control" value="<?= $Trip['travelTime'] ?>">
@@ -93,6 +62,25 @@ function getServiceStatus($status)
                             </div>
 
 
+
+
+                            <div class="row my-2">
+                                <div class="col-md-6">
+                                    <label for="passengerFare"><strong>کرایه اعلامی به مسافر:</strong></label>
+                                    <input type="text" id="passengerFare" name="passengerFare" class="form-control" value="<?= $Trip['userCustomFare'] ?>">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="driverFare"><strong>کرایه اعلامی به راننده:</strong></label>
+                                    <input type="text" id="driverFare" name="driverFare" class="form-control" value="<?= $Trip['driverCustomFare'] ?>">
+                                </div>
+                            </div>
+
+
+
+
+
+
+
                             <div class="row my-2">
                                 <div class="col-lg-12">
                                     <label class="label">نوع سفر</label>
@@ -104,59 +92,165 @@ function getServiceStatus($status)
                                 </div>
                             </div>
 
-                        <div class="row my-2">
-                            <div class="col-md-6">
-                                <label class="label">توقف دارد ؟</label>
-                                <select name="isWait" class="form-control" required>
-                                    <option value="0" <?= $Trip['isWait'] == '0' ? 'selected' : '' ?>>خیر</option>
-                                    <option value="1" <?= $Trip['isWait'] == '1' ? 'selected' : '' ?>>بله</option>
-                                </select>
+
+                            <div class="row my-2">
+                                <div class="col-lg-12">
+                                    <label class="label">راننده</label>
+                                    <select data-placeholder="انتخاب راننده" id="driver" name="driverID" class="form-control" required>
+                                    
+
+                                        <?php foreach ($driver as $driver): ?>
+                                            <option data-carID="<?= $driver['cid'] ?>" value="<?= $driver['did'] ?>" <?= $Trip['driverID'] == $driver['did'] ? 'selected' : '' ?>>
+                                                <?= $driver['name'] . ' ' . $driver['lname'] . ' [ ' . $driver['brand'] . ' ' . $driver['type_name'] . ' ' . $driver['color'] . ' ]' ?>
+                                            </option>
+                                        <?php endforeach; ?>
+
+                                        <option value="" <?= empty($Trip['driverID']) ? 'selected' : 'انتخاب راننده' ?>></option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label class="label d-block">تعداد ساعت تاخیر</label>
+
+
+                            <hr style="margin: 40px;" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="row my-2">
+
+                                <!-- Passenger ID -->
+                                <div class="form-group col-md-3">
+                                    <label class="label">کد اشتراک مسافر</label>
+                                    <input type="text" name="passenger_id" class="form-control" placeholder="کد مسافر" value="<?= $Trip['passenger_id'] != 0 ? $Trip['passenger_id']  : '' ?>" required>
+                                </div>
+
+                                <div class="form-group col-md-3" style="margin: 30px 0;">
+                                    <button type="button" id="checkID" class="btn btn-outline-danger fw-semibold py-2 px-4 mt-2 me-2 hover-white">
+                                        بررسی
+                                        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                    </button>
+
+                                </div>
+
+                                <div class="form-group col-lg-6">
+                                    <label class="label">مسافر کسی دیگر است ؟؟</label>
+                                    <select name="isGuest" class="form-control" required>
+                                        
+                                        <option value="0" <?= $Trip['isGuest'] == '0' ? 'selected' : '' ?>>خیر</option>
+                                        <option value="1" >بله</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="row my-2">
+
+
+                                <!-- Passenger Name -->
+                                <div class="form-group mb-4 col-lg-6">
+                                    <label class="label">نام مسافر</label>
+                                    <input type="text" name="passenger_name" class="form-control" placeholder="نام مسافر" value="<?= $Trip['isGuest'] == '0' ? $Trip['passenger_name'] : $Trip['guest_name'] ?>" required>
+                                </div>
+
+                                <!-- Passenger Phone -->
+                                <div class="form-group mb-4 col-lg-6">
+                                    <label class="label">شماره تماس مسافر</label>
+                                    <input type="text" id="passenger_tel" name="passenger_tel" class="form-control" value="<?= $Trip['isGuest'] == '0' ? $Trip['passenger_tel'] : $Trip['guest_tel'] ?>">
+                                </div>
+                            </div>
+
+                            <!-- Is Guest -->
+
+
+                            <div class="row my-2">
+
+
+                            <div class="col-lg-6"> <label class="label d-block">تعداد مسافر</label>
                                 <div class="product-quantity">
                                     <div class="add-to-cart-counter gap-3 justify-content-between">
-                                        <button type="button" class="minusBtn bg-success text-white" <?= $Trip['isWait'] == '0' ? 'disabled' : '' ?>></button>
-                                        <input name="wait_hours" type="text" size="25" value="<?= $Trip['Waithours'] ?>" class="count border-success" <?= $Trip['isWait'] == '0' ? 'disabled' : '' ?>>
-                                        <button type="button" class="plusBtn bg-success text-white" <?= $Trip['isWait'] == '0' ? 'disabled' : '' ?>></button>
+                                        <button type="button" class="minusBtn bg-success text-white"></button>
+                                        <input type="text" id="total_passenger" name="total_passenger" size="25" class="count border-success" value="<?= $Trip['total_passenger'] ?>">
+
+                                        <button type="button" class="plusBtn bg-success text-white"></button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                            
-                            <div class="row my-2">
+
+
+
+                                
                                 <div class="col-md-6">
-                                    <label for="total_passenger"><strong>تعداد مسافران:</strong></label>
-                                    <input type="text" id="total_passenger" name="total_passenger" class="form-control" value="<?= $Trip['total_passenger'] ?>">
+                                    <label class="label d-block">تعداد ساعت تاخیر</label>
+                                    <div class="product-quantity">
+                                        <div class="add-to-cart-counter gap-3 justify-content-between">
+                                            <button type="button" class="minusBtn bg-success text-white" <?= $Trip['isWait'] == '0' ? '' : '' ?>></button>
+                                            <input name="wait_hours" type="text" size="25" value="<?= $Trip['Waithours'] ?>" class="count border-success" <?= $Trip['isWait'] == '0' ? '' : '' ?>>
+                                            <button type="button" class="plusBtn bg-success text-white" <?= $Trip['isWait'] == '0' ? '' : '' ?>></button>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+
+
+                            <div class="row my-2">
+                          
                                 <div class="col-md-6">
                                     <label for="status"><strong>وضعیت سفر:</strong></label>
-                                    <input type="text" id="status" name="status" class="form-control" value="<?= $Trip['status'] ?>">
-                                </div>
-                            </div>
-                            <div class="row my-2">
-                                <div class="col-md-6">
-                                    <label for="passenger_tel"><strong>شماره تماس مسافر:</strong></label>
-                                    <input type="text" id="passenger_tel" name="passenger_tel" class="form-control" value="<?= $Trip['passenger_tel'] ?>">
-                                </div>
+                                    <select name="status" class="form-select form-control ">
+                                        <option value="Called" <?= $Trip['status'] == 'Called' ? 'selected' : '' ?>>استعلام</option>
+                                        <option value="Reserved" <?= $Trip['status'] == 'Reserved' ? 'selected' : '' ?>>رزرو</option>
+                                        <option value="Notifed" <?= $Trip['status'] == 'Notifed' ? 'selected' : '' ?>>اطلاع رسانی شده</option>
+                                        <option value="Requested" <?= $Trip['status'] == 'Requested' ? 'selected' : '' ?>>درخواست شده</option>
+                                        <option value="Confirm" <?= $Trip['status'] == 'Confirm' ? 'selected' : '' ?>>تایید شده</option>
+                                        <option value="Cancled" <?= $Trip['status'] == 'Cancled' ? 'selected' : '' ?>>کنسل شده</option>
+                                        <option value="Done" <?= $Trip['status'] == 'Done' ? 'selected' : '' ?>>به پایان رسیده</option>
+                                    </select>
+                                </div>                           
+
+
                                 <div class="col-md-6">
                                     <label for="Packgae"><strong>بسته:</strong></label>
-                                    <input type="text" id="Packgae" name="Packgae" class="form-control" value="<?= $Trip['Packgae'] ?>">
+                                    <select class="form-control" id="packageSelect" name="package">
+                                        <?php foreach ($Packages as $item): ?>
+                                            <option value="<?= htmlspecialchars($item['name']) ?>" <?= $Trip['Packgae'] == $item['name'] ? 'selected' : '' ?>><?= htmlspecialchars($item['name']) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                             </div>
+                            <input name="id" value=" <?= $Trip['id']?>"  type="hidden" />
                             <hr>
-                            <div style="height: 300px;" id="map"></div>
                         </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary updateTrip">ذخیره تغییرات</button>
+                        </div>
+
+
                         <div class="card-footer text-muted text-center">
                             تاریخ ایجاد: <?= $Trip['created_at'] ?>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">ذخیره تغییرات</button>
-            </div>
+
         </div>
     </form>
 </div>
@@ -166,165 +260,47 @@ function getServiceStatus($status)
 
 
 
+
+
+
+<script src="<?= base_url() ?>assets/chosen/chosen.jquery.min.js"></script>
+<link rel="stylesheet" href="<?= base_url() ?>assets/chosen/chosen.min.css" />
+
+<script>  var base = "<?=base_url()?>";</script>
+<script src="<?= base_url() ?>assets/js/custom/edit.js"></script>
 <script>
-
-
-$('select[name="isWait"]').on("change", function () {
-
-var val = $(this).val();
-if (val == 1) {
-    $('input[name="wait_hours"]').removeAttr("disabled");
-    $('input[name="wait_hours"]').next("button").removeAttr("disabled");
-    $('input[name="wait_hours"]').prev("button").removeAttr("disabled");
-} else {
-    $('input[name="wait_hours"]').attr("disabled", "disabled");
-    $('input[name="wait_hours"]').prev("button").attr("disabled", true);
-    $('input[name="wait_hours"]').next("button").attr("disabled", true);
-
-}
-
-});
-
-
-
-try {
-	var resultEl = document.querySelector(".resultSet"),
-		plusMinusWidgets = document.querySelectorAll(".add-to-cart-counter");
-	for (var i = 0; i < plusMinusWidgets.length; i++) {
-		plusMinusWidgets[i].querySelector(".minusBtn").addEventListener("click", clickHandler);
-		plusMinusWidgets[i].querySelector(".plusBtn").addEventListener("click", clickHandler);
-		// plusMinusWidgets[i].querySelector(".count").addEventListener("change", changeHandler);
-	}
-	function clickHandler(event) {
-		var countEl = event.target.parentNode.querySelector(".count");
-		if (event.target.className.match(/\bminusBtn\b/)) {
-			countEl.value = Number(countEl.value) - 1;
-		}
-		else if (event.target.className.match(/\bplusBtn\b/)) {
-			countEl.value = Number(countEl.value) + 1;
-		}
-		triggerEvent(countEl, "change");
-	};
-	// function changeHandler(event) {
-	// 	resultEl.value = 0;
-	// 	for (var i = 0; i < plusMinusWidgets.length; i++) {
-	// 		resultEl.value = Number(resultEl.value) + Number(plusMinusWidgets[i].querySelector('.count').value);
-	// 	}
-	// };
-	function triggerEvent(el, type) {
-		if ('createEvent' in document) {
-			var e = document.createEvent('HTMLEvents');
-			e.initEvent(type, false, true);
-			el.dispatchEvent(e);
-		}
-		else {
-			var e = document.createEventObject();
-			e.eventType = type;
-			el.fireEvent('on' + e.eventType, e);
-		}
-	}
-} catch { }
-
-
-
-     gregorianDate = "<?= $Trip['created_at'] ?>";
-     jalaliDateTime = convertToJalali(gregorianDate);
+    gregorianDate = "<?= $Trip['created_at'] ?>";
+    jalaliDateTime = convertToJalali(gregorianDate);
 
     $(".card-footer").html('تاریخ ایجاد:' + jalaliDateTime);
-
-
-    startPoint = [<?= explode(',', $Trip['startPoint'])[0] ?>, <?= explode(',', $Trip['startPoint'])[1] ?>];
-    endPoint = [<?= explode(',', $Trip['endPoint'])[0] ?>, <?= explode(',', $Trip['endPoint'])[1] ?>];
-
-    // ایجاد نقشه و تنظیمات اولیه
-    map = new L.Map('map', {
-        key: 'web.840318dd773d4122a1d07e932344af55', // اینجا API Key خود را قرار دهید
-        center: startPoint,
-        zoom: 10,
-        maptype: 'neshan'
-    });
-
-    startIcon = L.icon({
-        iconUrl: '../assets/images/start.png',
-        iconSize: [50, 50],
-        iconAnchor: [20, 40],
-        popupAnchor: [0, -60]
-    });
-
-
-    endIcon = L.icon({
-        iconUrl: '../assets/images/end.png',
-        iconSize: [50, 50],
-        iconAnchor: [20, 40],
-        popupAnchor: [0, -60]
-    });
-
-
-
-    // تابع برای رسم مسیر
-    async function drawRoute(startLat, startLng, endLat, endLng) {
-        // پاک کردن نشانگرهای قبلی
-        map.eachLayer(function(layer) {
-            if (layer instanceof L.Marker || layer instanceof L.Polyline) {
-                map.removeLayer(layer);
-            }
-        });
-
-
-        // افزودن نشان برای مبدا
-        startMarker = L.marker(startPoint, {
-            icon: startIcon
-        }).addTo(map);
-
-        // افزودن نشان برای مقصد
-        endMarker = L.marker(endPoint, {
-            icon: endIcon
-        }).addTo(map);
-
-        response = await fetch(`https://api.neshan.org/v4/direction?type=car&origin=${startLat},${startLng}&destination=${endLat},${endLng}`, {
-            headers: {
-                'Api-Key': 'service.89629a97053c4dd3bd06adb146db6886'
-            }
-        });
-
-        if (!response.ok) {
-            console.error('خطا در دریافت مسیر:', response.statusText);
-            return;
-        }
-
-        data = await response.json();
-
-        polylinePoints = data.routes[0].overview_polyline.points;
-        routeCoordinates = polyline.decode(polylinePoints).map(coord => [coord[0], coord[1]]);
-
-
-        L.polyline(routeCoordinates, {
-            color: 'blue',
-            weight: 5
-        }).addTo(map);
-
-        map.fitBounds(routeCoordinates);
-    }
-
-    drawRoute(startPoint[0], startPoint[1], endPoint[0], endPoint[1]);
-
-
-
-
-
-
-
-
-    //==========================================================
-
-    function convertToJalali(gregorianDate) {
-        var [date, time] = gregorianDate.split(" ");
-        var [year, month, day] = date.split("-").map(Number);
-        var [hour, minute, second] = time.split(":").map(Number);
-        var jalaliDate = jalaali.toJalaali(year, month, day);
-
-        return ` ${jalaliDate.jy}/${jalaliDate.jm}/${jalaliDate.jd} ساعت : ${hour}:${minute}:${second}`;
-    }
-
-    //==========================================================
 </script>
+
+
+<style>
+    .form-control[type=file]:not(:disabled):not([readonly]) {
+        cursor: pointer;
+        height: 40px;
+    }
+
+    .chosen-container.chosen-container-single {
+        width: 100% !important;
+    }
+
+
+
+    a.chosen-single {
+        padding: 20px !important;
+        height: 60px !important;
+        font-size: 15px;
+    }
+
+    li.active-result {
+        font-size: 16px;
+        padding: 10px !important;
+    }
+
+    b {
+        margin-top: 20px;
+        margin-right: -1px;
+    }
+</style>

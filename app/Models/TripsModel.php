@@ -49,9 +49,16 @@ class TripsModel extends Model
         'status',
         'created_at',
         'updated_at',
-        'deleted_at'
-    ];
+        'deleted_at',
 
+
+        'userCustomFare',
+        'driverCustomFare',
+        'package',
+        'driverID',
+        'carID',
+        'reqID',
+    ];
 
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
@@ -86,7 +93,6 @@ class TripsModel extends Model
         );
 
         $builder->join('request', 'request.tripID = trips.id', 'left');
-        $builder->join('notification', 'notification.tripID = trips.id', 'left');
         $builder->join('driver', 'driver.did = request.driverID', 'left');
         $builder->join('cars', 'cars.driver_id = request.driverID', 'left');
         $builder->where('trips.id', $tripId);

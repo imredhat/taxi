@@ -74,6 +74,18 @@ class DriverModel extends Model
         return $query->getResultArray();
     }
 
+    public function getAllDriverWithCars()
+    {
+        $builder = $this->db->table(tableName: $this->table);
+        $builder->select('did,ax,name,lname,cid,cars.brand as brand_id,type,brand.brand,brand_type.type_name,color');
+        $builder->join('cars', 'driver.did = cars.driver_id', 'left');
+        $builder->join('brand', 'cars.brand = brand.TiD', 'left');
+        $builder->join('brand_type', 'cars.type = brand_type.bid', 'left');
+        
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
+
 
     
 }

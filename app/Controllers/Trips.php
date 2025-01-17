@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\DriverModel;
 use App\Models\FareModel;
 use App\Models\UserModel;
 use App\Models\TripsModel;
@@ -77,7 +78,7 @@ class Trips extends ResourceController
         $model = new TripsModel();
 
         $data = $this->request->getPost();
-        
+
 
 
 
@@ -95,7 +96,7 @@ class Trips extends ResourceController
         if (($this->request->getPost('isGuest')) == "0") {
 
             $ID = $this->request->getPost('passenger_id');
-            
+
             if (isset(($ID)) && $ID > 0) {
                 $User = new UserModel();
                 $User = $User->find($ID);
@@ -139,8 +140,9 @@ class Trips extends ResourceController
     {
         $ID = $this->request->getPost('ID');
 
+        $ORGID = $ID-1000;
         $User = new UserModel();
-        if ($User = $User->find($ID)) {
+        if ($User = $User->find($ORGID)) {
 
             return $this->respond([
                 'status' => "OK",
@@ -176,10 +178,10 @@ class Trips extends ResourceController
         $ID = $uri->getSegment(2);
 
         $Request = new TripsModel();
-        $res = $Request -> getTripDetails($ID);
-        $data['trip'] =$res;
+        $res = $Request->getTripDetails($ID);
+        $data['trip'] = $res;
 
-        
+
         // echo "<pre>";
         // print_r($res);
         // die();
@@ -254,7 +256,7 @@ class Trips extends ResourceController
             return $this->respond([
                 'status' => "OK",
                 'message' => 'Status changed successfully',
-                'class' => $this -> getServiceDIV($Status)
+                'class' => $this->getServiceDIV($Status)
             ], 201);
         } else {
             return $this->fail('Failed to update the status');
@@ -282,49 +284,108 @@ class Trips extends ResourceController
 
 
 
-    
-function getServiceDIV($status)
-{
-    switch ($status) {
-        case 'Called':
-            return 'bg-primary ';
-        case 'Reserve':
-            return 'bg-secondary ';
-        case 'Confirm':
-            return 'bg-success ';
-        case 'Notifed':
-            return 'bg-warning ';
-        case 'Cancled':
-            return 'bg-danger ';
-        case 'Requested':
-            return 'bg-info ';
-        case 'Done':
-            return 'bg-dark ';
+
+    function getServiceDIV($status)
+    {
+        switch ($status) {
+            case 'Called':
+                return 'bg-primary ';
+            case 'Reserve':
+                return 'bg-secondary ';
+            case 'Confirm':
+                return 'bg-success ';
+            case 'Notifed':
+                return 'bg-warning ';
+            case 'Cancled':
+                return 'bg-danger ';
+            case 'Requested':
+                return 'bg-info ';
+            case 'Done':
+                return 'bg-dark ';
+        }
     }
-}
 
 
 
 
 
 
-public function EditTrip(){
-    $uri = service('uri');
-    $ID = $uri->getSegment(2);
+    public function EditTrip()
+    {
+        $uri = service('uri');
+        $ID = $uri->getSegment(2);
 
-    $Trip = new TripsModel();
-    $data['Trip'] = $Trip->find($ID);
-
-    $data['Packages']    = (new PackagesModel())->findAll();
-    $data['options']    = (new FareModel())->findAll();
+        $Trip = new TripsModel();
+        $data['Trip'] = $Trip->find($ID);
 
 
-    echo view('modal/EditTrip', $data);
-}
+        $data['Packages']    = (new PackagesModel())->findAll();
+        $data['options']    = (new FareModel())->findAll();
+        $data['driver']    = (new DriverModel())->getAllDriverWithCars();
+
+        // echo "<pre>";
+        // print_r($data['driver']);
+        // die();
+
+
+        echo view('modal/EditTrip', $data);
+    }
 
 
 
 
+
+    public function UpdateTrip()
+    {
+        $ID = $this->request->getPost('id');
+        $data = [
+            'startAdd'          => $this->request->getPost('startAdd'),
+            'endAdd'            => $this->request->getPost('endAdd'),
+            'trip_date'         => $this->request->getPost('trip_date'),
+            'trip_time'         => $this->request->getPost('trip_time'),
+            'weather'           => $this->request->getPost('weather'),
+            'travelTime'        => $this->request->getPost('travelTime'),
+            'distance'          => $this->request->getPost('distance'),
+            'finalFare'         => $this->request->getPost('finalFare'),
+            'passengerFare'     => $this->request->getPost('passengerFare'),
+            'driverFare'        => $this->request->getPost('driverFare'),
+            'trip_type'         => $this->request->getPost('trip_type'),
+            'driverID'          => $this->request->getPost('driverID'),
+            'passenger_id'      => $this->request->getPost('passenger_id'),
+            'isGuest'           => $this->request->getPost('isGuest'),
+            'passenger_name'    => $this->request->getPost('passenger_name'),
+            'passenger_tel'     => $this->request->getPost('passenger_tel'),
+            'total_passenger'   => $this->request->getPost('total_passenger'),
+            'wait_hours'        => $this->request->getPost('wait_hours'),
+            'status'            => $this->request->getPost('status'),
+            'package'           => $this->request->getPost('package')
+        ];
+
+
+        // Remove any extra characters except numbers in passengerFare, driverFare, and finalFare
+        $data['passengerFare'] = preg_replace('/\D/', '', $data['passengerFare']);
+        $data['driverFare'] = preg_replace('/\D/', '', $data['driverFare']);
+        $data['finalFare'] = preg_replace('/\D/', '', $data['finalFare']);
+
+
+        print_r($data);
+        die();
+
+        $Trip = new TripsModel();
+        if ($Trip->  update($ID, $data)) {
+
+
+
+
+
+            return $this->respond([
+                'status' => "OK",
+                'message' => 'Trip updated successfully'
+            ], 200);
+        } else {
+            return $this->fail('Failed to update the trip');
+        }
+    }
 
 
 
