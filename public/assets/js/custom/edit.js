@@ -35,48 +35,43 @@ $(document).ready(function () {
 
 
 
-    const sel = document.getElementById("packageSelect");
+    $("body #packageSelect").on("change" , function(){
 
-
-sel.addEventListener("change",()=>{
-  let selectedOption = sel.options[sel.selectedIndex];
-  console.log(selectedOption); // get the element
-  console.log(selectedOption.value); //get the value attribute
-  console.log(selectedOption.innerText); // get the inner text
-});
-
+        console.log($(this).val());
+    })
 
 
     $(".updateTrip").click(function (e) {
 
         e.preventDefault();
 
+
         var tripData = {};
-        tripData.id = document.querySelector("input[name='id']").value;
-        tripData.startAdd = document.querySelector("input[name='startAdd']").value;
-        tripData.endAdd = document.querySelector("input[name='endAdd']").value;
-        tripData.trip_date = document.querySelector("input[name='trip_date']").value;
-        tripData.trip_time = document.querySelector("input[name='trip_time']").value;
-        tripData.weather = document.querySelector("select[name='weather']").value;
-        tripData.travelTime = document.querySelector("input[name='travelTime']").value;
-        tripData.distance = document.querySelector("input[name='distance']").value;
-        tripData.finalFare = document.querySelector("input[name='finalFare']").value;
-        tripData.passengerFare = document.querySelector("input[name='passengerFare']").value;
-        tripData.driverFare = document.querySelector("input[name='driverFare']").value;
-        tripData.trip_type = document.querySelector("select[name='trip_type']").value;
-        tripData.driverID = document.querySelector("select[name='driverID']").value;
-        tripData.passenger_id = document.querySelector("input[name='passenger_id']").value;
-        tripData.isGuest = document.querySelector("select[name='isGuest']").value;
-        tripData.passenger_name = document.querySelector("input[name='passenger_name']").value;
-        tripData.passenger_tel = document.querySelector("input[name='passenger_tel']").value;
-        tripData.total_passenger = document.querySelector("input[name='total_passenger']").value;
-        tripData.wait_hours = document.querySelector("input[name='wait_hours']").value;
-        tripData.status = document.querySelector("select[name='status']").value;
-        tripData.package = document.querySelector("select[name='package']").value;
+        tripData.id = $("body input[name='id']").val().replace(/\D/g, '');
+        tripData.startAdd = $("body input[name='startAdd']").val();
+        tripData.endAdd = $("body input[name='endAdd']").val();
+        tripData.trip_date = $("body input[name='trip_date']").val();
+        tripData.trip_time = $("body input[name='trip_time']").val();
+        tripData.weather = $("body select[name='weather']").val();
+        tripData.travelTime = $("body input[name='travelTime']").val();
+        tripData.distance = $("body input[name='distance']").val();
+        tripData.finalFare = $("body input[name='finalFare']").val();
+        tripData.passengerFare = $("body input[name='passengerFare']").val();
+        tripData.driverFare = $("body input[name='driverFare']").val();
+        tripData.trip_type = $("body select[name='trip_type']").val();
+        tripData.driverID = $("body select[name='driverID']").val();
+        tripData.passenger_id = $("body input[name='passenger_id']").val();
+        tripData.isGuest = $("body select[name='isGuest']").val();
+        tripData.passenger_name = $("body input[name='passenger_name']").val();
+        tripData.passenger_tel = $("body input[name='passenger_tel']").val();
+        tripData.total_passenger = $("body input[name='total_passenger']").val();
+        tripData.wait_hours = $("body input[name='wait_hours']").val();
+        tripData.package = $("body select[name='package_edit']").val();
+        tripData.status = $("body select[name='status_edit']").val();
+        tripData.status_text = $("body select[name='status_edit'] option:selected").text();
 
-        // var NewStatus = $("select[name='status'] option:selected").text();
-
-
+        var ID = tripData.id;
+        var NewStatus = tripData.status_text;
 
         $.ajax({
             type: "POST",
@@ -90,7 +85,7 @@ sel.addEventListener("change",()=>{
                     $("#EditItem").modal('hide');
                     // location.reload();
 
-                    // $(".tr_" + ID + " td:nth-child(7)").html('<span class="' + data.class + ' text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block">' + NewStatus + ' </span>');
+                    $(".tr_"+ ID + " td:nth-child(7)").html('<span class="' + data.class + ' text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block">' + NewStatus + ' </span>');
 
                 } else {
                     warn('مشکلی در ویرایش سفر رخ داده است');

@@ -368,9 +368,6 @@ class Trips extends ResourceController
         $data['finalFare'] = preg_replace('/\D/', '', $data['finalFare']);
 
 
-        print_r($data);
-        die();
-
         $Trip = new TripsModel();
         if ($Trip->  update($ID, $data)) {
 
@@ -380,7 +377,8 @@ class Trips extends ResourceController
 
             return $this->respond([
                 'status' => "OK",
-                'message' => 'Trip updated successfully'
+                'message' => 'Trip updated successfully',
+                'class' => $this->getServiceDIV($data['status'])
             ], 200);
         } else {
             return $this->fail('Failed to update the trip');

@@ -214,7 +214,7 @@
                           
                                 <div class="col-md-6">
                                     <label for="status"><strong>وضعیت سفر:</strong></label>
-                                    <select name="status" class="form-select form-control ">
+                                    <select name="status_edit" class="form-select form-control ">
                                         <option value="Called" <?= $Trip['status'] == 'Called' ? 'selected' : '' ?>>استعلام</option>
                                         <option value="Reserved" <?= $Trip['status'] == 'Reserved' ? 'selected' : '' ?>>رزرو</option>
                                         <option value="Notifed" <?= $Trip['status'] == 'Notifed' ? 'selected' : '' ?>>اطلاع رسانی شده</option>
@@ -228,7 +228,7 @@
 
                                 <div class="col-md-6">
                                     <label for="Packgae"><strong>بسته:</strong></label>
-                                    <select class="form-control" id="packageSelect" name="package">
+                                    <select class="form-control" id="packageSelect" name="package_edit">
                                         <?php foreach ($Packages as $item): ?>
                                             <option value="<?= htmlspecialchars($item['name']) ?>" <?= $Trip['Packgae'] == $item['name'] ? 'selected' : '' ?>><?= htmlspecialchars($item['name']) ?></option>
                                         <?php endforeach; ?>
