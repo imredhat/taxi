@@ -74,6 +74,7 @@ $routes->post('add-driver', 'Drivers::AddDriverToDatabase');
 $routes->get('all-drivers', 'Drivers::All');
 $routes->get('all-drivers/(:any)', 'Drivers::All/$1');
 $routes->post('all-drivers/(:any)', 'Drivers::All/$1');
+
 $routes->add('DriverCard/(:any)', 'Drivers::DriverCard/$1');
 $routes->add('PrintC/DriverCard(:any)', 'PrintC::DriverCard/$1');
 
@@ -126,6 +127,7 @@ $routes->post('Trips/UpdateStatus(:any)', 'Trips::UpdateStatus/$1');
 $routes->post('Trips/Dwt(:any)', 'Trips::Dwt/$1');
 
 $routes->get('EditTrip/(:any)', 'Trips::EditTrip/$1');
+$routes->post('Driver/GetDriverCars', 'Drivers::GetDriverCars');
 
 $routes->post('Trips/UpdateTrip', 'Trips::UpdateTrip');
 
@@ -181,7 +183,7 @@ $routes->post('usePay/callback', 'Pay::Check');
 
 
 
-
+$routes->get('updateCode', 'Drivers::updateCode');
 
 
 

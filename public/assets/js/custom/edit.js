@@ -2,6 +2,7 @@
 $(document).ready(function () {
 
     $("#driver").chosen();
+    $("#car").chosen();
 
 
     $(".spinner-border-sm").hide();
@@ -35,10 +36,58 @@ $(document).ready(function () {
 
 
 
-    $("body #packageSelect").on("change" , function(){
+    $('#driver').on('change', function () {
+        var driverID = $(this).val();
+        $.ajax({
+            type: "POST",
+            url: base + "Driver/GetDriverCars",
+            data: { driverID: driverID },
+            success: function (data) {
+                if (data.status == "OK") {
+                    var carSelect = $('#car');
+                    carSelect.empty();
+                    $.each(data.data, function (index, car) {
+                        carSelect.append($('<option>', {
+                            value: car.cid,
+                            text: car.car_brand +' '+ car.type_name + ' [ ایران ' + car.iran + '-' + car.pelak + car.harf + car.pelak_last + ' ] '
+                        }));
+                    });
+                    carSelect.trigger("chosen:updated");
+                } else {
+                    alert('خطا در دریافت اطلاعات خودروها');
+                }
+            }
+        });
+    });
 
-        console.log($(this).val());
-    })
+
+    function GetDriverCar(driverID){
+        $.ajax({
+            type: "POST",
+            url: base + "Driver/GetDriverCars",
+            data: { driverID: driverID },
+            success: function (data) {
+                if (data.status == "OK") {
+                    var carSelect = $('#car');
+                    carSelect.empty();
+                    $.each(data.data, function (index, car) {
+                        carSelect.append($('<option>', {
+                            value: car.cid,
+                            text: car.car_brand +' '+ car.type_name + ' [ ایران ' + car.iran + '-' + car.pelak + car.harf + car.pelak_last + ' ] '
+                        }));
+                    });
+                    carSelect.trigger("chosen:updated");
+                } else {
+                    alert('خطا در دریافت اطلاعات خودروها');
+                }
+            }
+        });
+    }
+
+    if ($('#driver').val() && $('#driver').val() > 0) {
+        GetDriverCar($('#driver').val());
+    }
+
 
 
     $(".updateTrip").click(function (e) {
@@ -60,6 +109,7 @@ $(document).ready(function () {
         tripData.driverFare = $("body input[name='driverFare']").val();
         tripData.trip_type = $("body select[name='trip_type']").val();
         tripData.driverID = $("body select[name='driverID']").val();
+        tripData.carID = $("body select[name='carID']").val();
         tripData.passenger_id = $("body input[name='passenger_id']").val();
         tripData.isGuest = $("body select[name='isGuest']").val();
         tripData.passenger_name = $("body input[name='passenger_name']").val();
@@ -70,7 +120,7 @@ $(document).ready(function () {
         tripData.status = $("body select[name='status_edit']").val();
         tripData.status_text = $("body select[name='status_edit'] option:selected").text();
 
-        var ID = tripData.id;
+        var ID = tripData.id.replace(/\D/g, '');
         var NewStatus = tripData.status_text;
 
         $.ajax({
@@ -85,7 +135,7 @@ $(document).ready(function () {
                     $("#EditItem").modal('hide');
                     // location.reload();
 
-                    $(".tr_"+ ID + " td:nth-child(7)").html('<span class="' + data.class + ' text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block">' + NewStatus + ' </span>');
+                    $(".tr_" + ID + " td:nth-child(7)").html('<span class="' + data.class + ' text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block">' + NewStatus + ' </span>');
 
                 } else {
                     warn('مشکلی در ویرایش سفر رخ داده است');

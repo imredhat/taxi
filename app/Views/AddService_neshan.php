@@ -604,7 +604,7 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 
                     <div class="form-group mb-4 col-lg-12">
-                        <label class="label">توضیحات بار</label>
+                        <label class="label">توضیحات </label>
                         <textarea name="luggage" class="form-control" placeholder="توضیحات در مورد بار یا چمدان همراه" required></textarea>
                     </div>
 

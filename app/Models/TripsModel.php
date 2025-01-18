@@ -52,6 +52,7 @@ class TripsModel extends Model
         'deleted_at',
 
 
+        'trip_type',
         'userCustomFare',
         'driverCustomFare',
         'package',

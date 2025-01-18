@@ -9,6 +9,7 @@ class DriverModel extends Model
     protected $table = 'driver';
     protected $primaryKey = 'did';
     protected $allowedFields = [
+        'code',
         'ax', 
         'name', 
         'lname', 
@@ -77,7 +78,7 @@ class DriverModel extends Model
     public function getAllDriverWithCars()
     {
         $builder = $this->db->table(tableName: $this->table);
-        $builder->select('did,ax,name,lname,cid,cars.brand as brand_id,type,brand.brand,brand_type.type_name,color');
+        $builder->select('did,ax,name,lname,cid,cars.brand as brand_id,type,brand.brand,brand_type.type_name,cars.color ,driver.code');
         $builder->join('cars', 'driver.did = cars.driver_id', 'left');
         $builder->join('brand', 'cars.brand = brand.TiD', 'left');
         $builder->join('brand_type', 'cars.type = brand_type.bid', 'left');
@@ -85,6 +86,10 @@ class DriverModel extends Model
         $query = $builder->get();
         return $query->getResultArray();
     }
+
+
+
+    
 
 
     
