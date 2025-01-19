@@ -103,8 +103,8 @@ class Drivers extends BaseController
         //     return 'Driver/Cars/' . $row;
         // }, true);
 
-        $crud->columns(['dod', 'ax', 'name', 'lname', 'gender', 'mobile', 'melli', 'date_created']);
-        $crud->fields(['ax', 'name', 'lname', 'gender', 'mobile', 'mobile2', 'password', 'birthday', 'phone', 'address',  'melli', 'scan_melli', 'scan_govahiname', 'bank', 'shaba', 'education_level', 'foreign_language', 'foreign_language_proficiency', 'postal_code', 'note']);
+        $crud->columns(['code', 'ax', 'name', 'lname', 'gender', 'mobile', 'melli', 'date_created']);
+        $crud->fields(['code','ax', 'name', 'lname', 'gender', 'mobile', 'mobile2', 'password', 'birthday', 'phone', 'address',  'melli', 'scan_melli', 'scan_govahiname', 'bank', 'shaba', 'education_level', 'foreign_language', 'foreign_language_proficiency', 'postal_code', 'note']);
 
         $crud->displayAs('ax', 'عکس')
             ->displayAs('name', 'نام')
@@ -127,7 +127,7 @@ class Drivers extends BaseController
             ->displayAs('foreign_language_proficiency', 'مهارت زبان خارجی')
             ->displayAs('postal_code', 'کد پستی')
             ->displayAs('note', 'یادداشت')
-            ->displayAs('dod', 'شناسه')
+            ->displayAs('code', 'شناسه')
             ->displayAs('date_created', 'تاریخ ثبت');
 
 
@@ -172,21 +172,6 @@ class Drivers extends BaseController
             list($gy, $gm, $gd) = explode('-', substr($value, 0, 10));
             return $date->gregorianToJalali($gy, $gm, $gd, '/');
         });
-
-        $crud->callbackColumn('dod', function ($value, $row) {
-            $current_date = $row->date_created;
-            $date = new PersianDate();
-            list($gy, $gm, $gd) = explode('-', substr($current_date, 0, 10));
-            $persian_date = $date->gregorianToJalali($gy, $gm, $gd, '');
-            $persian_date = $persian_date[0] . $persian_date[1] . $persian_date[2];
-
-
-            $driver = $row->did;
-            $driver_code = $persian_date . '-' . (1000 + $driver);
-            return $driver_code;
-        });
-
-
 
 
 

@@ -210,12 +210,12 @@ function getRandomColorPair()
                                     <?php endif; ?>
 
                                     <td class="w-50">
-                                        <span style="text-align: right;width: 10%;" class="py-1 px-2 rounded-1 fs-13 fw-semibold w-50 d-block"><?= $S['startAdd']  ?></span>
+                                        <span style="text-align: right;width: 100% !important;" class="py-1 px-2 rounded-1 fs-13 fw-semibold w-50 d-block"><?= $S['startAdd']  ?></span>
                                     </td>
 
 
                                     <td>
-                                        <span style="text-align: right;" class="py-1 px-2 rounded-1 fs-13 fw-semibold w-50 d-block"><?= $S['endAdd']  ?></span>
+                                        <span style="text-align: right;width: 100% !important;" class="py-1 px-2 rounded-1 fs-13 fw-semibold w-50 d-block"><?= $S['endAdd']  ?></span>
                                     </td>
 
 
@@ -367,7 +367,7 @@ jdp-container {
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="http://cdn.datatables.net/2.1.6/js/dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/2.1.6/js/dataTables.min.js"></script>
 <script src="<?= base_url() ?>assets/chosen/chosen.jquery.min.js"></script>
 
 <link rel="stylesheet" href="<?= base_url() ?>assets/chosen/chosen.min.css" />

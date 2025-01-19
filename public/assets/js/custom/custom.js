@@ -460,7 +460,13 @@ try {
 			countEl.value = Number(countEl.value) - 1;
 		}
 		else if (event.target.className.match(/\bplusBtn\b/)) {
-			countEl.value = Number(countEl.value) + 1;
+			if (event.target.className.match(/\bpss\b/)) {
+                if (Number(countEl.value) < 4) {
+                    countEl.value = Number(countEl.value) + 1;
+                }
+            }else{
+                countEl.value = Number(countEl.value) + 1;
+            }
 		}
 		triggerEvent(countEl, "change");
 	};

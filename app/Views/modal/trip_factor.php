@@ -32,6 +32,21 @@ function getWeather($category)
     }
 }
 
+function getTripType($type)
+{
+    switch ($type) {
+        case 'one_way':
+            return 'یک طرفه رفت';
+        case 'round_trip_with_stop':
+            return 'رفت ، توقف ، برگشت';
+        case 'round_trip_with_service':
+            return 'رفت ، در اختیار ، برگشت';
+        default:
+            return 'نامشخص';
+    }
+}
+require_once APPPATH.'Libraries/jdf.php'; 
+
 ?>
 
 <!DOCTYPE html>
@@ -78,11 +93,31 @@ function getWeather($category)
         <div class="card card-section p-3">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>سفر به مقصد: <strong><?= isset($trip['endAdd']) ? htmlspecialchars($trip['endAdd']) : 'نامشخص' ?></strong></span>
-                <span class="badge bg-primary">وضعیت: <?= isset($trip['trip_status']) ? htmlspecialchars(getServiceStatus($trip['trip_status'])) : 'نامشخص' ?></span>
+                <span class="badge bg-primary">وضعیت: <?= isset($trip['status']) ? htmlspecialchars(getServiceStatus($trip['status'])) : 'نامشخص' ?></span>
+                <span>تاریخ ایجاد: <strong>
+
+                <?php
+                    $datetime = explode(' ', $trip['created_at']);
+                    $gregorian_date = explode('-', $datetime[0]);
+                    $persian_date_array = gregorian_to_jalali($gregorian_date[0], $gregorian_date[1], $gregorian_date[2]);
+                    $persian_date = implode('/', $persian_date_array); 
+
+                    echo $persian_date . ' ' . $datetime[1];
+
+?>
+
+                </strong></span>
             </div>
             <div class="row mt-3">
                 <div class="col-md-4">
-                    <strong>راننده:</strong> <?= isset($trip['driver_name'], $trip['driver_lname']) ? htmlspecialchars($trip['driver_name'] . ' ' . $trip['driver_lname']) : 'نامشخص' ?><br>
+                    <strong>راننده:</strong> <?= isset($trip['driver_name'], $trip['driver_lname']) ? htmlspecialchars($trip['driver_name'] . ' ' . $trip['driver_lname']) : 'نامشخص' ?>
+                    
+                    <?php if(isset($trip['driver_name'])):?>
+                    | <a style="background:blue;color:white;padding:3px;font-size:12px" href="<?=base_url()?>Driver/Info/<?= isset($trip['driverID']) ? htmlspecialchars($trip['driverID']) : '0' ?>"  id="Info">مشاهده </a>
+                        <?php endif;?>
+                    
+                    
+                    <br>
                     <strong>شماره تماس:</strong> <?= isset($trip['driver_mobile']) ? htmlspecialchars($trip['driver_mobile']) : 'نامشخص' ?><br>
                 </div>
                 <div class="col-md-4">
@@ -99,8 +134,8 @@ function getWeather($category)
 
                 </div>
                 <div class="col-md-4">
-                    <strong>نوع ماشین:</strong> <?= isset($trip['cars_brand']) ? htmlspecialchars($trip['cars_brand']) : 'نامشخص' ?><br>
-                    <strong>شماره پلاک:</strong> <?= isset($trip['cars_pelak'], $trip['cars_harf'], $trip['cars_pelak_last']) ? htmlspecialchars($trip['cars_pelak'] . ' ' . $trip['cars_harf'] . ' ' . $trip['cars_pelak_last']) : 'نامشخص' ?><br>
+                    <strong> ماشین:</strong> <?= isset($trip['brand_name']) ? htmlspecialchars($trip['brand_name']).' '.htmlspecialchars($trip['type_name']) : 'نامشخص' ?><br>
+                    <strong>شماره پلاک:</strong> <?= isset($trip['cars_pelak'], $trip['cars_harf'], $trip['cars_pelak_last']) ? htmlspecialchars('ایران'.$trip['cars_iran'] .'-'.$trip['cars_pelak'] . ' ' . $trip['cars_harf'] . ' ' . $trip['cars_pelak_last']) : 'نامشخص' ?><br>
                 </div>
             </div>
 
@@ -112,6 +147,13 @@ function getWeather($category)
                 <div class="col-md-6">
                     <strong>تاریخ سفر:</strong> <?= isset($trip['trip_date']) ? htmlspecialchars($trip['trip_date']) : 'نامشخص' ?><br>
                     <strong>زمان سفر:</strong> <?= isset($trip['trip_time']) ? htmlspecialchars($trip['trip_time']) : 'نامشخص' ?><br>
+                </div>
+            </div>
+
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <strong>نوع سفر:</strong> <?= isset($trip['trip_type']) ? htmlspecialchars(getTripType($trip['trip_type'])) : 'نامشخص' ?><br>
                 </div>
             </div>
 
@@ -199,9 +241,24 @@ function getWeather($category)
                         <td colspan="3">مجموع نهایی</td>
                         <td><?= number_format(!empty($trip['finalFare']) ? $trip['finalFare'] : 0) ?> تومان</td>
                     </tr>
+
+                    <tr>
+                        <td>هزینه اعلامی به راننده</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td><?= number_format(!empty($trip['driverCustomFare']) ? $trip['driverCustomFare'] : 0) ?> تومان</td>
+                    </tr>
+                    <tr>
+                        <td>هزینه اعلامی به مسافر</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td><?= number_format(!empty($trip['userCustomFare']) ? $trip['userCustomFare'] : 0) ?> تومان</td>
+                    </tr>
                 </tfoot>
             </table>
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -210,6 +267,8 @@ function getWeather($category)
         <script src="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.js" type="text/javascript"></script>
 
         <script>
+
+            
             startPoint = [<?= isset($trip['startPoint']) ? explode(',', $trip['startPoint'])[0] : '0' ?>, <?= isset($trip['startPoint']) ? explode(',', $trip['startPoint'])[1] : '0' ?>];
             endPoint = [<?= isset($trip['endPoint']) ? explode(',', $trip['endPoint'])[0] : '0' ?>, <?= isset($trip['endPoint']) ? explode(',', $trip['endPoint'])[1] : '0' ?>];
 

@@ -80,26 +80,52 @@ class TripsModel extends Model
     public function getTripDetails($tripId)
     {
         $builder = $this->db->table($this->table);
+
+
         $builder->select(
             'trips.*, 
             request.id as request_id, request.notifID, request.driverID, request.carID, request.isAccepted, 
             request.created_at as request_created_at, request.updated_at as request_updated_at, 
-            notification.id as notification_id, notification.userCustomFare, notification.driverCustomFare, 
-            notification.created_at as notification_created_at, notification.updated_at as notification_updated_at, 
-            driver.ax as driver_ax, driver.name as driver_name, driver.lname as driver_lname, 
+            driver.ax as driver_ax, driver.name as driver_name, driver.lname as driver_lname,trips.*,
             driver.mobile as driver_mobile, 
             cars.cid as cars_cid, cars.brand as cars_brand, cars.fuel as cars_fuel, cars.iran as cars_iran, 
             cars.pelak as cars_pelak, cars.harf as cars_harf, cars.pelak_last as cars_pelak_last, 
-            cars.pic_front as cars_pic_front, cars.type as cars_type'
+            cars.pic_front as cars_pic_front, cars.type as cars_type,
+            packages.*,
+            brand.brand as brand_name,brand_type.type_name as type_name
+            '
         );
 
-        $builder->join('request', 'request.tripID = trips.id', 'left');
-        $builder->join('driver', 'driver.did = request.driverID', 'left');
-        $builder->join('cars', 'cars.driver_id = request.driverID', 'left');
+        $builder->join('request', 'request.id = trips.reqID', 'left');
+        $builder->join('driver', 'driver.did = trips.driverID', 'left');
+        $builder->join('cars', 'cars.cid = trips.carID', 'left');
+        $builder->join('brand', 'cars.brand = brand.TiD', 'left');
+        $builder->join('packages', 'packages.name = trips.package', 'left');
+        $builder->join('brand_type', 'cars.type = brand_type.bid', 'left');
+
         $builder->where('trips.id', $tripId);
 
         $query = $builder->get();
         return $query->getRowArray();
+
+        // $builder->select(
+        //     'trips.*, 
+        //     request.id as request_id, request.notifID, request.driverID, request.carID, request.isAccepted, 
+        //     request.created_at as request_created_at, request.updated_at as request_updated_at, 
+        //     driver.ax as driver_ax, driver.name as driver_name, driver.lname as driver_lname, 
+        //     driver.mobile as driver_mobile, 
+        //     cars.cid as cars_cid, cars.brand as cars_brand, cars.fuel as cars_fuel, cars.iran as cars_iran, 
+        //     cars.pelak as cars_pelak, cars.harf as cars_harf, cars.pelak_last as cars_pelak_last, 
+        //     cars.pic_front as cars_pic_front, cars.type as cars_type'
+        // );
+
+        // $builder->join('request', 'request.tripID = trips.id', 'left');
+        // $builder->join('driver', 'driver.did = request.driverID', 'left');
+        // $builder->join('cars', 'cars.driver_id = request.driverID', 'left');
+        // $builder->where('trips.id', $tripId);
+
+        // $query = $builder->get();
+        // return $query->getRowArray();
     }
 
 }

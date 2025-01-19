@@ -499,7 +499,7 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
                             <div class="add-to-cart-counter gap-3 justify-content-between">
                                 <button type="button" class="minusBtn bg-success text-white"></button>
                                 <input name="total_passenger" type="text" size="25" value="1" class="count border-success">
-                                <button type="button" class="plusBtn bg-success text-white"></button>
+                                <button type="button" class="plusBtn pss bg-success text-white"></button>
                             </div>
                         </div>
                     </div>
