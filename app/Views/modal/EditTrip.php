@@ -84,7 +84,8 @@
                             <div class="row my-2">
                                 <div class="col-lg-12">
                                     <label class="label">نوع سفر</label>
-                                    <select name="trip_type" class="form-control" required>
+                                    <select name="trip_type" class="form-control" required >
+                                        <option value="" disabled selected>انتخاب نوع سفر   </option>
                                         <option value="one_way" <?= $Trip['trip_type'] == 'one_way' ? 'selected' : '' ?>>یک طرفه رفت</option>
                                         <option value="round_trip_with_stop" <?= $Trip['trip_type'] == 'round_trip_with_stop' ? 'selected' : '' ?>>رفت ، توقف ، برگشت</option>
                                         <option value="round_trip_with_service" <?= $Trip['trip_type'] == 'round_trip_with_service' ? 'selected' : '' ?>>رفت ، در اختیار ، برگشت</option>

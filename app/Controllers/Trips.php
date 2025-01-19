@@ -347,8 +347,8 @@ class Trips extends ResourceController
             'travelTime'        => $this->request->getPost('travelTime'),
             'distance'          => $this->request->getPost('distance'),
             'finalFare'         => $this->request->getPost('finalFare'),
-            'passengerFare'     => $this->request->getPost('passengerFare'),
-            'driverFare'        => $this->request->getPost('driverFare'),
+            'userCustomFare'    => $this->request->getPost('passengerFare'),
+            'driverCustomFare'  => $this->request->getPost('driverFare'),
             'trip_type'         => $this->request->getPost('trip_type'),
             'driverID'          => $this->request->getPost('driverID'),
             'passenger_id'      => $this->request->getPost('passenger_id'),
@@ -363,8 +363,8 @@ class Trips extends ResourceController
 
 
         // Remove any extra characters except numbers in passengerFare, driverFare, and finalFare
-        $data['passengerFare'] = preg_replace('/\D/', '', $data['passengerFare']);
-        $data['driverFare'] = preg_replace('/\D/', '', $data['driverFare']);
+        $data['userCustomFare'] = preg_replace('/\D/', '', $data['userCustomFare']);
+        $data['driverCustomFare'] = preg_replace('/\D/', '', $data['driverCustomFare']);
         $data['finalFare'] = preg_replace('/\D/', '', $data['finalFare']);
 
 
