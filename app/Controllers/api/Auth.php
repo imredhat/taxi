@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers\API;
+
 use CodeIgniter\RESTful\ResourceController;
 
 use App\Models\DriverModel;
@@ -13,7 +14,8 @@ class Auth extends ResourceController
     protected $session;
 
 
-    public function checIn(){
+    public function checIn()
+    {
         $tel = $this->request->getPost('tel');
 
         // Convert Persian numbers to English
@@ -34,21 +36,20 @@ class Auth extends ResourceController
 
         $code = rand(1000, 9999);
         $values = ['code' => $code];
-        
+
         // $bulkId = $client->sendPattern($patternCode, $originator, $recipient, $values);
 
 
         try {
             $result = $client->sendPattern($patternCode, $originator, $recipient, $values);
             if ($result) {
-                return $this->respond(['status' => 'success', 'message' => 'کد تایید ارسال شد' , 'code' => $code]);
+                return $this->respond(['status' => 'success', 'message' => 'کد تایید ارسال شد', 'code' => $code]);
             } else {
                 return $this->respond(['status' => 'error', 'message' => 'ارسال پیامک با خطا مواجه شد'], 500);
             }
         } catch (Exception $e) {
             return $this->respond(['status' => 'error', 'message' => 'ارسال پیامک با خطا مواجه شد: ' . $e->getMessage()], 500);
         }
-
     }
 
     public function login()
@@ -71,25 +72,25 @@ class Auth extends ResourceController
                 'mobile' => $user['mobile'],
                 'ax' => $user['ax'],
                 'date_created' => $user['date_created'],
-                'hash' => md5($user['did'].$user['password'].$user['date_created']),
+                'hash' => md5($user['did'] . $user['password'] . $user['date_created']),
             ];
 
             session()->set([
                 'user_id' => $user['did'],
-                'name' => $user['name'].' '.$user['lname'],
+                'name' => $user['name'] . ' ' . $user['lname'],
                 'isLoggedIn' => true,
-                'hash' => md5($user['did'].$user['password'].$user['date_created']),
+                'hash' => md5($user['did'] . $user['password'] . $user['date_created']),
             ]);
 
-            $Driver-> update($user['did'], ['hash' => $data['hash']]);
+            $Driver->update($user['did'], ['hash' => $data['hash']]);
 
-            return $this->respond(['status' => 'success', 'message' => 'ورود با موفقیت انجام شد' , 'userdata' => $data]);
+            return $this->respond(['status' => 'success', 'message' => 'ورود با موفقیت انجام شد', 'userdata' => $data]);
         } else {
             return $this->respond(['status' => 'error', 'message' => 'نام کاربری یا رمز عبور اشتباه است'], 401);
         }
     }
 
-   
+
 
 
 
@@ -116,7 +117,7 @@ class Auth extends ResourceController
             return $this->respond(['status' => 'error', 'message' => $validation->getErrors()], 400);
         }
 
-        
+
         // Initialize the DriverModel
         $Driver = new DriverModel();
         // Query the database to check if a user with the mobile number exists
@@ -125,7 +126,7 @@ class Auth extends ResourceController
         // Check if the user exists
         if ($user) {
             return $this->respond(['status' => 'success', 'message' => 'User  exists']);
-        } 
+        }
 
 
         $data = [
@@ -144,11 +145,15 @@ class Auth extends ResourceController
             'note'                              => $this->request->getPost('notes'),
             'education_level'                   => $this->request->getPost('education_level'),                           /////////////////////////////////////
             'foreign_language'                  => $this->request->getPost('foreign_language'),                         ////////////////////////////////////
-            'foreign_language_proficiency'      => $this->request->getPost('foreign_language_proficiency'),       
+            'foreign_language_proficiency'      => $this->request->getPost('foreign_language_proficiency'),
             'postal_code'                       => $this->request->getPost('postal_code'),
             'password'                              => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
-        
+
         ];
+
+
+
+
 
 
 
@@ -160,12 +165,24 @@ class Auth extends ResourceController
             //-------------------------------------------------------------//
 
             $DID = $Driver->getInsertID();
+
+            require_once APPPATH . 'Libraries/jdf.php';
+            $currentDate = jdate('Ymd');
+            $uniqueId = $currentDate . '-' . (1000 + $DID);
+
+            $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+            $uniqueId = str_replace($persianNumbers, $englishNumbers, $uniqueId);
+
+
             $driver = [
-                'ax'                    => $this->upload_file('ax', "drivers" , $DID),
-                'scan_melli'            => $this->upload_file('scan_melli', "drivers" , $DID),
-                'scan_govahiname'       => $this->upload_file('scan_govahiname', "drivers" , $DID),
-                'hash'                  => md5($DID.$this->request->getPost('password').date('Y-m-d H:i:s'))
+                'ax'                    => $this->upload_file('ax', "drivers", $DID),
+                'scan_melli'            => $this->upload_file('scan_melli', "drivers", $DID),
+                'scan_govahiname'       => $this->upload_file('scan_govahiname', "drivers", $DID),
+                'hash'                  => md5($DID . $this->request->getPost('password') . date('Y-m-d H:i:s')),
+                'code'                  => $uniqueId
             ];
+            
             $Driver->update($DID, $driver);
 
             //-------------------------------------------------------------//
@@ -188,27 +205,32 @@ class Auth extends ResourceController
                 'pelak'                         => $this->request->getPost('plate_part2'),
                 'pelak_last'                    => $this->request->getPost('plate_part3'),
                 'harf'                          => $this->request->getPost('plate_letter'),
-                            
+
                 'fuel'                          => $this->request->getPost('fuel_type'),
                 'type'                          => $this->request->getPost('car_type'),
                 'vin'                           => $this->request->getPost('vin'),
-                            
-                                
-                'pic_back'                      => $this->upload_file('pic_back', "drivers" , $DID),
-                'pic_front'                     => $this->upload_file('pic_front', "drivers" , $DID),
-                'pic_in_back'                   => $this->upload_file('pic_in_back', "drivers" , $DID),
-                'pic_in_front'                  => $this->upload_file('pic_in_front', "drivers" , $DID),
 
-                'scan_car_card'                 => $this->upload_file('scan_car_card', "drivers" , $DID),
-                'scan_car_card_back'            => $this->upload_file('scan_car_card_back', "drivers" , $DID),
-                'scan_insurance'                => $this->upload_file('scan_insurance', "drivers" , $DID),
-                'scan_insurance_addendum'       => $this->upload_file('scan_insurance_addendum', "drivers" , $DID),
+
+                'pic_back'                      => $this->upload_file('pic_back', "drivers", $DID),
+                'pic_front'                     => $this->upload_file('pic_front', "drivers", $DID),
+                'pic_in_back'                   => $this->upload_file('pic_in_back', "drivers", $DID),
+                'pic_in_front'                  => $this->upload_file('pic_in_front', "drivers", $DID),
+
+                'scan_car_card'                 => $this->upload_file('scan_car_card', "drivers", $DID),
+                'scan_car_card_back'            => $this->upload_file('scan_car_card_back', "drivers", $DID),
+                'scan_insurance'                => $this->upload_file('scan_insurance', "drivers", $DID),
+                'scan_insurance_addendum'       => $this->upload_file('scan_insurance_addendum', "drivers", $DID),
             );
+
+
+
 
             $Car = new CarModel();
             $Car->insert($car);
 
-            $hash = md5($DID.$data['password'].date('Y-m-d H:i:s'));
+
+
+            $hash = md5($DID . $data['password'] . date('Y-m-d H:i:s'));
             return $this->respond(['status' => 'success', 'message' => 'راننده با موفقیت ثبت شد', 'DriverID' => $DID, 'Hash' => $hash]);
         }
     }

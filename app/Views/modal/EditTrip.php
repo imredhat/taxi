@@ -67,11 +67,11 @@
                             <div class="row my-2">
                                 <div class="col-md-6">
                                     <label for="passengerFare"><strong>کرایه اعلامی به مسافر:</strong></label>
-                                    <input type="text" id="passengerFare" name="passengerFare" class="form-control" value="<?= $Trip['userCustomFare'] ?>">
+                                    <input type="text" id="passengerFare" name="passengerFare" class="form-control" value="<?= number_format($Trip['userCustomFare']) ?>">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="driverFare"><strong>کرایه اعلامی به راننده:</strong></label>
-                                    <input type="text" id="driverFare" name="driverFare" class="form-control" value="<?= $Trip['driverCustomFare'] ?>">
+                                    <input type="text" id="driverFare" name="driverFare" class="form-control" value="<?= number_format($Trip['driverCustomFare']) ?>">
                                 </div>
                             </div>
 
@@ -84,8 +84,8 @@
                             <div class="row my-2">
                                 <div class="col-lg-12">
                                     <label class="label">نوع سفر</label>
-                                    <select name="trip_type" class="form-control" required >
-                                        <option value="" disabled selected>انتخاب نوع سفر   </option>
+                                    <select name="trip_type" class="form-control" required>
+                                        <option value="" <?= empty($Trip['trip_type']) ? 'selected' : '' ?>>انتخاب نوع سفر</option>
                                         <option value="one_way" <?= $Trip['trip_type'] == 'one_way' ? 'selected' : '' ?>>یک طرفه رفت</option>
                                         <option value="round_trip_with_stop" <?= $Trip['trip_type'] == 'round_trip_with_stop' ? 'selected' : '' ?>>رفت ، توقف ، برگشت</option>
                                         <option value="round_trip_with_service" <?= $Trip['trip_type'] == 'round_trip_with_service' ? 'selected' : '' ?>>رفت ، در اختیار ، برگشت</option>
@@ -101,8 +101,8 @@
                                     
 
                                         <?php foreach ($driver as $driver): ?>
-                                            <option data-carID="<?= $driver['cid'] ?>" value="<?= $driver['did'] ?>" <?= $Trip['driverID'] == $driver['did'] ? 'selected' : '' ?>>
-                                                <?= $driver['name'] . ' ' . $driver['lname'] . ' [ ' . $driver['brand'] . ' ' . $driver['type_name'] . ' ' . $driver['color'] . ' ]' ?>
+                                            <option value="<?= $driver['did'] ?>" <?= $Trip['driverID'] == $driver['did'] ? 'selected' : '' ?>>
+                                                <?= $driver['code'] . ' -  ' .$driver['name'] . ' ' . $driver['lname']  ?>
                                             </option>
                                         <?php endforeach; ?>
 
@@ -110,6 +110,24 @@
                                     </select>
                                 </div>
                             </div>
+
+
+
+                            <div class="row my-2">
+                                <div class="col-lg-12">
+                                    <label class="label">خودرو</label>
+                                    <select data-placeholder="انتخاب خودرو" id="car" name="carID" class="form-control" required>
+                                        
+                                       
+
+                                        
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                            
 
 
                             <hr style="margin: 40px;" />
@@ -189,7 +207,7 @@
                                         <button type="button" class="minusBtn bg-success text-white"></button>
                                         <input type="text" id="total_passenger" name="total_passenger" size="25" class="count border-success" value="<?= $Trip['total_passenger'] ?>">
 
-                                        <button type="button" class="plusBtn bg-success text-white"></button>
+                                        <button type="button" class="plusBtn pss bg-success text-white"></button>
                                     </div>
                                 </div>
                             </div>

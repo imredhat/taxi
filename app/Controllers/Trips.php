@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\CarModel;
 use App\Models\DriverModel;
 use App\Models\FareModel;
 use App\Models\UserModel;
@@ -10,6 +11,9 @@ use App\Models\PackagesModel;
 use App\Models\NotificationModel;
 use App\Models\RequestModel;
 use CodeIgniter\RESTful\ResourceController;
+use App\Libraries\jdf;
+
+
 
 class Trips extends ResourceController
 {
@@ -321,7 +325,7 @@ class Trips extends ResourceController
 
         $data['Packages']    = (new PackagesModel())->findAll();
         $data['options']    = (new FareModel())->findAll();
-        $data['driver']    = (new DriverModel())->getAllDriverWithCars();
+        $data['driver']    = (new DriverModel())->findAll();;
 
         // echo "<pre>";
         // print_r($data['driver']);
@@ -347,10 +351,11 @@ class Trips extends ResourceController
             'travelTime'        => $this->request->getPost('travelTime'),
             'distance'          => $this->request->getPost('distance'),
             'finalFare'         => $this->request->getPost('finalFare'),
-            'userCustomFare'    => $this->request->getPost('passengerFare'),
-            'driverCustomFare'  => $this->request->getPost('driverFare'),
+            'passengerFare'     => $this->request->getPost('passengerFare'),
+            'driverFare'        => $this->request->getPost('driverFare'),
             'trip_type'         => $this->request->getPost('trip_type'),
             'driverID'          => $this->request->getPost('driverID'),
+            'carID'          => $this->request->getPost('carID'),
             'passenger_id'      => $this->request->getPost('passenger_id'),
             'isGuest'           => $this->request->getPost('isGuest'),
             'passenger_name'    => $this->request->getPost('passenger_name'),
@@ -362,9 +367,10 @@ class Trips extends ResourceController
         ];
 
 
+
         // Remove any extra characters except numbers in passengerFare, driverFare, and finalFare
-        $data['userCustomFare'] = preg_replace('/\D/', '', $data['userCustomFare']);
-        $data['driverCustomFare'] = preg_replace('/\D/', '', $data['driverCustomFare']);
+        $data['passengerFare'] = preg_replace('/\D/', '', $data['passengerFare']);
+        $data['driverFare'] = preg_replace('/\D/', '', $data['driverFare']);
         $data['finalFare'] = preg_replace('/\D/', '', $data['finalFare']);
 
 
