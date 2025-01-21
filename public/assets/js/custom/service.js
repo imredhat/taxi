@@ -113,6 +113,30 @@ $(document).ready(function () {
         });
     });
 
+
+
+
+    $('a[data-bs-target="#TrancactionList"]').click(function () {
+        var tripID = $(this).data("id");
+
+        $.ajax({
+            type: "GET",
+            url: "transaction/getAll/" + tripID,
+            success: function (data) {
+
+                $("#TrancactionList").modal('show');
+
+                $("#TrancactionList").html(data);
+
+                // if (data.status == 'OK') {
+                //     $("#EditItem").modal('show');
+                // } else {
+                //     warn('مشکلی در دریافت اطلاعات سفر رخ داده است');
+                // }
+            }
+        });
+    });
+
     $("#saveTripChanges").click(function () {
         var tripID = $("#EditTripModal input[name='tripID']").val();
         var passengerFare = $("#EditTripModal input[name='passenger_custom_fare']").val().replace(/,/g, '');

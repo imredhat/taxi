@@ -18,8 +18,8 @@ class Service extends BaseController
     public function index()
     {
 
-        $Request = new RequestModel();
-        $res = $Request -> getAllRequestWithDetail();
+        $tripsModel = new TripsModel();
+        $res = $tripsModel->where('status', 'Confirm')->findAll();
         $data['Request'] =$res;
 
         // echo "<pre>";

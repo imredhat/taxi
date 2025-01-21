@@ -8,6 +8,7 @@ use App\Models\CarModel;
 use App\Models\DriverModel;
 use App\Models\RequestModel;
 use App\Models\TypeModel;
+use App\Models\TripsModel;
 use CodeIgniter\RESTful\ResourceController;
 
 class Driver extends ResourceController
@@ -82,6 +83,45 @@ class Driver extends ResourceController
         return $this->respond(['status' => 'success', 'trips' => $trips]);
 
 
+    }
+
+    public function Trips(){
+        $hash = $this->request->getPost('hash');
+
+        if (empty($hash)) {
+            return $this->respond(['status' => 'error', 'message' => 'راننده نامعتبر است'], 400);
+        }
+
+        $Driver = new DriverModel();
+        $driver = $Driver->where('hash', $hash)->first();
+
+        $CarModel = new CarModel();
+        $cars = $CarModel->where(['cid' => $driver['did'], 'active' => 1])->orderBy('active','desc')->first();
+        
+
+        if (!$cars) {
+            return $this->respond(['status' => 'error', 'message' => 'هیچ خودروی فعالی برای این راننده یافت نشد'], 404);
+        }
+
+        if (!$driver) {
+            return $this->respond(['status' => 'error', 'message' => ' راننده نامعتبر است'], 401);
+        }
+
+        $driverID = $driver['did'];
+        $type_class = $cars['type_class'];
+
+        $PackagesModel = new \App\Models\PackagesModel();
+        $type_class_name = $PackagesModel->where('id', $type_class)->first();
+
+ 
+        $TripsModel = new TripsModel();
+        $trips = $TripsModel->where(['driverID' => $driverID, 'status' => 'Notifed', 'package' => $type_class_name['name']])->findAll();
+
+        if (!$trips) {
+            return $this->respond(['status' => 'error', 'message' => 'هیچ سفری یافت نشد'], 404);
+        }
+
+        return $this->respond(['status' => 'success', 'trips' => $trips]);
     }
 
     public function Brands()

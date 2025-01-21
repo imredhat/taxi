@@ -173,6 +173,17 @@ $routes->post('usePay/callback', 'Pay::Check');
 
 
 
+/*********************************************
+ *          TransAction
+ **************************************/
+
+
+ $routes->get('transaction/add', 'Transaction::_add');
+ $routes->get('transaction/getAll/(:any)', 'Transaction::getAll/$1');
+
+ $routes->post('transaction/create', 'Transaction::_create');
+ $routes->post('transaction/delet', 'Transaction::_delete');
+
 
 
 
@@ -197,6 +208,7 @@ $routes->post('api/auth/checIn', 'api\Auth::checIn');
 
 $routes->post('api/auth/createUser', 'api\Auth::createUser');
 
+$routes->post('api/driver/Trips', 'api\Driver::Trips');
 $routes->post('api/driver/cars', 'api\Driver::Cars');
 $routes->get('api/car/brands', 'api\Driver::Brands');
 $routes->get('api/car/type', 'api\Driver::Types');

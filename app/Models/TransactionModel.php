@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserTransactionModel extends Model
+class TransactionModel extends Model
 {
     protected $table = 'user_transaction';
     protected $primaryKey = 'id';
@@ -20,9 +20,14 @@ class UserTransactionModel extends Model
         'desc',         
         'trans_id',     
         'refid',        
-        'date_created', 
+        'date_p', 
         'response',     
-        'status'        
+        'status',
+        'scan' ,
+        '_from',
+        '_to',
+        '_for',
+        'trip_id'
     ];
 
     // protected $useTimestamps = true;

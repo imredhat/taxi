@@ -135,13 +135,21 @@ $(document).ready(function () {
                 if (data.status == 'OK') {
                     toast('ویرایش سفر با موفقیت انجام شد');
                     $("#EditItem").modal('hide');
-                    // location.reload();
+                    
+                    // location.reload(true);
 
-                    $(".tr_" + ID + " td:nth-child(7)").html('<span class="' + data.class + ' text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block">' + NewStatus + ' </span>');
+
+
+                    // $(".tr_" + ID + " td:nth-child(7)").html('<span class="' + data.class + ' text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block">' + NewStatus + ' </span>');
 
                 } else {
                     warn('مشکلی در ویرایش سفر رخ داده است');
                 }
+
+
+                setTimeout(function(){
+                    location.reload();
+                }, 1000); // 3000 milliseconds = 3 seconds
             }
 
 

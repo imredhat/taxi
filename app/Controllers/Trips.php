@@ -34,6 +34,7 @@ class Trips extends ResourceController
         echo view('modal/UpdateStatus');
         echo view('modal/ViewItem');
         echo view('modal/EditModal');
+        echo view('modal/Transaction');
         echo view('modal/Request');
         echo view('modal/Dwt');
         echo view('modal/toasts');

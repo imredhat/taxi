@@ -260,6 +260,14 @@ function getRandomColorPair()
                                                     </a>
                                                 </li>
 
+
+                                                <li>
+                                                    <a data-bs-toggle="modal" data-bs-target="#TrancactionList" class="dropdown-item" data-id="<?= $S['id'] ?>" href="javascript:;">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>    
+                                                    تراکنش ها
+                                                    </a>
+                                                </li>
+
                                                 <li>
                                                     <a data-bs-toggle="modal" data-bs-target="#Delete" class="dropdown-item" data-id="<?= $S['id'] ?>"  href="javascript:;"> <i data-feather="trash-2"></i> حذف </a>
                                                 </li>
