@@ -33,8 +33,9 @@ class TransactionModel extends Model
         'type',
         'row_status',
         'tripID',
-
     ];
+
+
 
     
 

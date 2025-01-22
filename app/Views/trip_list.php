@@ -272,7 +272,7 @@ function getRandomColorPair()
 
                                                 <li>
                                                     <a data-bs-toggle="modal" data-bs-target="#TrancactionAddModal" class="dropdown-item" data-id="<?= $S['id'] ?>" href="javascript:;">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-plus"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
                                                      افزودن تراکنش
                                                     </a>
                                                 </li>
@@ -321,8 +321,8 @@ function getRandomColorPair()
 
 
 
-<link rel="stylesheet" href="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css">
-<script type="text/javascript" src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"></script>
+<link rel="stylesheet" href="<?=base_url()?>assets/css/jalalidatepicker.min.css">
+<script type="text/javascript" src="<?=base_url()?>assets/js/jalalidatepicker.min.js"></script>
 
 <script>
     jalaliDatepicker.startWatch();

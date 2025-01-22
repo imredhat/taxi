@@ -48,7 +48,7 @@ class Transaction extends BaseController
             $driver       = $driverModel->find($this->request->getPost('userID'));
             $data['name'] = $driver['name'] . ' ' . $driver['lname'];
             $data['tel']  = $driver['mobile'];
-            $data['driverID'] = $driver['did'];
+            $data['driverID'] = $driver['id'];
         }
 
 
@@ -68,10 +68,13 @@ class Transaction extends BaseController
 
         $tripID               = $this->request->getUri()->getSegment(3);
         $transactionModel     = new TransactionModel();
-        $data['transactions'] = $transactionModel->where('tripID', $tripID)
+        $data['transactions'] = $transactionModel
+            ->where('tripID', $tripID)
             ->where('row_status', 'insert')
             ->withDeleted()
             ->findAll();
+
+        
 
         return view('modal/TransactionList', $data);
     }

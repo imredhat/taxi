@@ -12,7 +12,7 @@
                             <div class="card-body">
 
 
-                        <?php if (isset($transactions) && !empty($transaction)): ?>
+                        <?php if (isset($transactions) && !empty($transactions)): ?>
 
                                 <table class="table table-bordered">
                                     <thead>
@@ -33,7 +33,7 @@
                                     <tbody>
                                         <?php foreach ($transactions as $transaction): ?>
                                             <tr>
-                                                <td><?php echo $transaction['amount'] ?></td>
+                                                <td><?php echo number_format($transaction['amount']) ?> ریال</td>
                                                 <td>
                                                     <?php if ($transaction['type'] == 'in'): ?>
                                                         دریافتی از مشتری
@@ -47,8 +47,9 @@
                                                 <td><?php echo $transaction['trans_id'] ?></td>
                                                 <td><?php echo $transaction['refid'] ?></td>
                                                 <td><?php echo $transaction['date_p'] ?></td>
-                                                <td><a target="_blank" href="<?=base_url()?>uploads/transaction/<?=$transaction['tripID']?>/<?php echo $transaction['scan'] ?>" > نمایش </a> </td>
+                                                <td><?php if(!empty($transaction['scan'])):?> <a target="_blank" href="<?=base_url()?>uploads/transaction/<?=$transaction['tripID']?>/<?php echo $transaction['scan'] ?>" > نمایش </a> </td>
 
+                                                    <?php endif;?>
                                                 <td>
                                                     <form action="/deletetransaction" method="post" onsubmit="return confirm('Are you sure you want to delete this transaction?');">
                                                         <input type="hidden" name="transaction_id" value="<?php echo $transaction['id'] ?>">

@@ -172,7 +172,11 @@ $(document).ready(function () {
             if (data.status == 'OK') {
                 toast('تراکنش با موفقیت ثبت شد');
                 $("#TrancactionAddModal").modal('hide');
-                location.reload();
+                // location.reload();
+                $("#transform")[0].reset();
+                $('#userID').chosen('destroy');
+                $('#userID').empty();
+
             } else {
                 warn('مشکلی در ثبت تراکنش رخ داده است');
             }
