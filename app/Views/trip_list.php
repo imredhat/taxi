@@ -268,6 +268,20 @@ function getRandomColorPair()
                                                     </a>
                                                 </li>
 
+
+
+                                                <li>
+                                                    <a data-bs-toggle="modal" data-bs-target="#TrancactionAddModal" class="dropdown-item" data-id="<?= $S['id'] ?>" href="javascript:;">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                                     افزودن تراکنش
+                                                    </a>
+                                                </li>
+
+
+
+
+
+
                                                 <li>
                                                     <a data-bs-toggle="modal" data-bs-target="#Delete" class="dropdown-item" data-id="<?= $S['id'] ?>"  href="javascript:;"> <i data-feather="trash-2"></i> حذف </a>
                                                 </li>
@@ -374,15 +388,15 @@ jdp-container {
 </style>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/2.1.6/js/dataTables.min.js"></script>
+<script src="<?=base_url()?>assets/js/jquery-3.6.0.min.js"></script>
+<script src="<?=base_url()?>assets/js/dataTables.min.js"></script>
 <script src="<?= base_url() ?>assets/chosen/chosen.jquery.min.js"></script>
 
 <link rel="stylesheet" href="<?= base_url() ?>assets/chosen/chosen.min.css" />
-<link href="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.css" rel="stylesheet" type="text/css">
+<link href="<?=base_url()?>assets/css/leaflet.css" rel="stylesheet" type="text/css">
 
 
 <script src="<?= base_url() ?>assets/js/custom/service.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mapbox-polyline/1.2.1/polyline.min.js"></script>
-<script src="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.js" type="text/javascript"></script>
+<script src="<?=base_url()?>assets/js/jalaali.min.js"></script>
+<script src="<?=base_url()?>assets/js/polyline.min.js"></script>
+<script src="<?=base_url()?>assets/js/leaflet.js" type="text/javascript"></script>
