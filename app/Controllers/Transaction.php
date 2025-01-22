@@ -79,6 +79,25 @@ class Transaction extends BaseController
         return view('modal/TransactionList', $data);
     }
 
+    public function remove()
+    {
+        $id = $this->request->getPost('id');
+        $transactionModel = new TransactionModel();
+        $transaction = $transactionModel
+        ->where('id', $id)
+        ->withDeleted()
+        ->findAll();
+
+
+        if ($transaction) {
+            $transaction['row_status'] = 'delete';
+            $transactionModel->update($id, $transaction);
+            return $this->response->setJSON(['status' => 'OK', 'message' => 'Transaction removed successfully']);
+        } else {
+            return $this->response->setJSON(['status' => 'Error', 'message' => 'Transaction not found']);
+        }
+    }
+
     private function upload_file($field_name, $type, $DID)
     {
         $file = $this->request->getFile($field_name);

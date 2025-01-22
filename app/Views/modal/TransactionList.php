@@ -14,7 +14,7 @@
 
                         <?php if (isset($transactions) && !empty($transactions)): ?>
 
-                                <table class="table table-bordered">
+                                <table class="table table-bordered tr_list">
                                     <thead>
                                         <tr>
                                             <th>مبلغ</th>
@@ -32,7 +32,7 @@
                                     </thead>
                                     <tbody>
                                         <?php foreach ($transactions as $transaction): ?>
-                                            <tr>
+                                            <tr class="tr_<?=$transaction['id'] ?>">
                                                 <td><?php echo number_format($transaction['amount']) ?> ریال</td>
                                                 <td>
                                                     <?php if ($transaction['type'] == 'in'): ?>
@@ -51,10 +51,7 @@
 
                                                     <?php endif;?>
                                                 <td>
-                                                    <form action="/deletetransaction" method="post" onsubmit="return confirm('Are you sure you want to delete this transaction?');">
-                                                        <input type="hidden" name="transaction_id" value="<?php echo $transaction['id'] ?>">
-                                                        <button type="submit" class="btn btn-danger btn-sm">حذف</button>
-                                                    </form>
+                                                        <button data-id="<?php echo $transaction['id'] ?>" onclick="return removeTR('<?php echo $transaction['id'] ?>')" type="button" class="btn btn-danger btn-sm " id="delete_tr">حذف</button>
                                                 </td>
 
                                             </tr>
@@ -94,7 +91,34 @@
 <script src="<?php echo base_url() ?>assets/chosen/chosen.jquery.min.js"></script>
 <link rel="stylesheet" href="<?php echo base_url() ?>assets/chosen/chosen.min.css" />
 
-<script>  var base = "<?php echo base_url() ?>";</script>
+<script>  var base = "<?php echo base_url() ?>";
+
+
+function removeTR(transactionID){
+
+
+confirm('آیا از حذف این تراکنش مطمئن هستید ؟');
+
+
+$.ajax({
+    type: "POST",
+    url: "transaction/remove",
+    data: {
+        id: transactionID
+    },
+    success: function (data) {
+        if (data.status == 'OK') {
+            // toast('تراکنش با موفقیت حذف شد');
+            $("body .tr_list .tr_" + transactionID).remove();
+        } else {
+            // warn('مشکلی در حذف تراکنش رخ داده است');
+        }
+    }
+});
+}
+
+
+</script>
 <script>
 
 

@@ -185,6 +185,55 @@ $(document).ready(function () {
     });
 
 
+    function removeTR(transactionID){
+
+
+        // confirm('آیا از حذف این تراکنش مطمئن هستید ؟');
+
+        alert("dfdf");
+        $.ajax({
+            type: "POST",
+            url: "/transaction/remove",
+            data: {
+                transactionID: transactionID
+            },
+            success: function (data) {
+                if (data.status == 'OK') {
+                    toast('تراکنش با موفقیت حذف شد');
+                    $(".tr_" + transactionID).remove();
+                } else {
+                    warn('مشکلی در حذف تراکنش رخ داده است');
+                }
+            }
+        });
+    }
+
+
+    $("body #delete_tr").click(function (e) {
+        e.preventDefault();
+
+        
+        var transactionID = $(this).data("id");
+
+        // confirm('آیا از حذف این تراکنش مطمئن هستید ؟');
+
+        alert("dfdf");
+        $.ajax({
+            type: "POST",
+            url: "/transaction/remove",
+            data: {
+                transactionID: transactionID
+            },
+            success: function (data) {
+                if (data.status == 'OK') {
+                    toast('تراکنش با موفقیت حذف شد');
+                    $(".tr_" + transactionID).remove();
+                } else {
+                    warn('مشکلی در حذف تراکنش رخ داده است');
+                }
+            }
+        });
+    });
 
 
     $("#saveTripChanges").click(function () {

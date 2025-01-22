@@ -183,7 +183,7 @@ $routes->post('usePay/callback', 'Pay::Check');
 
  $routes->post('transaction/create', 'Transaction::create');
  $routes->get('transaction/create', 'Transaction::create');
- $routes->post('transaction/delet', 'Transaction::_delete');
+ $routes->post('transaction/remove', 'Transaction::remove');
 
 
 
