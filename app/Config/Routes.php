@@ -181,10 +181,15 @@ $routes->post('usePay/callback', 'Pay::Check');
  $routes->get('transaction/add', 'Transaction::_add');
  $routes->get('transaction/getAll/(:any)', 'Transaction::getAll/$1');
 
- $routes->post('transaction/create', 'Transaction::_create');
+ $routes->post('transaction/create', 'Transaction::create');
+ $routes->get('transaction/create', 'Transaction::create');
  $routes->post('transaction/delet', 'Transaction::_delete');
 
 
+
+
+$routes->get('user/getAllUser', 'User::getAllUser');
+$routes->get('driver/getAllDriver', 'Drivers::getAllDrivers');
 
 
 

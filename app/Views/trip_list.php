@@ -326,7 +326,6 @@ function getRandomColorPair()
 
 <script>
     jalaliDatepicker.startWatch();
-    
 </script>
 
 <style>

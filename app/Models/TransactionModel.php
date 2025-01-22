@@ -16,20 +16,24 @@ class TransactionModel extends Model
     
     protected $allowedFields = [
         'name',
-        'tel',          
-        'amount',       
-        'trans_id',     
-        'refid',        
-        'date_p', 
-        'response',     
+        'tel',
+        'amount',
+        'desc',
+        'trans_id',
+        'refid',
+        'response',
         'status',
-        'scan' ,
+        'scan',
+        'date_p',
+        'userID',
+        'driverID',
         '_from',
         '_to',
         '_for',
-        '_desc',         
+        'type',
+        'row_status',
         'tripID',
-        'trans_type'
+
     ];
 
     

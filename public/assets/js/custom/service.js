@@ -127,6 +127,8 @@ $(document).ready(function () {
                 $("#TrancactionList").modal('show');
 
                 $("#TrancactionList").html(data);
+                $(".transheader").html('تراکنش های سرویس #' + tripID);
+
 
                 // if (data.status == 'OK') {
                 //     $("#EditItem").modal('show');
@@ -136,6 +138,50 @@ $(document).ready(function () {
             }
         });
     });
+
+
+
+
+
+    
+
+    $('a[data-bs-target="#TrancactionAddModal"]').click(function () {
+        var tripID = $(this).data("id");
+        $("#TrancactionAddModal").modal('show');
+        $("#TrancactionAddModal input[name='trip_id']").val(tripID);
+
+    });
+
+    $(".addTransaction").click(function (r) {
+        r.preventDefault();
+        var formData = new FormData($("#transform")[0]);
+
+
+        // console.log(formData);
+        
+    
+
+        $.ajax({
+            type: "POST",
+            url: "/transaction/create",
+            data:formData,
+            cache:false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+            if (data.status == 'OK') {
+                toast('تراکنش با موفقیت ثبت شد');
+                $("#TrancactionAddModal").modal('hide');
+                location.reload();
+            } else {
+                warn('مشکلی در ثبت تراکنش رخ داده است');
+            }
+            }
+        });
+    });
+
+
+
 
     $("#saveTripChanges").click(function () {
         var tripID = $("#EditTripModal input[name='tripID']").val();

@@ -504,4 +504,13 @@ class Drivers extends BaseController
             return $this->response->setJSON(['status' => 'OK', 'data' => $data]);
         }
     }
+
+
+    public function getAllDrivers()
+    {
+        $Driver = new DriverModel();
+        $drivers = $Driver->findAll();
+
+        return $this->response->setJSON($drivers);
+    }
 }

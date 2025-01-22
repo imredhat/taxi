@@ -1,35 +1,31 @@
-<div class="modal-dialog modal-dialog-centered" style="max-width: 1000px;">
-    <form action="/updatetransaction" method="post">
-        <div class="modal-content" style="width: 1000px !important">
+<div class="modal-dialog modal-dialog-centered" style="max-width: 1200px;">
+        <div class="modal-content" style="width: 1200px !important">
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container">
                     <div class="card">
-                        <div class="card-header bg-primary text-white text-center">
+                        <div class="card-header bg-primary text-white text-center transheader">
                             تراکنش ها
                         </div>
                             <div class="card-body">
 
 
+                        <?php if (isset($transactions) && !empty($transaction)): ?>
+
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th>مبلغ</th>
-                                            <th>پرداخت کننده</th>
-                                            <th>دریافت کننده</th>
                                             <th>نوع تراکنش</th>
-
                                             <th>نام</th>
                                             <th>تلفن</th>
                                             <th>توضیحات</th>
                                             <th>شناسه تراکنش</th>
                                             <th>کد پیگیری</th>
                                             <th>تاریخ</th>
-                                            <th>وضعیت</th>
                                             <th>اسکن</th>
-                                            <th>شناسه سفر</th>
                                             <th></th>
 
                                         </tr>
@@ -38,18 +34,20 @@
                                         <?php foreach ($transactions as $transaction): ?>
                                             <tr>
                                                 <td><?php echo $transaction['amount'] ?></td>
-                                                <td><?php echo $transaction['_from'] ?></td>
-                                                <td><?php echo $transaction['_to'] ?></td>
-                                                <td><?php echo $transaction['_for'] ?></td>
+                                                <td>
+                                                    <?php if ($transaction['type'] == 'in'): ?>
+                                                        دریافتی از مشتری
+                                                    <?php else: ?>
+                                                        پرداختی به راننده
+                                                    <?php endif; ?>
+                                                </td>
                                                 <td><?php echo $transaction['name'] ?></td>
                                                 <td><?php echo $transaction['tel'] ?></td>
                                                 <td><?php echo $transaction['desc'] ?></td>
                                                 <td><?php echo $transaction['trans_id'] ?></td>
                                                 <td><?php echo $transaction['refid'] ?></td>
                                                 <td><?php echo $transaction['date_p'] ?></td>
-                                                <td><?php echo $transaction['status'] ?></td>
-                                                <td><?php echo $transaction['scan'] ?></td>
-                                                <td><?php echo $transaction['id'] ?></td>
+                                                <td><a target="_blank" href="<?=base_url()?>uploads/transaction/<?=$transaction['tripID']?>/<?php echo $transaction['scan'] ?>" > نمایش </a> </td>
 
                                                 <td>
                                                     <form action="/deletetransaction" method="post" onsubmit="return confirm('Are you sure you want to delete this transaction?');">
@@ -62,6 +60,18 @@
                                         <?php endforeach; ?>
                                     </tbody>
 
+                                </table>
+
+                                <?php else : ?>
+
+                                    <div class="alert alert-warning">
+                                        هیچ تراکنشی
+
+                                     یافت نشد
+                                    </div>
+
+                                    <?php endif;?>
+
 
                             </div>
                     </div>
@@ -69,7 +79,6 @@
           
 
         </div>
-    </form>
 </div>
 
 

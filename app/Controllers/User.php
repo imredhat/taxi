@@ -277,4 +277,14 @@ class User extends BaseController
             return redirect()->back()->with('error', 'Invalid field type.');
         }
     }
+
+
+    public function getAllUser()
+    {
+        $User = new UserModel();
+        $data = $User->select('id, name, lname')->findAll();
+
+        return $this->response->setJSON($data);
+        
+    }
 }
