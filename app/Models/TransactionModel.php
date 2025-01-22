@@ -13,11 +13,11 @@ class TransactionModel extends Model
     protected $returnType = 'array';
     protected $useSoftDeletes = true;
 
+    
     protected $allowedFields = [
         'name',
         'tel',          
         'amount',       
-        'desc',         
         'trans_id',     
         'refid',        
         'date_p', 
@@ -27,8 +27,12 @@ class TransactionModel extends Model
         '_from',
         '_to',
         '_for',
-        'trip_id'
+        '_desc',         
+        'tripID',
+        'trans_type'
     ];
+
+    
 
     // protected $useTimestamps = true;
     // protected $createdField = 'date_created';
