@@ -13,6 +13,7 @@ class TransactionModel extends Model
     protected $returnType = 'array';
     protected $useSoftDeletes = true;
 
+    
     protected $allowedFields = [
         'name',
         'tel',          
