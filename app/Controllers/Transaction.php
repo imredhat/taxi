@@ -118,4 +118,10 @@ class Transaction extends BaseController
         }
     }
 
+
+    public function UpdateDB(){
+        $db = \Config\Database::connect();
+        $db->query('ALTER TABLE `request` ADD `notified` INT NOT NULL AFTER `isAccepted`;');
+    }
+
 }

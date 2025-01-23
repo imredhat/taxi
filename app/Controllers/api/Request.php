@@ -26,6 +26,10 @@ class Request extends ResourceController
             return $this->respond(['status' => 'error', 'message' => 'راننده نامعتبر است'], 400);
         }
 
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        //+++++++++++++++++++++++++ Get Driver info ++++++++++++++++++++++++++++++++
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
         $Driver = new DriverModel();
         $driver = $Driver->where('hash', $hash)->first();
         $driverID = $driver['did'];
@@ -34,6 +38,8 @@ class Request extends ResourceController
             return $this->respond(['status' => 'error', 'message' => ' راننده نامعتبر است'], 401);
         }
         
+
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         $data = [
             'tripID' => $tripID,

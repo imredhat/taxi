@@ -26,12 +26,13 @@ class Request extends ResourceController
     public function imReady()
     {
         $tripID = $this->request->getPost('tripID');
-        $notifID = $this->request->getPost('notifID');
-        $driverID = $this->request->getPost('driverID');
+        $driverID = $this->request->getPost(index: 'driverID');
+        $carID = $this->request->getPost('carID');
+
 
         $data = [
             'tripID' => $tripID,
-            'notifID' => $notifID,
+            'carID' => $carID,
             'driverID' => $driverID,
         ];
 
