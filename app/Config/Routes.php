@@ -144,6 +144,7 @@ $routes->post('Trips/FindID', 'Trips::FindID');
 $routes->get('Trips/Step2(:any)', 'Trips::Step2/$1');
 $routes->add('TripsDetail/(:any)', 'Trips::Detail/$1');
 
+$routes->get('Trips/Factor/(:any)', 'Trips::Factor/$1');
 // ______________________________________ Request _______________________________________
 
 $routes->add('Request/imReady', 'Request::imReady');
@@ -202,6 +203,14 @@ $routes->get('driver/getAllDriver', 'Drivers::getAllDrivers');
 $routes->get('updateCode', 'Drivers::updateCode');
 
 
+
+/*********************************************
+ *          TransAction
+ **************************************/
+
+
+ $routes->get('srv/Report/(:any)', 'Service::Report/$1');  
+ $routes->get('srv/Invoice/(:any)', 'Service::Invoice/$1');  
 
 
 

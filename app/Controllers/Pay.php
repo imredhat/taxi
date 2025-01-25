@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controllers;
 
 use Shetabit\Multipay\Invoice;
@@ -16,41 +15,63 @@ class Pay extends BaseController
     public function UserPayStart()
     {
 
-        $name = $this->request->getPost('name');
-        $mobile = $this->request->getPost('mobile');
-        $amount = $this->request->getPost('amount');
+        $name        = $this->request->getPost('name');
+        $mobile      = $this->request->getPost('mobile');
+        $amount      = $this->request->getPost('amount');
         $description = $this->request->getPost('description');
 
         $data = [
-            'name' => $name,
-            'mobile' => $mobile,
-            'amount' => $amount,
+            'name'        => $name,
+            'mobile'      => $mobile,
+            'amount'      => $amount,
             'description' => $description,
         ];
 
         // load the config file from your project
-        // $paymentConfig = require('/vendor/shetabit/multipay/config/payment.php');
+        $paymentConfig = require '../vendor/shetabit/multipay/config/payment.php';
 
-        $payment = new Payment();
+        $payment = new Payment($paymentConfig);
         $invoice = new Invoice();
 
         // Set invoice amount.
 
-        $invoice->amount(1000);
+        $amount = filter_var($amount, FILTER_SANITIZE_NUMBER_INT);
+
+        $invoice->amount($amount);
 
         $invoice->detail('name', $data['name'])
             ->detail('mobile', $data['mobile'])
             ->detail('amount', $data['amount'])
             ->detail('description', $data['description']);
 
-            return $payment->purchase(
-                (new Invoice)->amount(1000), 
-                function($driver, $transactionId) {
-                    // Store transactionId in database.
-                    // We need the transactionId to verify payment in the future.
-                }
-            )->pay()->render();
+        // return $payment->purchase(
+        //     (new Invoice)->amount(1000),
+        //     function ($driver, $transactionId) {
+        //         // Store transactionId in database.
+        //         // We need the transactionId to verify payment in the future.
+        //     }
+        // )->pay()->render();
 
+
+        $res = $payment -> purchase($invoice)->pay() -> render();
+
+        print_r($res);
+
+
+
+        // $amount= intval($request->input('amount'));
+        //     $transaction_user = TransactionUser::create([
+        //         'user_id'=>$userId,
+        //         'amount' =>$amount
+        //     ]);
+        //     $invoice=new Invoice();
+        //     $invoice->amount($amount);
+        //     $res = Payment::purchase($invoice,function ($transaction_id) use ($transaction_user){
+        //         $transaction_user->update([
+        //             'transaction_id'=>$transaction_id
+        //         ]);
+        //     })->pay()->render();
+        //     return $res;
 
         // $data['payment_id'] = $payment->getPaymentId();
 
@@ -62,7 +83,7 @@ class Pay extends BaseController
 
         print_r($_POST);
         die();
-        $amount = $this->request->getPost('amount');
+        $amount         = $this->request->getPost('amount');
         $transaction_id = $this->request->getPost('transactionId');
 
         $payment = new Payment();

@@ -92,7 +92,8 @@ $(document).ready(function () {
     });
 
 
-    $('a[data-bs-target="#EditTrip"]').click(function () {
+    $("body").on("click", "a.editBTN", function () {
+
         var tripID = $(this).data("id");
 
         $.ajax({
@@ -101,14 +102,7 @@ $(document).ready(function () {
             success: function (data) {
 
                 $("#EditItem").modal('show');
-
                 $("#EditItem").html(data);
-
-                // if (data.status == 'OK') {
-                //     $("#EditItem").modal('show');
-                // } else {
-                //     warn('مشکلی در دریافت اطلاعات سفر رخ داده است');
-                // }
             }
         });
     });
@@ -116,7 +110,7 @@ $(document).ready(function () {
 
 
 
-    $('a[data-bs-target="#TrancactionList"]').click(function () {
+    $("body").on("click", 'a[data-bs-target="#TrancactionList"]', function () {
         var tripID = $(this).data("id");
 
         $.ajax({
@@ -142,55 +136,72 @@ $(document).ready(function () {
 
 
 
+    $("body").on("click", 'a.factorBTN', function () {
+        var tripID = $(this).data("id");
+        // let cururl = $(this).attr("href");
 
-    
+        cururl = "Trips/Factor/" + tripID;
 
-    $('a[data-bs-target="#TrancactionAddModal"]').click(function () {
+
+        const width = 800;
+        const height = 800;
+        const left = (screen.width - width) / 2;
+        const top = (screen.height - height) / 2;
+
+        return window.open(cururl, '_blank', `width=${width},height=${height},top=${top},left=${left}`);
+
+
+    });
+
+
+
+
+    $("body").on("click", 'a[data-bs-target="#TrancactionAddModal"]', function () {
         var tripID = $(this).data("id");
         $("#TrancactionAddModal").modal('show');
         $("#TrancactionAddModal input[name='trip_id']").val(tripID);
 
     });
 
-    $(".addTransaction").click(function (r) {
+    $("body").on("click", ".addTransaction", function (r) {
         r.preventDefault();
         var formData = new FormData($("#transform")[0]);
 
 
         // console.log(formData);
-        
-    
+
+
 
         $.ajax({
             type: "POST",
             url: "/transaction/create",
-            data:formData,
-            cache:false,
+            data: formData,
+            cache: false,
             contentType: false,
             processData: false,
             success: function (data) {
-            if (data.status == 'OK') {
-                toast('تراکنش با موفقیت ثبت شد');
-                $("#TrancactionAddModal").modal('hide');
-                // location.reload();
-                $("#transform")[0].reset();
-                $('#userID').chosen('destroy');
-                $('#userID').empty();
+                if (data.status == 'OK') {
+                    toast('تراکنش با موفقیت ثبت شد');
+                    $("#TrancactionAddModal").modal('hide');
+                    // location.reload();
+                    $("#transform")[0].reset();
+                    $('#userID').chosen('destroy');
+                    $('#userID').empty();
 
-            } else {
-                warn('مشکلی در ثبت تراکنش رخ داده است');
-            }
+                } else {
+                    warn('مشکلی در ثبت تراکنش رخ داده است');
+                }
             }
         });
     });
 
 
-    function removeTR(transactionID){
+    function removeTR(transactionID) {
 
 
         // confirm('آیا از حذف این تراکنش مطمئن هستید ؟');
 
-        alert("dfdf");
+        // alert("dfdf");
         $.ajax({
             type: "POST",
             url: "/transaction/remove",
@@ -212,7 +223,7 @@ $(document).ready(function () {
     $("body #delete_tr").click(function (e) {
         e.preventDefault();
 
-        
+
         var transactionID = $(this).data("id");
 
         // confirm('آیا از حذف این تراکنش مطمئن هستید ؟');
@@ -236,7 +247,8 @@ $(document).ready(function () {
     });
 
 
-    $("#saveTripChanges").click(function () {
+
+    $("body").on("click", "#saveTripChanges", function () {
         var tripID = $("#EditTripModal input[name='tripID']").val();
         var passengerFare = $("#EditTripModal input[name='passenger_custom_fare']").val().replace(/,/g, '');
         var driverFare = $("#EditTripModal input[name='driver_custom_fare']").val().replace(/,/g, '');
@@ -308,7 +320,7 @@ $(document).ready(function () {
                     tripID: ID,
                     UserFare: UserFare,
                     DriverFare: DriverFare,
-                    DriverPackage : package
+                    DriverPackage: package
                 },
                 success: function (data) {
                     if (data.status == 'OK') {

@@ -15,6 +15,49 @@ use App\Models\TripsModel;
 class Service extends BaseController
 {
 
+
+    public function Invoice()
+    {
+        $uri = service('uri');
+        $ID  = $uri->getSegment(3);
+
+        $Trip = new TripsModel();
+        if ($data['Trip'] = $Trip->find($ID)) {
+
+            echo view('parts/print/header');
+            echo view("public/TripDetail", $data);
+            echo view('parts/print/footer');
+
+        } else {
+            return $this->fail('NotFound');
+        }
+    }
+
+
+
+    public function Report()
+    {
+        $uri = service('uri');
+        $ID  = $uri->getSegment(3);
+
+        $Trip = new TripsModel();
+        if ($data['Trip'] = $Trip->find($ID)) {
+
+            echo view('parts/print/header');
+            echo view("public/Report", $data);
+            echo view('parts/print/footer');
+
+        } else {
+            return $this->fail('NotFound');
+        }
+    }
+
+
+
+
+
+
+
     public function index()
     {
 

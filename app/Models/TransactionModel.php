@@ -38,7 +38,6 @@ class TransactionModel extends Model
 
 
     
-
     // protected $useTimestamps = true;
     // protected $createdField = 'date_created';
 
