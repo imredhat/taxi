@@ -64,22 +64,23 @@ class Auth extends ResourceController
         // print_r($user);die();
 
         if ($user && password_verify($password, $user['password'])) {
-
+ُ
             $data = [
-                'id' => $user['did'],
-                'name' => $user['name'],
-                'lname' => $user['lname'],
-                'mobile' => $user['mobile'],
-                'ax' => $user['ax'],
-                'date_created' => $user['date_created'],
-                'hash' => md5($user['did'] . $user['password'] . $user['date_created']),
+                'id'            => $user['did'],
+                'code'          => $user['code'],
+                'name'          => $user['name'],
+                'lname'         => $user['lname'],
+                'mobile'        => $user['mobile'],
+                'ax'            => $user['ax'],
+                'date_created'  => $user['date_created'],
+                'hash'          => md5($user['did'] . $user['password'] . $user['date_created']),
             ];
 
             session()->set([
-                'user_id' => $user['did'],
-                'name' => $user['name'] . ' ' . $user['lname'],
-                'isLoggedIn' => true,
-                'hash' => md5($user['did'] . $user['password'] . $user['date_created']),
+                'user_id'       => $user['did'],
+                'name'          => $user['name'] . ' ' . $user['lname'],
+                'isLoggedIn'    => true,
+                'hash'          => md5($user['did'] . $user['password'] . $user['date_created']),
             ]);
 
             $Driver->update($user['did'], ['hash' => $data['hash']]);
@@ -182,7 +183,7 @@ class Auth extends ResourceController
                 'hash'                  => md5($DID . $this->request->getPost('password') . date('Y-m-d H:i:s')),
                 'code'                  => $uniqueId
             ];
-            
+
             $Driver->update($DID, $driver);
 
             //-------------------------------------------------------------//
