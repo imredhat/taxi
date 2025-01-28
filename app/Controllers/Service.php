@@ -71,7 +71,7 @@ class Service extends BaseController
         )->format($now);
 
 
-        $data['Trip']    = (new TripsModel())->where('trip_date >=' , $persianDate)->findAll();
+        $data['Trip']    = (new TripsModel())->where('trip_date >=' , $persianDate)->where('status' , 'Confirm')->findAll();
         $data['Package'] = (new PackagesModel())->findAll();
         $data['Title'] = 'سرویس های جاری';
 

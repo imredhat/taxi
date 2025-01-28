@@ -77,6 +77,9 @@ class Trips extends ResourceController
 
         $data = $this->request->getPost();
 
+        // print_r($data);
+        // die();
+
         $data['startPoint'] = implode(',', $this->request->getPost('startPoint'));
         $data['endPoint']   = implode(',', $this->request->getPost('endPoint'));
 
@@ -104,10 +107,15 @@ class Trips extends ResourceController
         } else {
             $ID   = $this->request->getPost('passenger_id');
             $User = new UserModel();
-            $User = $User->find($ID);
+            if($User = $User->find($ID)){
+                $data['passenger_name'] = $User['name'] . " " . $User['lname'];
+                $data['passenger_tel']  = $User['mobile'];
+            }else{
+                $data['passenger_name'] = "";
+                $data['passenger_tel']  = "";
+            }
 
-            $data['passenger_name'] = $User['name'] . " " . $User['lname'];
-            $data['passenger_tel']  = $User['mobile'];
+            
         }
 
         if ($this->model->save($data)) {
@@ -338,6 +346,7 @@ class Trips extends ResourceController
             'wait_hours'      => $this->request->getPost('wait_hours'),
             'status'          => $this->request->getPost('status'),
             'package'         => $this->request->getPost('package'),
+            'dsc'         => $this->request->getPost('dsc'),
         ];
 
         $data['userCustomFare'] = preg_replace('/\D/', '', $data['userCustomFare']);

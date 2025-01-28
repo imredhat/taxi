@@ -226,7 +226,9 @@ $routes->post('api/driver/Trips', 'api\Driver::Trips');
 $routes->post('api/driver/cars', 'api\Driver::Cars');
 $routes->get('api/car/brands', 'api\Driver::Brands');
 $routes->get('api/car/type', 'api\Driver::Types');
-$routes->post('api/driver/NewService', 'api\Driver::getNotifications');
+
+$routes->add('api/driver/TripsList', 'api\Driver::TripsList');
+$routes->add('api/driver/MyTrips', 'api\Driver::MyTrips');
 
 $routes->post('api/request/Send', 'api\Request::Send');
 

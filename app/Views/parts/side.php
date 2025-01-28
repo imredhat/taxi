@@ -61,7 +61,7 @@
 
 
 
-                    <span class="title">استعلام ها</span>
+                    <span class="title">استعلام ها و سرویس ها</span>
                 </a>
             </li>
 

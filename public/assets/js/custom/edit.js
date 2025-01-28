@@ -121,6 +121,8 @@ $(document).ready(function () {
         tripData.package = $("body select[name='package_edit']").val();
         tripData.status = $("body select[name='status_edit']").val();
         tripData.status_text = $("body select[name='status_edit'] option:selected").text();
+        tripData.dsc = $("body textarea[name='dsc']").val();
+
 
         var ID = tripData.id.replace(/\D/g, '');
         var NewStatus = tripData.status_text;

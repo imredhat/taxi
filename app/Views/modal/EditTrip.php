@@ -254,6 +254,23 @@
                                     </select>
                                 </div>
                             </div>
+
+
+
+
+                            <div class="row my-2">
+                          
+                          <div class="col-md-12">
+                              <label for="status"><strong>توضیحات:</strong></label>
+                              <textarea class="form-control " name="dsc"><?= $Trip['dsc'] ?></textarea>
+                          </div>                           
+
+
+                   
+                      </div>
+
+
+
                             <input name="id" value=" <?= $Trip['id']?>"  type="hidden" />
                             <hr>
                         </div>

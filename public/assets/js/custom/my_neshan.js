@@ -637,7 +637,7 @@ $(document).ready(function () {
         tripData.trip_type = document.querySelector("select[name='trip_type']").value;
         tripData.wait_hours = document.querySelector("input[name='wait_hours']").value;
         tripData.badRoad_km = document.querySelector("input[name='badRoad_km']").value;
-        tripData.luggage = document.querySelector("[name='luggage']").value;
+        tripData.dsc = document.querySelector("[name='dsc']").value;
 
         $(this).attr("disabled", 'disabled');
         $(".spinner-grow").fadeIn();

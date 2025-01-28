@@ -13,7 +13,7 @@ use CodeIgniter\RESTful\ResourceController;
 
 class Driver extends ResourceController
 {
-    
+
 
     public function Cars()
     {
@@ -40,7 +40,7 @@ class Driver extends ResourceController
                 'car_id' => $car['cid'],
                 'driver_id' => $car['driver_id'],
                 'brand' => $car['brand'],
-                'fuel' => $car['fuel'],           
+                'fuel' => $car['fuel'],
                 'pelak' => $car['iran'] . ' ' . $car['pelak'] . ' ' . $car['harf'] . ' ' . $car['pelak_last'],
                 'motor' => $car['motor'],
                 'pic_back' => $car['pic_back'],
@@ -54,13 +54,14 @@ class Driver extends ResourceController
         }
 
         return $this->respond(['status' => 'success', 'cars' => $cars]);
-
     }
 
-  
 
-    public function TripsList(){
+
+    public function TripsList()
+    {
         $hash = $this->request->getPost('hash');
+        $carID = $this->request->getPost('carID');
 
         if (empty($hash)) {
             return $this->respond(['status' => 'error', 'message' => 'راننده نامعتبر است'], 400);
@@ -70,8 +71,8 @@ class Driver extends ResourceController
         $driver = $Driver->where('hash', $hash)->first();
 
         $CarModel = new CarModel();
-        $cars = $CarModel->where(['cid' => $driver['did'], 'active' => 1])->orderBy('active','desc')->first();
-        
+        $cars = $CarModel->where(['cid' => $carID, 'active' => 1])->orderBy('active', 'desc')->first();
+
 
         if (!$cars) {
             return $this->respond(['status' => 'error', 'message' => 'هیچ خودروی فعالی برای این راننده یافت نشد'], 404);
@@ -84,19 +85,63 @@ class Driver extends ResourceController
         $driverID = $driver['did'];
         $type_class = $cars['type_class'];
 
+
+        // print_r($cars);
+        // die();
+
         $PackagesModel = new \App\Models\PackagesModel();
         $type_class_name = $PackagesModel->where('id', $type_class)->first();
 
- 
-        $TripsModel = new TripsModel();
-        $trips = $TripsModel->where(['status' => 'Notifed', 'package' => $type_class_name['name']])->findAll();
+        // echo $type_class_name['name'];
+        // die();
 
-        if (!$trips) {
+
+        $TripsModel = new TripsModel();
+        $trips = $TripsModel->getNewRequest($type_class_name['name']);
+
+        if (!$trips || empty($trips)) {
             return $this->respond(['status' => 'error', 'message' => 'هیچ سفری یافت نشد'], 404);
         }
 
         return $this->respond(['status' => 'success', 'trips' => $trips]);
     }
+
+
+    public function MyTrips()
+    {
+        $hash = $this->request->getPost('hash');
+        $from_date = $this->request->getPost('from_date');
+        $to_date = $this->request->getPost('to_date');
+
+        if (empty($hash)) {
+            return $this->respond(['status' => 'error', 'message' => 'راننده نامعتبر است'], 400);
+        }
+
+        $Driver = new DriverModel();
+        $driver = $Driver->where('hash', $hash)->first();
+
+        if (!$driver) {
+            return $this->respond(['status' => 'error', 'message' => ' راننده نامعتبر است'], 401);
+        }
+
+        $driverID = $driver['did'];
+
+
+        $TripsModel = new TripsModel();
+        if (!empty($from_date)) {
+            $trips = $TripsModel->getMyRequest($driverID, $from_date, $to_date);
+        } else {
+            $trips = $TripsModel->getMyRequest($driverID);
+        }
+
+
+        if (!$trips || empty($trips)) {
+            return $this->respond(['status' => 'error', 'message' => 'هیچ سفری یافت نشد'], 404);
+        }
+
+        return $this->respond(['status' => 'success', 'trips' => $trips]);
+    }
+
 
     public function Brands()
     {
@@ -120,7 +165,7 @@ class Driver extends ResourceController
 
     public function Types()
     {
-        
+
         $Types = new TypeModel();
         $AllTypes = $Types->orderBy('bid')->withDeleted()->findAll();
 
@@ -140,7 +185,4 @@ class Driver extends ResourceController
 
         return $this->respond(['status' => 'success', 'types' => $TypeData]);
     }
-
-
-
 }
