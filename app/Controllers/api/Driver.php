@@ -57,35 +57,9 @@ class Driver extends ResourceController
 
     }
 
-    public function getNotifications(){
-        $hash = $this->request->getPost('hash');
-        $carID = $this->request->getPost('carID');        
+  
 
-        if (empty($hash)) {
-            return $this->respond(['status' => 'error', 'message' => 'راننده نامعتبر است'], 400);
-        }
-
-        $Driver = new DriverModel();
-        $driver = $Driver->where('hash', $hash)->first();
-        $driverID = $driver['did'];
-
-        if (!$driver) {
-            return $this->respond(['status' => 'error', 'message' => ' راننده نامعتبر است'], 401);
-        }
-      
-        $Request = new RequestModel();
-        $trips = $Request->getNewRequest($driverID, $carID);
-
-        if (!$trips) {
-            return $this->respond(['status' => 'error', 'message' => 'هیچ سفری فعالی یافت نشد'], 404);
-        }
-
-        return $this->respond(['status' => 'success', 'trips' => $trips]);
-
-
-    }
-
-    public function Trips(){
+    public function TripsList(){
         $hash = $this->request->getPost('hash');
 
         if (empty($hash)) {
@@ -115,7 +89,7 @@ class Driver extends ResourceController
 
  
         $TripsModel = new TripsModel();
-        $trips = $TripsModel->where(['driverID' => $driverID, 'status' => 'Notifed', 'package' => $type_class_name['name']])->findAll();
+        $trips = $TripsModel->where(['status' => 'Notifed', 'package' => $type_class_name['name']])->findAll();
 
         if (!$trips) {
             return $this->respond(['status' => 'error', 'message' => 'هیچ سفری یافت نشد'], 404);
@@ -143,8 +117,6 @@ class Driver extends ResourceController
 
         return $this->respond(['status' => 'success', 'brands' => $brandsData]);
     }
-
-
 
     public function Types()
     {

@@ -44,11 +44,11 @@ class Transaction extends BaseController
             $data['_from'] = 'POT';
             $data['_to']   = 'DRIVER';
 
-            $driverModel  = new \App\Models\UserModel();
+            $driverModel  = new \App\Models\DriverModel();
             $driver       = $driverModel->find($this->request->getPost('userID'));
             $data['name'] = $driver['name'] . ' ' . $driver['lname'];
             $data['tel']  = $driver['mobile'];
-            $data['driverID'] = $driver['id'];
+            $data['driverID'] = $driver['did'];
         }
 
 

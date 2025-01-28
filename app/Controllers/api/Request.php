@@ -20,7 +20,6 @@ class Request extends ResourceController
         $hash = $this->request->getPost('hash');
         $carID = $this->request->getPost('carID');       
         $tripID = $this->request->getPost('tripID');
-        $notifID = $this->request->getPost('notifID'); 
 
         if (empty($hash)) {
             return $this->respond(['status' => 'error', 'message' => 'راننده نامعتبر است'], 400);
@@ -43,7 +42,6 @@ class Request extends ResourceController
 
         $data = [
             'tripID' => $tripID,
-            'notifID' => $notifID,
             'driverID' => $driverID,
             'carID' => $carID,
         ];
@@ -64,64 +62,34 @@ class Request extends ResourceController
         }
     }
 
-    public function getTripDrivers()
+    public function MyRequests()
     {
-        $tripID = $this->request->getPost('tripID');
+        $hash = $this->request->getPost('hash');
 
-        $Dr = new DriverModel();
-        $Rq = new RequestModel();
-        $Rq = $Rq->where("tripID", $tripID)->findAll();
-
-        if ($Rq) {
-            foreach ($Rq as $I => $R) {
-                $driverID = $R['driverID'];
-                $carID = $R['carID'];
-                if ($RZ = $Dr->getDriverCarInfo($driverID, $carID)) {
-                    foreach ($RZ as $Z => $V) {
-                        $Rq[$I][$Z] = $V;
-                    }
-                }
-            }
+        if (empty($hash)) {
+            return $this->respond(['status' => 'error', 'message' => 'راننده نامعتبر است'], 400);
         }
 
-        $data['request'] = $Rq;
+        $Driver = new DriverModel();
+        $driver = $Driver->where('hash', $hash)->first();
 
-        return view('modal/Request_Drivers', $data);
-    }
-
-    public function ConfirmReq()
-    {
-        $reqID = $this->request->getPost('RqID');
-        $tripID = $this->request->getPost('tripID');
-        $notifID = $this->request->getPost('notifID');
-        $isAccepet = $this->request->getPost('isAccepet');
-
-        $data = ["isAccepted" => $isAccepet];
-
-        $Rq = new RequestModel();
-        $Rq->update($reqID, $data);
-
-        if ($Rq) {
-
-            // $model = new TripsModel();
-            // $isAccepted = $model->isAcceptedExists($tripID, $notifID);
-
-            if ($isAccepet == "YES") {
-                $data = ["status" => "Confirm"];
-
-                $Rq = new TripsModel();
-                $Rq->update($reqID, $data);
-
-                return $this->response->setJSON([
-                    'status' => 'success',
-                    'final' => true,
-                ]);
-            } else {
-                return $this->response->setJSON([
-                    'status' => 'success',
-                    'final' => false,
-                ]);
-            }
+        if (!$driver) {
+            return $this->respond(['status' => 'error', 'message' => ' راننده نامعتبر است'], 401);
         }
+
+        $driverID = $driver['did'];
+
+        $Request = new RequestModel();
+        $requests = $Request->where('driverID', $driverID)->findAll();
+
+        if (!$requests) {
+            return $this->respond(['status' => 'error', 'message' => 'هیچ سفری فعالی یافت نشد'], 404);
+        }
+
+        return $this->respond(['status' => 'success', 'data' => $requests], 200);
     }
+
+  
+
+ 
 }

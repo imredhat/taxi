@@ -273,6 +273,12 @@
 
 
 <style>
+   .main-content{
+        margin: auto !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-right: 0 !important;
+    }
 .paymentLogo{
     float: right;
 	height: 60px;

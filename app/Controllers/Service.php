@@ -61,17 +61,32 @@ class Service extends BaseController
     public function index()
     {
 
-        $tripsModel = new TripsModel();
-        $res = $tripsModel->where('status', 'Confirm')->findAll();
-        $data['Request'] =$res;
+        $now = new \DateTime('now', new \DateTimeZone('Asia/Tehran'));
+        $persianDate = \IntlDateFormatter::create(
+            'fa_IR@calendar=persian',
+            \IntlDateFormatter::SHORT,
+            \IntlDateFormatter::NONE,
+            'Asia/Tehran',
+            \IntlDateFormatter::TRADITIONAL
+        )->format($now);
 
-        // echo "<pre>";
-        // print_r($res);
-        // die();
+
+        $data['Trip']    = (new TripsModel())->where('trip_date >=' , $persianDate)->findAll();
+        $data['Package'] = (new PackagesModel())->findAll();
+        $data['Title'] = 'سرویس های جاری';
 
         echo view('parts/header');
         echo view('parts/side');
-        echo view('service_list', $data);
+        echo view('trip_list', $data);
+        echo view('modal/PayingFare');
+        echo view('modal/UpdateStatus');
+        echo view('modal/ViewItem');
+        echo view('modal/EditModal');
+        echo view('modal/Transaction');
+        echo view('modal/TrancactionAddModal');
+        echo view('modal/Request');
+        echo view('modal/Dwt');
+        echo view('modal/toasts');
         echo view('parts/footer');
     }
 

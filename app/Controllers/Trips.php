@@ -20,6 +20,7 @@ class Trips extends ResourceController
 
         $data['Trip']    = (new TripsModel())->findAll();
         $data['Package'] = (new PackagesModel())->findAll();
+        $data['Title'] = 'استعلام ها';
 
         echo view('parts/header');
         echo view('parts/side');
@@ -314,6 +315,7 @@ class Trips extends ResourceController
     public function UpdateTrip()
     {
         $ID   = $this->request->getPost('id');
+        
         $data = [
             'startAdd'        => $this->request->getPost('startAdd'),
             'endAdd'          => $this->request->getPost('endAdd'),
@@ -323,8 +325,8 @@ class Trips extends ResourceController
             'travelTime'      => $this->request->getPost('travelTime'),
             'distance'        => $this->request->getPost('distance'),
             'finalFare'       => $this->request->getPost('finalFare'),
-            'passengerFare'   => $this->request->getPost('passengerFare'),
-            'driverFare'      => $this->request->getPost('driverFare'),
+            'userCustomFare'   => $this->request->getPost('passengerFare'),
+            'driverCustomFare'      => $this->request->getPost('driverFare'),
             'trip_type'       => $this->request->getPost('trip_type'),
             'driverID'        => $this->request->getPost('driverID'),
             'carID'           => $this->request->getPost('carID'),
@@ -338,10 +340,10 @@ class Trips extends ResourceController
             'package'         => $this->request->getPost('package'),
         ];
 
-        // Remove any extra characters except numbers in passengerFare, driverFare, and finalFare
-        $data['passengerFare'] = preg_replace('/\D/', '', $data['passengerFare']);
-        $data['driverFare']    = preg_replace('/\D/', '', $data['driverFare']);
+        $data['userCustomFare'] = preg_replace('/\D/', '', $data['userCustomFare']);
+        $data['driverCustomFare']    = preg_replace('/\D/', '', $data['driverCustomFare']);
         $data['finalFare']     = preg_replace('/\D/', '', $data['finalFare']);
+
 
         $Trip = new TripsModel();
         if ($Trip->update($ID, $data)) {
@@ -361,7 +363,7 @@ class Trips extends ResourceController
     {
         $data       = $this->request->getRawInput(); // Get raw data (PUT or PATCH)
         $data['id'] = $id;
-
+        
         if ($this->model->save($data)) {
             return $this->respond($data);
         } else {
