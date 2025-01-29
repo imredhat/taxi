@@ -1,39 +1,34 @@
 $(".spinner-border-sm").hide();
 $("#checkID").click(function () {
 
-    var passenger_id = $('input[name="passenger_id"]').val();
+    var Tel = $('input[name="Tel"]').val();
 
     // $(this).attr("disabled", 'disabled');
     $(".spinner-border-sm").fadeIn();
     $.ajax({
         type: "POST",
         url: base + "Trips/FindID",
-        data: { ID: passenger_id },
-
+        data: { Tel: Tel },
         success: function (data) {
-
-
             if (data.status == "OK") {
 
-                console.log(data);
                 $(".spinner-border-sm").hide();
 
                 $('input[name="passenger_name"]').val(data.User.name + ' ' + data.User.lname);
                 $('input[name="passenger_tel"]').val(data.User.mobile);
+                $('body input[name="passenger_id"]').val(data.User.id);
+
 
 
                 // window.location.href = base + 'Trips/Step2/' + data.ID;
             } else {
                 $(".spinner-border-sm").fadeOut();
-                alert('کابری با این شماره اشتراک یافت نشد');
+                // alert('کابری با این شماره اشتراک یافت نشد');
             }
-
-
         }
-
-
     });
 });
+
 
 
 $(".weather svg").on("click", function () {

@@ -24,6 +24,9 @@ class Service extends BaseController
         $Trip = new TripsModel();
         if ($data['Trip'] = $Trip->find($ID)) {
 
+            $BankModel = new \App\Models\BankModel();
+            $data['Bank'] = $BankModel->find($data['Trip']['bank']);
+
             echo view('parts/print/header');
             echo view("public/TripDetail", $data);
             echo view('parts/print/footer');

@@ -109,10 +109,13 @@ $routes->post('Service/createOrder', 'Service::createOrder');
 
 
 
-$routes->get('Option/Other', 'Option::index');
+
 $routes->get('Option/Packages', 'Option::Packages');
 $routes->get('Option/Packages/(edit|read|success|update)/(:any)', to: 'Option::Packages/$1');
 
+
+$routes->add('Option/Banks', 'Option::banks');
+$routes->add('Option/Banks/(:any)', 'Option::banks/$1');
 
 $routes->post('Option/saveSettings', 'Option::saveSettings');
 
@@ -233,3 +236,11 @@ $routes->add('api/driver/MyTrips', 'api\Driver::MyTrips');
 $routes->post('api/request/Send', 'api\Request::Send');
 
 // $routes->get('api/auth/logout', 'API\Auth::logout');
+
+
+
+
+
+/***********FIXXXXXXXXX ******************* */
+
+$routes -> add('fixPassengerID','Fix::fixPassengerID');

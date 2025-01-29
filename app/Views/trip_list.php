@@ -189,6 +189,7 @@ function getRandomColorPair()
         <th scope="col">مبدا</th>
         <th scope="col">مقصد</th>
         <th scope="col">تاریخ سفر</th>
+        <th scope="col">تاریخ تماس</th>
         <th scope="col">هزینه سفر</th>
         <th scope="col">وضعیت</th>
         <th scope="col">شماره تماس</th>
@@ -198,17 +199,27 @@ function getRandomColorPair()
 <tbody>
 
 
+
     <?php if (isset($Trip)): foreach ($Trip as $S): ?>
             <tr class="text-center tr_<?= $S['id'] ?>">
                 <td class="text-start">
                     <?= $S['id'] ?>
                 </td>
 
-                <?php if ($S['isGuest'] > 0): ?>
-                    <td class="text-start"><?= $S['passenger_name'] ?> </td>
-                <?php else: ?>
-                    <td class="text-start"><?= $S['guest_name'] ?> </td>
-                <?php endif; ?>
+                    <td class="text-start">
+                        
+                    <?php
+                            if(isset($S['passenger_id'])  && $S['passenger_id'] == 0){
+                                echo ''. $S['guest_name'];
+                            }else{
+                                if(isset($S['isGuest']) && $S['isGuest'] > 0){
+                                     echo $S['passenger_name'].'<br/> <span class="mosafer"> [مسافر : '.$S['guest_name'].'] </span>';
+                                }else{
+                                    echo $S['passenger_name'];
+                                }
+                            }
+                    
+                    ?> </td>
 
                 <td class="w-50">
                     <span style="text-align: right;width: 100% !important;" class="py-1 px-2 rounded-1 fs-13 fw-semibold w-50 d-block"><?= $S['startAdd']  ?></span>
@@ -222,6 +233,20 @@ function getRandomColorPair()
 
 
                 <td> <span><?= $S['trip_date'] ?></span> </td>
+                <td style="direction: ltr;"> <span><?php
+                
+                    $now = new \DateTime($S['created_at'], new \DateTimeZone('Asia/Tehran'));
+                    $persianDate = \IntlDateFormatter::create(
+                        'fa_IR@calendar=persian',
+                        \IntlDateFormatter::SHORT,
+                        \IntlDateFormatter::NONE,
+                        'Asia/Tehran',
+                        \IntlDateFormatter::TRADITIONAL
+                    )->format($now);
+                    $persianTime = $now->format('H:i');
+                    echo $persianDate . ' ' . $persianTime;
+                
+                ?></span> </td>
                 <td> <span><?= number_format($S['finalFare']) ?> تومان</span> </td>
 
                 <td>
@@ -346,12 +371,11 @@ function getRandomColorPair()
 jdp-container {
     z-index: 99999 !important;
 }
-</style>
 
-
-
-
-<style>
+span.mosafer {
+        font-size: 12px;
+        background: antiquewhite;
+    }
     .notif_spinner,
     .change_status {
         display: none;

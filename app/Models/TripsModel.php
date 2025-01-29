@@ -51,8 +51,6 @@ class TripsModel extends Model
         'updated_at',
         'deleted_at',
         'dsc',
-
-
         'trip_type',
         'userCustomFare',
         'driverCustomFare',
@@ -60,6 +58,7 @@ class TripsModel extends Model
         'driverID',
         'carID',
         'reqID',
+        'bank',
     ];
 
     protected $useAutoIncrement = true;
@@ -67,6 +66,8 @@ class TripsModel extends Model
     protected $validationRules = [];
     protected $validationMessages = [];
     protected $skipValidation = false;
+
+
 
     public function isAcceptedExists($tripID, $notifID)
     {

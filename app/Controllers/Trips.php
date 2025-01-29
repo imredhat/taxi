@@ -8,6 +8,7 @@ use App\Models\PackagesModel;
 use App\Models\TransactionModel;
 use App\Models\TripsModel;
 use App\Models\UserModel;
+use App\Models\BankModel;
 use CodeIgniter\RESTful\ResourceController;
 
 class Trips extends ResourceController
@@ -20,7 +21,7 @@ class Trips extends ResourceController
 
         $data['Trip']    = (new TripsModel())->findAll();
         $data['Package'] = (new PackagesModel())->findAll();
-        $data['Title'] = 'استعلام ها';
+        $data['Title']   = 'استعلام ها';
 
         echo view('parts/header');
         echo view('parts/side');
@@ -77,9 +78,6 @@ class Trips extends ResourceController
 
         $data = $this->request->getPost();
 
-        // print_r($data);
-        // die();
-
         $data['startPoint'] = implode(',', $this->request->getPost('startPoint'));
         $data['endPoint']   = implode(',', $this->request->getPost('endPoint'));
 
@@ -87,36 +85,47 @@ class Trips extends ResourceController
             $data['company_factor'] = "Yes";
         }
 
-        if (($this->request->getPost('isGuest')) == "1") {
 
-            $ID = $this->request->getPost('passenger_id');
 
-            if (isset(($ID)) && $ID > 0) {
-                $User = new UserModel();
-                $User = $User->find($ID);
+         /*******************************************
+         * Check if the passenger is a guest
+         ******************************************/
 
-                $data['passenger_name'] = $User['name'] . " " . $User['lname'];
-                $data['passenger_tel']  = $User['mobile'];
-            } else {
-                $data['guest_name'] = $this->request->getPost('passenger_name');
-                $data['guest_tel']  = $this->request->getPost('passenger_tel');
+         $PID      = $this->request->getPost('passenger_id');
+         $IsGuest = $this->request->getPost('isGuest');
+ 
+         if (isset(($PID)) && $PID > 0 && $IsGuest == '0') {
+             $User = new UserModel();
+             $User = $User->find($PID);
+ 
+             $data['passenger_name'] = $User['name'] . " " . $User['lname'];
+             $data['passenger_tel']  = $User['mobile'];
+             
+         }else if (isset(($PID)) && $PID > 0 && $IsGuest == '1') {
+             $User = new UserModel();
+             $User = $User->find($PID);
+ 
+             $data['passenger_name'] = $User['name'] . " " . $User['lname'];
+             $data['passenger_tel']  = $User['mobile'];
+ 
+             $data['guest_name'] = $this->request->getPost('passenger_name');
+             $data['guest_tel']  = $this->request->getPost('passenger_tel');
+ 
+ 
+         } else {
+             $data['guest_name'] = $this->request->getPost('passenger_name');
+             $data['guest_tel']  = $this->request->getPost('passenger_tel');
+             
+ 
+             $data['passenger_name'] = "";
+             $data['passenger_tel']  = "";
 
-                $data['passenger_name'] = "";
-                $data['passenger_tel']  = "";
-            }
-        } else {
-            $ID   = $this->request->getPost('passenger_id');
-            $User = new UserModel();
-            if($User = $User->find($ID)){
-                $data['passenger_name'] = $User['name'] . " " . $User['lname'];
-                $data['passenger_tel']  = $User['mobile'];
-            }else{
-                $data['passenger_name'] = "";
-                $data['passenger_tel']  = "";
-            }
+             $this -> createUser( $data['guest_tel'] , $data['guest_name']);
+         }
+ 
+         /**************************** END Check *************************************** */
 
-            
-        }
+
 
         if ($this->model->save($data)) {
             $id = $this->model->insertID();
@@ -132,22 +141,47 @@ class Trips extends ResourceController
         }
     }
 
+    public function createUser($mobile,$name){
+        $UserModel = new UserModel();
+        $User = $UserModel->find($mobile);
+
+        if(!$User){
+
+            $nameParts = explode(' ', $name);
+            $firstName = $nameParts[0];
+            $lastName = isset($nameParts[1]) ? $nameParts[1] : '';
+
+            $now = new \DateTime('now', new \DateTimeZone('Asia/Tehran'));
+            $persianDate = \IntlDateFormatter::create('fa_IR@calendar=persian',\IntlDateFormatter::SHORT,\IntlDateFormatter::NONE,'Asia/Tehran',\IntlDateFormatter::TRADITIONAL)->format($now);
+
+            $UserModel->insert([
+                'mobile' => $mobile,
+                'name' => $firstName,
+                'lname' => $lastName,
+                'type'  => 'حقیقی',
+                'status'=> 'تایید شده',
+                'date_start'=> $persianDate
+            ]);
+        }
+
+    }
+
     public function FindID()
     {
-        $ID = $this->request->getPost('ID');
+        $TEL = $this->request->getPost('Tel');
 
-        $ORGID = $ID - 1000;
-        $User  = new UserModel();
-        if ($User = $User->find($ORGID)) {
+        // $ORGID = $ID - 1000;
+        $User = new UserModel();
+        if ($User = $User->where('mobile', $TEL)->first()) {
 
             return $this->respond([
                 'status'  => "OK",
-                'message' => 'Trip created successfully',
+                'message' => 'Found',
                 'User'    => $User,
             ], 201);
         } else {
             // If saving fails, return an error response
-            return $this->fail('Failed to save the trip data');
+            return $this->fail('NoResult');
         }
     }
 
@@ -173,10 +207,13 @@ class Trips extends ResourceController
         if ($data['Trip'] = $Trip->find($ID)) {
 
             $tr                   = new TransactionModel();
-            $data['transactions'] = $tr->where('tripID', $ID)->where('row_status', 'insert')->where('type', 'in') -> withDeleted()->findAll();
-            
+            $data['transactions'] = $tr->where('tripID', $ID)->where('row_status', 'insert')->where('type', 'in')->withDeleted()->findAll();
 
-       
+            $BankModel = new \App\Models\BankModel();
+            $data['Bank'] = $BankModel->find($data['Trip']['bank']);
+
+            // print_r($data);die();
+
 
             echo view('parts/print/header');
             echo view("modal/Factor", $data);
@@ -312,6 +349,7 @@ class Trips extends ResourceController
         $data['Packages'] = (new PackagesModel())->findAll();
         $data['options']  = (new FareModel())->findAll();
         $data['driver']   = (new DriverModel())->findAll();
+        $data['banks']   = (new BankModel())->findAll();
 
         // echo "<pre>";
         // print_r($data['driver']);
@@ -322,36 +360,78 @@ class Trips extends ResourceController
 
     public function UpdateTrip()
     {
-        $ID   = $this->request->getPost('id');
-        
+        $ID = $this->request->getPost('id');
+
         $data = [
-            'startAdd'        => $this->request->getPost('startAdd'),
-            'endAdd'          => $this->request->getPost('endAdd'),
-            'trip_date'       => $this->request->getPost('trip_date'),
-            'trip_time'       => $this->request->getPost('trip_time'),
-            'weather'         => $this->request->getPost('weather'),
-            'travelTime'      => $this->request->getPost('travelTime'),
-            'distance'        => $this->request->getPost('distance'),
-            'finalFare'       => $this->request->getPost('finalFare'),
+            'startAdd'         => $this->request->getPost('startAdd'),
+            'endAdd'           => $this->request->getPost('endAdd'),
+            'trip_date'        => $this->request->getPost('trip_date'),
+            'trip_time'        => $this->request->getPost('trip_time'),
+            'weather'          => $this->request->getPost('weather'),
+            'travelTime'       => $this->request->getPost('travelTime'),
+            'distance'         => $this->request->getPost('distance'),
+            'finalFare'        => $this->request->getPost('finalFare'),
             'userCustomFare'   => $this->request->getPost('passengerFare'),
-            'driverCustomFare'      => $this->request->getPost('driverFare'),
-            'trip_type'       => $this->request->getPost('trip_type'),
-            'driverID'        => $this->request->getPost('driverID'),
-            'carID'           => $this->request->getPost('carID'),
-            'passenger_id'    => $this->request->getPost('passenger_id'),
-            'isGuest'         => $this->request->getPost('isGuest'),
-            'passenger_name'  => $this->request->getPost('passenger_name'),
-            'passenger_tel'   => $this->request->getPost('passenger_tel'),
-            'total_passenger' => $this->request->getPost('total_passenger'),
-            'wait_hours'      => $this->request->getPost('wait_hours'),
-            'status'          => $this->request->getPost('status'),
-            'package'         => $this->request->getPost('package'),
-            'dsc'         => $this->request->getPost('dsc'),
+            'driverCustomFare' => $this->request->getPost('driverFare'),
+            'trip_type'        => $this->request->getPost('trip_type'),
+            'driverID'         => $this->request->getPost('driverID'),
+            'carID'            => $this->request->getPost('carID'),
+            'passenger_id'     => $this->request->getPost('passenger_id'),
+            'isGuest'          => $this->request->getPost('isGuest'),
+            'passenger_name'   => $this->request->getPost('passenger_name'),
+            'passenger_tel'    => $this->request->getPost('passenger_tel'),
+            'total_passenger'  => $this->request->getPost('total_passenger'),
+            'wait_hours'       => $this->request->getPost('wait_hours'),
+            'status'           => $this->request->getPost('status'),
+            'package'          => $this->request->getPost('package'),
+            'dsc'              => $this->request->getPost('dsc'),
+            'bank'             => $this->request->getPost('bank'),
         ];
 
-        $data['userCustomFare'] = preg_replace('/\D/', '', $data['userCustomFare']);
-        $data['driverCustomFare']    = preg_replace('/\D/', '', $data['driverCustomFare']);
-        $data['finalFare']     = preg_replace('/\D/', '', $data['finalFare']);
+        $data['userCustomFare']   = preg_replace('/\D/', '', $data['userCustomFare']);
+        $data['driverCustomFare'] = preg_replace('/\D/', '', $data['driverCustomFare']);
+        $data['finalFare']        = preg_replace('/\D/', '', $data['finalFare']);
+
+        
+         /*******************************************
+         * Check if the passenger is a guest
+         ******************************************/
+
+         $PID      = $this->request->getPost('passenger_id');
+         $IsGuest = $this->request->getPost('isGuest');
+ 
+         if (isset(($PID)) && $PID > 0 && $IsGuest == '0') {
+             $User = new UserModel();
+             $User = $User->find($PID);
+ 
+             $data['passenger_name'] = $User['name'] . " " . $User['lname'];
+             $data['passenger_tel']  = $User['mobile'];
+             
+         }elseif (isset(($PID)) && $PID > 0 && $IsGuest == '1') {
+             $User = new UserModel();
+             $User = $User->find($PID);
+ 
+             $data['passenger_name'] = $User['name'] . " " . $User['lname'];
+             $data['passenger_tel']  = $User['mobile'];
+ 
+             $data['guest_name'] = $this->request->getPost('passenger_name');
+             $data['guest_tel']  = $this->request->getPost('passenger_tel');
+ 
+ 
+         } else {
+             $data['guest_name'] = $this->request->getPost('passenger_name');
+             $data['guest_tel']  = $this->request->getPost('passenger_tel');
+             
+ 
+             $data['passenger_name'] = "";
+             $data['passenger_tel']  = "";
+
+             $this -> createUser( $data['guest_tel'] , $data['guest_name']);
+         }
+ 
+         /**************************** END Check *************************************** */
+
+
 
 
         $Trip = new TripsModel();
@@ -372,7 +452,7 @@ class Trips extends ResourceController
     {
         $data       = $this->request->getRawInput(); // Get raw data (PUT or PATCH)
         $data['id'] = $id;
-        
+
         if ($this->model->save($data)) {
             return $this->respond($data);
         } else {

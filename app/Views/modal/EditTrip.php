@@ -38,7 +38,7 @@
                                 <div class="col-md-6">
                                     <label for="weather"><strong>وضعیت هوا:</strong></label>
                                     <select id="weather" name="weather" class="form-control">
-                                        <option value="sunny" <?= $Trip['weather'] == 'sunny' ? 'selected' : '' ?>>آفتابی</option>
+                                        <option value="sunny" <?= $Trip['weather'] == 'sunny' ? 'selected' : '' ?>>مساعد</option>
                                         <option value="rainy" <?= $Trip['weather'] == 'rainy' ? 'selected' : '' ?>>بارانی</option>
                                         <option value="snowy" <?= $Trip['weather'] == 'snowy' ? 'selected' : '' ?>>برفی</option>
                                     </select>
@@ -127,6 +127,25 @@
 
 
 
+                            <div class="row my-2">
+                                <div class="col-lg-12">
+                                    <label class="label">انتخاب بانک</label>
+                                    <select data-placeholder="انتخاب بانک"  name="bank" class="form-control" required>      
+                                        
+                                    <option value="" <?= empty($Trip['bank']) ? 'selected' : '' ?>>انتخاب بانک</option>
+                                    <?php foreach ($banks as $bank): ?>
+                                        <option value="<?= $bank['id'] ?>" <?= $Trip['bank'] == $bank['id'] ? 'selected' : '' ?>>
+                                        <?= $bank['title'] ?> <?= $bank['bank_name'] ?> <?= $bank['card_number'] ?>
+                                        </option>
+                                    <?php endforeach; ?>
+
+                                        
+                                    </select>
+                                </div>
+                            </div>
+
+
+
                             
 
 
@@ -156,8 +175,8 @@
 
                                 <!-- Passenger ID -->
                                 <div class="form-group col-md-3">
-                                    <label class="label">کد اشتراک مسافر</label>
-                                    <input type="text" name="passenger_id" class="form-control" placeholder="کد مسافر" value="<?= $Trip['passenger_id'] != 0 ? $Trip['passenger_id']  : '' ?>" required>
+                                    <label class="label">شماره موبایل مسافر</label>
+                                    <input type="text" name="Tel" class="form-control" placeholder="شماره موبایل" value="<?= $Trip['passenger_tel'] != 0 ? $Trip['passenger_tel']  : '' ?>" required>
                                 </div>
 
                                 <div class="form-group col-md-3" style="margin: 30px 0;">
@@ -173,7 +192,7 @@
                                     <select name="isGuest" class="form-control" required>
                                         
                                         <option value="0" <?= $Trip['isGuest'] == '0' ? 'selected' : '' ?>>خیر</option>
-                                        <option value="1" >بله</option>
+                                        <option value="1" <?= $Trip['isGuest'] == '1' ? 'selected' : '' ?>>بله</option>
                                     </select>
                                 </div>
 
@@ -272,6 +291,7 @@
 
 
                             <input name="id" value=" <?= $Trip['id']?>"  type="hidden" />
+                            <input type="hidden" name="passenger_id" value="<?= $Trip['passenger_id'] ?>" />
                             <hr>
                         </div>
 

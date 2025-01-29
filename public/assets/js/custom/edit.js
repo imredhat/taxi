@@ -8,14 +8,14 @@ $(document).ready(function () {
     $(".spinner-border-sm").hide();
     $("#checkID").click(function () {
 
-        var passenger_id = $('input[name="passenger_id"]').val();
+        var Tel = $('input[name="Tel"]').val();
 
         // $(this).attr("disabled", 'disabled');
         $(".spinner-border-sm").fadeIn();
         $.ajax({
             type: "POST",
             url: base + "Trips/FindID",
-            data: { ID: passenger_id },
+            data: { Tel: Tel },
             success: function (data) {
                 if (data.status == "OK") {
 
@@ -23,12 +23,14 @@ $(document).ready(function () {
 
                     $('input[name="passenger_name"]').val(data.User.name + ' ' + data.User.lname);
                     $('input[name="passenger_tel"]').val(data.User.mobile);
+                    $('body input[name="passenger_id"]').val(data.User.id);
+
 
 
                     // window.location.href = base + 'Trips/Step2/' + data.ID;
                 } else {
                     $(".spinner-border-sm").fadeOut();
-                    alert('کابری با این شماره اشتراک یافت نشد');
+                    // alert('کابری با این شماره اشتراک یافت نشد');
                 }
             }
         });
@@ -122,7 +124,7 @@ $(document).ready(function () {
         tripData.status = $("body select[name='status_edit']").val();
         tripData.status_text = $("body select[name='status_edit'] option:selected").text();
         tripData.dsc = $("body textarea[name='dsc']").val();
-
+        tripData.bank = $("body select[name='bank']").val();
 
         var ID = tripData.id.replace(/\D/g, '');
         var NewStatus = tripData.status_text;

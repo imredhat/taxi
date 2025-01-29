@@ -7,7 +7,7 @@ function getWeather($category)
         case 'rainy':
             return 'بارانی';
         default:
-            return 'آفتابی';
+            return 'مساعد';
     }
 }
 

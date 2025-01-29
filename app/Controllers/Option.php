@@ -75,6 +75,37 @@ class Option extends BaseController
         echo view('parts/footer_crud');
     }
 
+
+
+    public function banks()
+    {
+        $crud = new GroceryCrud();
+
+        $crud->setLanguage("Persian");
+        $crud->setTheme('bootstrap');
+        $crud->setTable('bnks');
+        $crud->setSubject('حساب بانکی', 'حساب های بانکی');
+        $crud->unsetDelete();
+        $crud->columns(['id', 'title', 'bank_name', 'holder_name', 'card_number', 'shaba', 'active']);
+        $crud->fields(['title', 'bank_name', 'holder_name', 'card_number', 'shaba', 'active']);
+        $crud->displayAs('id', "شناسه");
+        $crud->displayAs('title', "عنوان");
+        $crud->displayAs('bank_name', "نام بانک");
+        $crud->displayAs('holder_name', "نام صاحب حساب");
+        $crud->displayAs('card_number', "شماره کارت");
+        $crud->displayAs('shaba', "شماره شبا");
+        $crud->displayAs('active', "وضعیت");
+
+        $crud->fieldType('active', 'dropdown', ['1' => 'فعال', '0' => 'غیرفعال']);
+
+        $output = $crud->render();
+
+        echo view('parts/header');
+        echo view('parts/side');
+        echo view('crud', (array) $output);
+        echo view('parts/footer_crud');
+    }
+
     public function saveSettings()
     {
         $model = new FareModel();

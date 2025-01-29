@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $(".table").DataTable({
         "order": [
-            [2, "desc"]
+            [5, "desc"]
         ],
         "language": {
             "decimal": "",

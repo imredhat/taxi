@@ -122,6 +122,20 @@ class Transaction extends BaseController
     public function UpdateDB(){
         $db = \Config\Database::connect();
         $db->query('ALTER TABLE `request` ADD `notified` INT NOT NULL AFTER `isAccepted`;');
+
+        $db->query("CREATE TABLE `bnks` (
+            `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+            `title` varchar(100) DEFAULT NULL,
+            `bank_name` varchar(100) DEFAULT NULL,
+            `holder_name` varchar(100) DEFAULT NULL,
+            `card_number` varchar(100) DEFAULT NULL,
+            `shaba` varchar(100) DEFAULT NULL,
+            `active` enum('0','1') DEFAULT NULL,
+            PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;");
+
+
+        $db->query('ALTER TABLE `trips` ADD `bank` INT NOT NULL AFTER `dsc`;');
     }
 
 }
