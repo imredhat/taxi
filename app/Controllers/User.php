@@ -1,17 +1,16 @@
 <?php
-
 namespace App\Controllers;
 
 use App\Libraries\GroceryCrud;
-use App\Libraries\PersianDate;
 use App\Models\UserModel;
+use App\Models\TripsModel;
 
 class User extends BaseController
 {
 
     public function __construct()
     {
-        if (!session()->has('user_id')) {
+        if (! session()->has('user_id')) {
             header('location:/auth');
             exit();
         }
@@ -19,9 +18,38 @@ class User extends BaseController
 
     public function index()
     {
+
+        $data["BestDriver"] = "";
+
+        $db     = \Config\Database::connect();
+        $query  = $db->query("SELECT driverID,package, COUNT(driverID) as count FROM trips WHERE driverID != 0 GROUP BY driverID ORDER BY count DESC LIMIT 1");
+        $result = $query->getRow();
+
+
+        if ($result) {
+
+            
+            $driverModel        = new \App\Models\DriverModel();
+            $driver             = $driverModel->find($result->driverID);
+            $data["BestDriver"] = $driver;
+            $data["count"]      = $result->count;
+
+
+            $queryVIP = $db->query("SELECT COUNT(*) as vip_count FROM trips WHERE package = '.$result->count.'");
+            $resultVIP = $queryVIP->getRow();
+
+            $Trip = new TripsModel();
+            $trip = $Trip->where('package', $result->package)->countAllResults();
+        
+            $data["TotalPackageTrip"] = $trip;
+            $data["Package"] = $result->package;
+
+
+        }
+
         echo view('parts/header');
         echo view('parts/side');
-        echo view('Home');
+        echo view('Home', $data);
     }
 
     public function Company()
@@ -98,19 +126,19 @@ class User extends BaseController
             'phone',
             'type',
             'status',
-            'date_start'
+            'date_start',
         ]);
 
         $crud->displayAs([
-            'id' => 'شناسه',
-            'name' => 'نام',
-            'lname' => 'نام خانوادگی',
-            'gender' => 'جنسیت',
-            'mobile' => 'موبایل',
-            'phone' => 'تلفن',
-            'type' => 'نوع اشتراک',
-            'status' => 'وضعیت',
-            'ax' => 'تصویر شخص / شرکت',
+            'id'         => 'شناسه',
+            'name'       => 'نام',
+            'lname'      => 'نام خانوادگی',
+            'gender'     => 'جنسیت',
+            'mobile'     => 'موبایل',
+            'phone'      => 'تلفن',
+            'type'       => 'نوع اشتراک',
+            'status'     => 'وضعیت',
+            'ax'         => 'تصویر شخص / شرکت',
             'created_at' => 'تاریخ ثبت',
             'updated_at' => 'تاریخ بروزرسانی',
             'deleted_at' => 'تاریخ حذف',
@@ -118,20 +146,20 @@ class User extends BaseController
         ]);
 
         $crud->fieldType('gender', 'dropdown', [
-            '' => 'انتخاب جنسیت',
+            ''    => 'انتخاب جنسیت',
             'مرد' => 'مرد',
-            'زن' => 'زن',
+            'زن'  => 'زن',
         ]);
 
         $crud->fieldType('type', 'dropdown', [
-            '' => 'انتخاب جنسیت',
+            ''      => 'انتخاب جنسیت',
             'حقیقی' => 'حقیقی',
             'حقوقی' => 'حقوقی',
         ]);
 
         $crud->fieldType('status', 'dropdown', [
-            '' => 'انتخاب وضعیت',
-            'تایید شده' => 'تایید شده',
+            ''           => 'انتخاب وضعیت',
+            'تایید شده'  => 'تایید شده',
             'تایید نشده' => 'تایید نشده',
         ]);
 
@@ -158,48 +186,43 @@ class User extends BaseController
 
     }
 
-    function UploadCallback($crud, $field)
+    public function UploadCallback($crud, $field)
     {
         $crud->callbackColumn($field, function ($row, $data) use ($field) {
-            return '<img src="' . base_url('uploads/user/' . $data -> id . '/' . $row) . '" width="100" height="200">';
+            return '<img src="' . base_url('uploads/user/' . $data->id . '/' . $row) . '" width="100" height="200">';
         });
 
         $crud->callbackEditField($field, function ($row, $pid) use ($field) {
-            
-            if (!empty($row)) {
+
+            if (! empty($row)) {
                 return '<img src="' . base_url('uploads/user/' . $pid . '/' . $row) . '" width="500" height="500"> <a class="cls" href="' . base_url(relativePath: "RU/") . $field . '/' . $pid . '" ><img src="' . base_url('assets/images/close.png') . '" width="25" /> </a>';
             } else {
                 return ' <input name="' . $field . '" id="file-upload" type="file"> ';
             }
         });
-        
 
         $crud->callbackBeforeUpdate(function ($stateParameters) {
 
-
-            $fields = ['scan_melli', 'scan_govahiname','ax'];
+            $fields = ['scan_melli', 'scan_govahiname', 'ax'];
             foreach ($fields as $field) {
-            $file = $this->request->getFile($field);
-            if (isset($file)) {
-                if (!file_exists(base_url('uploads/user/' . $stateParameters->primaryKeyValue . '/' . $file->getName()))) {
-                if ($file->isValid()) {
-                    $file->move('uploads/user/' . $stateParameters->primaryKeyValue, $file->getName());
-                    $stateParameters->data[$field] = $file->getName();
+                $file = $this->request->getFile($field);
+                if (isset($file)) {
+                    if (! file_exists(base_url('uploads/user/' . $stateParameters->primaryKeyValue . '/' . $file->getName()))) {
+                        if ($file->isValid()) {
+                            $file->move('uploads/user/' . $stateParameters->primaryKeyValue, $file->getName());
+                            $stateParameters->data[$field] = $file->getName();
+                        }
+                    }
                 }
-                }
-            }
             }
 
             return $stateParameters;
         });
 
-
-
-
         $crud->callbackBeforeInsert(function ($stateParameters) use ($field) {
             $file = $this->request->getFile('ax');
             if (isset($file)) {
-                if (!file_exists(base_url('uploads/user/' . $file->getName()))) {
+                if (! file_exists(base_url('uploads/user/' . $file->getName()))) {
                     if ($file->isValid()) {
                         $file->move('uploads/user/', $file->getName());
                         $stateParameters->data['ax'] = $file->getName();
@@ -209,7 +232,7 @@ class User extends BaseController
 
             $scan = $this->request->getfile('scan_melli');
             if (isset($scan)) {
-                if (!file_exists(base_url('uploads/user/' . $scan->getName()))) {
+                if (! file_exists(base_url('uploads/user/' . $scan->getName()))) {
                     if ($scan->isValid()) {
                         $scan->move('uploads/user/', $scan->getName());
                         $stateParameters->data['scan_melli'] = $scan->getName();
@@ -220,20 +243,16 @@ class User extends BaseController
             return $stateParameters;
         });
 
-
-
-
-
         return $crud;
     }
 
     public function UserCard()
     {
         $uri = service('uri');
-        $ID = $uri->getSegment(2);
+        $ID  = $uri->getSegment(2);
 
-        $User = new UserModel();
-        $User = $User->where('id', $ID)->find()[0];
+        $User         = new UserModel();
+        $User         = $User->where('id', $ID)->find()[0];
         $data['user'] = $User;
 
         echo view('parts/print/header');
@@ -241,21 +260,18 @@ class User extends BaseController
         echo view('parts/print/footer');
     }
 
-
     public function RD()
     {
-        $uri = service('uri');
+        $uri      = service('uri');
         $segment2 = $uri->getSegment(2);
         $segment3 = $uri->getSegment(3);
 
-        
         if ($segment2 == 'ax') {
 
-            $db = \Config\Database::connect();
+            $db      = \Config\Database::connect();
             $builder = $db->table('user');
             $builder->where('id', $segment3);
             $query = $builder->get();
-
 
             if ($query->getNumRows() > 0) {
 
@@ -278,13 +294,12 @@ class User extends BaseController
         }
     }
 
-
     public function getAllUser()
     {
         $User = new UserModel();
         $data = $User->select('id, name, lname')->findAll();
 
         return $this->response->setJSON($data);
-        
+
     }
 }

@@ -1,59 +1,7 @@
 (function() {
 	"use strict";
 
-	// Impression Share
-	var options = {
-		series: [45],
-		chart: {
-			height: 205,
-			type: 'radialBar',
-			offsetY: -10,
-			offsetX: 85
-		},
-		colors: ['#2DB6F5'],
-		plotOptions: {
-			radialBar: {
-				startAngle: -135,
-				endAngle: 135,
-				offsetY: -10,
-				dataLabels: {
-					name: {
-						fontSize: '12px',
-						offsetY: 60,
-						color: '#2DB6F5',
-						offsetY: 40,
-					},
-					value: {
-						offsetY: 76,
-						fontSize: '15px',
-						fontWeight: 600,
-						color: '#5B5B98',
-						offsetY: -10,
-						formatter: function (val) {
-							return val + "%";
-						}
-					}
-				},
-				hollow: {
-					margin: 0,
-					size: "40%",
-					background: "#ffffff"
-				},
-			}
-		},
-		labels: ['عالی'],
-		responsive: [{
-			breakpoint: 475,
-			options: {
-				chart: {
-					offsetY: -15,
-					offsetX: 25
-				},
-			},
-		}]
-	};
-	var chart = new ApexCharts(document.querySelector("#impression_share"), options);
-	chart.render();
+	
 
 	// Revenue Summary
 	var options = {

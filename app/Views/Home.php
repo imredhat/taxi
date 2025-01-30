@@ -3,16 +3,20 @@
                 <div class="col-xxl-4 col-sm-12">
                     <div class="stats-box style-six style-five bg-white card border-0 rounded-10 mb-4 overflow-hidden">
                         <div class="card-body p-4">
+
+
+
                             <div class="d-flex justify-content-between align-items-center">
-                                <div> <img src="<?=base_url()?>assets/images/user-22.jpg"
+                                <div> <img src="<?=base_url()?>uploads/drivers/<?=$BestDriver['did']?>/<?=$BestDriver['ax']?>"
                                         class="rounded-circle border wh-57 mb-4" alt="user">
-                                    <h4 class="fs-16 fw-semibold mb-1">علی رضایی</h4> <span class="fs-14">بهترین راننده</span>
+                                    <h4 class="fs-16 fw-semibold mb-1"><?=$BestDriver['name'].' '.$BestDriver['lname'] ?></h4> <span class="fs-14">بهترین راننده</span>
                                 </div>
                                 <div class="text-end">
-                                    <div id="impression_share"></div> <span
-                                        class="fs-14 fw-semibold mt-minus d-block">اشتراک گذاری</span>
+                                    <div id="impression_share"></div> 
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -714,6 +718,73 @@
     <script src="<?=base_url()?>assets/js/apexcharts.min.js"></script>
     <script src="<?=base_url()?>assets/js/sass-app.js"></script>
     <script src="<?=base_url()?>assets/js/custom/custom.js"></script>
+
+<script>
+
+
+// Impression Share
+
+var count="<?=$count?>";
+var total="<?=$TotalPackageTrip?>";
+var percent = Math.round((count / total) * 100);
+
+var options = {
+		series: [percent],
+		chart: {
+			height: 205,
+			type: 'radialBar',
+			offsetY: -10,
+			offsetX: 85
+		},
+		colors: ['#2DB6F5'],
+		plotOptions: {
+			radialBar: {
+				startAngle: -135,
+				endAngle: 135,
+				offsetY: -10,
+				dataLabels: {
+					name: {
+						fontSize: '12px',
+						offsetY: 60,
+						color: '#2DB6F5',
+						offsetY: 40,
+					},
+					value: {
+						offsetY: 76,
+						fontSize: '15px',
+						fontWeight: 600,
+						color: '#5B5B98',
+						offsetY: -10,
+						formatter: function (val) {
+							return val + "%";
+						}
+					}
+				},
+				hollow: {
+					margin: 0,
+					size: "40%",
+					background: "#ffffff"
+				},
+			}
+		},
+		labels: ['<?=$Package?>'],
+		responsive: [{
+			breakpoint: 475,
+			options: {
+				chart: {
+					offsetY: -15,
+					offsetX: 25
+				},
+			},
+		}]
+	};
+	var chart = new ApexCharts(document.querySelector("#impression_share"), options);
+	chart.render();
+
+
+    </script>
+
+
     <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'8b8282f87e387e7c',t:'MTcyNDQ5Mzc5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
 </body>
 
