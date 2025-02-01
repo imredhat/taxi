@@ -125,18 +125,33 @@ $(document).ready(function () {
                         tripData.startPoint = point;
                         startMarker = L.marker(tripData.startPoint, { icon: startIcon, draggable: true }).addTo(map);
 
+                        startMarker.on('dragend', function (event) {
+                            let marker = event.target;
+                            let position = marker.getLatLng();
+                            tripData.startPoint = [position.lat, position.lng];
+                            // console.log(`نقطه شروع جدید: ${tripData.startPoint}`);
+                        });
+
                         getAddressFromCoordinates(point, 'start');
-                        console.log(`نقطه شروع انتخاب شد: ${tripData.startPoint}`);
+                        // console.log(`نقطه شروع انتخاب شد: ${tripData.startPoint}`);
 
 
                     } else if (!tripData.endPoint) {
                         tripData.endPoint = point;
                         endMarker = L.marker(tripData.endPoint, { icon: endIcon, draggable: true }).addTo(map);
 
+
+                        endMarker.on('dragend', function (event) {
+                            let marker = event.target;
+                            let position = marker.getLatLng();
+                            tripData.endPoint = [position.lat, position.lng];
+          
+                        });
+
                         console.log(`نقطه پایان انتخاب شد: ${tripData.endPoint}`);
 
                         getAddressFromCoordinates(point, 'end');
-                        drawRouteWithAPI(); // رسم مسیر پس از انتخاب مبدا و مقصد
+                        // drawRouteWithAPI(); // رسم مسیر پس از انتخاب مبدا و مقصد
                     }
 
                     // پاک کردن فیلد جستجو و نتایج
@@ -148,25 +163,83 @@ $(document).ready(function () {
     });
 
 
+
+    // startMarker.on('dragend', function (event) {
+    //     let marker = event.target;
+    //     let position = marker.getLatLng();
+    //     tripData.startPoint = [position.lat, position.lng];
+    //     getAddressFromCoordinates(tripData.startPoint, 'start');
+    //     if (routeLine) {
+    //         map.removeLayer(routeLine);
+    //     }
+    //     if (tripData.endPoint) {
+    //         drawRouteWithAPI();
+    //     }
+    // });
+    var acceptStartBTN = $("#acceptStartBTN");
+    var acceptEndBTN = $("#acceptEndBTN");
+    var startConfirmed = false;
+    var endConfirmed = false;
+
     map.on('click', function (e) {
+        
         let point = [e.latlng.lat, e.latlng.lng];
 
-        if (!tripData.startPoint) {
-            tripData.startPoint = point;
-            startMarker = L.marker(tripData.startPoint, { icon: startIcon, draggable: true }).addTo(map);
 
-            // console.log(`نقطه شروع انتخاب شد: ${tripData.startPoint}`);
+        console.log(tripData.startPoint);
+        console.log(startConfirmed);
+
+        if (!tripData.startPoint || !startConfirmed) {
+            tripData.startPoint = point;
+            if (startMarker) {
+                startMarker.setLatLng(tripData.startPoint);
+            } else {
+                startMarker = L.marker(tripData.startPoint, { icon: startIcon, draggable: true }).addTo(map);
+            }
+
+            startMarker.on('dragend', function (event) {
+                let marker = event.target;
+                let position = marker.getLatLng();
+                tripData.startPoint = [position.lat, position.lng];
+                console.log(`نقطه شروع جدید: ${tripData.startPoint}`);
+            });
+
+            acceptStartBTN.fadeIn();
 
             getAddressFromCoordinates(point, 'start');
-        } else if (!tripData.endPoint) {
-            tripData.endPoint = point;
-            endMarker = L.marker(tripData.endPoint, { icon: endIcon, draggable: true }).addTo(map);
-            console.log(`نقطه پایان انتخاب شد: ${tripData.endPoint}`);
-            getAddressFromCoordinates(point, 'end');
-            drawRouteWithAPI(); // رسم مسیر پس از انتخاب نقاط
 
+        } else if (!tripData.endPoint || !endConfirmed) {
+            tripData.endPoint = point;
+            if (endMarker) {
+                endMarker.setLatLng(tripData.endPoint);
+            } else {
+                endMarker = L.marker(tripData.endPoint, { icon: endIcon, draggable: true }).addTo(map);
+            }
+
+            endMarker.on('dragend', function (event) {
+                let marker = event.target;
+                let position = marker.getLatLng();
+                tripData.endPoint = [position.lat, position.lng];
+            });
+
+            getAddressFromCoordinates(point, 'end');
         } else {
             console.log("نمی‌توانید نقطه دیگری اضافه کنید.");
+        }
+    });
+
+    acceptStartBTN.on('click', function () {
+        startConfirmed = true;
+        acceptEndBTN.show();
+        acceptStartBTN.hide();
+        console.log("نقطه شروع تایید شد:", tripData.startPoint);
+    });
+
+    acceptEndBTN.on('click', function () {
+        endConfirmed = true;
+        console.log("نقطه پایان تایید شد:", tripData.endPoint);
+        if (tripData.startPoint && tripData.endPoint) {
+            drawRouteWithAPI(); // رسم مسیر پس از تایید نقاط
         }
     });
 
@@ -365,6 +438,15 @@ $(document).ready(function () {
 
         const textareas = document.querySelectorAll('textarea');
         textareas.forEach(text => text.value = '');
+
+        acceptStartBTN.show();
+        acceptEndBTN.hide();
+        startConfirmed = false;
+        endConfirmed = false;
+        tripData.startPoint=null;
+        tripData.endPoint=null;
+        startMarker=null;
+        endMarker=null;
 
         console.log("نقاط و مسیر ریست شد.");
     }
@@ -639,7 +721,15 @@ $(document).ready(function () {
         tripData.trip_type = document.querySelector("select[name='trip_type']").value;
         tripData.wait_hours = document.querySelector("input[name='wait_hours']").value;
         tripData.badRoad_km = document.querySelector("input[name='badRoad_km']").value;
-        tripData.dsc = document.querySelector("[name='dsc']").value;
+
+        tripData.dsc = document.querySelector("textarea[name='dsc']").value;
+        tripData.call_date = document.querySelector("input[name='call_date']").value;
+        tripData.userCustomFare = parseFloat(document.querySelector("input[name='userCustomFare']").value.replace(/,/g, ''));
+        tripData.driverCustomFare = parseFloat(document.querySelector("input[name='driverCustomFare']").value.replace(/,/g, ''));
+        tripData.guest_name = document.querySelector("input[name='guest_name']").value;
+        tripData.guest_tel = document.querySelector("input[name='guest_tel']").value;
+        tripData.status = document.querySelector("select[name='status']").value;
+        tripData.trip_type = document.querySelector("select[name='trip_type']").value;
 
         $(this).attr("disabled", 'disabled');
         $(".spinner-grow").fadeIn();
@@ -761,7 +851,36 @@ $(document).ready(function () {
     //==========================================================
 
 
+    $('select[name="isGuest"]').on('change', function() {
+        if ($(this).val() == "1") {
+            $('.passengerBox').show();
+        } else {
+            $('.passengerBox').hide();
+        }
+    });
+
+
+    function formatNumberWithCommas(number) {
+        var parts = number.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
+    }
+
+    $('body #userCustomFare').on('input', function (e) {
+        $(this).val(formatNumberWithCommas($(this).val().replace(/,/g, '')));
+    });
+    
+    $('#driverCustomFare').on('input', function (e) {
+        $(this).val(formatNumberWithCommas($(this).val().replace(/,/g, '')));
+    });
+
+
 });
+
+
+
+
+
 
 
 // Hamsafar();

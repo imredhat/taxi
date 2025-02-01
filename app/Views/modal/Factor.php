@@ -40,7 +40,6 @@
                                 <?php endif; ?>
 
                             </h2>
-                                    <?php echo $Trip['passenger_tel'] ?></br>
                             </div>
                             <div id="project">
                                 <h2> اطلاعات سفر: </h2>

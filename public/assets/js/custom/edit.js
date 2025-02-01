@@ -108,7 +108,7 @@ $(document).ready(function () {
         tripData.weather = $("body select[name='weather']").val();
         tripData.travelTime = $("body input[name='travelTime']").val();
         tripData.distance = $("body input[name='distance']").val();
-        tripData.finalFare = $("body input[name='finalFare']").val();
+        // tripData.finalFare = $("body input[name='finalFare']").val();
         tripData.passengerFare = $("body input[name='passengerFare']").val();
         tripData.driverFare = $("body input[name='driverFare']").val();
         tripData.trip_type = $("body select[name='trip_type']").val();
@@ -118,6 +118,8 @@ $(document).ready(function () {
         tripData.isGuest = $("body select[name='isGuest']").val();
         tripData.passenger_name = $("body input[name='passenger_name']").val();
         tripData.passenger_tel = $("body input[name='passenger_tel']").val();
+        tripData.guest_name = $("body input[name='guest_name']").val();
+        tripData.guest_tel = $("body input[name='guest_tel']").val();
         tripData.total_passenger = $("body input[name='total_passenger']").val();
         tripData.wait_hours = $("body input[name='wait_hours']").val();
         tripData.package = $("body select[name='package_edit']").val();
@@ -125,6 +127,7 @@ $(document).ready(function () {
         tripData.status_text = $("body select[name='status_edit'] option:selected").text();
         tripData.dsc = $("body textarea[name='dsc']").val();
         tripData.bank = $("body select[name='bank']").val();
+        tripData.call_date = $("body input[name='call_date']").val();
 
         var ID = tripData.id.replace(/\D/g, '');
         var NewStatus = tripData.status_text;
@@ -321,4 +324,13 @@ $('#driverFare').on('input', function (e) {
 
 $('#finalFare').on('input', function (e) {
     $(this).val(formatNumberWithCommas($(this).val().replace(/,/g, '')));
+});
+
+
+$('select[name="isGuest"]').on('change', function() {
+    if ($(this).val() == "1") {
+        $('.passengerBox').show();
+    } else {
+        $('.passengerBox').hide();
+    }
 });

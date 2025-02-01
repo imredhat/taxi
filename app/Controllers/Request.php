@@ -83,6 +83,9 @@ class Request extends ResourceController
         $tripID = $this->request->getPost('tripID');
         $notifID = $this->request->getPost('notifID');
         $isAccepet = $this->request->getPost('isAccepet');
+        $carID = $this->request->getPost('carID');
+        $driverID = $this->request->getPost('driverID');
+        
 
         $data = ["isAccepted" => $isAccepet];
 
@@ -95,10 +98,17 @@ class Request extends ResourceController
             // $isAccepted = $model->isAcceptedExists($tripID, $notifID);
 
             if ($isAccepet == "YES") {
-                $data = ["status" => "Confirm"];
+                $data = [
+                    "status" => "Confirm",
+                    "driverID" => $driverID,
+                    "carID" => $carID,
+                    "reqID" => $reqID,
+                ];
 
+
+                // print_r($data);die();
                 $Rq = new TripsModel();
-                $Rq->update($reqID, $data);
+                $Rq->update($tripID, $data);
 
                 return $this->response->setJSON([
                     'status' => 'success',

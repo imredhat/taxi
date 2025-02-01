@@ -3,6 +3,7 @@ namespace App\Controllers\API;
 
 use App\Models\CarModel;
 use App\Models\DriverModel;
+use App\Models\TripsModel;
 use CodeIgniter\RESTful\ResourceController;
 
 class Auth extends ResourceController
@@ -70,6 +71,18 @@ class Auth extends ResourceController
                 'date_created' => $user['date_created'],
                 'hash'         => md5($user['did'] . $user['password'] . $user['date_created']),
             ];
+
+            
+            $tripModel = new TripsModel();
+            $trips = $tripModel->where('driverID', $user['did'])->findAll();
+
+            $totalTrips = count($trips);
+            $totalFare = array_sum(array_column($trips, 'driverCustomFare'));
+
+            $data['total_trips'] = $totalTrips;
+            $data['total_fare'] = $totalFare;
+
+            
 
             session()->set([
                 'user_id'    => $user['did'],

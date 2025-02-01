@@ -34,6 +34,13 @@
                             </div>
                             <div class="row my-2">
 
+                            <!-- Trip Date -->
+
+                            <div class="col-md-6">
+                                    <label for="trip_date"><strong>تاریخ تماس:</strong></label>
+                                    <input type="text" id="call_date" name="call_date" class="form-control" placeholder="روز/ماه/سال" data-jdp="" value="<?= $Trip['call_date'] ?>">
+                                </div>
+
 
                                 <div class="col-md-6">
                                     <label for="weather"><strong>وضعیت هوا:</strong></label>
@@ -45,20 +52,24 @@
                                 </div>
 
 
-                                <div class="col-md-6">
-                                    <label for="travelTime"><strong>زمان تقریبی سفر:</strong></label>
-                                    <input type="text" id="travelTime" name="travelTime" class="form-control" value="<?= $Trip['travelTime'] ?>">
-                                </div>
+                                
                             </div>
+
+
+
                             <div class="row my-2">
+
+                            
                                 <div class="col-md-6">
                                     <label for="distance"><strong>مسافت:</strong></label>
                                     <input type="text" id="distance" name="distance" class="form-control" value="<?= $Trip['distance'] ?>">
                                 </div>
+
                                 <div class="col-md-6">
-                                    <label for="finalFare"><strong>کرایه نهایی:</strong></label>
-                                    <input type="text" id="finalFare" name="finalFare" class="form-control" value="<?= $Trip['finalFare'] ?>">
+                                    <label for="travelTime"><strong>زمان تقریبی سفر:</strong></label>
+                                    <input type="text" id="travelTime" name="travelTime" class="form-control" value="<?= $Trip['travelTime'] ?>">
                                 </div>
+                          
                             </div>
 
 
@@ -175,7 +186,7 @@
 
                                 <!-- Passenger ID -->
                                 <div class="form-group col-md-3">
-                                    <label class="label">شماره موبایل مسافر</label>
+                                    <label class="label">شماره موبایل مشتری</label>
                                     <input type="text" name="Tel" class="form-control" placeholder="شماره موبایل" value="<?= $Trip['passenger_tel'] != 0 ? $Trip['passenger_tel']  : '' ?>" required>
                                 </div>
 
@@ -203,18 +214,44 @@
 
                                 <!-- Passenger Name -->
                                 <div class="form-group mb-4 col-lg-6">
-                                    <label class="label">نام مسافر</label>
-                                    <input type="text" name="passenger_name" class="form-control" placeholder="نام مسافر" value="<?= $Trip['isGuest'] == '0' ? $Trip['passenger_name'] : $Trip['guest_name'] ?>" required>
+                                    <label class="label">نام مشتری</label>
+                                    <input type="text" name="passenger_name" class="form-control" placeholder="نام مشتری" value="<?=$Trip['passenger_name']?>" required>
                                 </div>
 
                                 <!-- Passenger Phone -->
                                 <div class="form-group mb-4 col-lg-6">
-                                    <label class="label">شماره تماس مسافر</label>
-                                    <input type="text" id="passenger_tel" name="passenger_tel" class="form-control" value="<?= $Trip['isGuest'] == '0' ? $Trip['passenger_tel'] : $Trip['guest_tel'] ?>">
+                                    <label class="label">شماره تماس مشتری</label>
+                                    <input type="text" id="passenger_tel" name="passenger_tel" placeholder="شماره تماس مشتری" class="form-control" value="<?= $Trip['passenger_tel']?>">
                                 </div>
                             </div>
 
                             <!-- Is Guest -->
+
+
+                            
+                            <div class="passengerBox row">
+                            <!-- Passenger Name -->
+                                <div class="form-group mb-4 col-lg-6" style="float:right">
+                                    <label class="label">نام مسافر</label>
+                                    <input type="text" name="guest_name" class="form-control" placeholder="نام مسافر" value="<?=$Trip['guest_name']?>">
+                                </div>
+
+                                <!-- Passenger Phone -->
+                                <div class="form-group mb-4 col-lg-6" style="float:right">
+                                    <label class="label">شماره تماس مسافر</label>
+                                    <input type="tel" name="guest_tel" class="form-control" placeholder="شماره تماس مسافر" value="<?=$Trip['guest_tel']?>">
+                                </div>
+
+                            </div>
+
+
+                            <style>
+                                .passengerBox {
+                                    display: <?= $Trip['isGuest'] == '1' ? 'block' : 'none' ?>;
+                                }
+                                
+                                </style>
+
 
 
                             <div class="row my-2">

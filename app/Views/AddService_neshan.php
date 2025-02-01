@@ -271,35 +271,32 @@
 
 <?php
 
+    $array['options'] = $options;
+    function findRateByKey($array, $key)
+    {
 
-$array['options'] = $options;
-function findRateByKey($array, $key)
-{
+        // Loop through the main options array
+        foreach ($array['options'] as $option) {
 
-
-    // Loop through the main options array
-    foreach ($array['options'] as $option) {
-
-        if ($option['option'] === $key) {
-            return $option['rate']; // Return the value directly from the 'rate' field
+            if ($option['option'] === $key) {
+                return $option['rate']; // Return the value directly from the 'rate' field
+            }
         }
+
+        // If the key was not found
+        return "Key not found.";
     }
 
-
-    // If the key was not found
-    return "Key not found.";
-}
-
-$carType = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="15" height="15"><path d="M24,13a3,3,0,0,0-3-3h-.478L15.84,3.285A3,3,0,0,0,13.379,2h-7A3.016,3.016,0,0,0,3.575,3.937l-2.6,6.848A2.994,2.994,0,0,0,0,13v5H2v.5a3.5,3.5,0,0,0,7,0V18h6v.5a3.5,3.5,0,0,0,7,0V18h2ZM14.2,4.428,18.084,10H11V4h2.379A1,1,0,0,1,14.2,4.428Zm-8.753.217A1,1,0,0,1,6.381,4H9v6H3.416ZM7,18.5a1.5,1.5,0,0,1-3,0V18H7Zm13,0a1.5,1.5,0,0,1-3,0V18h3ZM22,16H2V13a1,1,0,0,1,1-1H21a1,1,0,0,1,1,1Z"/></svg>';
-$weather = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="15" height="15"><path d="M23,11H18.92a6.924,6.924,0,0,0-.429-1.607l3.527-2.044a1,1,0,1,0-1-1.731l-3.53,2.047a7.062,7.062,0,0,0-1.149-1.15l2.046-3.531a1,1,0,0,0-1.731-1L14.607,5.509A6.9,6.9,0,0,0,13,5.08V1a1,1,0,0,0-2,0V5.08a6.9,6.9,0,0,0-1.607.429L7.349,1.982a1,1,0,0,0-1.731,1L7.664,6.515a7.062,7.062,0,0,0-1.149,1.15L2.985,5.618a1,1,0,1,0-1,1.731L5.509,9.393A6.924,6.924,0,0,0,5.08,11H1a1,1,0,0,0,0,2H5.08a6.924,6.924,0,0,0,.429,1.607L1.982,16.651a1,1,0,1,0,1,1.731l3.53-2.047a7.062,7.062,0,0,0,1.149,1.15L5.618,21.016a1,1,0,0,0,1.731,1l2.044-3.527A6.947,6.947,0,0,0,11,18.92V23a1,1,0,0,0,2,0V18.92a6.947,6.947,0,0,0,1.607-.429l2.044,3.527a1,1,0,0,0,1.731-1l-2.046-3.531a7.062,7.062,0,0,0,1.149-1.15l3.53,2.047a1,1,0,1,0,1-1.731l-3.527-2.044A6.924,6.924,0,0,0,18.92,13H23A1,1,0,0,0,23,11ZM12,17c-6.608-.21-6.606-9.791,0-10C18.608,7.21,18.606,16.791,12,17Z"/></svg>';
-$roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="15" height="15"><path d="M21.46,4.134A4.992,4.992,0,0,0,16.536,0H7.451A4.992,4.992,0,0,0,2.525,4.138l-2.449,14A5,5,0,0,0,5,24H19a5,5,0,0,0,4.925-5.866ZM21.3,20.929A3,3,0,0,1,19,22H5a3,3,0,0,1-2.955-3.518l2.449-14A3,3,0,0,1,7.451,2h9.085A3,3,0,0,1,19.49,4.48l2.463,14A3,3,0,0,1,21.3,20.929ZM13,5V7a1,1,0,0,1-2,0V5a1,1,0,0,1,2,0Zm0,6v2a1,1,0,0,1-2,0V11a1,1,0,0,1,2,0Zm0,6v2a1,1,0,0,1-2,0V17a1,1,0,0,1,2,0Z"/></svg>';
+    $carType       = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="15" height="15"><path d="M24,13a3,3,0,0,0-3-3h-.478L15.84,3.285A3,3,0,0,0,13.379,2h-7A3.016,3.016,0,0,0,3.575,3.937l-2.6,6.848A2.994,2.994,0,0,0,0,13v5H2v.5a3.5,3.5,0,0,0,7,0V18h6v.5a3.5,3.5,0,0,0,7,0V18h2ZM14.2,4.428,18.084,10H11V4h2.379A1,1,0,0,1,14.2,4.428Zm-8.753.217A1,1,0,0,1,6.381,4H9v6H3.416ZM7,18.5a1.5,1.5,0,0,1-3,0V18H7Zm13,0a1.5,1.5,0,0,1-3,0V18h3ZM22,16H2V13a1,1,0,0,1,1-1H21a1,1,0,0,1,1,1Z"/></svg>';
+    $weather       = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="15" height="15"><path d="M23,11H18.92a6.924,6.924,0,0,0-.429-1.607l3.527-2.044a1,1,0,1,0-1-1.731l-3.53,2.047a7.062,7.062,0,0,0-1.149-1.15l2.046-3.531a1,1,0,0,0-1.731-1L14.607,5.509A6.9,6.9,0,0,0,13,5.08V1a1,1,0,0,0-2,0V5.08a6.9,6.9,0,0,0-1.607.429L7.349,1.982a1,1,0,0,0-1.731,1L7.664,6.515a7.062,7.062,0,0,0-1.149,1.15L2.985,5.618a1,1,0,1,0-1,1.731L5.509,9.393A6.924,6.924,0,0,0,5.08,11H1a1,1,0,0,0,0,2H5.08a6.924,6.924,0,0,0,.429,1.607L1.982,16.651a1,1,0,1,0,1,1.731l3.53-2.047a7.062,7.062,0,0,0,1.149,1.15L5.618,21.016a1,1,0,0,0,1.731,1l2.044-3.527A6.947,6.947,0,0,0,11,18.92V23a1,1,0,0,0,2,0V18.92a6.947,6.947,0,0,0,1.607-.429l2.044,3.527a1,1,0,0,0,1.731-1l-2.046-3.531a7.062,7.062,0,0,0,1.149-1.15l3.53,2.047a1,1,0,1,0,1-1.731l-3.527-2.044A6.924,6.924,0,0,0,18.92,13H23A1,1,0,0,0,23,11ZM12,17c-6.608-.21-6.606-9.791,0-10C18.608,7.21,18.606,16.791,12,17Z"/></svg>';
+    $roadCondition = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="15" height="15"><path d="M21.46,4.134A4.992,4.992,0,0,0,16.536,0H7.451A4.992,4.992,0,0,0,2.525,4.138l-2.449,14A5,5,0,0,0,5,24H19a5,5,0,0,0,4.925-5.866ZM21.3,20.929A3,3,0,0,1,19,22H5a3,3,0,0,1-2.955-3.518l2.449-14A3,3,0,0,1,7.451,2h9.085A3,3,0,0,1,19.49,4.48l2.463,14A3,3,0,0,1,21.3,20.929ZM13,5V7a1,1,0,0,1-2,0V5a1,1,0,0,1,2,0Zm0,6v2a1,1,0,0,1-2,0V11a1,1,0,0,1,2,0Zm0,6v2a1,1,0,0,1-2,0V17a1,1,0,0,1,2,0Z"/></svg>';
 ?>
 
 <script>
-    const packages = JSON.parse('<?= json_encode($Packages) ?>');
-    let = holiDayRate = <?= findRateByKey($array, "isHoliday"); ?>;
-    let = extraPassenger = <?= findRateByKey($array, "extraPassenger"); ?>;
-    let = badRoad = <?= findRateByKey($array, "bad_road"); ?>;
+    const packages = JSON.parse('<?php echo json_encode($Packages)?>');
+    let = holiDayRate = <?php echo findRateByKey($array, "isHoliday");?>;
+    let = extraPassenger = <?php echo findRateByKey($array, "extraPassenger");?>;
+    let = badRoad = <?php echo findRateByKey($array, "bad_road");?>;
 </script>
 
 
@@ -389,6 +386,9 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
             <input style="width: 500px;" class="form-control me-2" type="search" id="searchInput" placeholder="جستجو..." aria-label="Search">
             <ul id="searchResults" class="list-group dropdown-menu show"></ul>
 
+            <button type="button" id="acceptStartBTN" class="btn btn-outline-success fw-semibold py-2 px-4 me-1 hover-white">تایید مبدا</button>
+            <button type="button" id="acceptEndBTN" class="btn btn-outline-danger fw-semibold py-2 px-4 mt-1 me-2 hover-white">تایید مقصد</button>
+
         </div>
 
 
@@ -402,9 +402,9 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
                             <?php foreach ($Packages as $Type): ?>
 
-                                <li class="nav-item dropdown package" data-name="<?= $Type['name']; ?>">
-                                    <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<?= $Type['name']; ?>">
-                                        <img src="<?= base_url() ?>assets/images/<?= $Type['tag']; ?>.jpg" width="40" />
+                                <li class="nav-item dropdown package" data-name="<?php echo $Type['name'];?>">
+                                    <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<?php echo $Type['name'];?>">
+                                        <img src="<?php echo base_url()?>assets/images/<?php echo $Type['tag'];?>.jpg" width="40" />
                                     </a>
                                 </li>
 
@@ -454,7 +454,7 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
                     <!-- Passenger ID -->
                     <div class="form-group mb-4 col-lg-9">
-                        <label class="label">شماره موبایل مسافر</label>
+                        <label class="label">شماره موبایل مشتری</label>
                         <input type="text" name="Tel" class="form-control" placeholder="شماره موبایل" required>
                     </div>
 
@@ -473,14 +473,14 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
                     <!-- Passenger Name -->
                     <div class="form-group mb-4 col-lg-6">
-                        <label class="label">نام مسافر</label>
-                        <input type="text" name="passenger_name" class="form-control" placeholder="نام مسافر" required>
+                        <label class="label">نام مشتری</label>
+                        <input type="text" name="passenger_name" class="form-control" placeholder="نام مشتری" required>
                     </div>
 
                     <!-- Passenger Phone -->
                     <div class="form-group mb-4 col-lg-6">
-                        <label class="label">شماره تماس مسافر</label>
-                        <input type="tel" name="passenger_tel" class="form-control" placeholder="شماره تماس مسافر" required>
+                        <label class="label">شماره تماس مشتری</label>
+                        <input type="tel" name="passenger_tel" class="form-control" placeholder="شماره تماس مشتری" required>
                     </div>
 
                     <!-- Is Guest -->
@@ -491,6 +491,9 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
                             <option value="1">بله</option>
                         </select>
                     </div>
+
+
+                 
 
 
 
@@ -505,6 +508,34 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
                     </div>
 
 
+                    <div class="passengerBox row">
+                     <!-- Passenger Name -->
+                        <div class="form-group mb-4 col-lg-6" style="float:right">
+                            <label class="label">نام مسافر</label>
+                            <input type="text" name="guest_name" class="form-control" placeholder="نام مسافر" required>
+                        </div>
+
+                        <!-- Passenger Phone -->
+                        <div class="form-group mb-4 col-lg-6" style="float:right">
+                            <label class="label">شماره تماس مسافر</label>
+                            <input type="tel" name="guest_tel" class="form-control" placeholder="شماره تماس مسافر" required>
+                        </div>
+
+                    </div>
+
+           
+                    <style>
+
+                        .passengerBox {
+                            display: none;
+                        }
+
+
+                        </style>
+
+
+
+
 
 
                     <div class="form-group mb-4 col-lg-6">
@@ -517,10 +548,10 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
                     </div>
 
 
-                    
 
 
-                   
+
+
 
 
                     <div class="col-lg-6"> <label class="label d-block">تعداد ساعت تاخیر</label>
@@ -535,6 +566,21 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 
                     <hr />
+
+
+                                <div class="col-md-6">
+                                    <label for="userCustomFare"><strong>کرایه اعلامی به مسافر:</strong></label>
+                                    <input type="text" id="userCustomFare" name="userCustomFare" class="form-control" ">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="driverCustomFare"><strong>کرایه اعلامی به راننده:</strong></label>
+                                    <input type="text" id="driverCustomFare" name="driverCustomFare" class="form-control" >
+                                </div>
+
+
+
+                    <hr style='margin:20px 0;' />
+
 
 
                      <!-- Trip Type -->
@@ -569,6 +615,14 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
                         <div class="form-group position-relative"> <input type="text" name="trip_time" class="form-control text-dark ps-5 h-58" placeholder="--:-- --" data-jdp="" data-jdp-only-time=""> <i class="ri-time-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i> </div>
                     </div>
 
+
+
+                    <!-- Trip Date -->
+                    <div class="form-group mb-4 col-lg-12">
+                        <label class="label">تاریخ تماس</label>
+                        <div class="form-group position-relative"> <input name="call_date" type="text" class="form-control text-dark ps-5 h-58" placeholder="روز/ماه/سال" data-jdp=""> <i class="ri-calendar-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i> </div>
+                    </div>
+
                     <div class="form-group mb-4 col-lg-12">
                         <label class="label">توضیحات آدرس شروع</label>
                         <textarea name="start_address_desc" class="form-control" placeholder="توضیحات آدرس شروع" required></textarea>
@@ -592,7 +646,7 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 
 
-                    <div class="col-lg-6"> <label class="label d-block">چند کیلومتر</label>
+                    <div class="form-group mb-4  col-lg-6"> <label class="label d-block">چند کیلومتر</label>
                         <div class="product-quantity">
                             <div class="add-to-cart-counter gap-3 justify-content-between">
                                 <button disabled type="button" class="minusBtn bg-success text-white"></button>
@@ -601,6 +655,24 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
                             </div>
                         </div>
                     </div>
+
+
+
+                                <div class="form-group mb-4  col-md-12">
+                                    <label for="status"><strong>وضعیت سفر:</strong></label>
+                                    <select name="status" class="form-select form-control ">
+                                        <option value="Called">استعلام</option>
+                                        <option value="Reserved">رزرو</option>
+                                        <option value="Notifed">اطلاع رسانی شده</option>
+                                        <option value="Requested">درخواست شده</option>
+                                        <option value="Confirm">تایید شده</option>
+                                        <option value="Cancled">کنسل شده</option>
+                                        <option value="Done">به پایان رسیده</option>
+                                    </select>
+                                </div>                           
+
+
+
 
 
                     <div class="form-group mb-4 col-lg-12">
@@ -754,7 +826,7 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
             position: relative;
             z-index: 2;
             margin: auto !important;
-            width: 580px;
+            width: 640px;
             bottom: -5px;
         }
 
@@ -762,6 +834,19 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
             color: var(--bs-dropdown-link-active-color);
             text-decoration: none;
             background-color: var(--bs-dropdown-link-active-bg);
+        }
+
+
+            #acceptStartBTN , #acceptEndBTN {
+            position: sticky;
+            bottom: 10px;
+            float: left;
+            margin: 0;
+            height: 44px;
+            display: none;
+        }
+        #acceptStartBTN{
+            width: 130px;
         }
     </style>
 
@@ -782,16 +867,16 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 
 
-<script src="<?=base_url()?>assets/js/jquery-3.6.0.min.js"></script>
+<script src="<?php echo base_url()?>assets/js/jquery-3.6.0.min.js"></script>
 
 
 <script>
-    var base = "<?= base_url() ?>";
+    var base = "<?php echo base_url()?>";
 </script>
-<script src="<?= base_url() ?>assets/js/custom/my_neshan.js"></script>
-<script src="<?= base_url() ?>assets/js/custom/custom.js"></script>
-<script src="<?= base_url() ?>assets/chosen/chosen.jquery.min.js"></script>
-<link rel="stylesheet" href="<?= base_url() ?>assets/chosen/chosen.min.css" />
+<script src="<?php echo base_url()?>assets/js/custom/my_neshan.js"></script>
+<script src="<?php echo base_url()?>assets/js/custom/custom.js"></script>
+<script src="<?php echo base_url()?>assets/chosen/chosen.jquery.min.js"></script>
+<link rel="stylesheet" href="<?php echo base_url()?>assets/chosen/chosen.min.css" />
 
 
 
@@ -807,5 +892,5 @@ $roadCondition  = '<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-nam
 
 <script>
     jalaliDatepicker.startWatch();
-    
+
 </script>

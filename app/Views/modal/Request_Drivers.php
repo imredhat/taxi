@@ -36,18 +36,18 @@
                         <div class="d-flex gap-2 justify-content-center">
 
                         <?php if ($R['isAccepted'] == "YES"): ?>
-                            <button disabled class="bg-success bg-opacity-5 text-white fs-13 fw-semibold py-1 px-2 rounded-1 confirm_request" type="button" data-tripID="<?= $R['tripID'] ?>" data-RqID="<?= $R['id'] ?>" data-notifID="<?= $R['notifID'] ?>">
+                            <button disabled class="bg-success bg-opacity-5 text-white fs-13 fw-semibold py-1 px-2 rounded-1 confirm_request" type="button" data-tripID="<?= $R['tripID'] ?>" data-RqID="<?= $R['id'] ?>" data-notifID="<?= $R['notifID'] ?>" data-driverID="<?= $R['driverID'] ?>" data-carID="<?= $R['carID'] ?>">
                                 <span class="checked"><svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20"><path d="M22.319,4.431,8.5,18.249a1,1,0,0,1-1.417,0L1.739,12.9a1,1,0,0,0-1.417,0h0a1,1,0,0,0,0,1.417l5.346,5.345a3.008,3.008,0,0,0,4.25,0L23.736,5.847a1,1,0,0,0,0-1.416h0A1,1,0,0,0,22.319,4.431Z" /></svg></span>
                             </button>
 
 
-                            <button disabled class="bg-danger bg-opacity-5 text-white fs-13 fw-semibold py-1 px-2 rounded-1 reject_request" type="button" data-tripID="<?= $R['tripID'] ?>" data-RqID="<?= $R['id'] ?>" data-notifID="<?= $R['notifID'] ?>">
+                            <button disabled class="bg-danger bg-opacity-5 text-white fs-13 fw-semibold py-1 px-2 rounded-1 reject_request" type="button" data-tripID="<?= $R['tripID'] ?>" data-RqID="<?= $R['id'] ?>" data-notifID="<?= $R['notifID'] ?>" data-driverID="<?= $R['driverID'] ?>" data-carID="<?= $R['carID'] ?>">
                                 <span class="status " role="status">رد کردن</span>
                             </button>
 
                             <?php else:?>
 
-                                <button class="bg-success bg-opacity-5 text-white fs-13 fw-semibold py-1 px-2 rounded-1 confirm_request" type="button" data-tripID="<?= $R['tripID'] ?>" data-RqID="<?= $R['id'] ?>" data-notifID="<?= $R['notifID'] ?>">
+                                <button class="bg-success bg-opacity-5 text-white fs-13 fw-semibold py-1 px-2 rounded-1 confirm_request" type="button" data-tripID="<?= $R['tripID'] ?>" data-RqID="<?= $R['id'] ?>" data-notifID="<?= $R['notifID'] ?>" data-driverID="<?= $R['driverID'] ?>" data-carID="<?= $R['carID'] ?>">
                             
                                 <span class="spinner-border spinner-border-sm hidden"></span>
                                 <span class="checked hidden"><svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20"><path d="M22.319,4.431,8.5,18.249a1,1,0,0,1-1.417,0L1.739,12.9a1,1,0,0,0-1.417,0h0a1,1,0,0,0,0,1.417l5.346,5.345a3.008,3.008,0,0,0,4.25,0L23.736,5.847a1,1,0,0,0,0-1.416h0A1,1,0,0,0,22.319,4.431Z" /></svg></span>
@@ -57,7 +57,7 @@
 
 
 
-                            <button class="bg-danger bg-opacity-5 text-white fs-13 fw-semibold py-1 px-2 rounded-1 reject_request" type="button" data-tripID="<?= $R['tripID'] ?>" data-RqID="<?= $R['id'] ?>" data-notifID="<?= $R['notifID'] ?>">
+                            <button class="bg-danger bg-opacity-5 text-white fs-13 fw-semibold py-1 px-2 rounded-1 reject_request" type="button" data-tripID="<?= $R['tripID'] ?>" data-RqID="<?= $R['id'] ?>" data-notifID="<?= $R['notifID'] ?>" data-driverID="<?= $R['driverID'] ?>" data-carID="<?= $R['carID'] ?>">
                                 <span class="spinner-border spinner-border-sm hidden"></span>
                                 <span class="checked hidden"><svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20">
                                         <path d="M22.319,4.431,8.5,18.249a1,1,0,0,1-1.417,0L1.739,12.9a1,1,0,0,0-1.417,0h0a1,1,0,0,0,0,1.417l5.346,5.345a3.008,3.008,0,0,0,4.25,0L23.736,5.847a1,1,0,0,0,0-1.416h0A1,1,0,0,0,22.319,4.431Z" />
@@ -122,6 +122,10 @@
         RqID = $(this).data("rqid");
         tripID = $(this).data("tripid");
         notifID = $(this).data("notifid");
+        driverID = $(this).data("driverid");
+        carID = $(this).data("carid");
+
+        
 
         $.ajax({
             type: "POST",
@@ -130,6 +134,8 @@
                 tripID: tripID,
                 RqID: RqID,
                 notifID: notifID,
+                driverID: driverID,
+                carID: carID,
                 isAccepet: "YES"
             },
             success: function(data) {
@@ -159,6 +165,10 @@
         RqID = $(this).data("rqid");
         tripID = $(this).data("tripid");
         notifID = $(this).data("notifid");
+        driverID = $(this).data("driverid");
+        carID = $(this).data("carid");
+
+
 
 
         $.ajax({
@@ -168,6 +178,8 @@
                 tripID: tripID,
                 RqID: RqID,
                 notifID: notifID,
+                driverID: driverID,
+                carID: carID,
                 isAccepet: "NO"
             },
             success: function(data) {

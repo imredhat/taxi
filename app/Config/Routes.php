@@ -232,6 +232,7 @@ $routes->get('api/car/type', 'api\Driver::Types');
 
 $routes->add('api/driver/TripsList', 'api\Driver::TripsList');
 $routes->add('api/driver/MyTrips', 'api\Driver::MyTrips');
+$routes->add('api/driver/onGoingTrip', 'api\Driver::onGoingTrip');
 
 $routes->post('api/request/Send', 'api\Request::Send');
 
@@ -244,3 +245,4 @@ $routes->post('api/request/Send', 'api\Request::Send');
 /***********FIXXXXXXXXX ******************* */
 
 $routes -> add('fixPassengerID','Fix::fixPassengerID');
+$routes -> add('fixCallDate','Fix::fixCallDate');

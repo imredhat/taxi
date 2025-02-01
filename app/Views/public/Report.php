@@ -7,7 +7,7 @@
             case 'rainy':
                 return 'بارانی';
             default:
-                return 'مساعد';
+                return 'آفتابی';
         }
     }
 

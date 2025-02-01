@@ -128,14 +128,13 @@
 
     <div class="paymentLogo"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
     <div class="info">
-        <h2><?=$Bank['bank_name']?></h2>
-        <h2>صاحب حساب : <?=$Bank['holder_name']?> </h2>
+        <h2>بانک سامان</h2>
+        <h2>صاحب حساب : سيد حسن طاهري </h2>
+            <?php echo $Trip['passenger_tel'] ?></br>
     </div>
     <div id="project" style="margin-top: 10px;">
-        <h2> اطلاعا حساب : </h2>
-          <span style="direction:ltr !important;"> <?= substr($Bank['card_number'], 0, 4) . '-' . substr($Bank['card_number'], 4, 4) . '-' . substr($Bank['card_number'], 8, 4) . '-' . substr($Bank['card_number'], 12, 4) ?> </span>
-        
-        <p><?=$Bank['shaba']?></p>
+        <h2> شماره كارت : 6219 8610 8001 8475 </h2>
+        <p>1 3970 2877 8000 0882 0560 89 IR </p>
     </div>
 </div>
 

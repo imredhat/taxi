@@ -59,6 +59,7 @@ class TripsModel extends Model
         'carID',
         'reqID',
         'bank',
+        'call_date'
     ];
 
     protected $useAutoIncrement = true;
@@ -136,7 +137,7 @@ class TripsModel extends Model
         $builder = $this->db->table($this->table);
 
         $builder->select(
-            'trips.id,startAdd,endAdd,startPoint,endPoint, weather,distance,TimeMin,isWait,trip_date,trip_time,trips.dsc,status,trip_type,trips.created_at,driverCustomFare,package,
+            'trips.id,startAdd,endAdd,startPoint,endPoint, weather,distance,TimeMin,travelTime,isWait,trip_date,trip_time,trips.dsc,status,trip_type,trips.created_at,driverCustomFare,package,total_passenger,
             request.isAccepted as isReserved, 
             packages.dsc as package_dsc,
             '
@@ -161,7 +162,7 @@ class TripsModel extends Model
 
 
 
-    public function getMyRequest($driverID,$from_date=null,$to_date=null)
+    public function getMyRequest($driverID,$from_date=null,$to_date=null,$status=null)
     {
         $builder = $this->db->table($this->table);
 
@@ -177,11 +178,18 @@ class TripsModel extends Model
 
 
         $builder->where('trips.driverID' , $driverID);
-        $builder->where('trips.status' , "Done");
+        
 
         if(!empty($from_date)){
             $builder->where('trips.trip_date >=' , $from_date);
             $builder->where('trips.trip_date <' , $to_date);
+        }
+
+
+        if(!empty($status)){
+            $builder->where('trips.status' , $status);
+        }else{
+            $builder->where('trips.status' , "Done");
         }
 
 
@@ -191,6 +199,8 @@ class TripsModel extends Model
             return [];
         }
     }
+
+
 
 
 

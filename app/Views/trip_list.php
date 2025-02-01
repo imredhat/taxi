@@ -233,20 +233,7 @@ function getRandomColorPair()
 
 
                 <td> <span><?= $S['trip_date'] ?></span> </td>
-                <td style="direction: ltr;"> <span><?php
-                
-                    $now = new \DateTime($S['created_at'], new \DateTimeZone('Asia/Tehran'));
-                    $persianDate = \IntlDateFormatter::create(
-                        'fa_IR@calendar=persian',
-                        \IntlDateFormatter::SHORT,
-                        \IntlDateFormatter::NONE,
-                        'Asia/Tehran',
-                        \IntlDateFormatter::TRADITIONAL
-                    )->format($now);
-                    $persianTime = $now->format('H:i');
-                    echo $persianDate . ' ' . $persianTime;
-                
-                ?></span> </td>
+                <td style="direction: ltr;"> <span><?= $S['call_date'] ?></span> </td>
                 <td> <span><?= number_format($S['finalFare']) ?> تومان</span> </td>
 
                 <td>

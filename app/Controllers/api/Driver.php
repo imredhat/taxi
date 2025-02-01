@@ -143,6 +143,38 @@ class Driver extends ResourceController
     }
 
 
+
+    public function onGoingTrip()
+    {
+        $hash = $this->request->getPost('hash');
+
+        if (empty($hash)) {
+            return $this->respond(['status' => 'error', 'message' => 'راننده نامعتبر است'], 400);
+        }
+
+        $Driver = new DriverModel();
+        $driver = $Driver->where('hash', $hash)->first();
+
+        if (!$driver) {
+            return $this->respond(['status' => 'error', 'message' => ' راننده نامعتبر است'], 401);
+        }
+
+        $driverID = $driver['did'];
+
+
+        $TripsModel = new TripsModel();
+        $trips = $TripsModel->getMyRequest($driverID, '','',"Confirm");
+
+      
+
+        if (!$trips || empty($trips)) {
+            return $this->respond(['status' => 'error', 'message' => 'هیچ سفری یافت نشد'], 404);
+        }
+
+        return $this->respond(['status' => 'success', 'trips' => $trips]);
+    }
+
+
     public function Brands()
     {
         $BrandModel = new BrandModel();
