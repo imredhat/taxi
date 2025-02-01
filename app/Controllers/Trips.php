@@ -119,7 +119,20 @@ class Trips extends ResourceController
         //      $this -> createUser( $data['guest_tel'] , $data['guest_name']);
         //  }
 
-        /**************************** END Check *************************************** */
+
+
+        $UserModel = new UserModel();
+        $existingUser = $UserModel->where('mobile', $data['guest_tel'])->first();
+
+        if (!$existingUser) {
+            $data['passenger_name'] = $this->request->getPost('passenger_name');
+            $data['passenger_tel'] = $this->request->getPost('passenger_tel');
+            $UserID = $this->createUser($data['passenger_tel'], $data['passenger_name']);
+
+            $data['passenger_id']=$UserID;
+        }
+
+        /**************************** END Check ****************************************/
 
         if ($this->model->save($data)) {
             $id = $this->model->insertID();
@@ -157,6 +170,8 @@ class Trips extends ResourceController
                 'status'     => 'تایید شده',
                 'date_start' => $persianDate,
             ]);
+
+            return $UserModel->insertID();
         }
 
     }
@@ -422,6 +437,23 @@ class Trips extends ResourceController
 
         //      $this -> createUser( $data['guest_tel'] , $data['guest_name']);
         //  }
+
+
+        $UserModel = new UserModel();
+        $existingUser = $UserModel->where('mobile', $data['guest_tel'])->first();
+
+        if (!$existingUser) {
+            $data['passenger_name'] = $this->request->getPost('passenger_name');
+            $data['passenger_tel'] = $this->request->getPost('passenger_tel');
+            $this->createUser($data['passenger_tel'], $data['passenger_name']);
+
+            $UserID = $this->createUser($data['passenger_tel'], $data['passenger_name']);
+
+            $data['passenger_id']=$UserID;
+        }
+
+
+
 
         /**************************** END Check *************************************** */
 

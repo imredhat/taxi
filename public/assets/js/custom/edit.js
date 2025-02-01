@@ -1,6 +1,17 @@
 
 $(document).ready(function () {
 
+
+    $("body").on("change", "select#isGuest", function () {
+        if ($(this).val() == "1") {
+            $('.passengerBox').show();
+        } else {
+            $('.passengerBox').hide();
+        }
+    });
+
+
+
     $("#driver").chosen();
     $("#car").chosen();
 
@@ -51,7 +62,7 @@ $(document).ready(function () {
                     $.each(data.data, function (index, car) {
                         carSelect.append($('<option>', {
                             value: car.cid,
-                            text: car.car_brand +' '+ car.type_name + ' [ ایران ' + car.iran + '-' + car.pelak + car.harf + car.pelak_last + ' ] '
+                            text: car.car_brand + ' ' + car.type_name + ' [ ایران ' + car.iran + '-' + car.pelak + car.harf + car.pelak_last + ' ] '
                         }));
                     });
                     carSelect.trigger("chosen:updated");
@@ -63,9 +74,9 @@ $(document).ready(function () {
     });
 
 
-    
 
-    function GetDriverCar(driverID){
+
+    function GetDriverCar(driverID) {
         $.ajax({
             type: "POST",
             url: base + "Driver/GetDriverCars",
@@ -77,7 +88,7 @@ $(document).ready(function () {
                     $.each(data.data, function (index, car) {
                         carSelect.append($('<option>', {
                             value: car.cid,
-                            text: car.car_brand +' '+ car.type_name + ' [ ایران ' + car.iran + '-' + car.pelak + car.harf + car.pelak_last + ' ] '
+                            text: car.car_brand + ' ' + car.type_name + ' [ ایران ' + car.iran + '-' + car.pelak + car.harf + car.pelak_last + ' ] '
                         }));
                     });
                     carSelect.trigger("chosen:updated");
@@ -142,7 +153,7 @@ $(document).ready(function () {
                 if (data.status == 'OK') {
                     toast('ویرایش سفر با موفقیت انجام شد');
                     $("#EditItem").modal('hide');
-                    
+
                     // location.reload(true);
 
 
@@ -154,7 +165,7 @@ $(document).ready(function () {
                 }
 
 
-                setTimeout(function(){
+                setTimeout(function () {
                     location.reload();
                 }, 1000); // 3000 milliseconds = 3 seconds
             }
@@ -163,6 +174,26 @@ $(document).ready(function () {
         });
 
     });
+
+
+
+    $('#finalFare').val(formatNumberWithCommas($('#finalFare').val()));
+
+
+
+    $('#passengerFare').on('input', function (e) {
+        $(this).val(formatNumberWithCommas($(this).val().replace(/,/g, '')));
+    });
+
+    $('#driverFare').on('input', function (e) {
+        $(this).val(formatNumberWithCommas($(this).val().replace(/,/g, '')));
+    });
+
+    $('#finalFare').on('input', function (e) {
+        $(this).val(formatNumberWithCommas($(this).val().replace(/,/g, '')));
+    });
+
+  
 
 });
 
@@ -259,7 +290,7 @@ try {
                 if (Number(countEl.value) < 4) {
                     countEl.value = Number(countEl.value) + 1;
                 }
-            }else{
+            } else {
                 countEl.value = Number(countEl.value) + 1;
             }
         }
@@ -310,27 +341,3 @@ function formatNumberWithCommas(number) {
     return parts.join(".");
 }
 
-$('#finalFare').val(formatNumberWithCommas($('#finalFare').val()));
-
-
-
-$('#passengerFare').on('input', function (e) {
-    $(this).val(formatNumberWithCommas($(this).val().replace(/,/g, '')));
-});
-
-$('#driverFare').on('input', function (e) {
-    $(this).val(formatNumberWithCommas($(this).val().replace(/,/g, '')));
-});
-
-$('#finalFare').on('input', function (e) {
-    $(this).val(formatNumberWithCommas($(this).val().replace(/,/g, '')));
-});
-
-
-$('select[name="isGuest"]').on('change', function() {
-    if ($(this).val() == "1") {
-        $('.passengerBox').show();
-    } else {
-        $('.passengerBox').hide();
-    }
-});

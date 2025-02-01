@@ -200,7 +200,7 @@
 
                                 <div class="form-group col-lg-6">
                                     <label class="label">مسافر کسی دیگر است ؟؟</label>
-                                    <select name="isGuest" class="form-control" required>
+                                    <select id="isGuest" name="isGuest" class="form-control" required>
                                         
                                         <option value="0" <?= $Trip['isGuest'] == '0' ? 'selected' : '' ?>>خیر</option>
                                         <option value="1" <?= $Trip['isGuest'] == '1' ? 'selected' : '' ?>>بله</option>

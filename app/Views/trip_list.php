@@ -185,7 +185,7 @@ function getRandomColorPair()
 <thead>
     <tr class="text-center">
         <th scope="col">شناسه</th>
-        <th scope="col">مسافر</th>
+        <th scope="col">مشتری / مسافر</th>
         <th scope="col">مبدا</th>
         <th scope="col">مقصد</th>
         <th scope="col">تاریخ سفر</th>
@@ -209,15 +209,13 @@ function getRandomColorPair()
                     <td class="text-start">
                         
                     <?php
-                            if(isset($S['passenger_id'])  && $S['passenger_id'] == 0){
-                                echo ''. $S['guest_name'];
-                            }else{
+
                                 if(isset($S['isGuest']) && $S['isGuest'] > 0){
                                      echo $S['passenger_name'].'<br/> <span class="mosafer"> [مسافر : '.$S['guest_name'].'] </span>';
                                 }else{
                                     echo $S['passenger_name'];
                                 }
-                            }
+                            
                     
                     ?> </td>
 
@@ -241,7 +239,21 @@ function getRandomColorPair()
                 </td>
 
                 <?php if ($S['isGuest'] > 0): ?>
-                    <td class="text-start"><?= $S['passenger_tel'] ?> </td>
+                    <td class="text-start">
+                        
+                    <?php
+          
+                                if(isset($S['isGuest']) && $S['isGuest'] > 0){
+                                     echo $S['passenger_tel'].'<br/> <span class="mosafer"> [مسافر : '.$S['passenger_tel'].'] </span>';
+                                }else{
+                                    echo $S['passenger_tel'];
+                                }
+                            
+                    
+                    ?>
+
+
+                    </span> </td>
                 <?php else: ?>
                     <td class="text-start"><?= $S['guest_tel'] ?> </td>
                 <?php endif; ?>
