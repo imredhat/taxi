@@ -178,7 +178,7 @@ $routes->post('usePay/callback', 'Pay::Check');
 
 
 /*********************************************
- *          TransAction
+ *          TransAction API
  **************************************/
 
 
@@ -190,14 +190,16 @@ $routes->post('usePay/callback', 'Pay::Check');
  $routes->post('transaction/remove', 'Transaction::remove');
 
 
-
-
 $routes->get('user/getAllUser', 'User::getAllUser');
 $routes->get('driver/getAllDriver', 'Drivers::getAllDrivers');
 
 
+/*********************************************
+ *          TransAction Web
+ **************************************/
 
-
+$routes->add('Transactions/', 'Transaction::All');
+$routes->add('Transactions/(:any)', 'Transaction::All/$1');
 
 
 

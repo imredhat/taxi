@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers;
+use App\Libraries\GroceryCrud;
 
 use App\Models\TransactionModel;
 
@@ -25,32 +26,29 @@ class Transaction extends BaseController
             'desc'     => $this->request->getPost('desc'),
         ];
 
-
         $data['amount'] = str_replace(',', '', $data['amount']);
 
         if ($this->request->getPost('trans_type') == 'in') {
             $data['_from'] = 'USER';
             $data['_to']   = 'POT';
-            
 
             $userModel = new \App\Models\UserModel();
             $user      = $userModel->find($this->request->getPost('userID'));
 
-            $data['name'] = $user['name'] . ' ' . $user['lname'];
-            $data['tel']  = $user['mobile'];
+            $data['name']   = $user['name'] . ' ' . $user['lname'];
+            $data['tel']    = $user['mobile'];
             $data['userID'] = $user['id'];
 
         } else {
             $data['_from'] = 'POT';
             $data['_to']   = 'DRIVER';
 
-            $driverModel  = new \App\Models\DriverModel();
-            $driver       = $driverModel->find($this->request->getPost('userID'));
-            $data['name'] = $driver['name'] . ' ' . $driver['lname'];
-            $data['tel']  = $driver['mobile'];
+            $driverModel      = new \App\Models\DriverModel();
+            $driver           = $driverModel->find($this->request->getPost('userID'));
+            $data['name']     = $driver['name'] . ' ' . $driver['lname'];
+            $data['tel']      = $driver['mobile'];
             $data['driverID'] = $driver['did'];
         }
-
 
         $transactionModel = new TransactionModel();
         $transactionModel->insert($data);
@@ -74,20 +72,17 @@ class Transaction extends BaseController
             ->withDeleted()
             ->findAll();
 
-        
-
         return view('modal/TransactionList', $data);
     }
 
     public function remove()
     {
-        $id = $this->request->getPost('id');
+        $id               = $this->request->getPost('id');
         $transactionModel = new TransactionModel();
-        $transaction = $transactionModel
-        ->where('id', $id)
-        ->withDeleted()
-        ->findAll();
-
+        $transaction      = $transactionModel
+            ->where('id', $id)
+            ->withDeleted()
+            ->findAll();
 
         if ($transaction) {
             $transaction['row_status'] = 'delete';
@@ -118,8 +113,70 @@ class Transaction extends BaseController
         }
     }
 
+    public function All()
+    {
 
-    public function UpdateDB(){
+        $crud = new GroceryCrud();
+
+        $crud->setLanguage("Persian");
+        $crud->setTheme('bootstrap');
+        $crud->setTable('user_transaction');
+        $crud->setSubject('تراکنش', 'تراکنش‌ها');
+        $crud->unsetEdit();
+        // $crud->unsetView();
+        $crud->unsetAdd();
+        $crud->unsetDelete();
+        $crud->columns(['id', 'name','type','amount', 'desc', 'date_p', 'scan', 'tripID','trans_id',]);
+        $crud->fields(['name', 'tel', 'amount', 'desc', 'trans_id', 'refid', 'date_p', 'response', 'status', 'scan', '_from', '_to', '_for', 'tripID', 'row_status', 'userID', 'driverID', 'type']);
+        $crud->displayAs('id', "شناسه");
+        $crud->displayAs('name', "پرداخت کننده / دریافت کننده");
+        $crud->displayAs('tel', "تلفن");
+        $crud->displayAs('amount', "مقدار");
+        $crud->displayAs('desc', "توضیحات");
+        $crud->displayAs('trans_id', "شناسه تراکنش");
+        $crud->displayAs('refid', "شناسه مرجع");
+        $crud->displayAs('date_p', "تاریخ");
+        $crud->displayAs('response', "پاسخ");
+        $crud->displayAs('status', "وضعیت");
+        $crud->displayAs('scan', "رسید پرداخت");
+        $crud->displayAs('_from', "از");
+        $crud->displayAs('_to', "به");
+        $crud->displayAs('_for', "برای");
+        $crud->displayAs('tripID', "شناسه سفر");
+        $crud->displayAs('row_status', "وضعیت ردیف");
+        $crud->displayAs('userID', "شناسه کاربر");
+        $crud->displayAs('driverID', "شناسه راننده");
+        $crud->displayAs('type', "نوع");
+        $crud->displayAs('deleted_at', "تاریخ حذف");
+        $crud->displayAs('trans_type', "نوع تراکنش");
+
+        $crud->fieldType('status', 'dropdown', ['1' => 'فعال', '0' => 'غیرفعال']);
+        $crud->fieldType('type', 'dropdown', ['in' => 'دریافتی از مسافر', 'out' => 'پرداختی به راننده ']);
+
+        $this->UploadCallback($crud, 'scan');
+
+        $crud->callbackColumn('tripID', function ($value, $row) {
+            return $value + 1000;
+        });
+
+        $crud->callbackColumn('amount', function ($value, $row) {
+            return number_format($value, 0, '', ',') . ' تومان';
+        });
+
+
+
+
+        $output = $crud->render();
+
+        echo view('parts/header');
+        echo view('parts/side');
+        echo view('crud', (array) $output);
+        echo view('parts/footer_crud');
+
+    }
+
+    public function UpdateDB()
+    {
         $db = \Config\Database::connect();
         $db->query('ALTER TABLE `request` ADD `notified` INT NOT NULL AFTER `isAccepted`;');
 
@@ -134,8 +191,74 @@ class Transaction extends BaseController
             PRIMARY KEY (`id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;");
 
-
         $db->query('ALTER TABLE `trips` ADD `bank` INT NOT NULL AFTER `dsc`;');
     }
+
+    public function UploadCallback($crud, $field)
+    {
+
+        $crud->callbackColumn($field, function ($row, $data) use ($field) {
+            if(!empty($data -> $field)) {
+                return '<img src="' . base_url('uploads/transaction/' . $data->id . '/' .  $data->scan) . '" width="100" height="200">';
+            } else {
+                return '';
+            }
+        });
+
+
+        $crud->callbackEditField($field, function ($row, $pid) use ($field) {
+
+            if (! empty($row)) {
+                return '<img src="' . base_url('uploads/transaction/' . $pid . '/' . $row) . '" width="500" height="500"> <a class="cls" href="' . base_url(relativePath: "RD/") . $field . '/' . $pid . '" ><img src="' . base_url('assets/images/close.png') . '" width="25" /> </a>';
+            } else {
+                return ' <input name="' . $field . '" id="file-upload" type="file"> ';
+            }
+        });
+
+        $crud->callbackBeforeUpdate(function ($stateParameters) {
+
+            $fields = ['scan'];
+            foreach ($fields as $field) {
+                $file = $this->request->getFile($field);
+                if (isset($file)) {
+                    if (! file_exists(base_url('uploads/transaction/' . $stateParameters->primaryKeyValue . '/' . $file->getName()))) {
+                        if ($file->isValid()) {
+                            $file->move('uploads/transaction/' . $stateParameters->primaryKeyValue, $file->getName());
+                            $stateParameters->data[$field] = $file->getName();
+                        }
+                    }
+                }
+            }
+
+            return $stateParameters;
+        });
+
+        $crud->callbackBeforeInsert(function ($stateParameters) use ($field) {
+            $file = $this->request->getFile('ax');
+            if (isset($file)) {
+                if (! file_exists(base_url('uploads/transaction/' . $file->getName()))) {
+                    if ($file->isValid()) {
+                        $file->move('uploads/transaction/', $file->getName());
+                        $stateParameters->data['ax'] = $file->getName();
+                    }
+                }
+            }
+
+            $scan = $this->request->getfile('scan_melli');
+            if (isset($scan)) {
+                if (! file_exists(base_url('uploads/transaction/' . $scan->getName()))) {
+                    if ($scan->isValid()) {
+                        $scan->move('uploads/transaction/', $scan->getName());
+                        $stateParameters->data['scan_melli'] = $scan->getName();
+                    }
+                }
+            }
+
+            return $stateParameters;
+        });
+
+        return $crud;
+    }
+
 
 }

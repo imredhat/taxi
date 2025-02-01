@@ -304,7 +304,7 @@ $(document).ready(function () {
         var DriverFare = $("input[name='passenger_custom_fare']").val().replace(/[^0-9a-z-A-Z ]/g, "").replace(/ +/, " ");
         var package = $("select[name='package']").val();
 
-        console.log(package);
+        // console.log(package);
 
         if (UserFare.length <= 0 || DriverFare.length <= 0) {
             // alert('لطفا اطلاعات را با دقت پر کنید');
@@ -330,7 +330,7 @@ $(document).ready(function () {
                         $('#PayingFare').modal('toggle');
                         $("input[name='driver_custom_fare']").val('');
                         $("input[name='passenger_custom_fare']").val('');
-                        $(".tr_" + ID + " td:nth-child(7)").html('<span class="bg-warning text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block">اطلاع رسانی شده </span>');
+                        $(".tr_" + ID + " td:nth-child(8)").html('<span class="bg-warning text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block">اطلاع رسانی شده </span>');
                     } else {
                         toast('مشکلی در ثبت اعلام سرویس رخ داده است');
                     }
