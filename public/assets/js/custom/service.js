@@ -75,8 +75,7 @@ $(document).ready(function () {
 
 
     // ====================================================================================
-
-    $(".view_item").click(function () {
+    $("body").on("click", "a.view_item", function () {
         modal = $("#ViewItem");
         ID = $(this).data("id");
 

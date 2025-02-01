@@ -2,8 +2,8 @@
 namespace App\Controllers;
 
 use App\Libraries\GroceryCrud;
-use App\Models\UserModel;
 use App\Models\TripsModel;
+use App\Models\UserModel;
 
 class User extends BaseController
 {
@@ -25,28 +25,55 @@ class User extends BaseController
         $query  = $db->query("SELECT driverID,package, COUNT(driverID) as count FROM trips WHERE driverID != 0 GROUP BY driverID ORDER BY count DESC LIMIT 1");
         $result = $query->getRow();
 
-
         if ($result) {
 
-            
             $driverModel        = new \App\Models\DriverModel();
             $driver             = $driverModel->find($result->driverID);
             $data["BestDriver"] = $driver;
             $data["count"]      = $result->count;
 
-
-            $queryVIP = $db->query("SELECT COUNT(*) as vip_count FROM trips WHERE package = '.$result->count.'");
+            $queryVIP  = $db->query("SELECT COUNT(*) as vip_count FROM trips WHERE package = '.$result->count.'");
             $resultVIP = $queryVIP->getRow();
 
             $Trip = new TripsModel();
             $trip = $Trip->where('package', $result->package)->countAllResults();
-        
-            $data["TotalPackageTrip"] = $trip;
-            $data["Package"] = $result->package;
 
+            $data["TotalPackageTrip"] = $trip;
+            $data["Package"]          = $result->package;
 
         }
 
+        /*********************** Transaction Data  **************************/
+
+        $queryIn  = $db->query("SELECT SUM(amount) as total_in FROM user_transaction WHERE type = 'in'  and row_status= 'insert'");
+        $resultIn = $queryIn->getRow();
+
+        $queryOut  = $db->query("SELECT SUM(amount) as total_out FROM user_transaction WHERE type = 'out' and row_status= 'insert'");
+        $resultOut = $queryOut->getRow();
+
+        $totalIn  = $resultIn ? $resultIn->total_in : 0;
+        $totalOut = $resultOut ? $resultOut->total_out : 0;
+
+        $data["All"] = $totalIn - $totalOut;
+        $data["IN"]  = $totalIn;
+        $data["OUT"] = $totalOut;
+
+        /*********************** Trips Data  **************************/
+
+        $Trip               = new TripsModel();
+        $data["TotalTrips"] = $Trip->countAllResults();
+
+        $queryFare  = $db->query("SELECT AVG(UserCustomFare) as avg_fare FROM trips WHERE UserCustomFare IS NOT NULL AND UserCustomFare != 0 and status='Confirm'");
+        $resultFare = $queryFare->getRow();
+
+        $data["UserCustomFare"] = $resultFare ? $resultFare->avg_fare : 0;
+
+        /*********************** Trips Data  **************************/
+
+        $userModel = new UserModel();
+        $data["TotalUsers"] = $userModel->countAllResults();
+
+        // $data["NetAmount"] = $totalIn - $totalOut;
         echo view('parts/header');
         echo view('parts/side');
         echo view('Home', $data);

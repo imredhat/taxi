@@ -123,6 +123,7 @@ class Transaction extends BaseController
         $crud->setTable('user_transaction');
         $crud->setSubject('تراکنش', 'تراکنش‌ها');
         $crud->unsetEdit();
+        $crud->where('row_status', 'insert');
         // $crud->unsetView();
         $crud->unsetAdd();
         $crud->unsetDelete();
@@ -199,7 +200,7 @@ class Transaction extends BaseController
 
         $crud->callbackColumn($field, function ($row, $data) use ($field) {
             if(!empty($data -> $field)) {
-                return '<img src="' . base_url('uploads/transaction/' . $data->id . '/' .  $data->scan) . '" width="100" height="200">';
+                return '<a href="'.base_url('uploads/transaction/' . $data->tripID . '/' .  $data->scan).'" target="_blank"> <img src="' . base_url('uploads/transaction/' . $data->tripID . '/' .  $data->scan) . '" width="100" height="200"></a>';
             } else {
                 return '';
             }
