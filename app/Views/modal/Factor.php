@@ -13,19 +13,19 @@
 
 
                             </h2>
-                                    <?php echo $Trip['passenger_tel'] ?></br>
                             </div>
 
                             <div class="title">
-                                <h1>سرویس #<?php echo 1000 + $Trip['id'] ?></h1>
-                                <p>تاریخ سفر :                                                                                                                                                                                                                         <?php echo $Trip['trip_date'] . ' ' . $Trip['trip_time'] ?></br>
-                                </p>
+                                <h1>فاکتور سرویس</h1>
+                                
                             </div>
                         </div>
 
                         <div id="invoice-mid">
                             <div class="clientlogo"></div>
                             <div class="info">
+
+                            <h2 style="margin-top: -28px;">مشتری / مسافر</h2>
                                 <h2>
 
 
@@ -42,16 +42,42 @@
                             </h2>
                             </div>
                             <div id="project">
-                                <h2> اطلاعات سفر: </h2>
-                                <p>
-                                    مبدا :                                                                                                                                                                                         <?php echo $Trip['startAdd'] ?>  <br/>
-
-                                مقصد :                                                                                                                                                                         <?php echo $Trip['endAdd'] ?>
+                            <h2 style="margin-top: -28px;">اطلاعات سرویس</h2>
+                                
+                                کد سرویس #<?php echo 1000 + $Trip['id'] ?><br/>
+                               تاریخ و ساعت سفر : <?php echo $Trip['trip_date'] . ' ' . $Trip['trip_time'] ?></br>
+                               
+                                    مبدا :  <?php echo $Trip['startAdd'] ?>  <br/>
+                                مقصد :  <?php echo $Trip['endAdd'] ?>
                             </p>
                             </div>
                         </div>
 
 
+
+
+
+
+
+                        <?php if(isset($Driver) && !empty($Driver)):?>
+                        <div style="margin: 10px;padding: 10px 30px 0 0 ;">
+
+
+                        <table>
+                          <tr>
+                            <td>اطلاعات راننده و خودرو : </td>
+                            <td> [<?=$Car[0]['package_name']?>] <?=$Driver['name'].' '.$Driver['lname']?> [ <?=$Car[0]['brand'].' '.$Car[0]['type_name'].' '.$Car[0]['color']?> ]
+
+                            [ ایران <?=$Car[0]['iran'].' '.$Car[0]['pelak'].' '.$Car[0]['harf'].' '.$Car[0]['pelak_last']?> ]
+                            </td>
+                          </tr>
+                        </table>
+
+                       
+                       
+                        </div>
+
+                        <?php endif;?>
 
 
 
@@ -108,8 +134,8 @@
 
 	                                    </p></td>
 	                                        <td class="tableitem"><p class="itemtext">1</p></td>
-	                                        <td class="tableitem"><p class="itemtext"><?php echo $T['amount'] ?></p></td>
-	                                        <td class="tableitem"><p class="itemtext">-</p></td>
+	                                        <td class="tableitem"><p class="itemtext"><?php echo number_format($T['amount']) ?> تومان</p></td>
+	                                        <td class="tableitem"><p class="itemtext"><?php echo number_format($T['amount']) ?> تومان</p></td>
 	                                    </tr>
 
 	                                    <?php endforeach;endif; ?>

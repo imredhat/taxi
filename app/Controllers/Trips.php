@@ -215,12 +215,28 @@ class Trips extends ResourceController
 
         $Trip = new TripsModel();
         if ($data['Trip'] = $Trip->find($ID)) {
+            
 
             $tr                   = new TransactionModel();
             $data['transactions'] = $tr->where('tripID', $ID)->where('row_status', 'insert')->where('type', 'in')->withDeleted()->findAll();
 
             $BankModel    = new \App\Models\BankModel();
             $data['Bank'] = $BankModel->find($data['Trip']['bank']);
+
+ 
+            if(isset($data['Trip']['driverID'])  && $data['Trip']['driverID']>0 and !empty($data['Trip']['driverID'])){
+                $DriverModel = new DriverModel();
+                $data['Driver'] = $DriverModel->find($data['Trip']['driverID']);
+    
+                $CarModel = new \App\Models\CarModel();
+                $data['Car'] = $CarModel->getAllCarsWithLinkedData($data['Trip']['driverID']);
+            }
+            
+
+
+ 
+            // echo json_encode($data);
+            // die();
 
             // print_r($data);die();
 

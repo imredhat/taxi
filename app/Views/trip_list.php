@@ -244,7 +244,7 @@ function getRandomColorPair()
                     <?php
           
                                 if(isset($S['isGuest']) && $S['isGuest'] > 0){
-                                     echo $S['passenger_tel'].'<br/> <span class="mosafer"> [مسافر : '.$S['passenger_tel'].'] </span>';
+                                     echo $S['passenger_tel'].'<br/> <span class="mosafer"> [مسافر : '.$S['guest_tel'].'] </span>';
                                 }else{
                                     echo $S['passenger_tel'];
                                 }
