@@ -81,6 +81,8 @@ class Trips extends ResourceController
         $data['startPoint'] = implode(',', $this->request->getPost('startPoint'));
         $data['endPoint']   = implode(',', $this->request->getPost('endPoint'));
 
+        $data['userCustomFare'] = preg_replace('/\D/', '', $this->request->getPost('userCustomFare'));
+        $data['driverCustomFare'] = preg_replace('/\D/', '', $this->request->getPost('driverCustomFare'));
         if (! empty($this->request->getPost('company_name'))) {
             $data['company_factor'] = "Yes";
         }
@@ -122,7 +124,7 @@ class Trips extends ResourceController
 
 
         $UserModel = new UserModel();
-        $existingUser = $UserModel->where('mobile', $data['guest_tel'])->first();
+        $existingUser = $UserModel->where('mobile', $data['passenger_tel'])->first();
 
         if (!$existingUser) {
             $data['passenger_name'] = $this->request->getPost('passenger_name');
@@ -456,7 +458,7 @@ class Trips extends ResourceController
 
 
         $UserModel = new UserModel();
-        $existingUser = $UserModel->where('mobile', $data['guest_tel'])->first();
+        $existingUser = $UserModel->where('mobile', $data['passenger_tel'])->first();
 
         if (!$existingUser) {
             $data['passenger_name'] = $this->request->getPost('passenger_name');

@@ -235,8 +235,10 @@ $routes->get('api/car/type', 'api\Driver::Types');
 $routes->add('api/driver/TripsList', 'api\Driver::TripsList');
 $routes->add('api/driver/MyTrips', 'api\Driver::MyTrips');
 $routes->add('api/driver/onGoingTrip', 'api\Driver::onGoingTrip');
+$routes->add('api/driver/SetActiveCar', 'api\Driver::SetActiveCar');
 
 $routes->post('api/request/Send', 'api\Request::Send');
+$routes->post('api/request/MyRequests', 'api\Request::MyRequests');
 
 // $routes->get('api/auth/logout', 'API\Auth::logout');
 

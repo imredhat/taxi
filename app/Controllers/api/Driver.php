@@ -28,7 +28,8 @@ class Driver extends ResourceController
 
         $driverId = $driver['did'];
         $CarModel = new CarModel();
-        $cars = $CarModel->where('driver_id', $driverId)->findAll();
+
+        $cars = $CarModel -> getAllCarsWithLinkedData($driverId);
 
         if (!$cars) {
             return $this->respond(['status' => 'error', 'message' => 'هیچ خودرویی برای این راننده یافت نشد'], 404);
@@ -50,8 +51,12 @@ class Driver extends ResourceController
                 'shasi' => $car['shasi'],
                 'type' => $car['type'],
                 'vin' => $car['vin'],
+                'type_name' => $car['type_name'],
+                'color' => $car['color'],
             ];
         }
+
+        // echo json_encode($carsData);die();
 
         return $this->respond(['status' => 'success', 'cars' => $cars]);
     }
@@ -216,5 +221,40 @@ class Driver extends ResourceController
         }
 
         return $this->respond(['status' => 'success', 'types' => $TypeData]);
+    }
+
+
+    public function SetActiveCar(){
+        $hash = $this->request->getPost('hash');
+        $carID = $this->request->getPost('carID');
+
+        if (empty($hash) || empty($carID)) {
+            return $this->respond(['status' => 'error', 'message' => 'راننده یا خودرو نامعتبر است'], 400);
+        }
+
+        $Driver = new DriverModel();
+        $driver = $Driver->where('hash', $hash)->first();
+
+        if (!$driver) {
+            return $this->respond(['status' => 'error', 'message' => ' راننده نامعتبر است'], 401);
+        }
+
+        $CarModel = new CarModel();
+        $car = $CarModel->where('cid', $carID)->first();
+
+        if (!$car) {
+            return $this->respond(['status' => 'error', 'message' => 'خودرو یافت نشد'], 404);
+        }
+        
+
+        $tdata = [
+            'active' => 1
+        ];
+
+        $CarModel->update($carID, $tdata);
+
+        // $CarModel->update($carID, ['active' => 1]);
+
+        return $this->respond(['status' => 'success', 'message' => 'خودرو با موفقیت فعال شد']);
     }
 }

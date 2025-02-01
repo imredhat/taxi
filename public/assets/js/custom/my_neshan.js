@@ -859,13 +859,6 @@ $(document).ready(function () {
         }
     });
 
-
-    function formatNumberWithCommas(number) {
-        var parts = number.toString().split(".");
-        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        return parts.join(".");
-    }
-
     $('body #userCustomFare').on('input', function (e) {
         $(this).val(formatNumberWithCommas($(this).val().replace(/,/g, '')));
     });
@@ -873,6 +866,18 @@ $(document).ready(function () {
     $('#driverCustomFare').on('input', function (e) {
         $(this).val(formatNumberWithCommas($(this).val().replace(/,/g, '')));
     });
+
+    
+
+
+    function formatNumberWithCommas(number) {
+        var parts = number.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
+    }
+
+ 
+  
 
 
 });

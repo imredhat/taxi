@@ -369,7 +369,7 @@ $(document).ready(function () {
                     $(".change_status").hide();
                     $('#updateStatus').modal('hide');
 
-                    $(".tr_" + ID + " td:nth-child(7)").html('<span class="' + data.class + ' text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block">' + NewStatus + ' </span>');
+                    $(".tr_" + ID + " td:nth-child(8)").html('<span class="' + data.class + ' text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block">' + NewStatus + ' </span>');
                 } else {
                     warn('مشکلی در بروزرسانی وضعیت رخ داده است');
                 }

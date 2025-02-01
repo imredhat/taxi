@@ -42,6 +42,7 @@ class CarModel extends Model
         'scan_car_card_back',
         'scan_insurance',
         'scan_insurance_addendum',
+        'active'
     ];
 
     public function GetDriverCars($id)

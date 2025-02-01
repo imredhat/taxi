@@ -232,19 +232,18 @@ function getRandomColorPair()
 
                 <td> <span><?= $S['trip_date'] ?></span> </td>
                 <td style="direction: ltr;"> <span><?= $S['call_date'] ?></span> </td>
-                <td> <span><?= number_format($S['finalFare']) ?> تومان</span> </td>
+                <td> <span><?= number_format($S['userCustomFare']) ?> تومان</span> </td>
 
                 <td>
                     <span class="<?= getServiceDIV($S['status']) ?> bg-opacity-5 text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block"><?= getServiceStatus($S['status']) ?></span>
                 </td>
 
-                <?php if ($S['isGuest'] > 0): ?>
                     <td class="text-start">
-                        
+
                     <?php
           
                                 if(isset($S['isGuest']) && $S['isGuest'] > 0){
-                                     echo $S['passenger_tel'].'<br/> <span class="mosafer"> [مسافر : '.$S['guest_tel'].'] </span>';
+                                    echo $S['passenger_tel'].'<br/> <span class="mosafer"> [مسافر : '.$S['guest_tel'].'] </span>';
                                 }else{
                                     echo $S['passenger_tel'];
                                 }
@@ -254,10 +253,7 @@ function getRandomColorPair()
 
 
                     </span> </td>
-                <?php else: ?>
-                    <td class="text-start"><?= $S['guest_tel'] ?> </td>
-                <?php endif; ?>
-
+    
 
 
                 <td>
