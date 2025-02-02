@@ -111,7 +111,7 @@ $routes->post('Service/createOrder', 'Service::createOrder');
 
 
 $routes->get('Option/Packages', 'Option::Packages');
-$routes->get('Option/Packages/(edit|read|success|update)/(:any)', to: 'Option::Packages/$1');
+$routes->add('Option/Packages/(:any)', to: 'Option::Packages/$1');
 
 
 $routes->add('Option/Banks', 'Option::banks');
