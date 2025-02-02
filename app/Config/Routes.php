@@ -254,3 +254,4 @@ $routes->post('api/request/MyRequests', 'api\Request::MyRequests');
 
 $routes -> add('fixPassengerID','Fix::fixPassengerID');
 $routes -> add('fixCallDate','Fix::fixCallDate');
+$routes -> add('packge','Fix::packge');

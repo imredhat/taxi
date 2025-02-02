@@ -65,7 +65,10 @@
                                تاریخ و ساعت سفر : <?php echo $Trip['trip_date'] . ' ' . $Trip['trip_time'] ?></br>
                                
                                     مبدا :  <?php echo $Trip['startAdd'] ?>  <br/>
-                                مقصد :  <?php echo $Trip['endAdd'] ?>
+                                مقصد :  <?php echo $Trip['endAdd'] ?><br/>
+                                پکیج سرویس :  <?php echo $Trip['package'] ?>
+
+                                
                             </p>
                             </div>
                         </div>
