@@ -549,6 +549,7 @@ $(document).ready(function () {
 
                     $('input[name="passenger_name"]').val(data.User.name + ' ' + data.User.lname);
                     $('input[name="passenger_tel"]').val(data.User.mobile);
+                    $('input[name="company_name"]').val(data.User.company_name);
                     $('body input[name="passenger_id"]').val(data.User.id);
 
 

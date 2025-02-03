@@ -34,6 +34,7 @@ $(document).ready(function () {
 
                     $('input[name="passenger_name"]').val(data.User.name + ' ' + data.User.lname);
                     $('input[name="passenger_tel"]').val(data.User.mobile);
+                    $('input[name="company_name"]').val(data.User.company_name);
                     $('body input[name="passenger_id"]').val(data.User.id);
 
 
@@ -137,8 +138,9 @@ $(document).ready(function () {
         tripData.status_text = $("body select[name='status_edit'] option:selected").text();
         tripData.dsc = $("body textarea[name='dsc']").val();
         tripData.bank = $("body select[name='bank']").val();
-        tripData.call_date = $("body input[name='call_date']").val();
         tripData.package_edit = $("body select[name='package_edit']").val();
+        tripData.call_date = $("body input[name='call_date']").val();
+        tripData.company_name = $("body input[name='company_name']").val();
 
         var ID = tripData.id.replace(/\D/g, '');
         var NewStatus = tripData.status_text;

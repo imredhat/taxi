@@ -53,15 +53,16 @@ $(document).ready(function () {
     // ====================================================================================
 
 
+    $("body").on("click", 'a[data-bs-target="#updateStatus"]', function () {
 
-    $('a[data-bs-target="#updateStatus"]').click(function () {
-
+        // alert("dsf");
+        
         var clickedID = $(this).data("id");
         var status = $(this).data("status");
 
-        $("#ClickedTripID").val(clickedID);
-        $("#ClickedStatus").val(status);
-        $("select[name='status']").val(status).change();
+        $("body #StatusClickedTripID").val(clickedID);
+        $("body #StatusClickedStatus").val(status);
+        $("body select[name='status']").val(status).change();
     });
 
 
@@ -352,7 +353,7 @@ $(document).ready(function () {
     $(".ChangeStatus").click(function () {
 
 
-        var ID = $("#ClickedTripID").val();
+        var ID = $("#StatusClickedTripID").val();
         var Status = $("select[name='status']").val();
         var NewStatus = $("select[name='status'] option:selected").text();
 

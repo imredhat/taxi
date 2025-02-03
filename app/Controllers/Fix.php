@@ -46,6 +46,20 @@ class Fix extends BaseController
     }
 
 
+    public function packge(){
+        $tripModel = new TripsModel();
+        $trips = $tripModel->findAll();
+
+        foreach ($trips as $trip) {
+            $package = $trip['Packgae'];
+            $tripModel->update($trip['id'], [
+                'package' => $package,
+            ]);
+        }
+
+        echo "DONE";
+    }
+
     public function fixCallDate(){
         $tripModel = new TripsModel();
         $trips = $tripModel->findAll();

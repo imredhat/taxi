@@ -22,8 +22,8 @@
                     </select>
 
                 </div>
-                <input type="hidden" name="ClickedTripID" value="" id="ClickedTripID" />
-                <input type="hidden" name="ClickedStatus" value="" id="ClickedStatus" />
+                <input type="hidden" name="StatusClickedTripID" value="" id="StatusClickedTripID" />
+                <input type="hidden" name="StatusClickedStatus" value="" id="StatusClickedStatus" />
 
 
 

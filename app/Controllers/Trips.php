@@ -123,17 +123,6 @@ class Trips extends ResourceController
 
 
 
-        $UserModel = new UserModel();
-        $existingUser = $UserModel->where('mobile', $data['passenger_tel'])->first();
-
-        if (!$existingUser) {
-            $data['passenger_name'] = $this->request->getPost('passenger_name');
-            $data['passenger_tel'] = $this->request->getPost('passenger_tel');
-            $UserID = $this->createUser($data['passenger_tel'], $data['passenger_name']);
-
-            $data['passenger_id']=$UserID;
-        }
-
         /**************************** END Check ****************************************/
 
         if ($this->model->save($data)) {
@@ -174,6 +163,8 @@ class Trips extends ResourceController
             ]);
 
             return $UserModel->insertID();
+        } else {
+            return $User['id'];
         }
 
     }
@@ -311,11 +302,28 @@ class Trips extends ResourceController
         $ID     = $this->request->getPost('tripID');
         $Status = $this->request->getPost('Status');
 
-        $tdata = [
-            'status' => $Status,
-        ];
+        $tdata['status'] = $Status;
 
         $Trip = new TripsModel();
+        
+
+
+        if($Status == 'Confirm'){
+
+
+            $User = $Trip -> find($ID);
+            if ($User && $User['passenger_id'] == 0) {
+
+                $this->createUser($User['passenger_tel'], $User['passenger_name']);
+                $UserID = $this->createUser($User['passenger_tel'], $User['passenger_name']);
+
+                $tdata['passenger_id']=$UserID;
+            }
+        }
+
+        // print_r($tdata);die();
+
+
         $Trip->update($ID, $tdata);
 
         if ($Trip) {
@@ -416,6 +424,7 @@ class Trips extends ResourceController
             'dsc'              => $this->request->getPost('dsc'),
             'bank'             => $this->request->getPost('bank'),
             'call_date'             => $this->request->getPost('call_date'),
+            'company_name'             => $this->request->getPost('company_name'),
         ];
 
         $data['userCustomFare']   = preg_replace('/\D/', '', $data['userCustomFare']);
@@ -460,19 +469,24 @@ class Trips extends ResourceController
         // print_r($data);
         // die();
 
-        $UserModel = new UserModel();
-        $existingUser = $UserModel->where('mobile', $data['passenger_tel'])->first();
+        if($data['status'] == 'Confirm'){
 
-        if (!$existingUser) {
-            $data['passenger_name'] = $this->request->getPost('passenger_name');
-            $data['passenger_tel'] = $this->request->getPost('passenger_tel');
-            $this->createUser($data['passenger_tel'], $data['passenger_name']);
 
-            $UserID = $this->createUser($data['passenger_tel'], $data['passenger_name']);
+            $UserModel = new UserModel();
+            $existingUser = $UserModel->where('mobile', $data['passenger_tel'])->first();
 
-            $data['passenger_id']=$UserID;
+            if (!$existingUser) {
+                $data['passenger_name'] = $this->request->getPost('passenger_name');
+                $data['passenger_tel'] = $this->request->getPost('passenger_tel');
+                $this->createUser($data['passenger_tel'], $data['passenger_name']);
+
+                $UserID = $this->createUser($data['passenger_tel'], $data['passenger_name']);
+
+                $data['passenger_id']=$UserID;
+            }
+
+
         }
-
 
 
 

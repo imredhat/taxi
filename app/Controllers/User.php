@@ -140,6 +140,7 @@ class User extends BaseController
             'gender',
             'mobile',
             'type',
+            'company_name',
             'status',
             'date_start',
         ]);
@@ -152,6 +153,7 @@ class User extends BaseController
             'mobile',
             'phone',
             'type',
+            'company_name',
             'status',
             'date_start',
         ]);
@@ -170,6 +172,7 @@ class User extends BaseController
             'updated_at' => 'تاریخ بروزرسانی',
             'deleted_at' => 'تاریخ حذف',
             'date_start' => 'شروع اشتراک',
+            'company_name' => 'نام شرکت',
         ]);
 
         $crud->fieldType('gender', 'dropdown', [

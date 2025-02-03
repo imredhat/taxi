@@ -26,19 +26,29 @@
                             <div class="info">
 
                             <h2 style="margin-top: -28px;">مشتری / مسافر</h2>
-                                <h2>
+                                <h2 style="line-height: 15px;">
 
 
                                 <?php if ($Trip['isGuest'] > 0): ?>
-                                  <?php echo isset($Trip['guest_name']) ? htmlspecialchars($Trip['guest_name']) : 'نامشخص' ?><br>
-                                  <?php echo isset($Trip['guest_tel']) ? htmlspecialchars($Trip['guest_tel']) : 'نامشخص' ?><br>
-                                  <strong></strong>                                                                                                                                                                                                         <?php echo isset($Trip['passenger_tel']) ? htmlspecialchars($Trip['passenger_tel']) : 'نامشخص' ?><br>
+                                  <?php if($Trip['company_name' ] !== ''): ?>
+                                    <?php echo $Trip['company_name']?> (<?php echo $Trip['passenger_name']?>)<br>
+                                  <?php else: ?>
+                                    <?php echo $Trip['passenger_name']?><br>
+                                  <?php endif; ?>
+
+                                  <?php echo $Trip['passenger_tel'] ?><br>
+
+                                  [ مسافر ] <br/>
+
+                                  <?php echo $Trip['guest_name']?><br>
+                                  <?php echo $Trip['guest_tel'] ?><br>
+                                  <strong></strong> 
 
                                 <?php else: ?>
                                   <?php echo isset($Trip['passenger_name']) ? htmlspecialchars($Trip['passenger_name']) : 'نامشخص' ?><br>
                                   <?php echo isset($Trip['passenger_tel']) ? htmlspecialchars($Trip['passenger_tel']) : 'نامشخص' ?><br>
 
-                                    <strong></strong>                                                                                                                                                                                                         <?php echo isset($Trip['guest_tel']) ? htmlspecialchars($Trip['guest_tel']) : 'نامشخص' ?><br>
+                                    <strong></strong>
 
                                 <?php endif; ?>
 

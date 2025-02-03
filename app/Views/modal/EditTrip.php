@@ -213,15 +213,20 @@
 
 
                                 <!-- Passenger Name -->
-                                <div class="form-group mb-4 col-lg-6">
+                                <div class="form-group mb-4 col-lg-4">
                                     <label class="label">نام مشتری</label>
                                     <input type="text" name="passenger_name" class="form-control" placeholder="نام مشتری" value="<?=$Trip['passenger_name']?>" required>
                                 </div>
 
                                 <!-- Passenger Phone -->
-                                <div class="form-group mb-4 col-lg-6">
+                                <div class="form-group mb-4 col-lg-4">
                                     <label class="label">شماره تماس مشتری</label>
                                     <input type="text" id="passenger_tel" name="passenger_tel" placeholder="شماره تماس مشتری" class="form-control" value="<?= $Trip['passenger_tel']?>">
+                                </div>
+
+                                <div class="form-group mb-4 col-lg-4">
+                                    <label class="label">نام شرکت</label>
+                                    <input type="text" id="company_name" name="company_name" placeholder="نام شرکت" class="form-control" value="<?= $Trip['company_name']?>">
                                 </div>
                             </div>
 
