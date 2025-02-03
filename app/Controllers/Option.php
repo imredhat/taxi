@@ -21,7 +21,7 @@ class Option extends BaseController
         echo view('parts/header');
         echo view('parts/side');
         echo view('admin/fare_option', $data);
-        echo view('parts/footer');
+        echo view('parts/footer_js');
     }
 
 

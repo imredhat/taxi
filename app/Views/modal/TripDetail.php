@@ -95,7 +95,7 @@ function getServiceStatus($status)
                                 <strong>مسافت:</strong> <span><?= $Trip['distance'] ?> کیلومتر</span>
                             </div>
                             <div class="col-md-6">
-                                <strong>کرایه نهایی:</strong> <span>۲<?= number_format($Trip['finalFare']) ?> تومان</span>
+                                <strong>کرایه نهایی:</strong> <span><?= number_format($Trip['userCustomFare']) ?> تومان</span>
                             </div>
                         </div>
 

@@ -72,8 +72,7 @@ $routes->get('add-driver', 'Drivers::AddDriver');
 $routes->post('add-driver', 'Drivers::AddDriverToDatabase');
 
 $routes->get('all-drivers', 'Drivers::All');
-$routes->get('all-drivers/(:any)', 'Drivers::All/$1');
-$routes->post('all-drivers/(:any)', 'Drivers::All/$1');
+$routes->add('all-drivers/(:any)', 'Drivers::All/$1');
 
 $routes->add('DriverCard/(:any)', 'Drivers::DriverCard/$1');
 $routes->add('PrintC/DriverCard(:any)', 'PrintC::DriverCard/$1');
@@ -110,6 +109,7 @@ $routes->post('Service/createOrder', 'Service::createOrder');
 
 
 
+$routes->get('Option/Other', 'Option::index');
 $routes->get('Option/Packages', 'Option::Packages');
 $routes->add('Option/Packages/(:any)', to: 'Option::Packages/$1');
 
@@ -171,7 +171,11 @@ $routes->post('usePay/callback', 'Pay::Check');
 
 
 
+/*********************************************
+ *          Report
+ **************************************/
 
+ $routes->get('Report/Trips', 'TripReport::index');
 
 
 

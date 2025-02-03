@@ -30,11 +30,14 @@
 
 
                                 <?php if ($Trip['isGuest'] > 0): ?>
-                                    <strong></strong><?php echo isset($Trip['passenger_name']) ? htmlspecialchars($Trip['passenger_name']) : 'نامشخص' ?><br>
-                                    <strong></strong>                                                                                                                                                                                                         <?php echo isset($Trip['passenger_tel']) ? htmlspecialchars($Trip['passenger_tel']) : 'نامشخص' ?><br>
+                                  <?php echo isset($Trip['guest_name']) ? htmlspecialchars($Trip['guest_name']) : 'نامشخص' ?><br>
+                                  <?php echo isset($Trip['guest_tel']) ? htmlspecialchars($Trip['guest_tel']) : 'نامشخص' ?><br>
+                                  <strong></strong>                                                                                                                                                                                                         <?php echo isset($Trip['passenger_tel']) ? htmlspecialchars($Trip['passenger_tel']) : 'نامشخص' ?><br>
 
                                 <?php else: ?>
-                                    <strong></strong><?php echo isset($Trip['guest_name']) ? htmlspecialchars($Trip['guest_name']) : 'نامشخص' ?><br>
+                                  <?php echo isset($Trip['passenger_name']) ? htmlspecialchars($Trip['passenger_name']) : 'نامشخص' ?><br>
+                                  <?php echo isset($Trip['passenger_tel']) ? htmlspecialchars($Trip['passenger_tel']) : 'نامشخص' ?><br>
+
                                     <strong></strong>                                                                                                                                                                                                         <?php echo isset($Trip['guest_tel']) ? htmlspecialchars($Trip['guest_tel']) : 'نامشخص' ?><br>
 
                                 <?php endif; ?>

@@ -90,14 +90,6 @@ class Drivers extends BaseController
             return 'Driver/Cars/' . $row;
         }, true);
 
-        // $crud->setActionButton('', 'fa-info-circle Info', function ($row) {
-        //     return 'Driver/Info/' . $row;
-        // }, true);
-
-        // $crud->setActionButton('', 'fa-car', function ($row) {
-        //     return 'Driver/Cars/' . $row;
-        // }, true);
-
         $crud->columns(['code', 'ax', 'name', 'lname', 'gender', 'mobile', 'melli', 'date_created']);
         $crud->fields(['code', 'ax', 'name', 'lname', 'gender', 'mobile', 'mobile2', 'password', 'birthday', 'phone', 'address', 'melli', 'scan_melli', 'scan_govahiname', 'bank', 'shaba', 'education_level', 'foreign_language', 'foreign_language_proficiency', 'postal_code', 'note']);
 
@@ -143,28 +135,16 @@ class Drivers extends BaseController
             "پیشرفته" => "پیشرفته",
         ]);
 
-        $crud->callbackUpdate(function ($stateParameters) {
-
-            if (! empty($stateParameters->data['password'])) {
-
-                if (! password_get_info($stateParameters->data['password'])['algo']) {
-                    $password    = password_hash($stateParameters->data['password'], PASSWORD_DEFAULT);
-                    $driverModel = new DriverModel();
-                    $driverModel->update($stateParameters->primaryKeyValue, ['password' => $password]);
-                }
-
-            }
-        });
 
         $this->UploadCallback($crud, 'ax');
         $this->UploadCallback($crud, 'scan_melli');
         $this->UploadCallback($crud, 'scan_govahiname');
 
-        $crud->callbackColumn('date_created', function ($value) {
-            $date               = new PersianDate();
-            list($gy, $gm, $gd) = explode('-', substr($value, 0, 10));
-            return $date->gregorianToJalali($gy, $gm, $gd, '/');
-        });
+        // $crud->callbackColumn('date_created', function ($value) {
+        //     $date               = new PersianDate();
+        //     list($gy, $gm, $gd) = explode('-', substr($value, 0, 10));
+        //     return $date->gregorianToJalali($gy, $gm, $gd, '/');
+        // });
 
         $output = $crud->render();
 
@@ -259,35 +239,45 @@ class Drivers extends BaseController
             foreach ($fields as $field) {
                 $file = $this->request->getFile($field);
                 if (isset($file)) {
+
                     if (! file_exists(base_url('uploads/drivers/' . $stateParameters->primaryKeyValue . '/' . $file->getName()))) {
                         if ($file->isValid()) {
                             $file->move('uploads/drivers/' . $stateParameters->primaryKeyValue, $file->getName());
-                            $stateParameters->data[$field] = $file->getName();
+                            $stateParameters->data[$field] =$file->getName();
+
+                            // print_r($stateParameters);
+                            // die();
                         }
                     }
                 }
+            }
+
+
+
+            if (! empty($stateParameters->data['password'])) {
+
+
+                if (! password_get_info($stateParameters->data['password'])['algo']) {
+                    
+                    $password    = password_hash($stateParameters->data['password'], PASSWORD_DEFAULT);
+                    $stateParameters->data['password'] = $password;
+                }
+
             }
 
             return $stateParameters;
         });
 
         $crud->callbackBeforeInsert(function ($stateParameters) use ($field) {
-            $file = $this->request->getFile('ax');
-            if (isset($file)) {
-                if (! file_exists(base_url('uploads/drivers/' . $file->getName()))) {
-                    if ($file->isValid()) {
-                        $file->move('uploads/drivers/', $file->getName());
-                        $stateParameters->data['ax'] = $file->getName();
-                    }
-                }
-            }
-
-            $scan = $this->request->getfile('scan_melli');
-            if (isset($scan)) {
-                if (! file_exists(base_url('uploads/drivers/' . $scan->getName()))) {
-                    if ($scan->isValid()) {
-                        $scan->move('uploads/drivers/', $scan->getName());
-                        $stateParameters->data['scan_melli'] = $scan->getName();
+            $fields = ['scan_melli', 'scan_govahiname', 'ax'];
+            foreach ($fields as $field) {
+                $file = $this->request->getFile($field);
+                if (isset($file)) {
+                    if (! file_exists(base_url('uploads/drivers/' . $stateParameters->primaryKeyValue . '/' . $file->getName()))) {
+                        if ($file->isValid()) {
+                            $file->move('uploads/drivers/' . $stateParameters->primaryKeyValue, $file->getName());
+                            $stateParameters->data[$field] = $file->getName();
+                        }
                     }
                 }
             }
