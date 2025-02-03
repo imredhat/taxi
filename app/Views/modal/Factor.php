@@ -45,7 +45,11 @@
                                   <strong></strong> 
 
                                 <?php else: ?>
-                                  <?php echo isset($Trip['passenger_name']) ? htmlspecialchars($Trip['passenger_name']) : 'نامشخص' ?><br>
+                                  <?php if($Trip['company_name' ] !== ''): ?>
+                                    <?php echo $Trip['company_name']?> (<?php echo $Trip['passenger_name']?>)<br>
+                                  <?php else: ?>
+                                    <?php echo $Trip['passenger_name']?><br>
+                                  <?php endif; ?>
                                   <?php echo isset($Trip['passenger_tel']) ? htmlspecialchars($Trip['passenger_tel']) : 'نامشخص' ?><br>
 
                                     <strong></strong>
