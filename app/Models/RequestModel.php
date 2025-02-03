@@ -56,7 +56,7 @@ class RequestModel extends Model
                 trips.roadCondition,
                 trips.isFriday,
                 trips.passengerRate,
-                trips.Packgae,
+                trips.package,
                 trips.holiDayRate,
                 trips.extraPassenger,
                 trips.TimeMin,

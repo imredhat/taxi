@@ -412,7 +412,7 @@ class Trips extends ResourceController
             'total_passenger'  => $this->request->getPost('total_passenger'),
             'wait_hours'       => $this->request->getPost('wait_hours'),
             'status'           => $this->request->getPost('status'),
-            'package'          => $this->request->getPost('package'),
+            'package'          => $this->request->getPost('package_edit'),
             'dsc'              => $this->request->getPost('dsc'),
             'bank'             => $this->request->getPost('bank'),
             'call_date'             => $this->request->getPost('call_date'),
@@ -456,6 +456,9 @@ class Trips extends ResourceController
         //      $this -> createUser( $data['guest_tel'] , $data['guest_name']);
         //  }
 
+
+        // print_r($data);
+        // die();
 
         $UserModel = new UserModel();
         $existingUser = $UserModel->where('mobile', $data['passenger_tel'])->first();

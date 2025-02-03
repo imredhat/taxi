@@ -227,7 +227,7 @@ $(document).ready(function () {
 
         // confirm('آیا از حذف این تراکنش مطمئن هستید ؟');
 
-        alert("dfdf");
+        // alert("dfdf");
         $.ajax({
             type: "POST",
             url: "/transaction/remove",
@@ -253,6 +253,8 @@ $(document).ready(function () {
         var driverFare = $("#EditTripModal input[name='driver_custom_fare']").val().replace(/,/g, '');
         var package = $("#EditTripModal select[name='package']").val();
 
+        // alert("dsfdsf");
+
         if (passengerFare.length <= 0 || driverFare.length <= 0) {
             warn('لطفا اطلاعات را با دقت پر کنید');
             return;
@@ -274,6 +276,7 @@ $(document).ready(function () {
                     location.reload();
                 } else {
                     warn('مشکلی در ویرایش سفر رخ داده است');
+                    return;
                 }
             }
         });

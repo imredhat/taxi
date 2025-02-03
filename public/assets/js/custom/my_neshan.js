@@ -36,11 +36,11 @@ function initiate() {
     tripData.Waithours = 0;
     tripData.passengerRate = 1;
     tripData.badRoadRate = badRoad;
-    tripData.Packgae = currentPackage;
+    tripData.package = currentPackage;
     tripData.holiDayRate = holiDayRate;
     tripData.extraPassenger = extraPassenger;
     tripData.weatherRate = $(".changeWeather:first-child").data("rate");
-    tripData.waitRate = packages.find(pkg => pkg.name === tripData.Packgae).wait_rate;
+    tripData.waitRate = packages.find(pkg => pkg.name === tripData.package).wait_rate;
 
 }
 
@@ -319,13 +319,13 @@ $(document).ready(function () {
     function calculateFare() {
 
         const distance = tripData.distance;
-        const Packgae = tripData.Packgae;
+        const package = tripData.package;
 
         // const toll = 0; // دریافت مبلغ عوارض
         // const isHoliday = tripData.isHoliday = checkIfHoliday();
         // const toll = getRandomToll(); // دریافت مبلغ عوارض
 
-        const fare = PackagePrice(Packgae, distance, tripData.TimeMin);
+        const fare = PackagePrice(package, distance, tripData.TimeMin);
 
         // fare = fare * weatherRate * passengerRate *
 
@@ -584,8 +584,8 @@ $(document).ready(function () {
 
 
         var currentPackage = $(this).data("name");
-        tripData.Packgae = currentPackage;
-        tripData.waitRate = packages.find(pkg => pkg.name === tripData.Packgae).wait_rate;
+        tripData.package = currentPackage;
+        tripData.waitRate = packages.find(pkg => pkg.name === tripData.package).wait_rate;
 
 
         $(".factor").empty();

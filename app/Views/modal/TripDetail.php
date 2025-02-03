@@ -117,7 +117,7 @@ function getServiceStatus($status)
                                 <?php endif; ?>
                             </div>
                             <div class="col-md-6">
-                                <strong>بسته:</strong> <span><?= $Trip['Packgae'] ?></span>
+                                <strong>بسته:</strong> <span><?= $Trip['package'] ?></span>
                             </div>
                         </div>
                         <hr>

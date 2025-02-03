@@ -27,7 +27,6 @@ class TripsModel extends Model
         'roadCondition',
         'isFriday',
         'passengerRate',
-        'Packgae',
         'holiDayRate',
         'extraPassenger',
         'TimeMin',

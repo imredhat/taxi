@@ -302,10 +302,10 @@
 
 
                                 <div class="col-md-6">
-                                    <label for="Packgae"><strong>بسته:</strong></label>
+                                    <label for="package"><strong>بسته:</strong></label>
                                     <select class="form-control" id="packageSelect" name="package_edit">
                                         <?php foreach ($Packages as $item): ?>
-                                            <option value="<?= htmlspecialchars($item['name']) ?>" <?= $Trip['Packgae'] == $item['name'] ? 'selected' : '' ?>><?= htmlspecialchars($item['name']) ?></option>
+                                            <option value="<?= htmlspecialchars($item['name']) ?>" <?= $Trip['package'] == $item['name'] ? 'selected' : '' ?>><?= htmlspecialchars($item['name']) ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>

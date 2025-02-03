@@ -51,8 +51,8 @@ $(".package").on("click", function () {
 
 
     var currentPackage = $(this).data("name");
-    tripData.Packgae = currentPackage;
-    tripData.waitRate = packages.find(pkg => pkg.name === tripData.Packgae).wait_rate;
+    tripData.package = currentPackage;
+    tripData.waitRate = packages.find(pkg => pkg.name === tripData.package).wait_rate;
 
 
     $(".factor").empty();

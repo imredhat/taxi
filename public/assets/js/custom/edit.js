@@ -133,15 +133,17 @@ $(document).ready(function () {
         tripData.guest_tel = $("body input[name='guest_tel']").val();
         tripData.total_passenger = $("body input[name='total_passenger']").val();
         tripData.wait_hours = $("body input[name='wait_hours']").val();
-        tripData.package = $("body select[name='package_edit']").val();
         tripData.status = $("body select[name='status_edit']").val();
         tripData.status_text = $("body select[name='status_edit'] option:selected").text();
         tripData.dsc = $("body textarea[name='dsc']").val();
         tripData.bank = $("body select[name='bank']").val();
         tripData.call_date = $("body input[name='call_date']").val();
+        tripData.package_edit = $("body select[name='package_edit']").val();
 
         var ID = tripData.id.replace(/\D/g, '');
         var NewStatus = tripData.status_text;
+
+        // console.log(tripData);
 
         $.ajax({
             type: "POST",
@@ -149,12 +151,12 @@ $(document).ready(function () {
             data: tripData,
             success: function (data) {
 
-                console.log(data);
+                // console.log(data);
                 if (data.status == 'OK') {
                     toast('ویرایش سفر با موفقیت انجام شد');
                     $("#EditItem").modal('hide');
 
-                    // location.reload(true);
+                    location.reload(true);
 
 
 
@@ -165,9 +167,9 @@ $(document).ready(function () {
                 }
 
 
-                setTimeout(function () {
-                    location.reload();
-                }, 1000); // 3000 milliseconds = 3 seconds
+                // setTimeout(function () {
+                //     location.reload();
+                // }, 1000); // 3000 milliseconds = 3 seconds
             }
 
 

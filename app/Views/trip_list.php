@@ -264,7 +264,7 @@ function getRandomColorPair()
                                 <a data-bs-toggle="modal" data-bs-target="#updateStatus" data-id="<?= $S['id'] ?>" data-status="<?= $S['status'] ?>" class="dropdown-item" href="javascript:;"> <i data-feather="share-2"></i> تغییر وضعیت </a>
                             </li>
                             <li>
-                                <a data-bs-toggle="modal" data-package="<?=$S['Packgae'] ?>" data-fare="<?= number_format($S['finalFare']) ?>" data-id="<?= $S['id'] ?>" data-bs-target="#PayingFare" class="dropdown-item" href="javascript:;"> <i data-feather="link-2"></i> اعلام به رانندگان </a>
+                                <a data-bs-toggle="modal" data-package="<?=$S['package'] ?>" data-fare="<?= number_format($S['finalFare']) ?>" data-id="<?= $S['id'] ?>" data-bs-target="#PayingFare" class="dropdown-item" href="javascript:;"> <i data-feather="link-2"></i> اعلام به رانندگان </a>
 
                             </li>
                             <li>

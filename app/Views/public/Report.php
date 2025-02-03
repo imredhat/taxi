@@ -162,7 +162,7 @@
                                     <?php endif; ?>
                                 </div>
                                 <div class="col-md-6">
-                                    <strong>بسته:</strong> <span><?php echo $Trip['Packgae']?></span>
+                                    <strong>بسته:</strong> <span><?php echo $Trip['package']?></span>
                                 </div>
                             </div>
                             <hr>

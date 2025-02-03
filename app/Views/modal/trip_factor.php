@@ -188,7 +188,7 @@ require_once APPPATH.'Libraries/jdf.php';
                         <td>پکیج</td>
                         <td>-</td>
                         <td>-</td>
-                        <td><?= htmlspecialchars(!empty($trip['Packgae']) && ($trip['Packgae'] > 1) ? $trip['Packgae'] : 0) ?></td>
+                        <td><?= htmlspecialchars(!empty($trip['package']) && ($trip['package'] > 1) ? $trip['package'] : 0) ?></td>
                     </tr>
 
                     <!-- Influencing Factors -->
