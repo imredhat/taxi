@@ -186,7 +186,7 @@
         <h2>صاحب حساب : <?=$Bank['holder_name']?> </h2>
     </div>
     <div id="project" style="margin-top: 10px;">
-        <h2> اطلاعا حساب : </h2>
+        <h2> اطلاعات حساب : </h2>
           <span style="direction:ltr !important;"> <?= substr($Bank['card_number'], 0, 4) . '-' . substr($Bank['card_number'], 4, 4) . '-' . substr($Bank['card_number'], 8, 4) . '-' . substr($Bank['card_number'], 12, 4) ?> </span>
         
         <p><?=$Bank['shaba']?></p>
@@ -505,4 +505,33 @@ form{
   width:70%;
 }
 
+</style>
+
+
+
+
+<style type="text/css" media="print">
+    .page
+    {
+     -webkit-transform: rotate(-90deg); 
+     -moz-transform:rotate(-90deg);
+     filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    }
+
+    body{
+      background-color: white;
+
+    }
+
+    #invoice {
+    position: absolute;
+    margin: auto;
+    width: 700px;
+    background: #FFF;
+    margin-right: -300px;
+}
+
+#toolbarContainer{
+  display: none !important;
+}
 </style>
