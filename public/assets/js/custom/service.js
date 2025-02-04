@@ -84,7 +84,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "GET",
-            url: "Trips/GetTrip/" + ID,
+            url: base + "Trips/GetTrip/" + ID,
             success: function (data) {
                 $("#ViewItem").html(data);
             }
@@ -98,7 +98,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "GET",
-            url: "EditTrip/" + tripID,
+            url: base + "EditTrip/" + tripID,
             success: function (data) {
 
                 $("#EditItem").modal('show');
@@ -115,7 +115,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "GET",
-            url: "transaction/getAll/" + tripID,
+            url: base + "transaction/getAll/" + tripID,
             success: function (data) {
 
                 $("#TrancactionList").modal('show');
@@ -140,7 +140,7 @@ $(document).ready(function () {
         var tripID = $(this).data("id");
         // let cururl = $(this).attr("href");
 
-        cururl = "Trips/Factor/" + tripID;
+        cururl = base + "Trips/Factor/" + tripID;
 
 
         const width = 800;
@@ -174,7 +174,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "/transaction/create",
+            url: base + "/transaction/create",
             data: formData,
             cache: false,
             contentType: false,
@@ -204,7 +204,7 @@ $(document).ready(function () {
         // alert("dfdf");
         $.ajax({
             type: "POST",
-            url: "/transaction/remove",
+            url: base + "/transaction/remove",
             data: {
                 transactionID: transactionID
             },
@@ -231,7 +231,7 @@ $(document).ready(function () {
         // alert("dfdf");
         $.ajax({
             type: "POST",
-            url: "/transaction/remove",
+            url: base + "/transaction/remove",
             data: {
                 transactionID: transactionID
             },
@@ -263,7 +263,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "Trips/UpdateTrip",
+            url: base + "Trips/UpdateTrip",
             data: {
                 tripID: tripID,
                 passengerFare: passengerFare,
@@ -318,7 +318,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: "POST",
-                url: "Trips/CreateNotif",
+                url: base + "Trips/CreateNotif",
                 data: {
                     tripID: ID,
                     UserFare: UserFare,
@@ -361,7 +361,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "Trips/UpdateStatus",
+            url: base + "Trips/UpdateStatus",
             data: {
                 tripID: ID,
                 Status: Status
@@ -390,7 +390,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "Trips/Dwt",
+            url: base + "Trips/Dwt",
             data: {
                 tripID: ID,
             },
@@ -505,8 +505,8 @@ $(document).ready(function () {
 
 
     // ================================= handle Request =======================================
+    $("body").on("click", 'a[data-bs-target="#Request"]', function () {
 
-    $('a[data-bs-target="#Request"]').click(function () {
         modal = $("#Request");
         ID = $(this).data("id");
 
@@ -514,7 +514,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "Request/getTripDrivers",
+            url: base + "Request/getTripDrivers",
             data: { tripID: ID },
             success: function (data) {
                 $(".driver_list").html(data);

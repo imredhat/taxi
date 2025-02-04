@@ -9,6 +9,7 @@ use App\Models\PackagesModel;
 use App\Models\TransactionModel;
 use App\Models\TripsModel;
 use App\Models\UserModel;
+use App\Models\RequestModel;
 use CodeIgniter\RESTful\ResourceController;
 
 class Trips extends ResourceController
@@ -435,39 +436,6 @@ class Trips extends ResourceController
          * Check if the passenger is a guest
          ******************************************/
 
-        //  $PID      = $this->request->getPost('passenger_id');
-        //  $IsGuest = $this->request->getPost('isGuest');
-
-        //  if (isset(($PID)) && $PID > 0 && $IsGuest == '0') {
-        //      $User = new UserModel();
-        //      $User = $User->find($PID);
-
-        //      $data['passenger_name'] = $User['name'] . " " . $User['lname'];
-        //      $data['passenger_tel']  = $User['mobile'];
-
-        //  }elseif (isset(($PID)) && $PID > 0 && $IsGuest == '1') {
-        //      $User = new UserModel();
-        //      $User = $User->find($PID);
-
-        //      $data['passenger_name'] = $User['name'] . " " . $User['lname'];
-        //      $data['passenger_tel']  = $User['mobile'];
-
-        //      $data['guest_name'] = $this->request->getPost('passenger_name');
-        //      $data['guest_tel']  = $this->request->getPost('passenger_tel');
-
-        //  } else {
-        //      $data['guest_name'] = $this->request->getPost('passenger_name');
-        //      $data['guest_tel']  = $this->request->getPost('passenger_tel');
-
-        //      $data['passenger_name'] = "";
-        //      $data['passenger_tel']  = "";
-
-        //      $this -> createUser( $data['guest_tel'] , $data['guest_name']);
-        //  }
-
-
-        // print_r($data);
-        // die();
 
         if($data['status'] == 'Confirm'){
 
@@ -486,6 +454,25 @@ class Trips extends ResourceController
             }
 
 
+        }
+
+
+        if (isset($data['driverID']) && $data['driverID'] > 0) {
+            $RequestModel = new RequestModel();
+            $existingRequest = $RequestModel->where('tripID', $ID)->where('driverID', $data['driverID'])->first();
+
+            if (!$existingRequest) {
+                $requestData = [
+                    'tripID'     => $ID,
+                    'driverID'   => $data['driverID'],
+                    'carID'      => $data['carID'],
+                    'isAccepted' => 1, // Assuming default value is 0
+                    'notified'   => 0, // Assuming default value is 0
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ];
+                $RequestModel->insert($requestData);
+            }
         }
 
 

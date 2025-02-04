@@ -56,11 +56,14 @@ class Request extends ResourceController
     {
         $tripID = $this->request->getPost('tripID');
 
-        $Dr = new DriverModel();
+        
         $Rq = new RequestModel();
         $Rq = $Rq->where("tripID", $tripID)->findAll();
 
+
+
         if ($Rq) {
+            $Dr = new DriverModel();
             foreach ($Rq as $I => $R) {
                 $driverID = $R['driverID'];
                 $carID = $R['carID'];
@@ -73,6 +76,9 @@ class Request extends ResourceController
         }
 
         $data['request'] = $Rq;
+
+        // print_r($data);
+        // die();
 
         return view('modal/Request_Drivers', $data);
     }

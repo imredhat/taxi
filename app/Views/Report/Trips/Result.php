@@ -171,6 +171,10 @@ function getRandomColorPair()
             <h4 class="fw-semibold fs-18 mb-sm-0"><?=$Title; ?></h4>
 
 
+
+            
+
+
             <a href="<?= base_url() ?>Trips/New"
                 class="border-0 btn btn-primary py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
 
@@ -342,7 +346,7 @@ function getRandomColorPair()
             </tr>
     <?php endforeach;endif; ?>
 </tbody>
-</table>  </div>
+</table>            </div>
         </div>
     </div>
 </div>
@@ -359,7 +363,6 @@ function getRandomColorPair()
 
 <script>
     jalaliDatepicker.startWatch();
-    let base_url="<?=base_url()?>";
 </script>
 
 <style>

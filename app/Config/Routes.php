@@ -176,6 +176,7 @@ $routes->post('usePay/callback', 'Pay::Check');
  **************************************/
 
  $routes->get('Report/Trips', 'TripReport::index');
+ $routes->get('Report/Search', 'TripReport::Search');
 
 
 

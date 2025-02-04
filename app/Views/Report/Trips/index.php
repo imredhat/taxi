@@ -6,13 +6,13 @@
     
             <div class="tab-content" id="myTab3Content">
                 <div class="tab-pane fade active show" id="preview4-tab-pane" role="tabpanel" aria-labelledby="preview4-tab" tabindex="0">
-                    <form class="src-form">
+                    <form class="src-form" action="<?=base_url()?>Report/Search" method="GET">
                       
 
                        
                         <div class="form-group mb-4 position-relative">
                             <label for="user_select" class="form-label">انتخاب کاربر</label>
-                            <select class="form-control bg-body-bg border-0 text-dark rounded-pill chosen">
+                            <select name="user" class="form-control bg-body-bg border-0 text-dark rounded-pill chosen">
                                 <option disabled selected value="">انتخاب کاربر...</option>
                                 <?php foreach ($User as $U): ?>
                                     <option value="<?= $U['id']; ?>"><?= 1000+$U['id'].'-'.$U['name'].' '.$U['lname']; ?></option>
@@ -24,7 +24,7 @@
                         <div class="form-group mb-4 position-relative">
 
                         <label for="driver_select" class="form-label">انتخاب راننده</label>
-                            <select class="form-control bg-body-bg border-0 text-dark rounded-pill chosen">
+                            <select name="driver" class="form-control bg-body-bg border-0 text-dark rounded-pill chosen">
                                 <option disabled selected value="">انتخاب راننده...</option>
                                 <?php foreach ($Drivers as $Driver): ?>
                                     <option value="<?= $Driver['did']; ?>"><?= 1000+$Driver['did'].'-'.$Driver['name'].' '.$Driver['lname']; ?></option>
@@ -36,11 +36,11 @@
                         <label for="origin_input" class="form-label">قسمتی از مبدا یا مقصد خاص</label>
 
                             <div class="col-sm-6 form-group mb-4 position-relative">
-                                <input type="text" class="form-control bg-body-bg border-0 text-dark rounded-pill" placeholder="قسمتی از مبدا ...">
+                                <input name="loc_start" type="text" class="form-control bg-body-bg border-0 text-dark rounded-pill" placeholder="قسمتی از مبدا ...">
                             </div>
                                                 
                             <div class="col-sm-6 form-group mb-4 position-relative">
-                                <input type="text" class="form-control bg-body-bg border-0 text-dark rounded-pill" placeholder="قسمتی از مقصد ...">
+                                <input name="loc_end" type="text" class="form-control bg-body-bg border-0 text-dark rounded-pill" placeholder="قسمتی از مقصد ...">
                             </div>
                         </div>
 
@@ -48,10 +48,10 @@
                         <label for="contact_start_date" class="form-label">بر اساس تاریخ تماس </label>
 
                             <div class="col-sm-6 form-group mb-4 position-relative">
-                                <input type="text" id="contact_start_date" class="form-control bg-body-bg border-0 text-dark rounded-pill date" placeholder="تاریخ تماس از ...">
+                                <input type="text" id="contact_start_date" name="contact_start_date" class="form-control bg-body-bg border-0 text-dark rounded-pill date" placeholder="تاریخ تماس از ...">
                             </div>
                             <div class="col-sm-6 form-group mb-4 position-relative">
-                                <input type="text" id="contact_end_date" class="form-control bg-body-bg border-0 text-dark rounded-pill date" placeholder="تاریخ تماس تا ...">
+                                <input type="text" id="contact_end_date" name="contact_end_date" class="form-control bg-body-bg border-0 text-dark rounded-pill date" placeholder="تاریخ تماس تا ...">
                             </div>
                         </div>
 
@@ -59,10 +59,22 @@
                         <label for="contact_start_date" class="form-label">بر اساس تاریخ سفر </label>
 
                             <div class="col-sm-6 form-group mb-4 position-relative">
-                                <input type="text" id="trip_start_date" class="form-control bg-body-bg border-0 text-dark rounded-pill date" placeholder="تاریخ سفر از ...">
+                                <input type="text" id="trip_start_date" name="trip_start_date" class="form-control bg-body-bg border-0 text-dark rounded-pill date" placeholder="تاریخ سفر از ...">
                             </div>
                             <div class="col-sm-6 form-group mb-4 position-relative">
-                                <input type="text" id="trip_end_date" class="form-control bg-body-bg border-0 text-dark rounded-pill date" placeholder="تاریخ سفر تا ...">
+                                <input type="text" id="trip_end_date" name="trip_end_date" class="form-control bg-body-bg border-0 text-dark rounded-pill date" placeholder="تاریخ سفر تا ...">
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                        <label for="contact_start_date" class="form-label">بر اساس اطلاعات مسافر </label>
+
+                            <div class="col-sm-6 form-group mb-4 position-relative">
+                                <input type="text" id="guest_name" name="guest_name" class="form-control bg-body-bg border-0 text-dark rounded-pill " placeholder="نام مسافر ...">
+                            </div>
+                            <div class="col-sm-6 form-group mb-4 position-relative">
+                                <input type="text" id="guest_tel" name="guest_tel" class="form-control bg-body-bg border-0 text-dark rounded-pill " placeholder="شماره مسافر ...">
                             </div>
                         </div>
 
