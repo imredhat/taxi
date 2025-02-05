@@ -82,6 +82,23 @@
             </li>
 
 
+ 
+            <li class="menu-item">
+                <a href="<?= base_url() ?>Search/Trips" class="menu-link">
+             
+
+
+                    <svg class="feather feather-dollar-sign menu-icon tf-icons"  style="margin-left: 10px;" class="w-[30px] h-[30px] text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+
+
+
+                    <span class="title">جستجوی سرویس</span>
+                </a>
+            </li>
+
+
 
 
 

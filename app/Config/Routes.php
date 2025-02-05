@@ -171,18 +171,20 @@ $routes->post('usePay/callback', 'Pay::Check');
 
 
 
-/*********************************************
- *          Report
+/***************************************
+ *              Report
  **************************************/
 
- $routes->get('Report/Trips', 'TripReport::index');
- $routes->get('Report/Search', 'TripReport::Search');
+
+
+ $routes->get('Search/Trips', 'TripReport::index');
+ $routes->get('Search/Trips/Result', 'TripReport::Search');
 
 
 
 
 
-/*********************************************
+/***************************************
  *          TransAction API
  **************************************/
 

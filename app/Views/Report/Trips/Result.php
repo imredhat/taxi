@@ -170,14 +170,56 @@ function getRandomColorPair()
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
             <h4 class="fw-semibold fs-18 mb-sm-0"><?=$Title; ?></h4>
 
+            <?php
+                $user = isset($_GET['user']) ? 1000 + $_GET['user'] : null;
+                $driver = isset($_GET['driver']) ? 1000 + $_GET['driver'] : null;
+                $loc_start = isset($_GET['loc_start']) ? $_GET['loc_start'] : null;
+                $loc_end = isset($_GET['loc_end']) ? $_GET['loc_end'] : null;
+                $contact_start_date = isset($_GET['contact_start_date']) ? $_GET['contact_start_date'] : null;
+                $contact_end_date = isset($_GET['contact_end_date']) ? $_GET['contact_end_date'] : null;
+                $trip_start_date = isset($_GET['trip_start_date']) ? $_GET['trip_start_date'] : null;
+                $trip_end_date = isset($_GET['trip_end_date']) ? $_GET['trip_end_date'] : null;
+                $guest_name = isset($_GET['guest_name']) ? $_GET['guest_name'] : null;
+                $guest_tel = isset($_GET['guest_tel']) ? $_GET['guest_tel'] : null;
+                ?>
 
-
-            
+            <div class="tab-pane fade show active" id="preview-tab-pane" role="tabpanel" aria-labelledby="preview-tab" tabindex="0">
+                <?php if (isset($user)): ?>
+                    <span class="badge text-bg-primary py-1 px-2 text-white rounded-1 fw-semibold fs-15">کد اشتراک : <?= ($user) ?></span>
+                <?php endif; ?>
+                <?php if (isset($driver)): ?>
+                    <span class="badge text-bg-secondary py-1 px-2 text-white rounded-1 fw-semibold fs-15">شناسه راننده : <?= ($driver) ?></span>
+                <?php endif; ?>
+                <?php if (isset($loc_start)): ?>
+                    <span class="badge text-bg-success py-1 px-2 text-white rounded-1 fw-semibold fs-15">آدرس شروع : <?= ($loc_start) ?></span>
+                <?php endif; ?>
+                <?php if (isset($loc_end)): ?>
+                    <span class="badge text-bg-danger py-1 px-2 text-white rounded-1 fw-semibold fs-15">آدرس پایان : <?= ($loc_end) ?></span>
+                <?php endif; ?>
+                <?php if (isset($contact_start_date)): ?>
+                    <span class="badge text-bg-warning py-1 px-2 text-white rounded-1 fw-semibold fs-15">تاریخ تماس از : <?= ($contact_start_date) ?></span>
+                <?php endif; ?>
+                <?php if (isset($contact_end_date)): ?>
+                    <span class="badge text-bg-info py-1 px-2 text-white rounded-1 fw-semibold fs-15">تاریخ تماس تا : <?= ($contact_end_date) ?></span>
+                <?php endif; ?>
+                <?php if (isset($trip_start_date)): ?>
+                    <span class="badge text-bg-success py-1 px-2 text-white rounded-1 fw-semibold fs-15">تاریخ سفر از : <?= ($trip_start_date) ?></span>
+                <?php endif; ?>
+                <?php if (isset($trip_end_date)): ?>
+                    <span class="badge text-bg-dark py-1 px-2 text-white rounded-1 fw-semibold fs-15">تاریخ سفر تا : <?= ($trip_end_date) ?></span>
+                <?php endif; ?>
+                <?php if (isset($guest_name)): ?>
+                    <span class="badge text-bg-primary py-1 px-2 text-white rounded-1 fw-semibold fs-15">نام مسافر : <?= ($guest_name) ?></span>
+                <?php endif; ?>
+                <?php if (isset($guest_tel)): ?>
+                    <span class="badge text-bg-secondary py-1 px-2 text-white rounded-1 fw-semibold fs-15">شماره تماس مسافر : <?= ($guest_tel) ?></span>
+                <?php endif; ?>
+            </div>
+                        
 
 
             <a href="<?= base_url() ?>Trips/New"
                 class="border-0 btn btn-primary py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
-
                 <span class="py-sm-1 d-block"> <i class="ri-add-line text-white"></i> <span>افزودن استعلام</span> </span> </a>
         </div>
         <div class="default-table-area my-task-list">

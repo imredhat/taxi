@@ -6,7 +6,7 @@
     
             <div class="tab-content" id="myTab3Content">
                 <div class="tab-pane fade active show" id="preview4-tab-pane" role="tabpanel" aria-labelledby="preview4-tab" tabindex="0">
-                    <form class="src-form" action="<?=base_url()?>Report/Search" method="GET">
+                    <form class="src-form" action="<?=base_url()?>Search/Trips/Result" method="GET">
                       
 
                        

@@ -250,11 +250,85 @@ class Driver extends ResourceController
         $tdata = [
             'active' => 1
         ];
-
+        $CarModel->where('driver_id', $driver['did'])->set(['active' => 0])->update();
         $CarModel->update($carID, $tdata);
 
         // $CarModel->update($carID, ['active' => 1]);
 
         return $this->respond(['status' => 'success', 'message' => 'خودرو با موفقیت فعال شد']);
+    }
+
+    public function addCar()
+    {
+        $hash = $this->request->getPost('hash');
+        // $DID = $this->request->getPost('driver_id');
+
+        if (empty($hash) || empty($DID)) {
+            return $this->respond(['status' => 'error', 'message' => 'راننده نامعتبر است'], 400);
+        }
+
+        $Driver = new DriverModel();
+        $driver = $Driver->where('hash', $hash)->first();
+
+        if (!$driver) {
+            return $this->respond(['status' => 'error', 'message' => ' راننده نامعتبر است'], 401);
+        }
+
+        $DID = $driver['did'];
+
+        $carData = [
+            'driver_id'                 => $DID,
+            'owner'                     => $this->request->getPost('owner'),
+            'brand'                     => $this->request->getPost('brand'),
+            'fuel'                      => $this->request->getPost('fuel_type'),
+            'iran'                      => $this->request->getPost('plate_part1'),
+            'pelak'                     => $this->request->getPost('plate_part2'),
+            'pelak_last'                => $this->request->getPost('plate_part3'),
+            'harf'                      => $this->request->getPost('plate_letter'),
+            'pic_back'                  => $this->upload_file('pic_back', "drivers", $DID),
+            'pic_front'                 => $this->upload_file('pic_front', "drivers", $DID),
+            'pic_in_back'               => $this->upload_file('pic_in_back', "drivers", $DID),
+            'pic_in_front'              => $this->upload_file('pic_in_front', "drivers", $DID),
+            'scan_car_card'             => $this->upload_file('scan_car_card', "drivers", $DID),
+            'scan_car_card_back'        => $this->upload_file('scan_car_card_back', "drivers", $DID),
+            'scan_insurance'            => $this->upload_file('scan_insurance', "drivers", $DID),
+            'scan_insurance_addendum'   => $this->upload_file('scan_insurance_addendum', "drivers", $DID),
+            'type'                      => $this->request->getPost('type'),
+            'type_class'                => $this->request->getPost('type_class'),
+            'year'                      => $this->request->getPost('year'),
+            'vin'                       => $this->request->getPost('vin'),
+            'color'                     => $this->request->getPost('color'),
+            'insurance_expiry_date'     => $this->request->getPost('insurance_expiry_date'),
+            'active'                    => 0
+        ];
+
+        $Car = new CarModel();
+        if($Car->insert($carData)){
+            return $this->respond(['status' => 'success', 'message' => 'خودرو با موفقیت ثبت شد']);
+        }else{
+            return $this->respond(['status' => 'fail', 'message' => 'خطا در ثبت اطلاعات']);
+        }
+
+    }
+
+
+    private function upload_file($field_name, $type, $DID)
+    {
+        $file = $this->request->getFile($field_name);
+        if (! empty($file)) {
+            $config = [
+                'uploadPath'   => './uploads/' . $type . "/" . $DID,
+                'allowedTypes' => 'jpg|jpeg|png',
+                'maxSize'      => 1024,
+            ];
+            if ($file->isValid()) {
+                if (! $file->move($config['uploadPath'])) {
+                    $error = ['error' => 'Failed to upload file'];
+                    return $error;
+                }
+
+                return $file->getName();
+            }
+        }
     }
 }
