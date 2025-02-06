@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controllers;
 
 use App\Models\DriverModel;
@@ -11,7 +10,7 @@ class Request extends ResourceController
 {
 
     protected $modelName = \App\Models\RequestModel::class;
-    protected $format = 'json';
+    protected $format    = 'json';
 
     public function index()
     {
@@ -25,14 +24,13 @@ class Request extends ResourceController
 
     public function imReady()
     {
-        $tripID = $this->request->getPost('tripID');
+        $tripID   = $this->request->getPost('tripID');
         $driverID = $this->request->getPost(index: 'driverID');
-        $carID = $this->request->getPost('carID');
-
+        $carID    = $this->request->getPost('carID');
 
         $data = [
-            'tripID' => $tripID,
-            'carID' => $carID,
+            'tripID'   => $tripID,
+            'carID'    => $carID,
             'driverID' => $driverID,
         ];
 
@@ -41,12 +39,12 @@ class Request extends ResourceController
 
         if ($Rq) {
             return $this->response->setStatusCode(200)->setJSON([
-                'status' => 'success',
+                'status'  => 'success',
                 'message' => 'request created',
             ]);
         } else {
             return $this->response->setStatusCode(400)->setJSON([
-                'status' => 'fail',
+                'status'  => 'fail',
                 'message' => 'failed to create request',
             ]);
         }
@@ -56,17 +54,14 @@ class Request extends ResourceController
     {
         $tripID = $this->request->getPost('tripID');
 
-        
         $Rq = new RequestModel();
         $Rq = $Rq->where("tripID", $tripID)->findAll();
-
-
 
         if ($Rq) {
             $Dr = new DriverModel();
             foreach ($Rq as $I => $R) {
                 $driverID = $R['driverID'];
-                $carID = $R['carID'];
+                $carID    = $R['carID'];
                 if ($RZ = $Dr->getDriverCarInfo($driverID, $carID)) {
                     foreach ($RZ as $Z => $V) {
                         $Rq[$I][$Z] = $V;
@@ -85,18 +80,24 @@ class Request extends ResourceController
 
     public function ConfirmReq()
     {
-        $reqID = $this->request->getPost('RqID');
-        $tripID = $this->request->getPost('tripID');
-        $notifID = $this->request->getPost('notifID');
+        $reqID     = $this->request->getPost('RqID');
+        $tripID    = $this->request->getPost('tripID');
+        $notifID   = $this->request->getPost('notifID');
         $isAccepet = $this->request->getPost('isAccepet');
-        $carID = $this->request->getPost('carID');
-        $driverID = $this->request->getPost('driverID');
-        
+        $carID     = $this->request->getPost('carID');
+        $driverID  = $this->request->getPost('driverID');
 
-        $data = ["isAccepted" => $isAccepet];
 
         $Rq = new RequestModel();
-        $Rq->update($reqID, $data);
+
+        $data = ["isAccepted" => "NO"];
+
+        $Rq->where('tripID', $tripID)
+            ->set($data)
+            ->update();
+
+        $D = ["isAccepted" => $isAccepet];
+        $Rq->update($reqID, $D);
 
         if ($Rq) {
 
@@ -105,12 +106,11 @@ class Request extends ResourceController
 
             if ($isAccepet == "YES") {
                 $data = [
-                    "status" => "Confirm",
+                    "status"   => "Confirm",
                     "driverID" => $driverID,
-                    "carID" => $carID,
-                    "reqID" => $reqID,
+                    "carID"    => $carID,
+                    "reqID"    => $reqID,
                 ];
-
 
                 // print_r($data);die();
                 $Rq = new TripsModel();
@@ -118,12 +118,12 @@ class Request extends ResourceController
 
                 return $this->response->setJSON([
                     'status' => 'success',
-                    'final' => true,
+                    'final'  => true,
                 ]);
             } else {
                 return $this->response->setJSON([
                     'status' => 'success',
-                    'final' => false,
+                    'final'  => false,
                 ]);
             }
         }

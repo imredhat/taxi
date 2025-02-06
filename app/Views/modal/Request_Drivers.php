@@ -50,9 +50,9 @@ foreach ($request as $R) {
                             </button>
 
 
-                            <button disabled class="bg-danger bg-opacity-5 text-white fs-13 fw-semibold py-1 px-2 rounded-1 reject_request" type="button" data-tripID="<?= $R['tripID'] ?>" data-RqID="<?= $R['id'] ?>" data-notifID="<?= $R['notifID'] ?>" data-driverID="<?= $R['driverID'] ?>" data-carID="<?= $R['carID'] ?>">
+                            <!-- <button disabled class="bg-danger bg-opacity-5 text-white fs-13 fw-semibold py-1 px-2 rounded-1 reject_request" type="button" data-tripID="<?= $R['tripID'] ?>" data-RqID="<?= $R['id'] ?>" data-notifID="<?= $R['notifID'] ?>" data-driverID="<?= $R['driverID'] ?>" data-carID="<?= $R['carID'] ?>">
                                 <span class="status " role="status">رد کردن</span>
-                            </button>
+                            </button> -->
 
                             <?php else:?>
 
@@ -65,14 +65,14 @@ foreach ($request as $R) {
                             </button>
 
 
-
+<!-- 
                             <button class="bg-danger bg-opacity-5 text-white fs-13 fw-semibold py-1 px-2 rounded-1 reject_request" type="button" data-tripID="<?= $R['tripID'] ?>" data-RqID="<?= $R['id'] ?>" data-notifID="<?= $R['notifID'] ?>" data-driverID="<?= $R['driverID'] ?>" data-carID="<?= $R['carID'] ?>">
                                 <span class="spinner-border spinner-border-sm hidden"></span>
                                 <span class="checked hidden"><svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20">
                                         <path d="M22.319,4.431,8.5,18.249a1,1,0,0,1-1.417,0L1.739,12.9a1,1,0,0,0-1.417,0h0a1,1,0,0,0,0,1.417l5.346,5.345a3.008,3.008,0,0,0,4.25,0L23.736,5.847a1,1,0,0,0,0-1.416h0A1,1,0,0,0,22.319,4.431Z" />
                                     </svg></span>
                                 <span class="status " role="status">رد کردن</span>
-                            </button>
+                            </button> -->
 
 
                             <?php endif; ?>
@@ -85,11 +85,10 @@ foreach ($request as $R) {
 
                         </div>
 
-                        <div class="removed "></div>
 
 
                         <?php if ($R['isAccepted'] == "NO" && !$vaziat): ?>
-                            <div class="removed "></div>
+                            <div class="removed"></div>
                         <?php else: ?>
                             <div class="removed hidden"></div>
                         <?php endif; ?>
@@ -150,6 +149,22 @@ foreach ($request as $R) {
             success: function(data) {
                 spinner.hide();
                 checked.removeClass("hidden");
+
+                modal = $("#Request");
+                ID = tripID;
+
+                $("#ViewItem").empty();
+
+                $.ajax({
+                    type: "POST",
+                    url: "<?=base_url()?>" + "Request/getTripDrivers",
+                    data: { tripID: ID },
+                    success: function (data) {
+                        $(".driver_list").html(data);
+                        $(".tr_" + ID + " td:nth-child(8)").html('<span class="bg-success  bg-opacity-5 text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block">تایید شده </span>');
+
+                    }
+                });
 
             },
             fail: function() {
