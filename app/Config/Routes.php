@@ -50,6 +50,7 @@ $routes->post('Driver/Cars/(:any)(:any)/(:any)', 'Cars::DriverCars::All/$1/$2/$3
 $routes->get('RC/(:any)', to: 'Cars::RC/$1/$2');
 $routes->get('RD/(:any)', to: 'Drivers::RD/$1/$2');
 $routes->get('RU/(:any)', to: 'User::RD/$1/$2');
+$routes->get('LO/(:any)', to: 'User::LO/$1/$2');
 
 
 

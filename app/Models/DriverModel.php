@@ -57,9 +57,12 @@ class DriverModel extends Model
                 c.type,
 
                 b.brand AS brand_name,
+                ct.type_name
+                
             ')
             ->join('cars c', 'd.did = c.driver_id')
             ->join('brand b', 'c.brand = b.TiD')
+            ->join('brand_type ct', 'c.type = ct.bid', 'left')
             ->where('d.did', $driverId)
             ->where('c.cid', $carId)
             ->get()

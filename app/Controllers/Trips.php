@@ -92,37 +92,6 @@ class Trips extends ResourceController
          * Check if the passenger is a guest
          ******************************************/
 
-        //  $PID      = $this->request->getPost('passenger_id');
-        //  $IsGuest = $this->request->getPost('isGuest');
-
-        //  if (isset(($PID)) && $PID > 0 && $IsGuest == '0') {
-        //      $User = new UserModel();
-        //      $User = $User->find($PID);
-
-        //      $data['passenger_name'] = $User['name'] . " " . $User['lname'];
-        //      $data['passenger_tel']  = $User['mobile'];
-
-        //  }else if (isset(($PID)) && $PID > 0 && $IsGuest == '1') {
-        //      $User = new UserModel();
-        //      $User = $User->find($PID);
-
-        //      $data['passenger_name'] = $User['name'] . " " . $User['lname'];
-        //      $data['passenger_tel']  = $User['mobile'];
-
-        //      $data['guest_name'] = $this->request->getPost('passenger_name');
-        //      $data['guest_tel']  = $this->request->getPost('passenger_tel');
-
-        //  } else {
-        //      $data['guest_name'] = $this->request->getPost('passenger_name');
-        //      $data['guest_tel']  = $this->request->getPost('passenger_tel');
-
-        //      $data['passenger_name'] = "";
-        //      $data['passenger_tel']  = "";
-
-        //      $this -> createUser( $data['guest_tel'] , $data['guest_name']);
-        //  }
-
-
 
         /**************************** END Check ****************************************/
 
@@ -311,15 +280,21 @@ class Trips extends ResourceController
 
         if($Status == 'Confirm'){
 
+            $T = $Trip -> find($ID);
 
-            $User = $Trip -> find($ID);
-            if ($User && $User['passenger_id'] == 0) {
+            $UserModel = new UserModel();
+            $existingUser = $UserModel->where('mobile', $T['passenger_tel'])->first();
 
-                $this->createUser($User['passenger_tel'], $User['passenger_name']);
-                $UserID = $this->createUser($User['passenger_tel'], $User['passenger_name']);
+            if (!$existingUser) {
+                $data['passenger_name'] = $this->request->getPost('passenger_name');
+                $data['passenger_tel'] = $this->request->getPost('passenger_tel');
+                $UserID = $this->createUser($data['passenger_tel'], $data['passenger_name']);
 
-                $tdata['passenger_id']=$UserID;
+                $data['passenger_id']=$UserID;
+            } else {
+                $data['passenger_id'] = $existingUser['id'];
             }
+
         }
 
         // print_r($tdata);die();
@@ -446,11 +421,12 @@ class Trips extends ResourceController
             if (!$existingUser) {
                 $data['passenger_name'] = $this->request->getPost('passenger_name');
                 $data['passenger_tel'] = $this->request->getPost('passenger_tel');
-                $this->createUser($data['passenger_tel'], $data['passenger_name']);
 
                 $UserID = $this->createUser($data['passenger_tel'], $data['passenger_name']);
 
                 $data['passenger_id']=$UserID;
+            }else {
+                $data['passenger_id'] = $existingUser['id'];
             }
 
 

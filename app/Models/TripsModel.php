@@ -148,7 +148,8 @@ class TripsModel extends Model
 
         $type_class = preg_replace('/[^a-zA-Z]/', '', $type_class);
         $builder->where('package' , $type_class);
-        // $builder->where('status' , "Notifed");
+        $builder->where('status' , "Notifed");
+        $builder->orderBy('id' , "DESC");
 
 
         if($query = $builder->get()){

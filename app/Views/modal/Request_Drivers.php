@@ -1,5 +1,12 @@
-<?php if (isset($request) && !empty($request)): ?>
-
+<?php if (isset($request) && !empty($request)): 
+$vaziat = false;
+foreach ($request as $R) {
+    if ($R['isAccepted'] == 1) {
+        $vaziat = true;
+        break;
+    }
+}
+                ?>
     <table class="align-middle" style="width: 100%;">
         <thead>
             <tr class="text-center">
@@ -12,6 +19,8 @@
 
 
             <?php foreach ($request as $R): ?>
+
+                
 
                 <tr class="text-center">
                     <td class="text-start">
@@ -27,7 +36,7 @@
 
                     <td>
                         <div class="bg-primary  bg-opacity-5 text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block" style="font-size:15px">
-                            <?= $R['type'] ?> <?= $R['brand_name'] ?> <br />
+                             <?= $R['brand_name'] ?> <?= $R['type_name'] ?> <br />
                         </div>
                         <div class="bg-dark   bg-opacity-5 text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block" style="font-size:10px">
                             ایران <?= $R['iran'] ?> - <?= $R['pelak'] ?> <?= $R['harf'] ?> <?= $R['pelak_last'] ?></div>
@@ -76,7 +85,10 @@
 
                         </div>
 
-                        <?php if ($R['isAccepted'] == "NO"): ?>
+                        <div class="removed "></div>
+
+
+                        <?php if ($R['isAccepted'] == "NO" && !$vaziat): ?>
                             <div class="removed "></div>
                         <?php else: ?>
                             <div class="removed hidden"></div>
@@ -102,9 +114,6 @@
 
 
 <?php endif ?>
-
-
-
 
 
 

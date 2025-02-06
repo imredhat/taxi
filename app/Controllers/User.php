@@ -90,8 +90,8 @@ class User extends BaseController
         $crud->unsetRead();
 
         $crud->requiredFields(['name']);
-        $crud->columns(['cid', 'name', 'address', 'city', 'state', 'zip', 'phone', 'fax', 'email', 'website', 'industry', 'description']);
-        $crud->fields(['name', 'address', 'city', 'state', 'zip', 'phone', 'fax', 'email', 'website', 'industry', 'description']);
+        $crud->columns(['cid', 'name','logo', 'address', 'city', 'state', 'zip', 'phone', 'fax', 'email', 'website', 'industry', 'description']);
+        $crud->fields(['name','logo', 'address', 'city', 'state', 'zip', 'phone', 'fax', 'email', 'website', 'industry', 'description']);
         $crud->displayAs('cid', 'شناسه');
         $crud->displayAs('name', 'نام شرکت');
         $crud->displayAs('address', 'آدرس');
@@ -104,6 +104,12 @@ class User extends BaseController
         $crud->displayAs('website', 'وب سایت');
         $crud->displayAs('industry', 'نوع شرکت');
         $crud->displayAs('description', 'توضیحات');
+        $crud->displayAs('logo', 'لوگو');
+
+        $this->CompanyUploadCallback($crud, 'logo');
+
+
+
 
         $output = $crud->render();
 
@@ -216,6 +222,68 @@ class User extends BaseController
 
     }
 
+    public function CompanyUploadCallback($crud, $field)
+    {
+        $crud->callbackColumn($field, function ($row, $data) use ($field) {
+            return '<img src="' . base_url('uploads/company/' . $data->cid . '/' . $data->logo) . '" width="100" height="200">';
+        });
+
+        $crud->callbackEditField($field, function ($row, $pid) use ($field) {
+
+            // print_r($pid);die();
+            if (! empty($row)) {
+                return '<img src="' . base_url('uploads/company/' . $pid . '/' . $row) . '" width="500" height="500"> <a class="cls" href="' . base_url(relativePath: "LO/") . $field . '/' . $pid . '" ><img src="' . base_url('assets/images/close.png') . '" width="25" /> </a>';
+            } else {
+                return ' <input name="' . $field . '" id="file-upload" type="file"> ';
+            }
+        });
+
+        $crud->callbackBeforeUpdate(function ($stateParameters) {
+
+            $fields = ['logo'];
+            foreach ($fields as $field) {
+                $file = $this->request->getFile($field);
+                if (isset($file)) {
+                    if (! file_exists(base_url('uploads/company/' . $stateParameters->primaryKeyValue . '/' . $file->getName()))) {
+                        if ($file->isValid()) {
+                            $file->move('uploads/company/' . $stateParameters->primaryKeyValue, $file->getName());
+                            $stateParameters->data[$field] = $file->getName();
+                        }
+                    }
+                }
+            }
+
+            return $stateParameters;
+        });
+
+        $crud->callbackBeforeInsert(function ($stateParameters) use ($field) {
+            $file = $this->request->getFile('ax');
+            if (isset($file)) {
+                if (! file_exists(base_url('uploads/company/' . $file->getName()))) {
+                    if ($file->isValid()) {
+                        $file->move('uploads/company/', $file->getName());
+                        $stateParameters->data['ax'] = $file->getName();
+                    }
+                }
+            }
+
+            $scan = $this->request->getfile('scan_melli');
+            if (isset($scan)) {
+                if (! file_exists(base_url('uploads/company/' . $scan->getName()))) {
+                    if ($scan->isValid()) {
+                        $scan->move('uploads/company/', $scan->getName());
+                        $stateParameters->data['scan_melli'] = $scan->getName();
+                    }
+                }
+            }
+
+            return $stateParameters;
+        });
+
+        return $crud;
+    }
+
+
     public function UploadCallback($crud, $field)
     {
         $crud->callbackColumn($field, function ($row, $data) use ($field) {
@@ -290,26 +358,26 @@ class User extends BaseController
         echo view('parts/print/footer');
     }
 
-    public function RD()
+    public function LO()
     {
         $uri      = service('uri');
         $segment2 = $uri->getSegment(2);
         $segment3 = $uri->getSegment(3);
 
-        if ($segment2 == 'ax') {
+        if ($segment2 == 'logo') {
 
             $db      = \Config\Database::connect();
-            $builder = $db->table('user');
-            $builder->where('id', $segment3);
+            $builder = $db->table('company');
+            $builder->where('cid', $segment3);
             $query = $builder->get();
 
             if ($query->getNumRows() > 0) {
 
-                $file = 'uploads/user/' . $segment3 . '/' . $query->getResultArray()[0][$segment2];
+                $file = 'uploads/company/' . $segment3 . '/' . $query->getResultArray()[0][$segment2];
 
-                if ($segment2 == 'ax') {
-                    $builder->set('ax', '');
-                    $builder->where('id', $segment3);
+                if ($segment2 == 'logo') {
+                    $builder->set('logo', '');
+                    $builder->where('cid', $segment3);
                     $builder->update();
                     if (is_file($file)) {
                         unlink($file);

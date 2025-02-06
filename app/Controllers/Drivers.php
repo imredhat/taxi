@@ -91,7 +91,7 @@ class Drivers extends BaseController
         }, true);
 
         $crud->columns(['code', 'ax', 'name', 'lname', 'gender', 'mobile', 'melli', 'date_created']);
-        $crud->fields(['code', 'ax', 'name', 'lname', 'gender', 'mobile', 'mobile2', 'password', 'birthday', 'phone', 'address', 'melli', 'scan_melli', 'scan_govahiname', 'bank', 'shaba', 'education_level', 'foreign_language', 'foreign_language_proficiency', 'postal_code', 'note']);
+        $crud->fields(['code', 'ax', 'name', 'lname', 'gender', 'mobile', 'mobile2', 'password', 'birthday', 'phone', 'address', 'melli', 'scan_melli', 'scan_govahiname', 'bank', 'shaba', 'education_level', 'foreign_language', 'foreign_language_proficiency', 'postal_code', 'note','status']);
 
         $crud->displayAs('ax', 'عکس')
             ->displayAs('name', 'نام')
@@ -115,11 +115,14 @@ class Drivers extends BaseController
             ->displayAs('postal_code', 'کد پستی')
             ->displayAs('note', 'یادداشت')
             ->displayAs('code', 'شناسه')
-            ->displayAs('date_created', 'تاریخ ثبت');
+            ->displayAs('date_created', 'تاریخ ثبت')
+            ->displayAs('status', 'وضعیت');
 
         $crud->fieldType("gender", "dropdown", ["مرد" => "مرد", "زن" => "زن"]);
         $crud->fieldType("password", "password");
         $crud->fieldType("work_type", "dropdown", ["ازاد" => "ازاد", "شرکتی" => "شرکتی"]);
+
+        $crud->fieldType("status", "dropdown", ["فعال" => "فعال", "غیرفعال" => "غیرفعال"]);
 
         $crud->fieldType("education_level", "dropdown", [
             "دیپلم"         => "دیپلم",

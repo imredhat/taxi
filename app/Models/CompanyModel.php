@@ -16,6 +16,7 @@ class CompanyModel extends Model
     protected $protectFields = true;
     protected $allowedFields = [
         'name',
+        'logo',
         'address',
         'city',
         'state',

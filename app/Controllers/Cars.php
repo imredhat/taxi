@@ -104,7 +104,7 @@ class Cars extends BaseController
         $crud->setSubject('خودرو', 'خودروها');
 
         // $crud->setRead();
-        $crud->columns(['brand', 'cid', 'driver_id', 'fuel', 'pelak_mix', 'pic_front',   'type', 'type_class']);
+        $crud->columns(['cid','brand', 'type', 'driver_id', 'fuel', 'pelak_mix', 'pic_front',   'type', 'type_class']);
         $crud->fields([
             'owner','driver_id', 'brand','type', 'type_class', 'fuel', 'iran', 'pelak', 'harf', 'pelak_last',  
             'pic_back', 'pic_front', 'pic_in_back', 'pic_in_front', 'scan_car_card', 
