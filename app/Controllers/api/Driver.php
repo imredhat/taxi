@@ -173,7 +173,7 @@ class Driver extends ResourceController
       
 
         if (!$trips || empty($trips)) {
-            return $this->respond(['status' => 'error', 'message' => 'هیچ سفری یافت نشد'], 404);
+            return $this->respond(['status' => 'success', 'message' => 'هیچ سفری یافت نشد', 'trips' => $trips, 404]);
         }
 
         return $this->respond(['status' => 'success', 'trips' => $trips]);

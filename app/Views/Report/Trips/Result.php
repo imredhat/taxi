@@ -181,6 +181,9 @@ function getRandomColorPair()
                 $trip_end_date = isset($_GET['trip_end_date']) ? $_GET['trip_end_date'] : null;
                 $guest_name = isset($_GET['guest_name']) ? $_GET['guest_name'] : null;
                 $guest_tel = isset($_GET['guest_tel']) ? $_GET['guest_tel'] : null;
+
+                $status = isset($_GET['status']) ? $_GET['status'] : null;
+                $payment_status = isset($_GET['payment_status']) ? $_GET['payment_status'] : null;
                 ?>
 
             <div class="tab-pane fade show active" id="preview-tab-pane" role="tabpanel" aria-labelledby="preview-tab" tabindex="0">
@@ -214,13 +217,33 @@ function getRandomColorPair()
                 <?php if (isset($guest_tel)): ?>
                     <span class="badge text-bg-secondary py-1 px-2 text-white rounded-1 fw-semibold fs-15">شماره تماس مسافر : <?= ($guest_tel) ?></span>
                 <?php endif; ?>
+                <?php if (isset($status)): ?>
+                    <span class="badge text-bg-info py-1 px-2 text-white rounded-1 fw-semibold fs-15">وضعیت : <?= getServiceStatus($status) ?></span>
+                <?php endif; ?>
+                <?php if (isset($payment_status)): ?>
+                    <span class="badge text-bg-warning py-1 px-2 text-white rounded-1 fw-semibold fs-15">وضعیت پرداخت : <?= getIsPaid($payment_status) ?></span>
+                <?php endif; ?>
             </div>
                         
 
-
+            <div style="width: 400px;float: left;">
             <a href="<?= base_url() ?>Trips/New"
                 class="border-0 btn btn-primary py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
+               
                 <span class="py-sm-1 d-block"> <i class="ri-add-line text-white"></i> <span>افزودن استعلام</span> </span> </a>
+
+
+                <?php
+
+                $current_url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                $print_url = str_replace("Result", "Print", $current_url);
+                ?>
+                <a href="<?= $print_url ?>" class="btn btn-outline-success fw-semibold py-2 px-sm-4 hover-white print_btn">
+
+                <span class="py-sm-1 d-block"> <i class="ri-add-line text-white"></i> <span>مشاهده درامد و چاپ</span> </span> </a>
+                
+
+        </div>
         </div>
         <div class="default-table-area my-task-list">
             <div class="table-responsive">
@@ -477,3 +500,27 @@ span.mosafer {
 <script src="<?=base_url()?>assets/js/jalaali.min.js"></script>
 <script src="<?=base_url()?>assets/js/polyline.min.js"></script>
 <script src="<?=base_url()?>assets/js/leaflet.js" type="text/javascript"></script>
+
+
+
+
+
+<script>
+    $("body").on("click" , ".print_btn" , function(e) {
+
+        e.preventDefault();
+        // alert("dsfsdf");
+
+
+        let cururl = $(this).attr("href");
+
+
+        const width = screen.width;
+        const height = screen.height;
+        const left = 0;
+        const top = 0;
+
+        return window.open(cururl, '_blank', `width=${width},height=${height},top=${top},left=${left}`);
+
+        });
+</script>

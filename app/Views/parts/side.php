@@ -15,7 +15,7 @@
 <div class="sidebar-area" id="sidebar-area">
     <div class="logo position-relative">
         <a href="<?= base_url() ?>" class="d-block text-decoration-none">
-            <img src="<?= base_url() ?>assets/images/logo-icon.png" alt="logo-icon">
+            <img src="<?= base_url() ?>assets/images/logo.png" alt="logo-icon" width="50">
             <span class="logo-text fw-bold text-dark">پویش تاکسی</span>
         </a>
         <button

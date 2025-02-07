@@ -380,8 +380,6 @@ class Trips extends ResourceController
             'trip_date'        => $this->request->getPost('trip_date'),
             'trip_time'        => $this->request->getPost('trip_time'),
             'weather'          => $this->request->getPost('weather'),
-            'travelTime'       => $this->request->getPost('travelTime'),
-            'distance'         => $this->request->getPost('distance'),
             'userCustomFare'   => $this->request->getPost('passengerFare'),
             'driverCustomFare' => $this->request->getPost('driverFare'),
             'trip_type'        => $this->request->getPost('trip_type'),
@@ -401,7 +399,13 @@ class Trips extends ResourceController
             'bank'             => $this->request->getPost('bank'),
             'call_date'             => $this->request->getPost('call_date'),
             'company_name'             => $this->request->getPost('company_name'),
+            'payment_status'             => $this->request->getPost('payment_status'),            
         ];
+
+
+
+    // print_r($data);die();
+        
 
         $data['userCustomFare']   = preg_replace('/\D/', '', $data['userCustomFare']);
         $data['driverCustomFare'] = preg_replace('/\D/', '', $data['driverCustomFare']);

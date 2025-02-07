@@ -101,6 +101,9 @@ function getIsPaid($paid)
     }
 }
 
+
+
+
 function getIsTax($tax)
 {
     switch ($tax) {
@@ -232,7 +235,22 @@ function getRandomColorPair()
 
                 <td> <span><?= $S['trip_date'] ?></span> </td>
                 <td style="direction: ltr;"> <span><?= $S['call_date'] ?></span> </td>
-                <td> <span><?= number_format($S['userCustomFare']) ?> تومان</span> </td>
+                <td> <span><?= number_format($S['userCustomFare']) ?> تومان
+            
+                <br/>
+
+                <?php if($S['status'] == 'Done' || $S['status'] == 'Confirm'): ?>
+            
+                    <?php if ($S['payment_status'] == 'Paid'): ?>
+                        <span class="badge text-bg-success py-1 px-2 text-white rounded-pill fw-semibold fs-12">پرداخت  شده</span>
+                    <?php elseif ($S['payment_status'] == 'notPaid'): ?>
+                        <span class="badge text-bg-danger py-1 px-2 text-white rounded-pill fw-semibold fs-12">پرداخت  نشده</span>
+                    <?php elseif ($S['payment_status'] == 'halfPaid'): ?>
+                        <span class="badge text-bg-info py-1 px-2 text-white rounded-pill fw-semibold fs-12">نیمه پرداخت  شده</span>
+                    <?php endif; ?>
+                <?php endif; ?>
+            
+            </span> </td>
 
                 <td>
                     <span class="<?= getServiceDIV($S['status']) ?> bg-opacity-5 text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block"><?= getServiceStatus($S['status']) ?></span>

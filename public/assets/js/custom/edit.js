@@ -141,6 +141,7 @@ $(document).ready(function () {
         tripData.package_edit = $("body select[name='package_edit']").val();
         tripData.call_date = $("body input[name='call_date']").val();
         tripData.company_name = $("body input[name='company_name']").val();
+        tripData.payment_status = $("body select[name='payment_status']").val();
 
         var ID = tripData.id.replace(/\D/g, '');
         var NewStatus = tripData.status_text;

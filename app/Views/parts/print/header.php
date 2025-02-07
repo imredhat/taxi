@@ -34,5 +34,5 @@
 
 
 <div class="container-fluid">
-        <div class="main-content d-flex flex-column">
+        <div class="main-content d-flex flex-column" style="padding-right:10px !important">
             

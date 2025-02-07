@@ -109,7 +109,6 @@ class Auth extends ResourceController
             'gender'           => 'required',
             'first_name'       => 'required',
             'last_name'        => 'required',
-            'birthday'         => 'required|valid_date',
             'mobile'           => 'required|regex_match[/^09[0-9]{9}$/]',
             'national_id'      => 'required|numeric',
             'bank_card_number' => 'required|numeric',
@@ -231,6 +230,10 @@ class Auth extends ResourceController
                 'allowedTypes' => 'jpg|jpeg|png',
                 'maxSize'      => 1024,
             ];
+
+            
+
+
             if ($file->isValid()) {
                 if (! $file->move($config['uploadPath'])) {
                     $error = ['error' => 'Failed to upload file'];

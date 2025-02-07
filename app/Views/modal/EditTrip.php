@@ -57,25 +57,7 @@
 
 
 
-                            <div class="row my-2">
-
-                            
-                                <div class="col-md-6">
-                                    <label for="distance"><strong>مسافت:</strong></label>
-                                    <input type="text" id="distance" name="distance" class="form-control" value="<?= $Trip['distance'] ?>">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="travelTime"><strong>زمان تقریبی سفر:</strong></label>
-                                    <input type="text" id="travelTime" name="travelTime" class="form-control" value="<?= $Trip['travelTime'] ?>">
-                                </div>
-                          
-                            </div>
-
-
-
-
-                            <div class="row my-2">
+                       <div class="row my-2">
                                 <div class="col-md-6">
                                     <label for="passengerFare"><strong>کرایه اعلامی به مسافر:</strong></label>
                                     <input type="text" id="passengerFare" name="passengerFare" class="form-control" value="<?= number_format($Trip['userCustomFare']) ?>">
@@ -93,7 +75,24 @@
 
 
                             <div class="row my-2">
-                                <div class="col-lg-12">
+
+
+
+                            <div class="col-lg-6">
+                                    <label class="label">وضعیت پرداخت</label>
+                                    <select name="payment_status" class="form-control" required>
+                                        <option value="" <?= empty($Trip['payment_status']) ? 'selected' : '' ?>>انتخاب وضعیت پرداخت</option>
+
+                                        <option value="Paid" <?= $Trip['payment_status'] == 'Paid' ? 'selected' : '' ?>>پرداخت شده</option>
+                                        <option value="halfPaid" <?= $Trip['payment_status'] == 'halfPaid' ? 'selected' : '' ?>>نیمه پرداخت شده</option>
+                                        <option value="notPaid" <?= $Trip['payment_status'] == 'notPaid' ? 'selected' : '' ?>>پرداخت نشده</option>
+                                    </select>
+                                </div>
+
+
+
+
+                                <div class="col-lg-6">
                                     <label class="label">نوع سفر</label>
                                     <select name="trip_type" class="form-control" required>
                                         <option value="" <?= empty($Trip['trip_type']) ? 'selected' : '' ?>>انتخاب نوع سفر</option>

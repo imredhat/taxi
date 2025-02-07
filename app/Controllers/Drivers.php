@@ -382,6 +382,8 @@ class Drivers extends BaseController
 
             $DID = $Driver->getInsertID();
 
+         
+
             require_once APPPATH . 'Libraries/jdf.php';
             $currentDate = jdate('Ymd');
             $uniqueId    = $currentDate . '-' . (1000 + $DID);
@@ -448,20 +450,24 @@ class Drivers extends BaseController
     private function upload_file($field_name, $type, $DID)
     {
         $file = $this->request->getFile($field_name);
+   
+
+
         if (! empty($file)) {
             $config = [
                 'uploadPath'   => './uploads/' . $type . "/" . $DID,
                 'allowedTypes' => 'jpg|jpeg|png',
                 'maxSize'      => 10240,
             ];
-            if ($file->isValid()) {
-                if (! $file->move($config['uploadPath'])) {
-                    $error = ['error' => 'Failed to upload file'];
-                    return $error;
-                }
 
-                return $file->getName();
+        if ($file->isValid()) {
+            if (! $file->move($config['uploadPath'])) {
+                $error = ['error' => 'Failed to upload file'];
+                return $error;
             }
+
+            return $file->getName();
+        }
         }
     }
 

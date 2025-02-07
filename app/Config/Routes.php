@@ -180,6 +180,7 @@ $routes->post('usePay/callback', 'Pay::Check');
 
  $routes->get('Search/Trips', 'TripReport::index');
  $routes->get('Search/Trips/Result', 'TripReport::Search');
+ $routes->get('Search/Trips/Print', 'TripReport::Print');
 
 
 
