@@ -22,6 +22,9 @@ class Trips extends ResourceController
 
         $data['Trip']    = (new TripsModel())->findAll();
         $data['Package'] = (new PackagesModel())->findAll();
+        $Banks     = new BankModel();
+        $data['bnks'] = $Banks ->where('active','1') -> findAll();
+
         $data['Title']   = 'استعلام ها';
 
         echo view('parts/header');

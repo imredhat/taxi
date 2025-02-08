@@ -26,6 +26,7 @@
                                             <th>کد پیگیری</th>
                                             <th>تاریخ</th>
                                             <th>اسکن</th>
+                                            <th>بانک</th>
                                             <th></th>
 
                                         </tr>
@@ -50,6 +51,7 @@
                                                 <td><?php if(!empty($transaction['scan'])):?> <a target="_blank" href="<?=base_url()?>uploads/transaction/<?=$transaction['tripID']?>/<?php echo $transaction['scan'] ?>" > نمایش </a> </td>
 
                                                     <?php endif;?>
+                                                    <td><?php echo $transaction['bank_name'] ?></td>
                                                 <td>
                                                         <button data-id="<?php echo $transaction['id'] ?>" onclick="return removeTR('<?php echo $transaction['id'] ?>')" type="button" class="btn btn-danger btn-sm " id="delete_tr">حذف</button>
                                                 </td>

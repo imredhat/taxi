@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 use App\Libraries\GroceryCrud;
-
+use App\Models\BankModel;
 use App\Models\TransactionModel;
 
 class Transaction extends BaseController
@@ -24,6 +24,7 @@ class Transaction extends BaseController
             'scan'     => $this->upload_file('scan', "transaction", $this->request->getPost('trip_id')),
             'tripID'   => $this->request->getPost('trip_id'),
             'desc'     => $this->request->getPost('desc'),
+            'bank_id'     => $this->request->getPost('bank_id'),
         ];
 
         $data['amount'] = str_replace(',', '', $data['amount']);
@@ -66,11 +67,7 @@ class Transaction extends BaseController
 
         $tripID               = $this->request->getUri()->getSegment(3);
         $transactionModel     = new TransactionModel();
-        $data['transactions'] = $transactionModel
-            ->where('tripID', $tripID)
-            ->where('row_status', 'insert')
-            ->withDeleted()
-            ->findAll();
+        $data['transactions'] = $transactionModel -> TripTrans( $tripID );
 
         return view('modal/TransactionList', $data);
     }

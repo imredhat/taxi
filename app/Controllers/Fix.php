@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 
+use App\Models\TransactionModel;
 use App\Models\TripsModel;
 use App\Models\UserModel;
 
@@ -99,6 +100,26 @@ class Fix extends BaseController
         $persianDate = implode('/', $persianDateParts);
 
         return $persianDate;
+        }
+
+
+        public function fixBank(){
+            $TransModel = new TransactionModel();
+            $AllTrans = $TransModel -> withDeleted ()->findAll();
+
+
+            // echo json_encode($AllTrans);die();
+
+            $trips = new TripsModel();
+
+            
+            foreach ($AllTrans as $trans) {
+                $bankID = $trips->select('bank')->find($trans['tripID'])['bank'];
+                // echo json_encode($trans['id']);die();
+                $TransModel->update($trans['id'], ['bank_id' => $bankID]);
+            }
+
+            echo "DONE";
         }
     }
 

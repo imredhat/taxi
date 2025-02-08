@@ -75,8 +75,13 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <label for="trip_id"><strong>شناسه سفر:</strong></label>
-                                                <input type="text" id="trip_id" name="trip_id" class="form-control">
+                                                <label for="bank_id"><strong>بانک:</strong></label>
+                                                <select id="bank_id" name="bank_id" class="form-control">
+                                                    <option value="" disabled selected>انتخاب کنید</option>
+                                                    <?php foreach ($bnks as $bank): ?>
+                                                        <option value="<?php echo $bank['id']; ?>"><?php echo $bank['title'] . ' - ' . $bank['bank_name']; ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
                                             </div>
                                           
                                           
@@ -101,6 +106,7 @@
                                         <input type="hidden" name="name"value="">
                                         <input type="hidden" name="lname"value="">
                                         <input type="hidden" name="code"value="">
+                                        <input type="hidden" id="trip_id" name="trip_id" class="form-control">
 
 
 
