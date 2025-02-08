@@ -396,6 +396,7 @@ class Trips extends ResourceController
             'status'           => $this->request->getPost('status'),
             'package'          => $this->request->getPost('package_edit'),
             'dsc'              => $this->request->getPost('dsc'),
+            'note'              => $this->request->getPost('note'),
             'bank'             => $this->request->getPost('bank'),
             'call_date'             => $this->request->getPost('call_date'),
             'company_name'             => $this->request->getPost('company_name'),

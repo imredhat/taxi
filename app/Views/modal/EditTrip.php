@@ -327,6 +327,11 @@
                           </div>                           
 
 
+                        <div class="col-md-12">
+                            <label for="note"><strong>یادداشت:</strong></label>
+                            <textarea class="form-control" name="note"><?= $Trip['note'] ?></textarea>
+                        </div>
+
                    
                       </div>
 

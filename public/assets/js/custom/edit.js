@@ -137,6 +137,7 @@ $(document).ready(function () {
         tripData.status = $("body select[name='status_edit']").val();
         tripData.status_text = $("body select[name='status_edit'] option:selected").text();
         tripData.dsc = $("body textarea[name='dsc']").val();
+        tripData.note = $("body textarea[name='note']").val();
         tripData.bank = $("body select[name='bank']").val();
         tripData.package_edit = $("body select[name='package_edit']").val();
         tripData.call_date = $("body input[name='call_date']").val();

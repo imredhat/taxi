@@ -59,7 +59,8 @@ class TripsModel extends Model
         'reqID',
         'bank',
         'call_date',
-        'payment_status'
+        'payment_status',
+        'note'
     ];
 
     protected $useAutoIncrement = true;

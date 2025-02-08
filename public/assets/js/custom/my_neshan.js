@@ -723,6 +723,7 @@ $(document).ready(function () {
         tripData.wait_hours = document.querySelector("input[name='wait_hours']").value;
         tripData.badRoad_km = document.querySelector("input[name='badRoad_km']").value;
 
+        tripData.note = document.querySelector("textarea[name='note']").value;
         tripData.dsc = document.querySelector("textarea[name='dsc']").value;
         tripData.call_date = document.querySelector("input[name='call_date']").value;
         tripData.userCustomFare = parseFloat(document.querySelector("input[name='userCustomFare']").value.replace(/,/g, ''));
