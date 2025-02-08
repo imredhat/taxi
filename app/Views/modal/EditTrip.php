@@ -83,9 +83,9 @@
                                     <select name="payment_status" class="form-control" required>
                                         <option value="" <?= empty($Trip['payment_status']) ? 'selected' : '' ?>>انتخاب وضعیت پرداخت</option>
 
-                                        <option value="Paid" <?= $Trip['payment_status'] == 'Paid' ? 'selected' : '' ?>>پرداخت شده</option>
+                                        <option value="Paid" <?= $Trip['payment_status'] == 'Paid' ? 'selected' : '' ?>>تسویه شده</option>
                                         <option value="halfPaid" <?= $Trip['payment_status'] == 'halfPaid' ? 'selected' : '' ?>>نیمه پرداخت شده</option>
-                                        <option value="notPaid" <?= $Trip['payment_status'] == 'notPaid' ? 'selected' : '' ?>>پرداخت نشده</option>
+                                        <option value="notPaid" <?= $Trip['payment_status'] == 'notPaid' ? 'selected' : '' ?>>اصلا پرداخت نشده</option>
                                     </select>
                                 </div>
 
@@ -97,6 +97,7 @@
                                     <select name="trip_type" class="form-control" required>
                                         <option value="" <?= empty($Trip['trip_type']) ? 'selected' : '' ?>>انتخاب نوع سفر</option>
                                         <option value="one_way" <?= $Trip['trip_type'] == 'one_way' ? 'selected' : '' ?>>یک طرفه رفت</option>
+                                        <option value="round_trip" <?= $Trip['trip_type'] == 'round_trip' ? 'selected' : '' ?>>رفت و برگشت</option>
                                         <option value="round_trip_with_stop" <?= $Trip['trip_type'] == 'round_trip_with_stop' ? 'selected' : '' ?>>رفت ، توقف ، برگشت</option>
                                         <option value="round_trip_with_service" <?= $Trip['trip_type'] == 'round_trip_with_service' ? 'selected' : '' ?>>رفت ، در اختیار ، برگشت</option>
                                     </select>

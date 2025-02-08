@@ -35,6 +35,8 @@ function getWeather($category)
 function getTripType($type)
 {
     switch ($type) {
+        case 'round_trip':
+            return 'رفت و برگشت';
         case 'one_way':
             return 'یک طرفه رفت';
         case 'round_trip_with_stop':

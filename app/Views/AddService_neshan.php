@@ -588,6 +588,7 @@
                         <label class="label">نوع سفر</label>
                         <select name="trip_type" class="form-control" required>
                             <option value="one_way">یک طرفه رفت</option>
+                            <option value="round_trip">رفت و برگشت</option>
                             <option value="round_trip_with_stop">رفت ، توقف ، برگشت</option>
                             <option value="round_trip_with_service">رفت ، در اختیار ، برگشت</option>
                         </select>
@@ -678,6 +679,13 @@
                     <div class="form-group mb-4 col-lg-12">
                         <label class="label">توضیحات </label>
                         <textarea name="dsc" class="form-control" placeholder="توضیحات در مورد بار یا چمدان همراه" required></textarea>
+                    </div>
+
+
+                    <!-- Note -->
+                    <div class="form-group mb-4 col-lg-12">
+                        <label class="label">یادداشت</label>
+                        <textarea name="note" class="form-control" placeholder="یادداشت خود را وارد کنید"></textarea>
                     </div>
 
 

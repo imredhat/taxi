@@ -91,7 +91,7 @@ class Drivers extends BaseController
         }, true);
 
         $crud->columns(['code', 'ax', 'name', 'lname', 'gender', 'mobile', 'melli', 'date_created']);
-        $crud->fields(['code', 'ax', 'name', 'lname', 'gender', 'mobile', 'mobile2', 'password', 'birthday', 'phone', 'address', 'melli', 'scan_melli', 'scan_govahiname', 'bank', 'shaba', 'education_level', 'foreign_language', 'foreign_language_proficiency', 'postal_code', 'note','status']);
+        $crud->fields(['code', 'ax', 'name', 'lname', 'gender', 'mobile', 'mobile2', 'password', 'birthday', 'phone', 'address', 'melli', 'scan_melli', 'scan_govahiname', 'bank', 'shaba', 'education_level', 'foreign_language', 'foreign_language_proficiency', 'postal_code', 'note', 'status']);
 
         $crud->displayAs('ax', 'عکس')
             ->displayAs('name', 'نام')
@@ -137,7 +137,6 @@ class Drivers extends BaseController
             "متوسط"   => "متوسط",
             "پیشرفته" => "پیشرفته",
         ]);
-
 
         $this->UploadCallback($crud, 'ax');
         $this->UploadCallback($crud, 'scan_melli');
@@ -246,7 +245,7 @@ class Drivers extends BaseController
                     if (! file_exists(base_url('uploads/drivers/' . $stateParameters->primaryKeyValue . '/' . $file->getName()))) {
                         if ($file->isValid()) {
                             $file->move('uploads/drivers/' . $stateParameters->primaryKeyValue, $file->getName());
-                            $stateParameters->data[$field] =$file->getName();
+                            $stateParameters->data[$field] = $file->getName();
 
                             // print_r($stateParameters);
                             // die();
@@ -255,14 +254,11 @@ class Drivers extends BaseController
                 }
             }
 
-
-
             if (! empty($stateParameters->data['password'])) {
 
-
                 if (! password_get_info($stateParameters->data['password'])['algo']) {
-                    
-                    $password    = password_hash($stateParameters->data['password'], PASSWORD_DEFAULT);
+
+                    $password                          = password_hash($stateParameters->data['password'], PASSWORD_DEFAULT);
                     $stateParameters->data['password'] = $password;
                 }
 
@@ -334,16 +330,6 @@ class Drivers extends BaseController
 
     public function OneStep()
     {
-        // echo "<pre>";
-        // print_r($_FILES);
-        // die();
-        // Load the form validation library
-
-        // echo "<pre>";
-        // print_r($_POST);
-        // die();
-
-        // Validation successful, insert data into database
 
         $driver = [
             'gender'                       => $this->request->getPost('gender'),
@@ -381,8 +367,6 @@ class Drivers extends BaseController
             //-------------------------------------------------------------//
 
             $DID = $Driver->getInsertID();
-
-         
 
             require_once APPPATH . 'Libraries/jdf.php';
             $currentDate = jdate('Ymd');
@@ -450,24 +434,34 @@ class Drivers extends BaseController
     private function upload_file($field_name, $type, $DID)
     {
         $file = $this->request->getFile($field_name);
-   
-
 
         if (! empty($file)) {
+            
             $config = [
                 'uploadPath'   => './uploads/' . $type . "/" . $DID,
                 'allowedTypes' => 'jpg|jpeg|png',
                 'maxSize'      => 10240,
             ];
+                
 
-        if ($file->isValid()) {
-            if (! $file->move($config['uploadPath'])) {
-                $error = ['error' => 'Failed to upload file'];
-                return $error;
+            if ($file->isValid()) {
+                if ( $file->move($config['uploadPath'])) {
+
+                    $image = \Config\Services::image()
+                        ->withFile($config['uploadPath'].'/'.$file->getName())
+                        ->resize(800, 600, true, 'auto') // تغییر اندازه به 800x600 با حفظ نسبت
+                        ->save($config['uploadPath'].'/'.$file->getName());
+
+                    return $file->getName();
+
+
+                }else{
+                    $error = ['error' => 'Failed to upload file'];
+                    return $error;
+                }
+
+                
             }
-
-            return $file->getName();
-        }
         }
     }
 
@@ -504,10 +498,9 @@ class Drivers extends BaseController
         }
     }
 
-
     public function getAllDrivers()
     {
-        $Driver = new DriverModel();
+        $Driver  = new DriverModel();
         $drivers = $Driver->findAll();
 
         return $this->response->setJSON($drivers);

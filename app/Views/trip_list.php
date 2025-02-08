@@ -242,11 +242,11 @@ function getRandomColorPair()
                 <?php if($S['status'] == 'Done' || $S['status'] == 'Confirm'): ?>
             
                     <?php if ($S['payment_status'] == 'Paid'): ?>
-                        <span class="badge text-bg-success py-1 px-2 text-white rounded-pill fw-semibold fs-12">پرداخت  شده</span>
+                        <span class="badge text-bg-success py-1 px-2 text-white rounded-pill fw-semibold fs-12">تسویه شده</span>
                     <?php elseif ($S['payment_status'] == 'notPaid'): ?>
-                        <span class="badge text-bg-danger py-1 px-2 text-white rounded-pill fw-semibold fs-12">پرداخت  نشده</span>
+                        <span class="badge text-bg-danger py-1 px-2 text-white rounded-pill fw-semibold fs-12">اصلا پرداخت نشده</span>
                     <?php elseif ($S['payment_status'] == 'halfPaid'): ?>
-                        <span class="badge text-bg-info py-1 px-2 text-white rounded-pill fw-semibold fs-12">نیمه پرداخت  شده</span>
+                        <span class="badge text-bg-info py-1 px-2 text-white rounded-pill fw-semibold fs-12">نیمه پرداخت شده</span>
                     <?php endif; ?>
                 <?php endif; ?>
             

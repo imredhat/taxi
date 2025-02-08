@@ -235,12 +235,22 @@ class Auth extends ResourceController
 
 
             if ($file->isValid()) {
-                if (! $file->move($config['uploadPath'])) {
+                if ( $file->move($config['uploadPath'])) {
+
+                    $image = \Config\Services::image()
+                        ->withFile($config['uploadPath'].'/'.$file->getName())
+                        ->resize(800, 600, true, 'auto') // تغییر اندازه به 800x600 با حفظ نسبت
+                        ->save($config['uploadPath'].'/'.$file->getName());
+
+                    return $file->getName();
+
+
+                }else{
                     $error = ['error' => 'Failed to upload file'];
                     return $error;
                 }
 
-                return $file->getName();
+                
             }
         }
     }

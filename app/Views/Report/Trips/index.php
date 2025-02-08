@@ -100,9 +100,9 @@
                                     <label for="payment_status" class="form-label">وضعیت پرداخت</label>
                                     <select name="payment_status" class="form-control bg-body-bg border-0 text-dark rounded-pill">
                                         <option disabled selected value="">انتخاب وضعیت پرداخت...</option>
-                                        <option value="notPaid">پرداخت نشده</option>
-                                        <option value="halfPaid">نیمه پرداخت شده</option>
-                                        <option value="Paid">پرداخت شده</option>
+                                        <option value="notPaid">اصلا پرداخت نشده</option>
+                                        <option value="halfPaid">نیمه تسویه شده</option>
+                                        <option value="Paid">تسویه شده</option>
                                     </select>
                                 </div>
                             </div>
