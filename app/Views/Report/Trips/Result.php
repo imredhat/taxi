@@ -146,6 +146,20 @@ function getRandomColor()
     return $colors[$randomIndex];
 }
 
+function getPaymentStatus($status)
+{
+    switch ($status) {
+        case 'Paid':
+            return 'تسویه شده';
+        case 'halfPaid':
+            return 'نیمه پرداخت شده';
+        case 'notPaid':
+            return 'اصلا پرداخت نشده';
+        default:
+            return '';
+    }
+}
+
 
 function getRandomColorPair()
 {
@@ -221,7 +235,7 @@ function getRandomColorPair()
                     <span class="badge text-bg-info py-1 px-2 text-white rounded-1 fw-semibold fs-15">وضعیت : <?= getServiceStatus($status) ?></span>
                 <?php endif; ?>
                 <?php if (isset($payment_status)): ?>
-                    <span class="badge text-bg-warning py-1 px-2 text-white rounded-1 fw-semibold fs-15">وضعیت پرداخت : <?= getIsPaid($payment_status) ?></span>
+                    <span class="badge text-bg-warning py-1 px-2 text-white rounded-1 fw-semibold fs-15">وضعیت پرداخت : <?= getPaymentStatus($payment_status) ?></span>
                 <?php endif; ?>
             </div>
                         
@@ -240,7 +254,9 @@ function getRandomColorPair()
                 ?>
                 <a href="<?= $print_url ?>" class="btn btn-outline-success fw-semibold py-2 px-sm-4 hover-white print_btn">
 
-                <span class="py-sm-1 d-block"> <i class="ri-add-line text-white"></i> <span>مشاهده درامد و چاپ</span> </span> </a>
+                <span class="py-sm-1 d-block"> <i class="ri-add-line text-white"></i> <span>
+                گزارش
+                </span> </span> </a>
                 
 
         </div>

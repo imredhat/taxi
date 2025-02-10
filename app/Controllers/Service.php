@@ -9,7 +9,7 @@ use App\Models\ServiceModel;
 use App\Models\UserModel;
 use App\Models\FareModel;
 use App\Models\PackagesModel;
-use App\Models\RequestModel;
+use App\Models\BankModel;
 use App\Models\TripsModel;
 
 class Service extends BaseController
@@ -72,6 +72,10 @@ class Service extends BaseController
             'Asia/Tehran',
             \IntlDateFormatter::TRADITIONAL
         )->format($now);
+
+        $Banks     = new BankModel();
+        $data['bnks'] = $Banks ->where('active','1') -> findAll();
+
 
 
         $data['Trip']    = (new TripsModel())->where('trip_date >=' , $persianDate)->where('status' , 'Confirm')->findAll();
