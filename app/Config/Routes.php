@@ -149,6 +149,7 @@ $routes->get('Trips/Step2(:any)', 'Trips::Step2/$1');
 $routes->add('TripsDetail/(:any)', 'Trips::Detail/$1');
 
 $routes->get('Trips/Factor/(:any)', 'Trips::Factor/$1');
+$routes->get('Trips/pishFactor/(:any)', 'Trips::pishFactor/$1');
 // ______________________________________ Request _______________________________________
 
 $routes->add('Request/imReady', 'Request::imReady');

@@ -155,6 +155,26 @@ $(document).ready(function () {
 
 
 
+    
+    $("body").on("click", 'a.PishfactorBTN', function () {
+        var tripID = $(this).data("id");
+        // let cururl = $(this).attr("href");
+
+        cururl = base + "Trips/pishFactor/" + tripID;
+
+
+        const width = 800;
+        const height = 800;
+        const left = (screen.width - width) / 2;
+        const top = (screen.height - height) / 2;
+
+        return window.open(cururl, '_blank', `width=${width},height=${height},top=${top},left=${left}`);
+
+
+    });
+
+
+
 
     $("body").on("click", 'a[data-bs-target="#TrancactionAddModal"]', function () {
         var tripID = $(this).data("id");

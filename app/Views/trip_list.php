@@ -343,6 +343,12 @@ function getRandomColorPair()
                             </li>
 
 
+                            <li>
+                                <!-- <a class="dropdown-item factorBTN" data-id="<?= $S['id'] ?>" href="javascript:;" data-toggle="modal" data-target="#endFactor"> -->
+                                <a class="dropdown-item PishfactorBTN" data-id="<?= $S['id'] ?>" href="javascript:;" >
+                                    <i data-feather="edit"></i> پیش فاکتور 
+                                </a>
+                            </li>
 
                             <li>
                                 <!-- <a class="dropdown-item factorBTN" data-id="<?= $S['id'] ?>" href="javascript:;" data-toggle="modal" data-target="#endFactor"> -->
