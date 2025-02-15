@@ -146,8 +146,9 @@
 e.preventDefault();
 // alert("dsfsdf");
 
-
+let formData = $(".src-form").serialize();
 let cururl = $(this).attr("href");
+cururl += "?" + formData;
 
 
 const width = screen.width;

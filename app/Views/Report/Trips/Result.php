@@ -240,26 +240,14 @@ function getRandomColorPair()
             </div>
                         
 
-            <div style="width: 400px;float: left;">
             <a href="<?= base_url() ?>Trips/New"
                 class="border-0 btn btn-primary py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
                
                 <span class="py-sm-1 d-block"> <i class="ri-add-line text-white"></i> <span>افزودن استعلام</span> </span> </a>
 
 
-                <?php
-
-                $current_url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-                $print_url = str_replace("Result", "Print", $current_url);
-                ?>
-                <a href="<?= $print_url ?>" class="btn btn-outline-success fw-semibold py-2 px-sm-4 hover-white print_btn">
-
-                <span class="py-sm-1 d-block"> <i class="ri-add-line text-white"></i> <span>
-                گزارش
-                </span> </span> </a>
                 
 
-        </div>
         </div>
         <div class="default-table-area my-task-list">
             <div class="table-responsive">
