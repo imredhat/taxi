@@ -41,8 +41,8 @@ $routes->get('Driver/Cars/(:any)/(:any)/(:any)', 'Cars::DriverCars::All/$1/$2/$3
 $routes->post('Driver/Cars/(:any)(:any)/(:any)', 'Cars::DriverCars::All/$1/$2/$3');
 
 
-// $routes->get('all-drivers/(:any)', 'Drivers::All/$1');
-// $routes->post('all-drivers/(:any)', 'Drivers::All/$1');
+$routes->get('all-drivers/(:any)', 'Drivers::All/$1');
+$routes->post('all-drivers/(:any)', 'Drivers::All/$1');
 
 // http://localhost:8080/all-drivers/edit/2
 // // Driver/Cars/2/edit/1
@@ -184,8 +184,12 @@ $routes->post('usePay/callback', 'Pay::Check');
  $routes->get('Search/Trips/Print', 'TripReport::Print');
 
 
-
-
+ $routes->get('Report/All', 'Report::All');
+ $routes->get('Report/Trips/Result', 'Report::Search');
+ $routes->get('Report/Trips/Print', 'Report::Print');
+ $routes->get('Report/All/Print', 'Report::PrintAll');
+ 
+ $routes->get('Report/Drivers', 'Report::Drivers');
 
 /***************************************
  *          TransAction API
@@ -262,3 +266,4 @@ $routes -> add('fixPassengerID','Fix::fixPassengerID');
 $routes -> add('fixCallDate','Fix::fixCallDate');
 $routes -> add('packge','Fix::packge');
 $routes -> add('fixBank','Fix::fixBank');
+$routes -> add('FixRequestIS','Fix::FixRequestIS');

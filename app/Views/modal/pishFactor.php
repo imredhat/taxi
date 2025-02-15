@@ -68,6 +68,30 @@
                                 مقصد :  <?php echo $Trip['endAdd'] ?><br/>
                                 پکیج سرویس :  <?php echo $Trip['package'] ?>
 
+                                <br/>
+                                نوع سفر :  
+                                <?php
+                                switch ($Trip['trip_type']) {
+                                  case 'one_way':
+                                    echo 'یک طرفه رفت';
+                                    break;
+                                  case 'round_trip':
+                                    echo 'رفت و برگشت';
+                                    break;
+                                  case 'round_trip_with_stop':
+                                    echo 'رفت ، توقف ، برگشت';
+                                    break;
+                                  case 'round_trip_with_service':
+                                    echo 'رفت ، در اختیار ، برگشت';
+                                    break;
+                                  default:
+                                    echo 'نامشخص';
+                                }
+                                ?>
+                              <br/>
+                              <?php echo $Trip['dsc'] ?>
+
+
                                 
                                 
                             </p>

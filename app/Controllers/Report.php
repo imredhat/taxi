@@ -9,12 +9,12 @@ use App\Models\TripsModel;
 use App\Models\UserModel;
 use CodeIgniter\RESTful\ResourceController;
 
-class TripReport extends ResourceController
+class Report extends ResourceController
 {
     protected $modelName = \App\Models\TripsModel::class;
     protected $format    = 'json';
 
-    public function index()
+    public function All()
     {
 
         $data['User']    = (new UserModel())->findAll();
@@ -22,7 +22,7 @@ class TripReport extends ResourceController
 
         echo view('parts/header');
         echo view('parts/side');
-        echo view('Report/Trips/index', $data);
+        echo view('Report/All/index', $data);
         echo view('parts/footer');
     }
 
@@ -108,7 +108,7 @@ class TripReport extends ResourceController
 
     
 
-    public function print()
+    public function PrintAll()
     {
         $user               = $this->request->getGet('user');
         $driver             = $this->request->getGet('driver');
@@ -333,8 +333,35 @@ class TripReport extends ResourceController
         $data['Title']   = 'جستجوی سرویس';
 
         echo view('parts/print/header');
-        echo view('Report/Trips/calc', $data);
+        echo view('Report/All/calc', $data);
         echo view('parts/print/footer');
+    }
+
+
+    public function Drivers(){
+        $requestModel = new \App\Models\RequestModel();
+
+
+        $AllDriver=[];
+        $drivers = (new \App\Models\DriverModel())->findAll();
+        foreach ($drivers as $driver) {
+            $driverID = $driver['did'];
+            $driver['AcceptedRequests'] = $requestModel->where('driverID', $driverID)->where('isAccepted', 'YES')->countAllResults();
+            $driver['RejectedRequests'] = $requestModel->where('driverID', $driverID)->where('isAccepted', 'NO')->countAllResults();
+            $driver['TotalRequests'] = $requestModel->where('driverID', $driverID)->countAllResults();
+
+            array_push($AllDriver , $driver);
+        }
+        
+
+
+        
+        // echo json_encode($AllDriver);die();
+
+        echo view('parts/header');
+        echo view('parts/side');
+        echo view('Report/Drivers/index', ['Drivers' => $AllDriver]);
+        echo view('parts/footer');
     }
 
 }

@@ -489,7 +489,7 @@ class Trips extends ResourceController
                     'tripID'     => $ID,
                     'driverID'   => $data['driverID'],
                     'carID'      => $data['carID'],
-                    'isAccepted' => 1, // Assuming default value is 0
+                    'isAccepted' => "YES", // Assuming default value is 0
                     'notified'   => 0, // Assuming default value is 0
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),

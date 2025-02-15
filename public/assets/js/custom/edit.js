@@ -199,7 +199,7 @@ $(document).ready(function () {
         $(this).val(formatNumberWithCommas($(this).val().replace(/,/g, '')));
     });
 
-  
+
 
 });
 
@@ -288,14 +288,12 @@ try {
     function clickHandler(event) {
         var countEl = event.target.parentNode.querySelector(".count");
         if (event.target.className.match(/\bminusBtn\b/)) {
-            if (Number(countEl.value) > 0) {
-                countEl.value = Number(countEl.value) - 1;
-            }
+            countEl.value = Number(countEl.value) - 1;
+
         } else if (event.target.className.match(/\bplusBtn\b/)) {
             if (event.target.className.match(/\bpss\b/)) {
-                if (Number(countEl.value) < 4) {
-                    countEl.value = Number(countEl.value) + 1;
-                }
+                countEl.value = Number(countEl.value) + 1;
+
             } else {
                 countEl.value = Number(countEl.value) + 1;
             }

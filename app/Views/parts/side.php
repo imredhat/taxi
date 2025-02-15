@@ -8,14 +8,14 @@
     <div class="preloader">
         <div>
             <img src="
-                <?= base_url() ?>assets/images/loader.gif" />
+                <?php echo base_url()?>assets/images/loader.gif" />
         </div>
     </div>
 </div>
 <div class="sidebar-area" id="sidebar-area">
     <div class="logo position-relative">
-        <a href="<?= base_url() ?>" class="d-block text-decoration-none">
-            <img src="<?= base_url() ?>assets/images/logo.png" alt="logo-icon" width="50">
+        <a href="<?php echo base_url()?>" class="d-block text-decoration-none">
+            <img src="<?php echo base_url()?>assets/images/logo.png" alt="logo-icon" width="50">
             <span class="logo-text fw-bold text-dark">پویش تاکسی</span>
         </a>
         <button
@@ -27,7 +27,7 @@
     <aside id="layout-menu" class="layout-menu menu-vertical menu active" data-simplebar>
         <ul class="menu-inner">
             <li class="menu-item">
-                <a href="<?= base_url() ?>" class="menu-link">
+                <a href="<?php echo base_url()?>" class="menu-link">
                     <i data-feather="grid" class="menu-icon tf-icons"></i>
                     <span class="title">خانه</span>
                 </a>
@@ -40,7 +40,7 @@
             </li>
 
             <li class="menu-item">
-                <a href="<?= base_url() ?>Trips/New" class="menu-link">
+                <a href="<?php echo base_url()?>Trips/New" class="menu-link">
                     <svg class="feather feather-dollar-sign menu-icon tf-icons" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24">
                         <path d="m12,13c0,1.657-2.686,3-6,3S0,14.657,0,13s2.686-3,6-3,6,1.343,6,3Zm0,5.5v2c0,1.995-2.579,3.5-6,3.5s-6-1.505-6-3.5v-2c0,1.971,2.5,3.5,6,3.5s6-1.529,6-3.5Zm0-4v2c0,1.995-2.579,3.5-6,3.5s-6-1.505-6-3.5v-2c0,1.971,2.5,3.5,6,3.5s6-1.529,6-3.5Zm6-8.5h-8v2h8v-2Zm1-6h-10c-2.757,0-5,2.243-5,5v3.139c.633-.091,1.302-.139,2-.139s1.367.048,2,.139v-2.139c0-1.103.897-2,2-2h8c1.103,0,2,.897,2,2v2c0,1.103-.897,2-2,2h-5.469c.655.574,1.112,1.25,1.328,2h1.14c.553,0,1,.448,1,1v1c0,.552-.447,1-1,1h-1v2h5c.553,0,1,.448,1,1s-.447,1-1,1h-5v1.5c0,1.365-.617,2.569-1.687,3.5h6.687c2.757,0,5-2.243,5-5V5c0-2.757-2.243-5-5-5Zm1,14c0,.552-.447,1-1,1s-1-.448-1-1v-1c0-.552.447-1,1-1s1,.448,1,1v1Z" />
                     </svg>
@@ -54,7 +54,7 @@
             </li>
 
             <li class="menu-item">
-                <a href="<?= base_url() ?>Trips" class="menu-link">
+                <a href="<?php echo base_url()?>Trips" class="menu-link">
                     <svg class="feather feather-dollar-sign menu-icon tf-icons" style="margin-left: 10px;" class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M12 2a7 7 0 0 0-7 7 3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1a1 1 0 0 0 1-1V9a5 5 0 1 1 10 0v7.083A2.919 2.919 0 0 1 14.083 19H14a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h1a2 2 0 0 0 1.732-1h.351a4.917 4.917 0 0 0 4.83-4H19a3 3 0 0 0 3-3v-2a3 3 0 0 0-3-3 7 7 0 0 0-7-7Zm1.45 3.275a4 4 0 0 0-4.352.976 1 1 0 0 0 1.452 1.376 2.001 2.001 0 0 1 2.836-.067 1 1 0 1 0 1.386-1.442 4 4 0 0 0-1.321-.843Z" clip-rule="evenodd" />
                     </svg>
@@ -68,9 +68,9 @@
 
 
 
-            
+
             <li class="menu-item">
-                <a href="<?= base_url() ?>Service" class="menu-link">
+                <a href="<?php echo base_url()?>Service" class="menu-link">
                     <svg class="feather feather-dollar-sign menu-icon tf-icons" style="margin-left: 10px;" class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M12 2a7 7 0 0 0-7 7 3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1a1 1 0 0 0 1-1V9a5 5 0 1 1 10 0v7.083A2.919 2.919 0 0 1 14.083 19H14a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h1a2 2 0 0 0 1.732-1h.351a4.917 4.917 0 0 0 4.83-4H19a3 3 0 0 0 3-3v-2a3 3 0 0 0-3-3 7 7 0 0 0-7-7Zm1.45 3.275a4 4 0 0 0-4.352.976 1 1 0 0 0 1.452 1.376 2.001 2.001 0 0 1 2.836-.067 1 1 0 1 0 1.386-1.442 4 4 0 0 0-1.321-.843Z" clip-rule="evenodd" />
                     </svg>
@@ -82,10 +82,10 @@
             </li>
 
 
- 
+
             <li class="menu-item">
-                <a href="<?= base_url() ?>Search/Trips" class="menu-link">
-             
+                <a href="<?php echo base_url()?>Search/Trips" class="menu-link">
+
 
 
                     <svg class="feather feather-dollar-sign menu-icon tf-icons"  style="margin-left: 10px;" class="w-[30px] h-[30px] text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
@@ -101,6 +101,54 @@
 
 
 
+            <li class="menu-title small text-uppercase">
+                <span class="menu-title-text">گزارشات</span>
+            </li>
+
+
+
+            <li class="menu-item">
+                <a href="<?php echo base_url()?>Report/All" class="menu-link">
+
+
+
+                    <svg class="feather feather-dollar-sign menu-icon tf-icons" width="800px" height="800px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <title>report-barchart</title>
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="add" fill="#000000" transform="translate(42.666667, 85.333333)">
+                                <path d="M341.333333,1.42108547e-14 L426.666667,85.3333333 L426.666667,341.333333 L3.55271368e-14,341.333333 L3.55271368e-14,1.42108547e-14 L341.333333,1.42108547e-14 Z M330.666667,42.6666667 L42.6666667,42.6666667 L42.6666667,298.666667 L384,298.666667 L384,96 L330.666667,42.6666667 Z M106.666667,85.3333333 L106.666,234.666 L341.333333,234.666667 L341.333333,256 L85.3333333,256 L85.3333333,85.3333333 L106.666667,85.3333333 Z M170.666667,149.333333 L170.666667,213.333333 L128,213.333333 L128,149.333333 L170.666667,149.333333 Z M234.666667,106.666667 L234.666667,213.333333 L192,213.333333 L192,106.666667 L234.666667,106.666667 Z M298.666667,170.666667 L298.666667,213.333333 L256,213.333333 L256,170.666667 L298.666667,170.666667 Z" id="Combined-Shape"></path>
+                            </g>
+                        </g>
+                    </svg>
+
+
+
+                    <span class="title">گزارش کلی</span>
+                </a>
+            </li>
+
+
+            <li class="menu-item">
+                <a href="<?php echo base_url()?>Report/Drivers" class="menu-link">
+
+
+                    <svg class="feather feather-dollar-sign menu-icon tf-icons"  width="800px" height="800px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ 
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Dribbble-Light-Preview" transform="translate(-340.000000, -2399.000000)" fill="#000000">
+                    <g id="icons" transform="translate(56.000000, 160.000000)">
+                        <path d="M300.232,2253.984 L295.883,2249.627 C295.948,2249.429 295.965,2249.22 295.965,2249 C295.965,2248.287 296,2247.666 295,2247.311 L295,2241.079 C299,2241.601 301.969,2244.95 301.969,2249 C301.969,2250.884 301.326,2252.615 300.232,2253.984 M294,2257 C289.929,2257 286.565,2253.94 286.07,2250 L292.278,2250 C292.702,2250.729 293.533,2251.133 294.395,2250.96 L298.812,2255.376 C297.471,2256.391 295.807,2257 294,2257 M293,2241.06 L293,2247.244 C293,2247.419 292.464,2247.68 292.278,2248 L286.07,2248 C286.526,2244.368 289,2241.488 293,2241.06 M294,2239 C288.478,2239 284,2243.477 284,2249 C284,2254.523 288.478,2259 294,2259 C299.523,2259 304,2254.523 304,2249 C304,2243.477 299.523,2239 294,2239" id="wheel-[#1295]">
+
+        </path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+
+
+                    <span class="title"> کارکرد راننده ها</span>
+                </a>
+            </li>
 
 
 
@@ -113,7 +161,7 @@
 
 
             <li class="menu-item">
-                <a href="<?= base_url() ?>all-drivers" class="menu-link">
+                <a href="<?php echo base_url()?>all-drivers" class="menu-link">
                     <svg style="opacity:0.8" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-dollar-sign menu-icon tf-icons">
@@ -140,7 +188,7 @@
 
 
             <li class="menu-item">
-                <a href="<?= base_url() ?>add-driver" class="menu-link">
+                <a href="<?php echo base_url()?>add-driver" class="menu-link">
                     <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
                     <svg class="feather feather-dollar-sign menu-icon tf-icons" style="margin-left: 15px;" height="30" width="30" version="1.1" id="Layer_1"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -196,12 +244,12 @@
 
                     <span class="title">تنظیمات</span> </a>
                 <ul class="menu-sub">
-                    <li class="menu-item"> <a href="<?= base_url() ?>Brands" class="menu-link"> برند خودرو </a> </li>
-                    <li class="menu-item"> <a href="<?= base_url() ?>Type" class="menu-link"> تیپ خودرو </a> </li>
-                    <li class="menu-item"> <a href="<?= base_url() ?>Company" class="menu-link"> لیست شرکت ها </a> </li>
-                    <li class="menu-item"> <a href="<?= base_url() ?>Option/Packages" class="menu-link">  پکیج ها </a> </li>
-                    <li class="menu-item"> <a href="<?= base_url() ?>Option/Other" class="menu-link">  ضرایب اضافه  </a> </li>
-                    <li class="menu-item"> <a href="<?= base_url() ?>Option/Banks" class="menu-link">  حساب بانکی  </a> </li>
+                    <li class="menu-item"> <a href="<?php echo base_url()?>Brands" class="menu-link"> برند خودرو </a> </li>
+                    <li class="menu-item"> <a href="<?php echo base_url()?>Type" class="menu-link"> تیپ خودرو </a> </li>
+                    <li class="menu-item"> <a href="<?php echo base_url()?>Company" class="menu-link"> لیست شرکت ها </a> </li>
+                    <li class="menu-item"> <a href="<?php echo base_url()?>Option/Packages" class="menu-link">  پکیج ها </a> </li>
+                    <li class="menu-item"> <a href="<?php echo base_url()?>Option/Other" class="menu-link">  ضرایب اضافه  </a> </li>
+                    <li class="menu-item"> <a href="<?php echo base_url()?>Option/Banks" class="menu-link">  حساب بانکی  </a> </li>
                 </ul>
             </li>
 
@@ -210,7 +258,7 @@
 
 
             <li class="menu-item">
-                <a href="<?= base_url() ?>Cars" class="menu-link">
+                <a href="<?php echo base_url()?>Cars" class="menu-link">
                     <svg class="feather feather-dollar-sign menu-icon tf-icons" style="margin-left: 15px;" fill="#000000" height="800px" width="800px" version="1.1"
                         id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                         viewBox="0 0 229.98 229.98" xml:space="preserve">
@@ -243,11 +291,11 @@
 
 
 
-           
+
 
 
             <li class="menu-item">
-                <a href="<?= base_url() ?>Contacts" class="menu-link">
+                <a href="<?php echo base_url()?>Contacts" class="menu-link">
                     <svg class="feather feather-dollar-sign menu-icon tf-icons" style="margin-left: 10px;" class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 6H5m2 3H5m2 3H5m2 3H5m2 3H5m11-1a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2M7 3h11a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm8 7a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" />
                     </svg>
@@ -259,9 +307,9 @@
 
 
 
-            
+
             <li class="menu-item">
-                <a href="<?= base_url() ?>Transactions" class="menu-link">
+                <a href="<?php echo base_url()?>Transactions" class="menu-link">
                     <svg class="feather feather-dollar-sign menu-icon tf-icons" style="margin-left: 10px;" class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <line x1="12" y1="1" x2="12" y2="23"></line><path  stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"   d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
                     </svg>
@@ -273,7 +321,7 @@
 
 
             <li class="menu-item">
-                <a href="<?= base_url() ?>auth/logout" class="menu-link">
+                <a href="<?php echo base_url()?>auth/logout" class="menu-link">
                     <svg class="feather feather-dollar-sign menu-icon tf-icons" style="margin-left: 10px;" width="1024px"  height="1024px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="icon">
                         <path d="M868 732h-70.3c-4.8 0-9.3 2.1-12.3 5.8-7 8.5-14.5 16.7-22.4 24.5a353.84 353.84 0 0 1-112.7 75.9A352.8 352.8 0 0 1 512.4 866c-47.9 0-94.3-9.4-137.9-27.8a353.84 353.84 0 0 1-112.7-75.9 353.28 353.28 0 0 1-76-112.5C167.3 606.2 158 559.9 158 512s9.4-94.2 27.8-137.8c17.8-42.1 43.4-80 76-112.5s70.5-58.1 112.7-75.9c43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 7.9 7.9 15.3 16.1 22.4 24.5 3 3.7 7.6 5.8 12.3 5.8H868c6.3 0 10.2-7 6.7-12.3C798 160.5 663.8 81.6 511.3 82 271.7 82.6 79.6 277.1 82 516.4 84.4 751.9 276.2 942 512.4 942c152.1 0 285.7-78.8 362.3-197.7 3.4-5.3-.4-12.3-6.7-12.3zm88.9-226.3L815 393.7c-5.3-4.2-13-.4-13 6.3v76H488c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z" />
                     </svg>

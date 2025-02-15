@@ -1,7 +1,7 @@
 <?php if (isset($request) && !empty($request)): 
 $vaziat = false;
 foreach ($request as $R) {
-    if ($R['isAccepted'] == 1) {
+    if ($R['isAccepted'] == "YES") {
         $vaziat = true;
         break;
     }

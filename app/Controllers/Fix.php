@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Models\TransactionModel;
 use App\Models\TripsModel;
 use App\Models\UserModel;
+use App\Models\RequestModel;
 
 class Fix extends BaseController
 {
@@ -117,6 +118,20 @@ class Fix extends BaseController
                 $bankID = $trips->select('bank')->find($trans['tripID'])['bank'];
                 // echo json_encode($trans['id']);die();
                 $TransModel->update($trans['id'], ['bank_id' => $bankID]);
+            }
+
+            echo "DONE";
+        }
+
+
+        public function FixRequestIS(){
+            $requestModel = new RequestModel();
+            $requests = $requestModel->findAll();
+
+            foreach ($requests as $request) {
+                if ($request['isAccepted'] == 1) {
+                    $requestModel->update($request['id'], ['isAccepted' => 'YES']);
+                }
             }
 
             echo "DONE";

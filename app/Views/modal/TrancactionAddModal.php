@@ -18,7 +18,7 @@
 
                                         <div class="row my-2">
                                             <div class="col-md-6">
-                                                <label for="amount"><strong>مبلغ (ریال):</strong></label>
+                                                <label for="amount"><strong>مبلغ (تومان):</strong></label>
                                                 <input type="text" id="amount" name="amount" class="form-control">
                                             </div>
                                             <div class="col-md-6">

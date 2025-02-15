@@ -137,5 +137,29 @@ class RequestModel extends Model
     }
 
 
+    public function getAllRequestWithLinkedToDriver(){
+        $builder = $this->db->table($this->table)
+            ->select('
+            request.id AS request_id,
+            request.notifID,
+            request.tripID,
+            request.driverID,
+            request.carID,
+            request.isAccepted,
+            request.created_at AS request_created_at,
+            request.updated_at AS request_updated_at,
+
+            driver.ax,
+            driver.name,
+            driver.lname,
+            driver.mobile,
+            code
+            ')
+            ->join('driver', 'request.driverID = driver.did');
+
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
+
 
 }
