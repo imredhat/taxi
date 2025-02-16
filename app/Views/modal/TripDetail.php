@@ -17,19 +17,22 @@ function getServiceStatus($status)
     switch ($status) {
         case 'Called':
             return 'استعلام';
-        case 'Reserve':
+        case 'Reserved':
             return 'رزرو';
         case 'Confirm':
-            return 'تایید شده';
+            return 'پذیرش توسط راننده';
         case 'Notifed':
-            return 'اطلاع رسانی شده';
+            return 'اعلام به راننده';
+        case 'Requested':
+            return 'اعلام آمادگی راننده';
         case 'Cancled':
             return 'کنسل شده';
-        case 'Requested':
-            return 'درخواست شده';
         case 'Done':
             return 'به پایان رسیده';
+        default:
+            return 'نامشخص';
     }
+    
 }
 
 

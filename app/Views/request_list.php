@@ -56,13 +56,13 @@ function getServiceStatus($status)
         case 'Reserved':
             return 'رزرو';
         case 'Confirm':
-            return 'تایید شده';
+            return 'پذیرش توسط راننده';
         case 'Notifed':
-            return 'اطلاع رسانی شده';
+            return 'اعلام به راننده';
         case 'Cancled':
             return 'کنسل شده';
         case 'Requested':
-            return 'درخواست شده';
+            return 'اعلام آمادگی راننده';
         case 'Done':
             return 'به پایان رسیده';
     }

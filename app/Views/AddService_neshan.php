@@ -662,11 +662,11 @@
                                 <div class="form-group mb-4  col-md-12">
                                     <label for="status"><strong>وضعیت سفر:</strong></label>
                                     <select name="status" class="form-select form-control ">
-                                        <option value="Called">استعلام</option>
+                                    <option value="Called">استعلام</option>
                                         <option value="Reserved">رزرو</option>
-                                        <option value="Notifed">اطلاع رسانی شده</option>
-                                        <option value="Requested">درخواست شده</option>
-                                        <option value="Confirm">تایید شده</option>
+                                        <option value="Notifed">اعلام به راننده</option>
+                                        <option value="Requested">اعلام آمادگی راننده</option>
+                                        <option value="Confirm">پذیرش توسط راننده</option>
                                         <option value="Cancled">کنسل شده</option>
                                         <option value="Done">به پایان رسیده</option>
                                     </select>

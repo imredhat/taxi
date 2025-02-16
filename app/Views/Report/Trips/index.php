@@ -11,9 +11,9 @@
 
 
                             <div class="form-group mb-4 position-relative">
-                                <label for="user_select" class="form-label">انتخاب کاربر</label>
+                                <label for="user_select" class="form-label">انتخاب مشتری</label>
                                 <select name="user" class="form-control bg-body-bg border-0 text-dark rounded-pill chosen">
-                                    <option disabled selected value="">انتخاب کاربر...</option>
+                                    <option disabled selected value="">انتخاب مشتری...</option>
                                     <?php foreach ($User as $U): ?>
                                         <option value="<?= $U['id']; ?>"><?= 1000 + $U['id'] . '-' . $U['name'] . ' ' . $U['lname']; ?></option>
                                     <?php endforeach; ?>
@@ -88,9 +88,9 @@
 
                                         <option value="Called">استعلام</option>
                                         <option value="Reserved">رزرو</option>
-                                        <option value="Notifed">اطلاع رسانی شده</option>
-                                        <option value="Requested">درخواست شده</option>
-                                        <option value="Confirm">تایید شده</option>
+                                        <option value="Notifed">اعلام به راننده</option>
+                                        <option value="Requested">اعلام آمادگی راننده</option>
+                                        <option value="Confirm">پذیرش توسط راننده</option>
                                         <option value="Cancled">کنسل شده</option>
                                         <option value="Done">به پایان رسیده</option>
                                     </select>

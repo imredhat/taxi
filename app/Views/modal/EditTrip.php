@@ -297,9 +297,9 @@
                                     <select name="status_edit" class="form-select form-control ">
                                         <option value="Called" <?= $Trip['status'] == 'Called' ? 'selected' : '' ?>>استعلام</option>
                                         <option value="Reserved" <?= $Trip['status'] == 'Reserved' ? 'selected' : '' ?>>رزرو</option>
-                                        <option value="Notifed" <?= $Trip['status'] == 'Notifed' ? 'selected' : '' ?>>اطلاع رسانی شده</option>
-                                        <option value="Requested" <?= $Trip['status'] == 'Requested' ? 'selected' : '' ?>>درخواست شده</option>
-                                        <option value="Confirm" <?= $Trip['status'] == 'Confirm' ? 'selected' : '' ?>>تایید شده</option>
+                                        <option value="Notifed" <?= $Trip['status'] == 'Notifed' ? 'selected' : '' ?>>اعلام به راننده</option>
+                                        <option value="Requested" <?= $Trip['status'] == 'Requested' ? 'selected' : '' ?>>اعلام آمادگی راننده</option>
+                                        <option value="Confirm" <?= $Trip['status'] == 'Confirm' ? 'selected' : '' ?>>پذیرش توسط راننده</option>
                                         <option value="Cancled" <?= $Trip['status'] == 'Cancled' ? 'selected' : '' ?>>کنسل شده</option>
                                         <option value="Done" <?= $Trip['status'] == 'Done' ? 'selected' : '' ?>>به پایان رسیده</option>
                                     </select>
