@@ -51,6 +51,7 @@ $routes->get('RC/(:any)', to: 'Cars::RC/$1/$2');
 $routes->get('RD/(:any)', to: 'Drivers::RD/$1/$2');
 $routes->get('RU/(:any)', to: 'User::RD/$1/$2');
 $routes->get('LO/(:any)', to: 'User::LO/$1/$2');
+$routes->get('RL/(:any)', to: 'Option::RL/$1/$2');
 
 
 

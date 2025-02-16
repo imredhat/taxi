@@ -68,7 +68,7 @@ function getServiceStatus($status)
         default:
             return '';
     }
-    }
+    
 }
 
 

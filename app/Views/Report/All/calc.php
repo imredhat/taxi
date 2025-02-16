@@ -309,7 +309,7 @@ $Tstatus = isset($_GET['status']) ? $_GET['status'] : null;
                 <td style="background: #cdcdcd;"><?= number_format($totalIn - $totalOut) ?> تومان</td>
             </tr>
             <tr>
-                <td>میانگین کرایه دریافتی از مشترک</td>
+                <td>میانگین کرایه دریافتی از مشتری</td>
                 <td><?= number_format($averageUserCustomFare) ?> تومان</td>
             </tr>
             <tr>
@@ -319,13 +319,13 @@ $Tstatus = isset($_GET['status']) ? $_GET['status'] : null;
             <tr>
                 <td>بیشترین کرایه دریافتی</td>
                 <td><?= number_format($maxUserCustomFare) ?> تومان
-                    | <a id="UserTab" href="<?= base_url() ?>UserCard/<?= $maxUserCustomFareUser ?>">مشاهده مشترک</a>
+                    | <a id="UserTab" href="<?= base_url() ?>UserCard/<?= $maxUserCustomFareUser ?>">مشاهده مشتری</a>
                 </td>
             </tr>
             <tr>
                 <td>کمترین کرایه دریافتی</td>
                 <td><?= number_format($minUserCustomFare) ?> تومان
-                    | <a id="UserTab" href="<?= base_url() ?>UserCard/<?= $minUserCustomFareUser ?>">مشاهده مشترک</a>
+                    | <a id="UserTab" href="<?= base_url() ?>UserCard/<?= $minUserCustomFareUser ?>">مشاهده مشتری</a>
                 </td>
             </tr>
             <tr>

@@ -404,7 +404,7 @@
 
                                 <li class="nav-item dropdown package" data-name="<?php echo $Type['name'];?>">
                                     <a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<?php echo $Type['name'];?>">
-                                        <img src="<?php echo base_url()?>assets/images/<?php echo $Type['tag'];?>.jpg" width="40" />
+                                        <img src="<?php echo base_url()?>assets/uploads/packages/<?php echo $Type['logo'];?>" width="40" />
                                     </a>
                                 </li>
 
