@@ -59,6 +59,13 @@ body *{
                     <td >شناسه اشتراک</td>
                     <td>- <?=$user['id'] + 1000 ?> -</td>
                 </tr>
+
+                <?php if (!empty($user['company_name'])): ?>
+                    <tr>
+                        <td>نام سازمان</td>
+                        <td>- <?=esc($user['company_name'])?> -</td>
+                    </tr>
+                <?php endif; ?>
                 <tr>
                     <td >تاریخ شروع اشتراک</td>
                     <td>- <?php 
