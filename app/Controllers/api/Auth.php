@@ -257,7 +257,7 @@ class Auth extends ResourceController
 
     public function updatePasswd()
     {
-    $phone = $this->request->getPost('phone');
+    $phone = $this->request->getPost('mobile');
     $newPassword = $this->request->getPost('password');
 
     $Driver = new DriverModel();
