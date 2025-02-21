@@ -255,18 +255,21 @@ class Auth extends ResourceController
         }
     }
 
-    public function forgotPassword()
+    public function updatePasswd()
     {
-        $email = $this->request->getPost('email');
-        $user  = $this->DriverModel->where('email', $email)->first();
+    $phone = $this->request->getPost('phone');
+    $newPassword = $this->request->getPost('password');
 
-        if ($user) {
-            // Generate a reset token and send email logic here
-            // For simplicity, we are just returning a success message
-            return redirect()->to('/auth/login')->with('success', 'Password reset link sent to your email');
-        } else {
-            return redirect()->back()->with('error', 'Email not found');
-        }
+    $Driver = new DriverModel();
+    $user = $Driver->where('mobile', $phone)->first();
+
+    if ($user) {
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        $Driver->update($user['did'], ['password' => $hashedPassword]);
+        return $this->respond(['status' => 'success', 'message' => 'رمز عبور با موفقیت به روز شد']);
+    } else {
+        return $this->respond(['status' => 'error', 'message' => 'کاربری با این شماره تلفن یافت نشد'], 404);
+    }
     }
 
     public function logout()
