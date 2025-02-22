@@ -408,8 +408,7 @@ class Cars extends BaseController
         $referer = $this->request->getServer('HTTP_REFERER');
         $referer = str_replace(base_url(), '', $referer);
 
-
-        $fields = ['pic_back', 'pic_front', 'pic_in_back', 'pic_in_front', 'scan_govahiname','scan_insurance'];
+        $fields = ['pic_back', 'pic_front', 'pic_in_back', 'pic_in_front', 'scan_govahiname','scan_insurance','scan_car_card','scan_car_card_back'];
 
         $CarModel = new CarModel();
         $car = $CarModel->where('cid', $segment4)->first();
