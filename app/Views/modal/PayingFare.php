@@ -35,6 +35,7 @@
 
             </div>
             <div class="modal-footer">
+                <input type="hidden" value="0" name="tripID" />
                 <button type="button" class="btn btn-danger text-white" data-bs-dismiss="modal">بستن</button>
                 <button type="button" class="btn btn-primary text-white notif"><span role="status">اعلام سرویس</span> <span class="spinner-grow spinner-grow-sm notif_spinner" aria-hidden="true"></span></button>
 

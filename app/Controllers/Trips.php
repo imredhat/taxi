@@ -20,12 +20,14 @@ class Trips extends ResourceController
     public function index()
     {
 
-        $data['Trip']    = (new TripsModel())->findAll();
+        $data['Trip']    = (new TripsModel())->getAllTripsWithDriverName();
         $data['Package'] = (new PackagesModel())->findAll();
         $Banks     = new BankModel();
         $data['bnks'] = $Banks ->where('active','1') -> findAll();
 
         $data['Title']   = 'استعلام ها';
+
+        // echo json_encode ($data);die();
 
         echo view('parts/header');
         echo view('parts/side');
@@ -275,6 +277,9 @@ class Trips extends ResourceController
     public function CreateNotif()
     {
         $ID            = $this->request->getPost('tripID');
+
+        // echo $ID;
+        // die();
         $UserFare      = $this->request->getPost('UserFare');
         $DriverFare    = $this->request->getPost('DriverFare');
         $DriverPackage = $this->request->getPost('DriverPackage');

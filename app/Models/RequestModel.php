@@ -129,8 +129,10 @@ class RequestModel extends Model
             ')
             ->join('trips', 'request.tripID = trips.id');
 
-            // $builder->where('request.driverID', $DriverID);
-            // $builder->where('request.carID', $CarID);
+            $builder->orderBy('request.id', 'ASC');
+
+            $builder->where('request.driverID', $DriverID);
+            $builder->where('request.carID', $CarID);
 
         $query = $builder->get();
         return $query->getResultArray();

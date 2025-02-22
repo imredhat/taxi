@@ -43,9 +43,14 @@ $(document).ready(function () {
     })
 
 
-    $('a[data-bs-target="#PayingFare"]').click(function () {
+    $("body").on("click", 'a[data-bs-target="#PayingFare"]', function () {
+
+
         $('.base_fare').html($(this).data("fare") + '<input name="tripID" type="hidden" value="' + $(this).data("id") + '" />');
-        var package = $(this).data('package');
+        // var package = $(this).data('package');
+        
+
+        // $("input[name='tripID']").val(tripID);
 
         $("select.form-control#packageSelect").val(package).change();
     });

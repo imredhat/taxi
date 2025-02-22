@@ -44,7 +44,9 @@ class TripReport extends ResourceController
 
         $tripsModel = new TripsModel();
 
-        $query = $tripsModel->select('*');
+        $query = $tripsModel->select('trips.*, 
+            driver.name as driver_name, driver.lname as driver_lname, 
+            driver.mobile as driver_mobile');
 
         if ($user && ! empty($user)) {
             $query->where('passenger_id', $user);
@@ -79,6 +81,8 @@ class TripReport extends ResourceController
         if ($payment_status && ! empty($payment_status)) {
             $query->where('payment_status', $payment_status);
         }
+        
+        $query->join('driver', 'driver.did = trips.driverID', 'left');
 
         $data['Trip'] = $query->findAll();
 

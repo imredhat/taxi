@@ -151,7 +151,7 @@ class TripsModel extends Model
         $type_class = preg_replace('/[^a-zA-Z]/', '', $type_class);
         $builder->where('package' , $type_class);
         $builder->where('status' , "Notifed");
-        $builder->orderBy('id' , "DESC");
+        $builder->orderBy('id' , "ASC");
 
 
         if($query = $builder->get()){
@@ -204,6 +204,21 @@ class TripsModel extends Model
 
 
 
+
+    public function getAllTripsWithDriverName(){
+        $builder = $this->db->table($this->table);
+
+        $builder->select(
+            'trips.*, 
+            driver.name as driver_name, driver.lname as driver_lname, 
+            driver.mobile as driver_mobile'
+        );
+
+        $builder->join('driver', 'driver.did = trips.driverID', 'left');
+
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
 
 
 }
