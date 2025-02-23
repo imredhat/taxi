@@ -109,7 +109,7 @@
                                 <div class="col-lg-12">
                                     <label class="label">راننده</label>
                                     <select data-placeholder="انتخاب راننده" id="driver" name="driverID" class="form-control" required>
-                                    
+                                    <option value="0" >بدون راننده</option>
 
                                         <?php foreach ($driver as $driver): ?>
                                             <option value="<?= $driver['did'] ?>" <?= $Trip['driverID'] == $driver['did'] ? 'selected' : '' ?>>
