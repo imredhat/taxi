@@ -148,7 +148,8 @@ class TripsModel extends Model
         $builder->join('packages', 'packages.name = trips.package', 'left');
 
 
-        $type_class = preg_replace('/[^a-zA-Z]/', '', $type_class);
+        // $type_class = preg_replace('/[^a-zA-Z]/', '', $type_class);
+        
         $builder->where('package' , $type_class);
         $builder->where('status' , "Notifed");
         $builder->orderBy('id' , "ASC");

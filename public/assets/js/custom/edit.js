@@ -52,6 +52,13 @@ $(document).ready(function () {
 
     $('#driver').on('change', function () {
         var driverID = $(this).val();
+
+        if(driverID == 0){
+            $('#car').empty();
+            $('#car').trigger("chosen:updated");
+            return;
+        }
+
         $.ajax({
             type: "POST",
             url: base + "Driver/GetDriverCars",
