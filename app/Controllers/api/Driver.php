@@ -134,17 +134,22 @@ class Driver extends ResourceController
 
         $TripsModel = new TripsModel();
         if (!empty($from_date)) {
-            $trips = $TripsModel->getMyRequest($driverID, $from_date, $to_date);
+            $trips = $TripsModel->getMyRequest($driverID, $from_date, $to_date,"Done");
         } else {
-            $trips = $TripsModel->getMyRequest($driverID);
+            $trips = $TripsModel->getMyRequest($driverID,null,null,"Done");
         }
 
+
+        $total['totalTrips'] = count($trips);
+        $total['totalFare'] = array_sum(array_column($trips, 'driverCustomFare'));
+
+     
 
         if (!$trips || empty($trips)) {
             return $this->respond(['status' => 'error', 'message' => 'هیچ سفری یافت نشد'], 404);
         }
 
-        return $this->respond(['status' => 'success', 'trips' => $trips]);
+        return $this->respond(['status' => 'success', 'trips' => $trips , 'total' => $total]);
     }
 
 
@@ -183,7 +188,7 @@ class Driver extends ResourceController
     public function Brands()
     {
         $BrandModel = new BrandModel();
-        $brands = $BrandModel->orderBy('brand')->withDeleted()->findAll();
+        $brands = $BrandModel->orderBy('brand' , 'DESC')->withDeleted()->findAll();
 
         if (!$brands) {
             return $this->respond(['status' => 'error', 'message' => 'هیچ برندی یافت نشد'], 404);
@@ -204,7 +209,7 @@ class Driver extends ResourceController
     {
 
         $Types = new TypeModel();
-        $AllTypes = $Types->orderBy('bid')->withDeleted()->findAll();
+        $AllTypes = $Types->orderBy('bid' , 'DESC')->withDeleted()->findAll();
 
         if (!$AllTypes) {
             return $this->respond(['status' => 'error', 'message' => 'هیچ تیپ خودرویی یافت نشد'], 404);
@@ -263,7 +268,9 @@ class Driver extends ResourceController
         $hash = $this->request->getPost('hash');
         // $DID = $this->request->getPost('driver_id');
 
-        if (empty($hash) || empty($DID)) {
+    // print_r($_POST);die();
+
+        if (empty($hash)) {
             return $this->respond(['status' => 'error', 'message' => 'راننده نامعتبر است'], 400);
         }
 
@@ -274,17 +281,21 @@ class Driver extends ResourceController
             return $this->respond(['status' => 'error', 'message' => ' راننده نامعتبر است'], 401);
         }
 
+        $brand = $this->request->getPost('brand');
+
+
+
         $DID = $driver['did'];
 
         $carData = [
             'driver_id'                 => $DID,
             'owner'                     => $this->request->getPost('owner'),
-            'brand'                     => $this->request->getPost('brand'),
-            'fuel'                      => $this->request->getPost('fuel_type'),
-            'iran'                      => $this->request->getPost('plate_part1'),
-            'pelak'                     => $this->request->getPost('plate_part2'),
-            'pelak_last'                => $this->request->getPost('plate_part3'),
-            'harf'                      => $this->request->getPost('plate_letter'),
+            'brand'                     => $brand,
+            'fuel'                      => $this->request->getPost('fuel'),
+            'iran'                      => $this->request->getPost('iran'),
+            'pelak'                     => $this->request->getPost('pelak'),
+            'pelak_last'                => $this->request->getPost('pelak_last'),
+            'harf'                      => $this->request->getPost('harf'),
             'pic_back'                  => $this->upload_file('pic_back', "drivers", $DID),
             'pic_front'                 => $this->upload_file('pic_front', "drivers", $DID),
             'pic_in_back'               => $this->upload_file('pic_in_back', "drivers", $DID),
@@ -299,7 +310,7 @@ class Driver extends ResourceController
             'vin'                       => $this->request->getPost('vin'),
             'color'                     => $this->request->getPost('color'),
             'insurance_expiry_date'     => $this->request->getPost('insurance_expiry_date'),
-            'active'                    => 0
+            'active'                    => 0,
         ];
 
         $Car = new CarModel();

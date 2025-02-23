@@ -74,7 +74,7 @@ class Auth extends ResourceController
 
             
             $tripModel = new TripsModel();
-            $trips = $tripModel->where('driverID', $user['did'])->findAll();
+            $trips = $tripModel->getMyRequest($user['did'],null,null,"Done");
 
             $totalTrips = count($trips);
             $totalFare = array_sum(array_column($trips, 'driverCustomFare'));

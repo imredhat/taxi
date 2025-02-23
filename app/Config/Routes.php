@@ -252,6 +252,8 @@ $routes->add('api/driver/TripsList', 'api\Driver::TripsList');
 $routes->add('api/driver/MyTrips', 'api\Driver::MyTrips');
 $routes->add('api/driver/onGoingTrip', 'api\Driver::onGoingTrip');
 $routes->add('api/driver/SetActiveCar', 'api\Driver::SetActiveCar');
+// $routes->add('api/driver/addCar', 'api\Driver::addCar');
+$routes->post('api/driver/addCar', 'api\Driver::addCar');
 
 $routes->post('api/request/Send', 'api\Request::Send');
 $routes->post('api/request/MyRequests', 'api\Request::MyRequests');

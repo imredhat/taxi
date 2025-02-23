@@ -190,8 +190,6 @@ class TripsModel extends Model
 
         if(!empty($status)){
             $builder->where('trips.status' , $status);
-        }else{
-            $builder->where('trips.status' , "Done");
         }
 
 
