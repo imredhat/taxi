@@ -187,11 +187,11 @@ $(document).ready(function () {
 
 
 
-    $('#passengerFare').on('input', function (e) {
+    $("body").on("input", "input[name='driverFare']", function () {
         $(this).val(formatNumberWithCommas($(this).val().replace(/,/g, '')));
     });
 
-    $('#driverFare').on('input', function (e) {
+    $("body").on("input", "#driverFare", function () {
         $(this).val(formatNumberWithCommas($(this).val().replace(/,/g, '')));
     });
 
