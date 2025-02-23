@@ -92,9 +92,9 @@ class Request extends ResourceController
 
         $data = ["isAccepted" => "NO"];
 
-        $Rq->where('tripID', $tripID)
-            ->set($data)
-            ->update();
+        $Rq -> where('tripID', $tripID)
+            -> set($data)
+            -> update();
 
         $D = ["isAccepted" => $isAccepet];
         $Rq->update($reqID, $D);

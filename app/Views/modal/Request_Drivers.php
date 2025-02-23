@@ -44,25 +44,30 @@ foreach ($request as $R) {
                     <td>
                         <div class="d-flex gap-2 justify-content-center">
 
-                        <?php if ($R['isAccepted'] == "YES"): ?>
-                            <button disabled class="bg-success bg-opacity-5 text-white fs-13 fw-semibold py-1 px-2 rounded-1 confirm_request" type="button" data-tripID="<?= $R['tripID'] ?>" data-RqID="<?= $R['id'] ?>" data-notifID="<?= $R['notifID'] ?>" data-driverID="<?= $R['driverID'] ?>" data-carID="<?= $R['carID'] ?>">
-                                <span class="checked"><svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20"><path d="M22.319,4.431,8.5,18.249a1,1,0,0,1-1.417,0L1.739,12.9a1,1,0,0,0-1.417,0h0a1,1,0,0,0,0,1.417l5.346,5.345a3.008,3.008,0,0,0,4.25,0L23.736,5.847a1,1,0,0,0,0-1.416h0A1,1,0,0,0,22.319,4.431Z" /></svg></span>
+                        <?php if ($R['isAccepted'] == "W8"): ?>
+                            <button  class="bg-success bg-opacity-5 text-white fs-13 fw-semibold py-1 px-2 rounded-1 confirm_request" type="button" data-tripID="<?= $R['tripID'] ?>" data-RqID="<?= $R['id'] ?>" data-notifID="<?= $R['notifID'] ?>" data-driverID="<?= $R['driverID'] ?>" data-carID="<?= $R['carID'] ?>">
+                                <span class="spinner-border spinner-border-sm hidden"></span>
+                                <span class="checked">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                </span>
                             </button>
-
+                        <?php endif; ?>
 
                             <!-- <button disabled class="bg-danger bg-opacity-5 text-white fs-13 fw-semibold py-1 px-2 rounded-1 reject_request" type="button" data-tripID="<?= $R['tripID'] ?>" data-RqID="<?= $R['id'] ?>" data-notifID="<?= $R['notifID'] ?>" data-driverID="<?= $R['driverID'] ?>" data-carID="<?= $R['carID'] ?>">
                                 <span class="status " role="status">رد کردن</span>
                             </button> -->
 
-                            <?php else:?>
+                            <?php if ($R['isAccepted'] == "YES"): ?>
 
-                                <button class="bg-success bg-opacity-5 text-white fs-13 fw-semibold py-1 px-2 rounded-1 confirm_request" type="button" data-tripID="<?= $R['tripID'] ?>" data-RqID="<?= $R['id'] ?>" data-notifID="<?= $R['notifID'] ?>" data-driverID="<?= $R['driverID'] ?>" data-carID="<?= $R['carID'] ?>">
+                                <button disabled class="bg-success bg-opacity-5 text-white fs-13 fw-semibold py-1 px-2 rounded-1 " type="button" data-tripID="<?= $R['tripID'] ?>" data-RqID="<?= $R['id'] ?>" data-notifID="<?= $R['notifID'] ?>" data-driverID="<?= $R['driverID'] ?>" data-carID="<?= $R['carID'] ?>">
                             
-                                <span class="spinner-border spinner-border-sm hidden"></span>
-                                <span class="checked hidden"><svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20"><path d="M22.319,4.431,8.5,18.249a1,1,0,0,1-1.417,0L1.739,12.9a1,1,0,0,0-1.417,0h0a1,1,0,0,0,0,1.417l5.346,5.345a3.008,3.008,0,0,0,4.25,0L23.736,5.847a1,1,0,0,0,0-1.416h0A1,1,0,0,0,22.319,4.431Z" /></svg></span>
-                                <span class="status " role="status">تایید راننده</span>
+                                    <span class="spinner-border spinner-border-sm hidden"></span>
+                                    <span class="checked">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    </span>                                
 
-                            </button>
+                                </button>
+                            <?php endif; ?>
 
 
 <!-- 
@@ -75,23 +80,22 @@ foreach ($request as $R) {
                             </button> -->
 
 
-                            <?php endif; ?>
 
-
-                           
-
+                        <?php if ($R['isAccepted'] == "NO" ): ?>
                             
+                            <button disabled class="bg-danger bg-opacity-5 text-white fs-13 fw-semibold py-1 px-2 rounded-1 " type="button" data-tripID="<?= $R['tripID'] ?>" data-RqID="<?= $R['id'] ?>" data-notifID="<?= $R['notifID'] ?>" data-driverID="<?= $R['driverID'] ?>" data-carID="<?= $R['carID'] ?>">
+                            
+                                <span class="spinner-border spinner-border-sm hidden"></span>
+                                <span class="checked ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </span>
+
+                            </button>
+                      
+                        <?php endif; ?>
 
 
                         </div>
-
-
-
-                        <?php if ($R['isAccepted'] == "NO" && !$vaziat): ?>
-                            <div class="removed"></div>
-                        <?php else: ?>
-                            <div class="removed hidden"></div>
-                        <?php endif; ?>
                     </td>
 
 
@@ -161,7 +165,7 @@ foreach ($request as $R) {
                     data: { tripID: ID },
                     success: function (data) {
                         $(".driver_list").html(data);
-                        $(".tr_" + ID + " td:nth-child(8)").html('<span class="bg-success  bg-opacity-5 text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block">تایید شده </span>');
+                        $(".tr_" + ID + " td:nth-child(8)").html('<span class="bg-success  bg-opacity-5 text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block">پذیرش توسط راننده </span>');
 
                     }
                 });
