@@ -18,7 +18,8 @@
         "laminas/laminas-escaper": "^2.13",
         "pishran/ippanel-client": "^1.0",
         "psr/log": "^3.0",
-        "shetabit/multipay": "^1.58"
+        "shetabit/multipay": "^1.58",
+        "workerman/workerman": "^5.1"
     },
     "require-dev": {
         "codeigniter/coding-standard": "^1.7",
@@ -53,6 +54,7 @@
     },
     "autoload": {
         "psr-4": {
+            "App\\": "app",
             "CodeIgniter\\": "system/"
         },
         "exclude-from-classmap": [
