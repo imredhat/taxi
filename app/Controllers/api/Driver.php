@@ -68,6 +68,8 @@ class Driver extends ResourceController
         $hash = $this->request->getPost('hash');
         $carID = $this->request->getPost('carID');
 
+        // echo $carID;die();
+
         if (empty($hash)) {
             return $this->respond(['status' => 'error', 'message' => 'راننده نامعتبر است'], 400);
         }
@@ -91,7 +93,7 @@ class Driver extends ResourceController
         $type_class = $cars['type_class'];
 
 
-        // print_r($cars);
+        // print_r($type_class);
         // die();
 
         $PackagesModel = new \App\Models\PackagesModel();
@@ -310,11 +312,14 @@ class Driver extends ResourceController
             'vin'                       => $this->request->getPost('vin'),
             'color'                     => $this->request->getPost('color'),
             'insurance_expiry_date'     => $this->request->getPost('insurance_expiry_date'),
-            'active'                    => 0,
+            'active'                    => 1,
         ];
 
         $Car = new CarModel();
+        $Car->where('driver_id', $DID)->set(['active' => 0])->update();
+        
         if($Car->insert($carData)){
+
             return $this->respond(['status' => 'success', 'message' => 'خودرو با موفقیت ثبت شد']);
         }else{
             return $this->respond(['status' => 'fail', 'message' => 'خطا در ثبت اطلاعات']);

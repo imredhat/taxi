@@ -231,7 +231,7 @@ class Cars extends BaseController
             'owner','driver_id', 'brand','type', 'type_class', 'fuel', 'iran', 'pelak', 'harf', 'pelak_last',  
             'pic_back', 'pic_front', 'pic_in_back', 'pic_in_front', 'scan_car_card', 
             'scan_car_card_back', 'scan_insurance', 'scan_insurance_addendum', 
-             'vin',  'year', 'color', 'insurance_expiry_date'
+             'vin',  'year', 'color', 'insurance_expiry_date','active'
         ]);
         $crud->displayAs('cid', "شناسه ");
         $crud->displayAs('driver_id', " راننده");
@@ -259,6 +259,7 @@ class Cars extends BaseController
         $crud->displayAs('car_system', "سیستم خودرو");
         $crud->displayAs('year', "سال");
         $crud->displayAs('color', "رنگ");
+        $crud->displayAs('active', "وضعیت");
         $crud->displayAs('insurance_expiry_date', "تاریخ انقضای بیمه");
 
         $crud->unsetColumns(['pelak_last', 'harf', 'iran', 'pelak']);
@@ -277,6 +278,14 @@ class Cars extends BaseController
             "دوگانه سوز" => "دوگانه سوز", 
             "هیبریدی" => "هیبریدی"
         ]);
+
+
+        $crud->fieldType("active", "dropdown", [
+            "1" => "فعال",
+            "0" => "غیرفعال"
+        ]);
+        
+
         $crud->setRelation('type', 'brand_type', 'type_name');
         $crud->setRelation('driver_id', 'driver', '{name} {lname}');
         $crud->setRelation('brand', 'brand', 'brand');
