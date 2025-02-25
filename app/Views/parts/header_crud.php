@@ -97,7 +97,7 @@
                                         <div class="d-xxl-flex align-items-center bg-transparent border-0 text-start p-0 cursor"
                                             data-bs-toggle="dropdown">
                                             <div class="flex-shrink-0"> <img class="rounded-circle wh-54"
-                                                    src="<?=base_url()?>assets/images/admin.jpg" alt="admin"> </div>
+                                            src="<?=base_url()?>assets/images/profile.jpg" alt="admin"> </div>
                                             <div class="flex-grow-1 ms-3">
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <div class="d-none d-xxl-block"> <span

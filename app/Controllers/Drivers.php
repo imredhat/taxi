@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Libraries\GroceryCrud;
@@ -13,7 +14,7 @@ class Drivers extends BaseController
     {
 
 
-      
+
         $Brand          = new BrandModel();
         $data['Brands'] = $Brand->orderBy('brand')->withDeleted()->findAll();
 
@@ -21,7 +22,6 @@ class Drivers extends BaseController
         echo view('parts/side');
         echo view('driver_add', $data);
         echo view('parts/footer');
-
     }
 
     public function AddDriver()
@@ -93,7 +93,7 @@ class Drivers extends BaseController
             return 'Driver/Cars/' . $row;
         }, true);
 
-        $crud->columns(['code', 'ax', 'name', 'lname', 'gender', 'mobile', 'melli', 'date_created']);
+        $crud->columns(['code', 'ax', 'name', 'lname', 'gender', 'mobile', 'melli', 'date_created','status']);
         $crud->fields(['code', 'ax', 'name', 'lname', 'gender', 'mobile', 'mobile2', 'password', 'birthday', 'phone', 'address', 'melli', 'scan_melli', 'scan_govahiname', 'bank', 'shaba', 'education_level', 'foreign_language', 'foreign_language_proficiency', 'postal_code', 'note', 'status']);
 
         $crud->displayAs('ax', 'عکس')
@@ -127,6 +127,24 @@ class Drivers extends BaseController
 
         $crud->fieldType("status", "dropdown", ["فعال" => "فعال", "غیرفعال" => "غیرفعال"]);
 
+        $crud->callbackAfterUpdate(function ($stateParameters) {
+            if ($stateParameters->data['status'] == 'فعال') {
+                // Your code here for when status is 'فعال'
+                // For example, you can log the update or send a notification
+
+                $values = [
+                    'name' => $stateParameters->data['name'].' '.$stateParameters->data['lname'],
+                    'user' => $stateParameters->data['mobile'],
+                    'pass' => 'رمز انتخابی',
+                ];
+
+                $this -> SendSMS($stateParameters->data['mobile'] , $values, 'i5ho4846mtx99sa');
+
+
+            }
+            return $stateParameters;
+        });
+
         $crud->fieldType("education_level", "dropdown", [
             "دیپلم"         => "دیپلم",
             "کاردانی"       => "کاردانی",
@@ -145,6 +163,8 @@ class Drivers extends BaseController
         $this->UploadCallback($crud, 'scan_melli');
         $this->UploadCallback($crud, 'scan_govahiname');
 
+
+
         // $crud->callbackColumn('date_created', function ($value) {
         //     $date               = new PersianDate();
         //     list($gy, $gm, $gd) = explode('-', substr($value, 0, 10));
@@ -157,6 +177,27 @@ class Drivers extends BaseController
         echo view('parts/side');
         echo view('crud', (array) $output);
         echo view('parts/footer_crud');
+    }
+
+    private function sendSMS($recipient , $values , $patternCode)
+    {
+        $client = new \Pishran\IpPanel\Client('SA11ECEv6ZmVGJbalKfGGhGcLKjXNA00fxoN5DMoFPs=');
+
+        $originator  = '+983000505';      // شماره فرستنده
+
+
+        // $bulkId = $client->sendPattern($patternCode, $originator, $recipient, $values);
+
+        try {
+            $result = $client->sendPattern($patternCode, $originator, $recipient, $values);
+            if ($result) {
+                return "OK";
+            } else {
+                return "NOK";
+            }
+        } catch (Exception $e) {
+            return "failed";
+        }
     }
 
     private static function hashPasswordBeforeUpdate($stateParameters)
@@ -264,7 +305,6 @@ class Drivers extends BaseController
                     $password                          = password_hash($stateParameters->data['password'], PASSWORD_DEFAULT);
                     $stateParameters->data['password'] = $password;
                 }
-
             }
 
             return $stateParameters;
@@ -439,31 +479,27 @@ class Drivers extends BaseController
         $file = $this->request->getFile($field_name);
 
         if (! empty($file)) {
-            
+
             $config = [
                 'uploadPath'   => './uploads/' . $type . "/" . $DID,
                 'allowedTypes' => 'jpg|jpeg|png',
                 'maxSize'      => 10240,
             ];
-                
+
 
             if ($file->isValid()) {
-                if ( $file->move($config['uploadPath'])) {
+                if ($file->move($config['uploadPath'])) {
 
                     $image = \Config\Services::image()
-                        ->withFile($config['uploadPath'].'/'.$file->getName())
+                        ->withFile($config['uploadPath'] . '/' . $file->getName())
                         ->resize(800, 600, true, 'auto') // تغییر اندازه به 800x600 با حفظ نسبت
-                        ->save($config['uploadPath'].'/'.$file->getName());
+                        ->save($config['uploadPath'] . '/' . $file->getName());
 
                     return $file->getName();
-
-
-                }else{
+                } else {
                     $error = ['error' => 'Failed to upload file'];
                     return $error;
                 }
-
-                
             }
         }
     }
