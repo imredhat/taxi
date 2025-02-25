@@ -65,8 +65,20 @@ class Driver extends ResourceController
 
     public function TripsList()
     {
-        $hash = $this->request->getPost('hash');
-        $carID = $this->request->getPost('carID');
+
+        // echo "sads";die();
+        
+        if ($this->request->getHeaderLine('Content-Type') === 'application/json') {
+            $data = $this->request->getJSON(true);
+            $hash = $data['hash'];
+            $carID = $data['carID'];
+        } else {
+            $hash = $this->request->getPost('hash');
+            $carID = $this->request->getPost('carID');
+        }
+        // $hash = $this->request->getPost('hash');
+        // $carID = $this->request->getPost('carID');
+        
 
         // echo $carID;die();
 

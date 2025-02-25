@@ -9,17 +9,30 @@ class Events
 
         $data = json_decode($message, true);
 
-
         // if (isset($data['hash']) && isset($data['r']) && trim($data['r']) == 'UWS') {
         //     self::updateDriverWsId($client_id , $data['hash']);
         //     Gateway::sendToClient($client_id, "Driver ws_id updated");
         // }
 
+        if (isset($data['r']) && trim($data['r']) == 'Trips') {
+            // $trips = self::getTripsFromDatabase($data['hash']);
+            // Gateway::sendToClient($client_id, json_encode($trips));
 
+            $host     = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost:8080';
+            $protocol = "http://";
+            if (isset($_SERVER['HTTPS']) && ! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+                $protocol = "https://";
+            }
 
-        if (isset($data['hash']) && isset($data['r']) && trim($data['r']) == 'Trips') {
-            $trips = self::getTripsFromDatabase($data['hash']);
-            Gateway::sendToClient($client_id, json_encode($trips));
+            $port = isset($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : '80';
+
+            // $url      = $protocol . $host . '/api/driver/TripsList';
+            $url      = 'https://portal.pooyeshtak30.ir/api/driver/TripsList';
+            $data     = ['hash' => $data['hash'], 'carID' => $data['carID'], 'url' => $url];
+            $response = self::curlLink($url, $data);
+
+            // Gateway::sendToClient($client_id, "HI");
+            Gateway::sendToClient($client_id, $response);
         }
     }
 
@@ -27,10 +40,9 @@ class Events
     {
         echo "New client connected: $client_id\n";
 
-
         Gateway::sendToClient($client_id, json_encode([
-            'type' => 'client_id',
-            'client_id' => $client_id
+            'type'      => 'client_id',
+            'client_id' => $client_id,
         ]));
     }
 
@@ -41,13 +53,13 @@ class Events
 
     private static function getTripsFromDatabase($hash)
     {
-        $host = 'localhost';
-        $db = 'rep_taxi';
-        $user = 'root';
-        $pass = '';
+        $host    = 'localhost';
+        $db      = 'rep_taxi';
+        $user    = 'root';
+        $pass    = '';
         $charset = 'utf8mb4';
 
-        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+        $dsn     = "mysql:host=$host;dbname=$db;charset=$charset";
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -57,14 +69,46 @@ class Events
         try {
             $pdo = new PDO($dsn, $user, $pass, $options);
         } catch (\PDOException $e) {
-            throw new \PDOException($e->getMessage(), (int)$e->getCode());
+            throw new \PDOException($e->getMessage(), (int) $e->getCode());
         }
 
         $stmt = $pdo->query('SELECT * FROM trips');
         return $stmt->fetchAll();
     }
 
+    private static function curlLink($url, $data)
+    {
+        $ch = curl_init();
 
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+
+        $response = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            throw new Exception(curl_error($ch));
+        }
+
+        curl_close($ch);
+
+        return $response;
+    }
+
+    private static function getLinkWithData($url, $data)
+    {
+        $client   = \Config\Services::curlrequest();
+        $response = $client->post($url, [
+            'form_params' => $data,
+        ]);
+
+        if ($response->getStatusCode() == 200) {
+            return $response->getBody();
+        } else {
+            throw new Exception('Unexpected HTTP status: ' . $response->getStatusCode() . ' ' . $response->getReason());
+        }
+    }
 
     // private static function updateDriverWsId($client_id, $hash)
     // {

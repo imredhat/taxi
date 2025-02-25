@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit38b7560a54ed0fe71d838d82fb63ee54
+class ComposerStaticInitabdcb48b0f08db00821ac5600d8ebfa7
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -106,6 +106,7 @@ class ComposerStaticInit38b7560a54ed0fe71d838d82fb63ee54
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
             'GatewayWorker\\' => 14,
+            'GatewayClient\\' => 14,
         ),
         'F' => 
         array (
@@ -355,6 +356,10 @@ class ComposerStaticInit38b7560a54ed0fe71d838d82fb63ee54
         'GatewayWorker\\' => 
         array (
             0 => __DIR__ . '/..' . '/workerman/gateway-worker/src',
+        ),
+        'GatewayClient\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/workerman/gatewayclient',
         ),
         'Fidry\\CpuCoreCounter\\' => 
         array (
@@ -1694,6 +1699,9 @@ class ComposerStaticInit38b7560a54ed0fe71d838d82fb63ee54
         'Fidry\\CpuCoreCounter\\Finder\\WmicPhysicalFinder' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Finder/WmicPhysicalFinder.php',
         'Fidry\\CpuCoreCounter\\Finder\\_NProcessorFinder' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Finder/_NProcessorFinder.php',
         'Fidry\\CpuCoreCounter\\NumberOfCpuCoreNotFound' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/NumberOfCpuCoreNotFound.php',
+        'GatewayClient\\Context' => __DIR__ . '/..' . '/workerman/gatewayclient/Context.php',
+        'GatewayClient\\Gateway' => __DIR__ . '/..' . '/workerman/gatewayclient/Gateway.php',
+        'GatewayClient\\GatewayProtocol' => __DIR__ . '/..' . '/workerman/gatewayclient/GatewayProtocol.php',
         'GatewayWorker\\BusinessWorker' => __DIR__ . '/..' . '/workerman/gateway-worker/src/BusinessWorker.php',
         'GatewayWorker\\Gateway' => __DIR__ . '/..' . '/workerman/gateway-worker/src/Gateway.php',
         'GatewayWorker\\Lib\\Context' => __DIR__ . '/..' . '/workerman/gateway-worker/src/Lib/Context.php',
@@ -5186,10 +5194,10 @@ class ComposerStaticInit38b7560a54ed0fe71d838d82fb63ee54
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit38b7560a54ed0fe71d838d82fb63ee54::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit38b7560a54ed0fe71d838d82fb63ee54::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit38b7560a54ed0fe71d838d82fb63ee54::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit38b7560a54ed0fe71d838d82fb63ee54::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitabdcb48b0f08db00821ac5600d8ebfa7::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitabdcb48b0f08db00821ac5600d8ebfa7::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitabdcb48b0f08db00821ac5600d8ebfa7::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitabdcb48b0f08db00821ac5600d8ebfa7::$classMap;
 
         }, null, ClassLoader::class);
     }

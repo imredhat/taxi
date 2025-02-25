@@ -12,6 +12,9 @@ use App\Models\UserModel;
 use App\Models\RequestModel;
 use CodeIgniter\RESTful\ResourceController;
 
+use GatewayWorker\Lib\Gateway;
+use WebSocket\Client;
+
 class Trips extends ResourceController
 {
     protected $modelName = \App\Models\TripsModel::class;
@@ -348,6 +351,42 @@ class Trips extends ResourceController
 
 
         $Trip->update($ID, $tdata);
+
+
+        if($Status == 'Notifed'){
+            Gateway::$registerAddress = '0.0.0.0:6321';
+
+            $DriverModel = new DriverModel();
+            $drivers = $DriverModel->where('ws_id IS NOT NULL and ws_id > 0')->findAll();
+
+            
+
+
+            foreach ($drivers as $driver) {
+
+                $CarModel = new \App\Models\CarModel();
+                $activeCar = $CarModel->where('driver_id', $driver['did'])->where('active', '1')->first();
+                $activeCarID = $activeCar['cid'];
+
+                $requestModel = new RequestModel();
+                $newRequests = $requestModel->getNewRequest($driver['did'], $activeCarID);
+
+                // print_r($newRequests);die();
+
+                // echo $driver['ws_id'];
+                // die();
+
+                $message = [
+                    'type' => 'Trips',
+                    'trips' => $newRequests,
+                    'status' => 'success',
+                ];
+
+
+                Gateway::sendToClient($driver['ws_id'], json_encode($message));
+            }
+
+        }
 
         if ($Trip) {
             return $this->respond([

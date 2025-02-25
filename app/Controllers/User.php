@@ -5,6 +5,10 @@ use App\Libraries\GroceryCrud;
 use App\Models\TripsModel;
 use App\Models\UserModel;
 
+// require 'vendor/autoload.php'; // اطمینان حاصل کن که مسیر درست است
+        
+use GuzzleHttp\Client;
+
 class User extends BaseController
 {
 
@@ -16,8 +20,71 @@ class User extends BaseController
         }
     }
 
+    public function curlLink($url, $data)
+    {
+
+        $data = [
+            'hash' => 'your_driver_hash',
+            'carID' => 'your_car_id'
+        ];
+        
+        $options = [
+            'http' => [
+                'header'  => "Content-Type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($data),
+            ]
+        ];
+        
+        $context  = stream_context_create($options);
+        $response = file_get_contents("https://example.com/api/TripsList", false, $context);
+        
+        $result = json_decode($response, true);
+        print_r($result);
+    }
+
     public function index()
     {
+
+        // $host     = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost:8080';
+        // $protocol = "http://";
+        // if (isset($_SERVER['HTTPS']) && ! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+        //     $protocol = "https://";
+        // }
+
+        // $port = isset($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : '80';
+
+        // $url      = $protocol . $host . '/api/driver/TripsList';
+        // $data     = ['hash' => '7311bf4fbfaee7350486028f33301cd2', 'carID' => 1];
+        // // $response = $this->curlLink($url, $data);
+
+
+        
+        
+        // $client = new Client();
+        
+        // $response = $client->post('https://portal.pooyeshtak30.ir/api/driver/TripsList', [
+        //     'form_params' => [
+        //         'hash' => '7311bf4fbfaee7350486028f33301cd2',
+        //         'carID' => '1'
+        //     ],
+        //     'headers' => [
+        //         'Accept' => 'application/json',
+        //     ]
+        // ]);
+        
+        // // دریافت پاسخ API
+        // $body = $response->getBody();
+        // $data = json_decode($body, true);
+        
+        // print_r($data); // نمایش نتیجه
+        
+     
+        
+
+        // // echo json_encode($response);
+        // die();
+
 
         $data["BestDriver"] = "";
 
@@ -70,7 +137,7 @@ class User extends BaseController
 
         /*********************** Trips Data  **************************/
 
-        $userModel = new UserModel();
+        $userModel          = new UserModel();
         $data["TotalUsers"] = $userModel->countAllResults();
 
         // $data["NetAmount"] = $totalIn - $totalOut;
@@ -90,8 +157,8 @@ class User extends BaseController
         $crud->unsetRead();
 
         $crud->requiredFields(['name']);
-        $crud->columns(['cid', 'name','logo', 'address', 'city', 'state', 'zip', 'phone', 'fax', 'email', 'website', 'industry', 'description']);
-        $crud->fields(['name','logo', 'address', 'city', 'state', 'zip', 'phone', 'fax', 'email', 'website', 'industry', 'description']);
+        $crud->columns(['cid', 'name', 'logo', 'address', 'city', 'state', 'zip', 'phone', 'fax', 'email', 'website', 'industry', 'description']);
+        $crud->fields(['name', 'logo', 'address', 'city', 'state', 'zip', 'phone', 'fax', 'email', 'website', 'industry', 'description']);
         $crud->displayAs('cid', 'شناسه');
         $crud->displayAs('name', 'نام شرکت');
         $crud->displayAs('address', 'آدرس');
@@ -107,9 +174,6 @@ class User extends BaseController
         $crud->displayAs('logo', 'لوگو');
 
         $this->CompanyUploadCallback($crud, 'logo');
-
-
-
 
         $output = $crud->render();
 
@@ -165,19 +229,19 @@ class User extends BaseController
         ]);
 
         $crud->displayAs([
-            'id'         => 'شناسه',
-            'name'       => 'نام',
-            'lname'      => 'نام خانوادگی',
-            'gender'     => 'جنسیت',
-            'mobile'     => 'موبایل',
-            'phone'      => 'تلفن',
-            'type'       => 'نوع اشتراک',
-            'status'     => 'وضعیت',
-            'ax'         => 'تصویر شخص / شرکت',
-            'created_at' => 'تاریخ ثبت',
-            'updated_at' => 'تاریخ بروزرسانی',
-            'deleted_at' => 'تاریخ حذف',
-            'date_start' => 'شروع اشتراک',
+            'id'           => 'شناسه',
+            'name'         => 'نام',
+            'lname'        => 'نام خانوادگی',
+            'gender'       => 'جنسیت',
+            'mobile'       => 'موبایل',
+            'phone'        => 'تلفن',
+            'type'         => 'نوع اشتراک',
+            'status'       => 'وضعیت',
+            'ax'           => 'تصویر شخص / شرکت',
+            'created_at'   => 'تاریخ ثبت',
+            'updated_at'   => 'تاریخ بروزرسانی',
+            'deleted_at'   => 'تاریخ حذف',
+            'date_start'   => 'شروع اشتراک',
             'company_name' => 'نام شرکت',
         ]);
 
@@ -282,7 +346,6 @@ class User extends BaseController
 
         return $crud;
     }
-
 
     public function UploadCallback($crud, $field)
     {

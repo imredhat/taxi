@@ -139,6 +139,37 @@ class RequestModel extends Model
     }
 
 
+    public function getNewRequestSpecified($DriverID , $CarID)
+    {
+        $builder = $this->db->table($this->table)
+            ->select('
+                request.id AS request_id,
+                request.notifID,
+                request.tripID,
+                request.driverID,
+                request.carID,
+                request.isAccepted,
+                request.created_at AS request_created_at,
+                request.updated_at AS request_updated_at,
+    
+                
+                trips.id,startAdd,endAdd,startPoint,endPoint, weather,distance,TimeMin,travelTime,isWait,trip_date,trip_time,trips.dsc,status,trip_type,trips.created_at,driverCustomFare,package,total_passenger,
+
+
+                
+            ')
+            ->join('trips', 'request.tripID = trips.id');
+
+            $builder->orderBy('request.id', 'ASC');
+
+            $builder->where('request.driverID', $DriverID);
+            $builder->where('request.carID', $CarID);
+
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
+
+
     public function getAllRequestWithLinkedToDriver(){
         $builder = $this->db->table($this->table)
             ->select('
