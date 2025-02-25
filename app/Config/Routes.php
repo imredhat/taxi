@@ -254,6 +254,7 @@ $routes->add('api/driver/onGoingTrip', 'api\Driver::onGoingTrip');
 $routes->add('api/driver/SetActiveCar', 'api\Driver::SetActiveCar');
 // $routes->add('api/driver/addCar', 'api\Driver::addCar');
 $routes->post('api/driver/addCar', 'api\Driver::addCar');
+$routes->add('api/driver/UpdateWsID', 'api\Driver::UpdateWsID');
 
 $routes->post('api/request/Send', 'api\Request::Send');
 $routes->post('api/request/MyRequests', 'api\Request::MyRequests');
@@ -271,3 +272,4 @@ $routes -> add('fixCallDate','Fix::fixCallDate');
 $routes -> add('packge','Fix::packge');
 $routes -> add('fixBank','Fix::fixBank');
 $routes -> add('FixRequestIS','Fix::FixRequestIS');
+$routes -> add('WS/Start','WS::Start');

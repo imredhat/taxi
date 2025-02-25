@@ -1,38 +1,62 @@
 <?php
+
 namespace App\WebSocket;
 
 use Workerman\Worker;
-use Workerman\Connection\TcpConnection;
+use PHPSocketIO\SocketIO;
+use CodeIgniter\CodeIgniter;
+use App\Controllers\ChatController;
 
 class WebSocketServer
 {
-    public function start($port = 9090)
+    protected $codeigniter;
+
+    public function __construct()
     {
-        // Create a WebSocket worker
-        $wsWorker = new Worker("websocket://0.0.0.0:9090");
+        // Initialize CodeIgniter
+        $config = new \Config\App();
+        $this->codeigniter = new CodeIgniter($config);
+        $this->codeigniter->initialize();
+    }
 
-        // Set the number of processes (optional)
-        $wsWorker->count = 4;
+    public function start($port = 2021)
+    {
+        // Create a Socket.IO server
+        $io = new SocketIO($port);
 
-        // Emitted when a new connection is established
-        $wsWorker->onConnect = function (TcpConnection $connection) {
-            echo "New connection established\n";
-        };
+        // Event when a client connects
+        $io->on('connection', function ($socket) {
+            echo "New client connected: {$socket->id}\n";
 
-        // Emitted when data is received
-        $wsWorker->onMessage = function (TcpConnection $connection, $data) {
-            // Broadcast the message to all connected clients
-            foreach ($connection->worker->connections as $client) {
-                $client->send($data);
-            }
-        };
+            // Event when a client sends a message
+            $socket->on('chat message', function ($message) use ($socket) {
+                echo "Received message: $message\n";
 
-        // Emitted when a connection is closed
-        $wsWorker->onClose = function (TcpConnection $connection) {
-            echo "Connection closed\n";
-        };
+                // Use CodeIgniter's controller and models
+                $response = $this->handleMessage($message);
+
+                // Broadcast the response to all clients
+                $socket->broadcast->emit('chat message', $response);
+            });
+
+            // Event when a client disconnects
+            $socket->on('disconnect', function () use ($socket) {
+                echo "Client disconnected: {$socket->id}\n";
+            });
+        });
 
         // Run the worker
         Worker::runAll();
+    }
+
+    protected function handleMessage($message)
+    {
+        // Load CodeIgniter's services
+        $request = \Config\Services::request();
+        $response = \Config\Services::response();
+
+        // Simulate a controller method call
+        $controller = new \App\Controllers\ChatController($request, $response);
+        return $controller->processMessage($message);
     }
 }

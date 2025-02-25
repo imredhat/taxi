@@ -12,6 +12,8 @@ class Drivers extends BaseController
     public function index()
     {
 
+
+      
         $Brand          = new BrandModel();
         $data['Brands'] = $Brand->orderBy('brand')->withDeleted()->findAll();
 
@@ -69,6 +71,7 @@ class Drivers extends BaseController
 
     public function All()
     {
+
         $crud = new GroceryCrud();
 
         $crud->setLanguage("Persian");

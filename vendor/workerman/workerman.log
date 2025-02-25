@@ -1,0 +1,217 @@
+2025-02-24 13:30:56 pid:1 PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' in C:\xampp\htdocs\taxi\app\Sockets\Events.php:105
+Stack trace:
+#0 C:\xampp\htdocs\taxi\app\Sockets\Events.php(105): PDO->prepare('UPDATE driver S...')
+#1 C:\xampp\htdocs\taxi\app\Sockets\Events.php(21): Events::updateDriverWsId('7f00000107d0000...', '6f28c1719b6fd4d...')
+#2 [internal function]: Events::onMessage('7f00000107d0000...', '{\r\n    "hash" :...')
+#3 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(388): call_user_func('Events::onMessa...', '7f00000107d0000...', '{\r\n    "hash" :...')
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #57)
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#7 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#8 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#9 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#10 {main}
+2025-02-24 13:38:16 pid:1 Error: Class "Config\Database" not found in C:\xampp\htdocs\taxi\system\Model.php:155
+Stack trace:
+#0 C:\xampp\htdocs\taxi\app\Controllers\Socket.php(17): CodeIgniter\Model->__construct()
+#1 C:\xampp\htdocs\taxi\app\Sockets\Events.php(55): App\Controllers\Socket->__construct()
+#2 [internal function]: Events::onConnect('7f00000107d0000...')
+#3 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(383): call_user_func('Events::onConne...', '7f00000107d0000...')
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#7 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#8 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#9 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#10 {main}
+2025-02-24 13:38:23 pid:1 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://doc2.workerman.net/send-buffer-to-worker-fail.html
+2025-02-24 13:38:23 pid:1 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://doc2.workerman.net/send-buffer-to-worker-fail.html
+2025-02-24 13:39:04 pid:1 Error: Class "Config\Database" not found in C:\xampp\htdocs\taxi\system\Model.php:155
+Stack trace:
+#0 C:\xampp\htdocs\taxi\app\Controllers\Socket.php(17): CodeIgniter\Model->__construct()
+#1 C:\xampp\htdocs\taxi\app\Sockets\Events.php(55): App\Controllers\Socket->__construct()
+#2 [internal function]: Events::onConnect('7f00000107d0000...')
+#3 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(383): call_user_func('Events::onConne...', '7f00000107d0000...')
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#7 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#8 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#9 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#10 {main}
+2025-02-24 13:43:41 pid:1 TypeError: rtrim(): Argument #1 ($string) must be of type string, null given in C:\xampp\htdocs\taxi\system\bootstrap.php:47
+Stack trace:
+#0 C:\xampp\htdocs\taxi\system\bootstrap.php(47): rtrim(NULL, '\\/ ')
+#1 C:\xampp\htdocs\taxi\app\Sockets\Events.php(59): require_once('C:\\xampp\\htdocs...')
+#2 [internal function]: Events::onConnect('7f00000107d0000...')
+#3 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(383): call_user_func('Events::onConne...', '7f00000107d0000...')
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#7 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#8 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#9 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#10 {main}
+2025-02-24 13:44:57 pid:1 Error: Failed opening required 'C:\xampp\htdocs\taxi\app\Sockets/../../bootstrap.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\taxi\app\Sockets\Events.php:59
+Stack trace:
+#0 [internal function]: Events::onConnect('7f00000107d0000...')
+#1 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(383): call_user_func('Events::onConne...', '7f00000107d0000...')
+#2 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#7 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#8 {main}
+2025-02-24 13:45:44 pid:1 Error: Failed opening required 'C:\xampp\htdocs\taxi\app\Sockets../../vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\taxi\app\Sockets\Events.php:58
+Stack trace:
+#0 [internal function]: Events::onConnect('7f00000107d0000...')
+#1 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(383): call_user_func('Events::onConne...', '7f00000107d0000...')
+#2 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#7 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#8 {main}
+2025-02-24 13:46:22 pid:1 Error: Failed opening required 'C:\xampp\htdocs\taxi\app\Sockets../../vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\taxi\app\Sockets\Events.php:58
+Stack trace:
+#0 [internal function]: Events::onConnect('7f00000107d0000...')
+#1 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(383): call_user_func('Events::onConne...', '7f00000107d0000...')
+#2 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#7 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#8 {main}
+2025-02-24 13:48:01 pid:1 Error: Failed opening required '' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\taxi\app\Sockets\Events.php:58
+Stack trace:
+#0 [internal function]: Events::onConnect('7f00000107d0000...')
+#1 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(383): call_user_func('Events::onConne...', '7f00000107d0000...')
+#2 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#7 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#8 {main}
+2025-02-24 13:48:19 pid:1 Error: Failed opening required '' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\taxi\app\Sockets\Events.php:58
+Stack trace:
+#0 [internal function]: Events::onConnect('7f00000107d0000...')
+#1 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(383): call_user_func('Events::onConne...', '7f00000107d0000...')
+#2 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#7 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#8 {main}
+2025-02-24 13:49:50 pid:1 Error: Failed opening required '' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\taxi\app\Sockets\Events.php:58
+Stack trace:
+#0 [internal function]: Events::onConnect('7f00000107d0000...')
+#1 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(383): call_user_func('Events::onConne...', '7f00000107d0000...')
+#2 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#7 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#8 {main}
+2025-02-24 13:53:10 pid:1 Error: Failed opening required '' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\taxi\app\Sockets\Events.php:58
+Stack trace:
+#0 [internal function]: Events::onConnect('7f00000107d0000...')
+#1 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(383): call_user_func('Events::onConne...', '7f00000107d0000...')
+#2 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#7 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#8 {main}
+2025-02-24 13:54:04 pid:1 Error: Failed opening required '' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\taxi\app\Sockets\Events.php:58
+Stack trace:
+#0 [internal function]: Events::onConnect('7f00000107d0000...')
+#1 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(383): call_user_func('Events::onConne...', '7f00000107d0000...')
+#2 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#7 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#8 {main}
+2025-02-24 13:54:58 pid:1 Error: Failed opening required '' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\taxi\app\Sockets\Events.php:58
+Stack trace:
+#0 [internal function]: Events::onConnect('7f00000107d0000...')
+#1 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(383): call_user_func('Events::onConne...', '7f00000107d0000...')
+#2 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#3 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#7 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#8 {main}
+2025-02-24 13:55:35 pid:1 Error: Class "Config\Database" not found in C:\xampp\htdocs\taxi\system\Model.php:155
+Stack trace:
+#0 C:\xampp\htdocs\taxi\app\Sockets\Events.php(76): CodeIgniter\Model->__construct()
+#1 [internal function]: Events::onConnect('7f00000107d0000...')
+#2 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(383): call_user_func('Events::onConne...', '7f00000107d0000...')
+#3 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#9 {main}
+2025-02-24 13:57:09 pid:1 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://doc2.workerman.net/send-buffer-to-worker-fail.html
+2025-02-24 13:57:09 pid:1 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://doc2.workerman.net/send-buffer-to-worker-fail.html
+2025-02-24 13:57:09 pid:1 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://doc2.workerman.net/send-buffer-to-worker-fail.html
+2025-02-24 13:57:14 pid:1 Error: Call to undefined function CodeIgniter\Database\config() in C:\xampp\htdocs\taxi\system\Database\Config.php:63
+Stack trace:
+#0 C:\xampp\htdocs\taxi\app\Sockets\Events.php(63): CodeIgniter\Database\Config::connect()
+#1 [internal function]: Events::onConnect('7f00000107d0000...')
+#2 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(383): call_user_func('Events::onConne...', '7f00000107d0000...')
+#3 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#9 {main}
+2025-02-24 13:59:36 pid:1 Error: Call to undefined function CodeIgniter\Database\config() in C:\xampp\htdocs\taxi\system\Database\Config.php:63
+Stack trace:
+#0 C:\xampp\htdocs\taxi\app\Sockets\Events.php(63): CodeIgniter\Database\Config::connect()
+#1 [internal function]: Events::onConnect('7f00000107d0000...')
+#2 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(383): call_user_func('Events::onConne...', '7f00000107d0000...')
+#3 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#9 {main}
+2025-02-24 14:00:35 pid:1 Error: Call to undefined function CodeIgniter\Database\config() in C:\xampp\htdocs\taxi\system\Database\Config.php:63
+Stack trace:
+#0 C:\xampp\htdocs\taxi\app\Sockets\Events.php(64): CodeIgniter\Database\Config::connect()
+#1 [internal function]: Events::onConnect('7f00000107d0000...')
+#2 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(383): call_user_func('Events::onConne...', '7f00000107d0000...')
+#3 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#9 {main}
+2025-02-24 14:05:03 pid:1 Error: Class "Config\Database" not found in C:\xampp\htdocs\taxi\system\Model.php:155
+Stack trace:
+#0 C:\xampp\htdocs\taxi\app\Controllers\Socket.php(17): CodeIgniter\Model->__construct()
+#1 C:\xampp\htdocs\taxi\app\Sockets\Events.php(40): App\Controllers\Socket->__construct()
+#2 [internal function]: Events::onConnect('7f00000107d0000...')
+#3 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(383): call_user_func('Events::onConne...', '7f00000107d0000...')
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#7 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#8 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#9 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#10 {main}

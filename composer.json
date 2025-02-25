@@ -19,7 +19,13 @@
         "pishran/ippanel-client": "^1.0",
         "psr/log": "^3.0",
         "shetabit/multipay": "^1.58",
-        "workerman/workerman": "^5.1"
+        "workerman/gateway-worker": "^4.0",
+        "workerman/phpsocket.io": "^2.1",
+        "workerman/phpsocket.io-for-win": "^1.1",
+        "workerman/workerman": "^4.2",
+        "monken/codeigniter4-burner-openswoole": "dev-main"
+        
+
     },
     "require-dev": {
         "codeigniter/coding-standard": "^1.7",

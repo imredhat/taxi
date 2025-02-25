@@ -32,6 +32,7 @@ class DriverModel extends Model
         'note',
         'hash',
         'scan_govahiname',
+        'ws_id'
     ];
 
     protected $returnType = 'array';

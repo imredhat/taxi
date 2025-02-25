@@ -398,7 +398,7 @@ $Tstatus = isset($_GET['status']) ? $_GET['status'] : null;
                             <td><?php echo $transaction['trans_id'] ?></td>
                             <td><?php echo $transaction['refid'] ?></td>
                             <td><?php echo $transaction['date_p'] ?></td>
-                            <td><?php echo number_format($transaction['amount']) ?> ریال</td>
+                            <td><?php echo number_format($transaction['amount']) ?> تومان</td>
                             
                             <td><?php echo $transaction['bank_name'] ?></td>
                             <td><?php echo $transaction['tel'] ?></td>

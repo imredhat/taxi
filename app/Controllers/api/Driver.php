@@ -29,7 +29,7 @@ class Driver extends ResourceController
         $driverId = $driver['did'];
         $CarModel = new CarModel();
 
-        $cars = $CarModel -> getAllCarsWithLinkedData($driverId);
+        $cars = $CarModel->getAllCarsWithLinkedData($driverId);
 
         if (!$cars) {
             return $this->respond(['status' => 'error', 'message' => 'هیچ خودرویی برای این راننده یافت نشد'], 404);
@@ -136,22 +136,22 @@ class Driver extends ResourceController
 
         $TripsModel = new TripsModel();
         if (!empty($from_date)) {
-            $trips = $TripsModel->getMyRequest($driverID, $from_date, $to_date,"Done");
+            $trips = $TripsModel->getMyRequest($driverID, $from_date, $to_date, "Done");
         } else {
-            $trips = $TripsModel->getMyRequest($driverID,null,null,"Done");
+            $trips = $TripsModel->getMyRequest($driverID, null, null, "Done");
         }
 
 
         $total['totalTrips'] = count($trips);
         $total['totalFare'] = array_sum(array_column($trips, 'driverCustomFare'));
 
-     
+
 
         if (!$trips || empty($trips)) {
             return $this->respond(['status' => 'error', 'message' => 'هیچ سفری یافت نشد'], 404);
         }
 
-        return $this->respond(['status' => 'success', 'trips' => $trips , 'total' => $total]);
+        return $this->respond(['status' => 'success', 'trips' => $trips, 'total' => $total]);
     }
 
 
@@ -175,9 +175,9 @@ class Driver extends ResourceController
 
 
         $TripsModel = new TripsModel();
-        $trips = $TripsModel->getMyRequest($driverID, '','',"Confirm");
+        $trips = $TripsModel->getMyRequest($driverID, '', '', "Confirm");
 
-      
+
 
         if (!$trips || empty($trips)) {
             return $this->respond(['status' => 'success', 'message' => 'هیچ سفری یافت نشد', 'trips' => $trips, 404]);
@@ -190,7 +190,7 @@ class Driver extends ResourceController
     public function Brands()
     {
         $BrandModel = new BrandModel();
-        $brands = $BrandModel->orderBy('brand' , 'DESC')->withDeleted()->findAll();
+        $brands = $BrandModel->orderBy('brand', 'DESC')->withDeleted()->findAll();
 
         if (!$brands) {
             return $this->respond(['status' => 'error', 'message' => 'هیچ برندی یافت نشد'], 404);
@@ -211,7 +211,7 @@ class Driver extends ResourceController
     {
 
         $Types = new TypeModel();
-        $AllTypes = $Types->orderBy('bid' , 'DESC')->withDeleted()->findAll();
+        $AllTypes = $Types->orderBy('bid', 'DESC')->withDeleted()->findAll();
 
         if (!$AllTypes) {
             return $this->respond(['status' => 'error', 'message' => 'هیچ تیپ خودرویی یافت نشد'], 404);
@@ -231,7 +231,8 @@ class Driver extends ResourceController
     }
 
 
-    public function SetActiveCar(){
+    public function SetActiveCar()
+    {
         $hash = $this->request->getPost('hash');
         $carID = $this->request->getPost('carID');
 
@@ -252,7 +253,7 @@ class Driver extends ResourceController
         if (!$car) {
             return $this->respond(['status' => 'error', 'message' => 'خودرو یافت نشد'], 404);
         }
-        
+
 
         $tdata = [
             'active' => 1
@@ -270,7 +271,7 @@ class Driver extends ResourceController
         $hash = $this->request->getPost('hash');
         // $DID = $this->request->getPost('driver_id');
 
-    // print_r($_POST);die();
+        // print_r($_POST);die();
 
         if (empty($hash)) {
             return $this->respond(['status' => 'error', 'message' => 'راننده نامعتبر است'], 400);
@@ -317,14 +318,13 @@ class Driver extends ResourceController
 
         $Car = new CarModel();
         $Car->where('driver_id', $DID)->set(['active' => 0])->update();
-        
-        if($Car->insert($carData)){
+
+        if ($Car->insert($carData)) {
 
             return $this->respond(['status' => 'success', 'message' => 'خودرو با موفقیت ثبت شد']);
-        }else{
+        } else {
             return $this->respond(['status' => 'fail', 'message' => 'خطا در ثبت اطلاعات']);
         }
-
     }
 
 
@@ -338,23 +338,58 @@ class Driver extends ResourceController
                 'maxSize'      => 1024,
             ];
             if ($file->isValid()) {
-                if ( $file->move($config['uploadPath'])) {
+                if ($file->move($config['uploadPath'])) {
 
                     $image = \Config\Services::image()
-                        ->withFile($config['uploadPath'].'/'.$file->getName())
+                        ->withFile($config['uploadPath'] . '/' . $file->getName())
                         ->resize(800, 600, true, 'auto') // تغییر اندازه به 800x600 با حفظ نسبت
-                        ->save($config['uploadPath'].'/'.$file->getName());
+                        ->save($config['uploadPath'] . '/' . $file->getName());
 
                     return $file->getName();
-
-
-                }else{
+                } else {
                     $error = ['error' => 'Failed to upload file'];
                     return $error;
                 }
-
-                
             }
+        }
+    }
+
+
+
+    public function UpdateWsID()
+    {
+        $hash = $this->request->getPost('hash');
+        $client_id = $this->request->getPost('ws_id');
+
+
+        // echo $client_id;die();
+
+        if (empty($hash)) {
+            return $this->respond(['status' => 'error', 'message' => 'driver format error'], 400);
+        }
+
+        $Driver = new DriverModel();
+        $driver = $Driver->where('hash', $hash)->first();
+
+        if (!$driver) {
+            return $this->respond(['status' => 'error', 'message' => ' driver not found'], 401);
+        }
+
+
+
+        $DID = $driver['did'];
+
+
+        
+        $tdata = [
+            'ws_id' => $client_id
+        ];
+
+
+        if ( $Driver->update($DID, $tdata)) {
+            return $this->respond(['status' => 'success', 'message' => 'Ws ID ussssssspdated']);
+        } else {
+            return $this->respond(['status' => 'success', 'message' => 'NO User']);
         }
     }
 }
