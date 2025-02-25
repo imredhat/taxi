@@ -60,6 +60,10 @@ class Auth extends ResourceController
 
         // print_r($user);die();
 
+        if($user['status'] == 'غیرفعال'){
+            return $this->respond(['status' => 'not-active', 'message' => 'حساب کاربری شما هنوز تایید نشده یا غیرفعال است'], 401);
+        }
+
         if ($user && password_verify($password, $user['password'])) {
             $data = [
                 'id'           => $user['did'],
