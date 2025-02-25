@@ -377,7 +377,7 @@ class Trips extends ResourceController
                 // die();
 
                 $message = [
-                    'type' => 'Trips',
+                    'type' => 'Push_Trip',
                     'trips' => $newRequests,
                     'status' => 'success',
                 ];

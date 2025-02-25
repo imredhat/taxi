@@ -38,7 +38,7 @@ class Events
 
     public static function onConnect($client_id)
     {
-        echo "New client connected: $client_id\n";
+        // echo "New client connected: $client_id\n";
 
         Gateway::sendToClient($client_id, json_encode([
             'type'      => 'client_id',
