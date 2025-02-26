@@ -11,4 +11,6 @@ $gateway->count = 1; // Windows supports only 1 process
 $gateway->registerAddress = '127.0.0.1:6321'; // Ensure this matches BusinessWorker
 
 // Run Worker
+Worker::$daemonize = false; // اجرای Workerman در حالت غیر Daemon
+
 Worker::runAll();

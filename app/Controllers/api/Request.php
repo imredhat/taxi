@@ -76,14 +76,14 @@ class Request extends ResourceController
         $carID = $this->request->getPost('carID');
 
         if (empty($hash)) {
-            return $this->respond(['status' => 'error', 'message' => 'راننده نامعتبر است'], 400);
+            return $this->respond(['status' => 'success', 'message' => 'راننده نامعتبر است','data' => []], 200);
         }
 
         $Driver = new DriverModel();
         $driver = $Driver->where('hash', $hash)->first();
 
         if (!$driver) {
-            return $this->respond(['status' => 'error', 'message' => ' راننده نامعتبر است'], 401);
+            return $this->respond(['status' => 'success', 'message' => ' راننده نامعتبر است','data' => []], 200);
         }
 
         $driverID = $driver['did'];
@@ -94,7 +94,7 @@ class Request extends ResourceController
         $requests = $Request->getNewRequest( $driverID , $carID);
 
         if (!$requests) {
-            return $this->respond(['status' => 'error', 'message' => 'هیچ سفری فعالی یافت نشد'], 404);
+            return $this->respond(['status' => 'success', 'message' => 'هیچ سفری فعالی یافت نشد','data' => []], 200);
         }
 
         return $this->respond(['status' => 'success', 'data' => $requests], 200);

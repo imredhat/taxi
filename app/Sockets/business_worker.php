@@ -13,6 +13,8 @@ $worker->registerAddress = '127.0.0.1:6321';
 
 // Assign event handler
 $worker->eventHandler = 'Events';
+Worker::$daemonize = false; // اجرای Workerman در حالت غیر Daemon
+
 
 // Run Worker
 Worker::runAll();
