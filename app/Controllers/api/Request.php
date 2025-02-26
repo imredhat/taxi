@@ -44,8 +44,7 @@ class Request extends ResourceController
         if (!$driver) {
             return $this->respond(['status' => 'error', 'message' => ' راننده نامعتبر است'], 401);
         }
-        
-
+    
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         $data = [
@@ -99,9 +98,5 @@ class Request extends ResourceController
         }
 
         return $this->respond(['status' => 'success', 'data' => $requests], 200);
-    }
-
-  
-
- 
+    } 
 }
