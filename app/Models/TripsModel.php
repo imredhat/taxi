@@ -138,7 +138,7 @@ class TripsModel extends Model
         $builder = $this->db->table($this->table);
 
         $builder->select(
-            'trips.id,startAdd,endAdd,startPoint,endPoint, weather,distance,TimeMin,travelTime,isWait,trip_date,trip_time,trips.dsc,status,trip_type,trips.created_at,driverCustomFare,package,total_passenger,
+            'trips.id,startAdd,endAdd,startPoint,endPoint, weather,distance,TimeMin,travelTime,isWait,trip_date,trip_time,trips.dsc,status,trip_type,trips.created_at,driverCustomFare,package,total_passenger,isGuest,passenger_tel,guest_tel,passenger_name,guest_name
             request.isAccepted as isReserved, 
             packages.dsc as package_dsc,
             '
@@ -170,7 +170,7 @@ class TripsModel extends Model
         $builder = $this->db->table($this->table);
 
         $builder->select(
-            'trips.id,startAdd,endAdd,startPoint,endPoint, weather,distance,TimeMin,isWait,trip_date,trip_time,trips.dsc,status,trip_type,trips.created_at,driverCustomFare,package,
+            'trips.id,startAdd,endAdd,startPoint,endPoint, weather,distance,TimeMin,isWait,trip_date,trip_time,trips.dsc,status,trip_type,trips.created_at,driverCustomFare,package,isGuest,passenger_tel,guest_tel,passenger_name,guest_name
             request.isAccepted as isReserved, 
             packages.dsc as package_dsc,
             '

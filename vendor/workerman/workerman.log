@@ -195,3 +195,19 @@ Stack trace:
 2025-02-25 12:53:44 pid:1 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://doc2.workerman.net/send-buffer-to-worker-fail.html
 2025-02-25 13:07:58 pid:1 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://doc2.workerman.net/send-buffer-to-worker-fail.html
 2025-02-25 13:07:58 pid:1 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://doc2.workerman.net/send-buffer-to-worker-fail.html
+2025-02-25 21:49:10 pid:1 Exception: Could not resolve host: portal.pooyeshtak30.ir in C:\xampp\htdocs\taxi\app\Sockets\Events.php:91
+Stack trace:
+#0 C:\xampp\htdocs\taxi\app\Sockets\Events.php(32): Events::curlLink('https://portal....', Array)
+#1 [internal function]: Events::onMessage('7f00000107d0000...', '{"hash":"7311bf...')
+#2 C:\xampp\htdocs\taxi\vendor\workerman\gateway-worker\src\BusinessWorker.php(388): call_user_func('Events::onMessa...', '7f00000107d0000...', '{"hash":"7311bf...')
+#3 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Connection\TcpConnection.php(653): GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#4 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#5 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1569): Workerman\Events\Select->loop()
+#6 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(1486): Workerman\Worker::forkWorkersForWindows()
+#7 C:\xampp\htdocs\taxi\vendor\workerman\workerman\Worker.php(561): Workerman\Worker::forkWorkers()
+#8 C:\xampp\htdocs\taxi\app\Sockets\business_worker.php(18): Workerman\Worker::runAll()
+#9 {main}
+2025-02-25 21:49:12 pid:1 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://doc2.workerman.net/send-buffer-to-worker-fail.html
+2025-02-25 21:49:12 pid:1 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://doc2.workerman.net/send-buffer-to-worker-fail.html
+2025-02-25 21:52:45 pid:1 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://doc2.workerman.net/send-buffer-to-worker-fail.html
+2025-02-25 21:52:45 pid:1 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://doc2.workerman.net/send-buffer-to-worker-fail.html
