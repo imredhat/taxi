@@ -168,7 +168,7 @@ class TripsModel extends Model
         $builder = $this->db->table($this->table);
 
         $builder->select(
-            'trips.id,startAdd,endAdd,startPoint,endPoint, weather,distance,TimeMin,isWait,trip_date,trip_time,trips.dsc,status,trip_type,trips.created_at,driverCustomFare,package,isGuest,passenger_tel,guest_tel,passenger_name,guest_name
+            'trips.id,startAdd,endAdd,startPoint,endPoint, weather,distance,TimeMin,isWait,trip_date,trip_time,trips.dsc,status,trip_type,trips.created_at,driverCustomFare,package,isGuest,passenger_tel,guest_tel,passenger_name,guest_name,
             request.isAccepted as isReserved, 
             packages.dsc as package_dsc,
             '
@@ -202,7 +202,7 @@ class TripsModel extends Model
 
 
 
-    public function getAllTripsWithDriverName(){
+    public function getAllTripsWithDriverName($from_date=null,$status=null){
         $builder = $this->db->table($this->table);
 
         $builder->select(
@@ -212,6 +212,17 @@ class TripsModel extends Model
         );
 
         $builder->join('driver', 'driver.did = trips.driverID', 'left');
+
+
+        if(!empty($from_date)){
+            $builder->where('trips.trip_date >=' , $from_date);
+        }
+
+
+        if(!empty($status)){
+            $builder->where('trips.status' , $status);
+        }
+
 
         $query = $builder->get();
         return $query->getResultArray();

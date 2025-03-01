@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Controllers\API;
 
 use App\Models\CarModel;
 use App\Models\DriverModel;
 use App\Models\TripsModel;
 use CodeIgniter\RESTful\ResourceController;
+use Exception;
 
 class Auth extends ResourceController
 {
@@ -22,7 +24,15 @@ class Auth extends ResourceController
 
         // Validate phone number format
         if (! preg_match('/^09[0-9]{9}$/', $tel)) {
-            return $this->respond(['status' => 'error', 'message' => 'شماره تلفن نامعتبر است'], 400);
+            return $this->respond(['status' => 'success', 'message' => 'شماره تلفن نامعتبر است'], 400);
+        }
+
+
+        $Driver = new DriverModel();
+        $user = $Driver->where('mobile', $tel)->first();
+
+        if ($user) {
+            return $this->respond(['status' => 'exist', 'message' => 'کاربری با این شماره تلفن از قبل وجود دارد'], 200);
         }
 
         $client = new \Pishran\IpPanel\Client('SA11ECEv6ZmVGJbalKfGGhGcLKjXNA00fxoN5DMoFPs=');
@@ -58,10 +68,12 @@ class Auth extends ResourceController
         $user   = $Driver->where('mobile', $mobile)->first();
         $data   = [];
 
-        // print_r($user);die();
+        // print_r($user['status']);die();
 
-        if($user['status'] == 'غیرفعال'){
-            return $this->respond(['status' => 'not-active', 'message' => 'حساب کاربری شما هنوز تایید نشده یا غیرفعال است'], 401);
+
+
+        if ($user['status'] === 'غیرفعال') {
+            return $this->respond(['status' => 'success', 'message' => 'حساب کاربری شما هنوز تایید نشده یا غیرفعال است'], 200);
         }
 
         if ($user && password_verify($password, $user['password'])) {
@@ -76,17 +88,22 @@ class Auth extends ResourceController
                 'hash'         => md5($user['did'] . $user['password'] . $user['date_created']),
             ];
 
-            
+
             $tripModel = new TripsModel();
-            $trips = $tripModel->getMyRequest($user['did'],null,null,"Done");
+            if ($trips = $tripModel->getMyRequest($user['did'], null, null, "Done")) {
+                $totalTrips = count($trips);
+                $totalFare = array_sum(array_column($trips, 'driverCustomFare'));
 
-            $totalTrips = count($trips);
-            $totalFare = array_sum(array_column($trips, 'driverCustomFare'));
+                $data['total_trips'] = $totalTrips;
+                $data['total_fare'] = $totalFare;
+            } else {
+                $data['total_trips'] = 0;
+                $data['total_fare'] = 0;
+            }
 
-            $data['total_trips'] = $totalTrips;
-            $data['total_fare'] = $totalFare;
 
-            
+
+
 
             session()->set([
                 'user_id'    => $user['did'],
@@ -126,14 +143,14 @@ class Auth extends ResourceController
         }
 
         // Initialize the DriverModel
-        $Driver = new DriverModel();
+        // $Driver = new DriverModel();
         // Query the database to check if a user with the mobile number exists
-        $user = $Driver->where('mobile', $this->request->getPost('mobile'))->first();
+        // $user = $Driver->where('mobile', $this->request->getPost('mobile'))->first();
 
         // Check if the user exists
-        if ($user) {
-            return $this->respond(['status' => 'success', 'message' => 'User  exists']);
-        }
+        // if ($user) {
+        //     return $this->respond(['status' => 'success', 'message' => 'UserExists']);
+        // }
 
         $data = [
             'gender'                       => $this->request->getPost('gender'),
@@ -154,6 +171,7 @@ class Auth extends ResourceController
             'foreign_language_proficiency' => $this->request->getPost('foreign_language_proficiency'),
             'postal_code'                  => $this->request->getPost('postal_code'),
             'password'                     => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            'status'                       => 'غیرفعال',
 
         ];
 
@@ -164,6 +182,8 @@ class Auth extends ResourceController
             //-------------------------------------------------------------//
 
             $DID = $Driver->getInsertID();
+
+            
 
             require_once APPPATH . 'Libraries/jdf.php';
             $currentDate = jdate('Ymd');
@@ -182,6 +202,8 @@ class Auth extends ResourceController
             ];
 
             $Driver->update($DID, $driver);
+
+    
 
             //-------------------------------------------------------------//
 
@@ -221,7 +243,29 @@ class Auth extends ResourceController
             $Car->insert($car);
 
             $hash = md5($DID . $data['password'] . date('Y-m-d H:i:s'));
-            return $this->respond(['status' => 'success', 'message' => 'راننده با موفقیت ثبت شد', 'DriverID' => $DID, 'Hash' => $hash]);
+
+
+
+
+
+
+
+
+
+            $tel =  $this->request->getPost('mobile');
+            $name = $this->request->getPost('name').' '.$this->request->getPost('lname');
+            $client = new \Pishran\IpPanel\Client('SA11ECEv6ZmVGJbalKfGGhGcLKjXNA00fxoN5DMoFPs=');
+
+            $patternCode = '1zl24i03wr9vu3a'; // شناسه الگو
+            $originator  = '+983000505';      // شماره فرستنده
+            $recipient   = $tel;              // شماره گیرنده
+
+            $code   = rand(1000, 9999);
+            $values = ['name' => $name ,'code' => $uniqueId];
+
+            $bulkId = $client->sendPattern($patternCode, $originator, $recipient, $values);
+
+            return $this->respond(['status' => 'success', 'message' => 'راننده با موفقیت ثبت شد', 'DriverID' => $uniqueId, 'Hash' => $hash]);
         }
     }
 
@@ -235,45 +279,41 @@ class Auth extends ResourceController
                 'maxSize'      => 1024,
             ];
 
-            
+
 
 
             if ($file->isValid()) {
-                if ( $file->move($config['uploadPath'])) {
+                if ($file->move($config['uploadPath'])) {
 
                     $image = \Config\Services::image()
-                        ->withFile($config['uploadPath'].'/'.$file->getName())
+                        ->withFile($config['uploadPath'] . '/' . $file->getName())
                         ->resize(800, 600, true, 'auto') // تغییر اندازه به 800x600 با حفظ نسبت
-                        ->save($config['uploadPath'].'/'.$file->getName());
+                        ->save($config['uploadPath'] . '/' . $file->getName());
 
                     return $file->getName();
-
-
-                }else{
+                } else {
                     $error = ['error' => 'Failed to upload file'];
                     return $error;
                 }
-
-                
             }
         }
     }
 
     public function updatePasswd()
     {
-    $phone = $this->request->getPost('mobile');
-    $newPassword = $this->request->getPost('password');
+        $phone = $this->request->getPost('mobile');
+        $newPassword = $this->request->getPost('password');
 
-    $Driver = new DriverModel();
-    $user = $Driver->where('mobile', $phone)->first();
+        $Driver = new DriverModel();
+        $user = $Driver->where('mobile', $phone)->first();
 
-    if ($user) {
-        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-        $Driver->update($user['did'], ['password' => $hashedPassword]);
-        return $this->respond(['status' => 'success', 'message' => 'رمز عبور با موفقیت به روز شد']);
-    } else {
-        return $this->respond(['status' => 'error', 'message' => 'کاربری با این شماره تلفن یافت نشد'], 404);
-    }
+        if ($user) {
+            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+            $Driver->update($user['did'], ['password' => $hashedPassword]);
+            return $this->respond(['status' => 'success', 'message' => 'رمز عبور با موفقیت به روز شد']);
+        } else {
+            return $this->respond(['status' => 'error', 'message' => 'کاربری با این شماره تلفن یافت نشد'], 404);
+        }
     }
 
     public function logout()

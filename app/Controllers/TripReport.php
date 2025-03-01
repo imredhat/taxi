@@ -76,7 +76,7 @@ class TripReport extends ResourceController
         }
 
         if ($status && ! empty($status)) {
-            $query->where('status', $status);
+            $query->where('trips.status', $status);
         }
         if ($payment_status && ! empty($payment_status)) {
             $query->where('payment_status', $payment_status);
@@ -160,7 +160,7 @@ class TripReport extends ResourceController
         }
 
         if ($status && ! empty($status)) {
-            $query->where('status', $status);
+            $query->where('trips.status', $status);
         }
         if ($payment_status && ! empty($payment_status)) {
             $query->where('payment_status', $payment_status);
