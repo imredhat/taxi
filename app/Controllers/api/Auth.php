@@ -203,7 +203,7 @@ class Auth extends ResourceController
 
             $Driver->update($DID, $driver);
 
-    
+            
 
             //-------------------------------------------------------------//
 
@@ -254,18 +254,19 @@ class Auth extends ResourceController
 
             $tel =  $this->request->getPost('mobile');
             $name = $this->request->getPost('name').' '.$this->request->getPost('lname');
+            
             $client = new \Pishran\IpPanel\Client('SA11ECEv6ZmVGJbalKfGGhGcLKjXNA00fxoN5DMoFPs=');
-
+            
             $patternCode = '1zl24i03wr9vu3a'; // شناسه الگو
             $originator  = '+983000505';      // شماره فرستنده
             $recipient   = $tel;              // شماره گیرنده
 
-            $code   = rand(1000, 9999);
-            $values = ['name' => $name ,'code' => $uniqueId];
+            $values = ['name' => $name ,'ref' => $uniqueId];
 
-            $bulkId = $client->sendPattern($patternCode, $originator, $recipient, $values);
+            // $result = $client->sendPattern(patternCode: $patternCode, $originator, $recipient, $values);
 
             return $this->respond(['status' => 'success', 'message' => 'راننده با موفقیت ثبت شد', 'DriverID' => $uniqueId, 'Hash' => $hash]);
+
         }
     }
 
