@@ -204,20 +204,20 @@ class UserModel extends BaseModel
         foreach ($credentials as $key => $value) {
             $this->where(
                 'LOWER(' . $this->db->protectIdentifiers($this->table . ".{$key}") . ')',
-                strtolower($value)
+                strtolower($value),
             );
         }
 
         if ($email !== null) {
             /** @var array<string, int|string|null>|null $data */
             $data = $this->select(
-                sprintf('%1$s.*, %2$s.secret as email, %2$s.secret2 as password_hash', $this->table, $this->tables['identities'])
+                sprintf('%1$s.*, %2$s.secret as email, %2$s.secret2 as password_hash', $this->table, $this->tables['identities']),
             )
                 ->join($this->tables['identities'], sprintf('%1$s.user_id = %2$s.id', $this->tables['identities'], $this->table))
                 ->where($this->tables['identities'] . '.type', Session::ID_TYPE_EMAIL_PASSWORD)
                 ->where(
                     'LOWER(' . $this->db->protectIdentifiers($this->tables['identities'] . '.secret') . ')',
-                    strtolower($email)
+                    strtolower($email),
                 )
                 ->asArray()
                 ->first();
@@ -396,5 +396,15 @@ class UserModel extends BaseModel
         if (! is_a($this->returnType, User::class, true)) {
             throw new LogicException('Return type must be a subclass of ' . User::class);
         }
+    }
+
+    /**
+     * Returns a new User Entity.
+     *
+     * @param array<string, array<array-key, mixed>|bool|float|int|object|string|null> $data (Optional) user data
+     */
+    public function createNewUser(array $data = []): User
+    {
+        return new $this->returnType($data);
     }
 }

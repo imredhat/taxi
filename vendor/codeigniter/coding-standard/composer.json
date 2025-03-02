@@ -21,12 +21,12 @@
     "require": {
         "php": "^8.1",
         "ext-tokenizer": "*",
-        "friendsofphp/php-cs-fixer": "^3.61.1",
-        "nexusphp/cs-config": "^3.24"
+        "friendsofphp/php-cs-fixer": "^3.70",
+        "nexusphp/cs-config": "^3.25"
     },
     "require-dev": {
         "nexusphp/tachycardia": "^2.3",
-        "phpstan/phpstan": "^1.11",
+        "phpstan/phpstan": "^2.0",
         "phpunit/phpunit": "^10.5 || ^11.2"
     },
     "minimum-stability": "dev",
