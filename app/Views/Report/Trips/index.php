@@ -15,7 +15,7 @@
                                 <select name="user" class="form-control bg-body-bg border-0 text-dark rounded-pill chosen">
                                     <option disabled selected value="">انتخاب مشتری...</option>
                                     <?php foreach ($User as $U): ?>
-                                        <option value="<?= $U['id']; ?>"><?= 1000 + $U['id'] . ' - ' . $U['name'] . ' ' . $U['lname']; ?></option>
+                                        <option value="<?= $U['id']; ?>"><?= 1000 + $U['id'] . '-' . $U['name'] . ' ' . $U['lname']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -27,7 +27,7 @@
                                 <select name="driver" class="form-control bg-body-bg border-0 text-dark rounded-pill chosen">
                                     <option disabled selected value="">انتخاب راننده...</option>
                                     <?php foreach ($Drivers as $Driver): ?>
-                                        <option value="<?= $Driver['did']; ?>"><?= 1000 + $Driver['did'] . ' - ' . $Driver['name'] . ' ' . $Driver['lname']; ?></option>
+                                        <option value="<?= $Driver['did']; ?>"><?= 1000 + $Driver['did'] . '-' . $Driver['name'] . ' ' . $Driver['lname']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -91,6 +91,7 @@
                                         <option value="Notifed">اعلام به راننده</option>
                                         <option value="Requested">اعلام آمادگی راننده</option>
                                         <option value="Confirm">پذیرش توسط راننده</option>
+                                        <option value="Service">سرویس</option>
                                         <option value="Cancled">کنسل شده</option>
                                         <option value="Done">به پایان رسیده</option>
                                     </select>
@@ -127,7 +128,9 @@
 <link rel="stylesheet" href="https://behzadi.github.io/persianDatepicker/css/persianDatepicker-default.css" />
 <script src="https://behzadi.github.io/persianDatepicker/js/persianDatepicker.js"></script>
 <script>
-    $(".date").persianDatepicker();
+    $(".date").persianDatepicker({
+        formatDate: "YYYY/0M/0D"
+    });
 </script>
 <script>
     $(".chosen").chosen();

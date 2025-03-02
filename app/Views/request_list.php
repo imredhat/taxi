@@ -65,6 +65,8 @@ function getServiceStatus($status)
             return 'اعلام آمادگی راننده';
         case 'Done':
             return 'به پایان رسیده';
+        case 'Service':
+            return 'سرویس';
     }
 }
 
@@ -86,6 +88,10 @@ function getServiceDIV($status)
             return 'bg-info ';
         case 'Done':
             return 'bg-dark ';
+        case 'Service':
+            return 'bg-light ';
+        default:
+            return '';
     }
 }
 
@@ -284,6 +290,7 @@ function getRandomColorPair()
                         <option value="Reserved">رزرو</option>
                         <option value="Notifed">اطلاع رسانی شده</option>
                         <option value="Requested">درخواست شده</option>
+                        <option value="Service">سرویس</option>
                         <option value="Confirm">تایید شده</option>
                         <option value="Cancled">کنسل شده</option>
                         <option value="Done">به پایان رسیده</option>

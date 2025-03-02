@@ -127,14 +127,14 @@ $name =  $session -> user_name;;
                                             </div>
                                         </div>
                                         <ul class="dropdown-menu border-0 bg-white w-100 admin-link">
-                                            <!-- <li> <a class="dropdown-item d-flex align-items-center text-body"
+                                            <li> <a class="dropdown-item d-flex align-items-center text-body"
                                                     href="profile.html"> <i data-feather="user"></i> <span
                                                         class="ms-2">پروفایل</span> </a> </li>
                                             <li> <a class="dropdown-item d-flex align-items-center text-body"
                                                     href="account.html"> <i data-feather="settings"></i> <span
-                                                        class="ms-2">تنظیمات</span> </a> </li> -->
+                                                        class="ms-2">تنظیمات</span> </a> </li>
                                             <li> <a class="dropdown-item d-flex align-items-center text-body"
-                                                    href="<?=base_url()?>/auth/logout"> <i data-feather="log-out"></i> <span
+                                                    href="logout.html"> <i data-feather="log-out"></i> <span
                                                         class="ms-2">خروج</span> </a> </li>
                                         </ul>
                                     </div>

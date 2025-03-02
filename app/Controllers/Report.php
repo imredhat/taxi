@@ -104,10 +104,6 @@ class Report extends ResourceController
         echo view('parts/footer');
     }
 
-
-
-    
-
     public function PrintAll()
     {
         $user               = $this->request->getGet('user');
@@ -195,6 +191,7 @@ class Report extends ResourceController
         $Done      = 0;
         $Confirm   = 0;
         $Cancled   = 0;
+        $Service   = 0;
         $AllType   = 0;
 
         $TransactinModel = new TransactionModel();
@@ -258,6 +255,9 @@ class Report extends ResourceController
                             break;
                         case 'Confirm':
                             $Confirm++;
+                            break;
+                        case 'Service':
+                            $Service++;
                             break;
                         case 'Cancled':
                             $Cancled++;
@@ -323,7 +323,8 @@ class Report extends ResourceController
         $data['status']['Done']      = $Done;
         $data['status']['Confirm']   = $Confirm;
         $data['status']['Cancled']   = $Cancled;
-        $data['AllType']   = $AllType;
+        $data['status']['Service']   = $Service;
+        $data['AllType']             = $AllType;
 
         // echo json_encode($data);die();
 
@@ -337,25 +338,21 @@ class Report extends ResourceController
         echo view('parts/print/footer');
     }
 
-
-    public function Drivers(){
+    public function Drivers()
+    {
         $requestModel = new \App\Models\RequestModel();
 
-
-        $AllDriver=[];
-        $drivers = (new \App\Models\DriverModel())->findAll();
+        $AllDriver = [];
+        $drivers   = (new \App\Models\DriverModel())->findAll();
         foreach ($drivers as $driver) {
-            $driverID = $driver['did'];
+            $driverID                   = $driver['did'];
             $driver['AcceptedRequests'] = $requestModel->where('driverID', $driverID)->where('isAccepted', 'YES')->countAllResults();
             $driver['RejectedRequests'] = $requestModel->where('driverID', $driverID)->where('isAccepted', 'NO')->countAllResults();
-            $driver['TotalRequests'] = $requestModel->where('driverID', $driverID)->countAllResults();
+            $driver['TotalRequests']    = $requestModel->where('driverID', $driverID)->countAllResults();
 
-            array_push($AllDriver , $driver);
+            array_push($AllDriver, $driver);
         }
-        
 
-
-        
         // echo json_encode($AllDriver);die();
 
         echo view('parts/header');

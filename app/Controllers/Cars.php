@@ -114,9 +114,13 @@ class Cars extends BaseController
         $crud->displayAs('cid', "شناسه ");
         $crud->displayAs('driver_id', " راننده");
         $crud->displayAs('fuel', "نوع سوخت");
-        $crud->displayAs('harf', "حرف");
         $crud->displayAs('motor', "موتور");
+
+        $crud->displayAs('iran', "ایران");
         $crud->displayAs('pelak', "سه رقم پلاک");
+        $crud->displayAs('harf', "حرف");
+        $crud->displayAs('pelak_last', "دو رقم آخر پلاک");
+        
         $crud->displayAs('pelak_mix', "پلاک خودرو");
         $crud->displayAs('pic_back', "تصویر پشت خودرو");
         $crud->displayAs('pic_front', "تصویر جلو خودرو");
@@ -131,8 +135,6 @@ class Cars extends BaseController
         $crud->displayAs('vin', "وین");
         $crud->displayAs('brand', "برند");
         $crud->displayAs('owner', "مالک");
-        $crud->displayAs('iran', "ایران");
-        $crud->displayAs('pelak_last', "دو رقم آخر پلاک");
         $crud->displayAs('type_class', "کلاس خودرو");
         $crud->displayAs('car_system', "سیستم خودرو");
         $crud->displayAs('year', "سال");

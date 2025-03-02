@@ -78,8 +78,7 @@ class Service extends BaseController
 
 
 
-        $data['Trip']    = (new TripsModel())->getAllTripsWithDriverName($persianDate , 'Confirm');
-
+        $data['Trip']    = (new TripsModel())->where('trip_date >=' , $persianDate)->where('status' , 'Confirm')->findAll();
         $data['Package'] = (new PackagesModel())->findAll();
         $data['Title'] = 'سرویس های جاری';
 

@@ -65,6 +65,8 @@ function getServiceStatus($status)
             return 'کنسل شده';
         case 'Done':
             return 'به پایان رسیده';
+        case 'Service':
+            return 'سرویس';
         default:
             return 'نامشخص';
     }

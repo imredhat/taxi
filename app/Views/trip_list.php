@@ -65,6 +65,8 @@ function getServiceStatus($status)
             return 'اعلام آمادگی راننده';
         case 'Done':
             return 'به پایان رسیده';
+        case 'Service':
+            return 'سرویس';
         default:
             return '';
     }
@@ -89,6 +91,8 @@ function getServiceDIV($status)
             return 'bg-info ';
         case 'Done':
             return 'bg-dark ';
+        case 'Service':
+            return 'bg-light ';
     }
 }
 

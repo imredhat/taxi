@@ -60,13 +60,17 @@ class TripReport extends ResourceController
         if ($loc_end && ! empty($loc_end)) {
             $query->like('endAdd', $loc_end);
         }
-        if ($contact_start_date && ! empty($contact_start_date) && $contact_end_date && ! empty($contact_end_date)) {
-            $query->where('call_date >=', $contact_start_date)
-                ->where('call_date <=', $contact_end_date);
+        if ($contact_start_date && ! empty($contact_start_date)) {
+            $query->where('call_date >=', $contact_start_date);
         }
-        if ($trip_start_date && ! empty($trip_start_date) && $trip_end_date && ! empty($trip_end_date)) {
-            $query->where('trip_date >=', $trip_start_date)
-                ->where('trip_date <=', $trip_end_date);
+        if ($contact_end_date && ! empty($contact_end_date)) {
+            $query->where('call_date <=', $contact_end_date);
+        }
+        if ($trip_start_date && ! empty($trip_start_date)) {
+            $query->where('trip_date >=', $trip_start_date);
+        }
+        if ($trip_end_date && ! empty($trip_end_date)) {
+            $query->where('trip_date <=', $trip_end_date);
         }
         if ($guest_name && ! empty($guest_name)) {
             $query->like('guest_name', $guest_name);
@@ -76,7 +80,7 @@ class TripReport extends ResourceController
         }
 
         if ($status && ! empty($status)) {
-            $query->where('trips.status', $status);
+            $query->where('status', $status);
         }
         if ($payment_status && ! empty($payment_status)) {
             $query->where('payment_status', $payment_status);
@@ -160,7 +164,7 @@ class TripReport extends ResourceController
         }
 
         if ($status && ! empty($status)) {
-            $query->where('trips.status', $status);
+            $query->where('status', $status);
         }
         if ($payment_status && ! empty($payment_status)) {
             $query->where('payment_status', $payment_status);
@@ -199,6 +203,7 @@ class TripReport extends ResourceController
         $Done      = 0;
         $Confirm   = 0;
         $Cancled   = 0;
+        $Service    =0;
         $AllType   = 0;
 
         $TransactinModel = new TransactionModel();
@@ -262,6 +267,9 @@ class TripReport extends ResourceController
                             break;
                         case 'Confirm':
                             $Confirm++;
+                            break;
+                        case 'Service':
+                            $Service++;
                             break;
                         case 'Cancled':
                             $Cancled++;
@@ -327,6 +335,7 @@ class TripReport extends ResourceController
         $data['status']['Done']      = $Done;
         $data['status']['Confirm']   = $Confirm;
         $data['status']['Cancled']   = $Cancled;
+        $data['status']['Service'] = $Service;
         $data['AllType']   = $AllType;
 
         // echo json_encode($data);die();

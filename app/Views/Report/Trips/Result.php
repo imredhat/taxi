@@ -65,6 +65,8 @@ function getServiceStatus($status)
             return 'کنسل شده';
         case 'Done':
             return 'به پایان رسیده';
+        case 'Service':
+            return 'سرویس';
         default:
             return 'نامشخص';
     }
@@ -88,6 +90,8 @@ function getServiceDIV($status)
             return 'bg-info ';
         case 'Done':
             return 'bg-dark ';
+        case 'Service':
+            return 'bg-light ';
     }
 }
 
