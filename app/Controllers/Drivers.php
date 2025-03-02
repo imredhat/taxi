@@ -127,23 +127,7 @@ class Drivers extends BaseController
 
         $crud->fieldType("status", "dropdown", ["فعال" => "فعال", "غیرفعال" => "غیرفعال"]);
 
-        $crud->callbackAfterUpdate(function ($stateParameters) {
-            if ($stateParameters->data['status'] == 'فعال') {
-                // Your code here for when status is 'فعال'
-                // For example, you can log the update or send a notification
-
-                $values = [
-                    'name' => $stateParameters->data['name'].' '.$stateParameters->data['lname'],
-                    'user' => $stateParameters->data['mobile'],
-                    'pass' => 'رمز انتخابی',
-                ];
-
-                $this -> SendSMS($stateParameters->data['mobile'] , $values, 'i5ho4846mtx99sa');
-
-
-            }
-            return $stateParameters;
-        });
+  
 
         $crud->fieldType("education_level", "dropdown", [
             "دیپلم"         => "دیپلم",
@@ -186,36 +170,41 @@ class Drivers extends BaseController
 
         $crud->callbackBeforeUpdate(function ($stateParameters) {
 
+
+            $this -> hashPasswordBeforeUpdate($stateParameters);
+
             $driverModel = new DriverModel();
             $driver = $driverModel->find($stateParameters->primaryKeyValue);
 
             if ($driver && $driver['status'] == $stateParameters->data['status']) {
-                return true;
-            }
-
-            if ($stateParameters->data['status'] == 'فعال' && $driver['status'] == 'غیرفعال') {
+                return $stateParameters;
+            } else {
+                if ($stateParameters->data['status'] == 'فعال' && $driver['status'] == 'غیرفعال') {
                 
-                $values = [
-                    'name' => $stateParameters->data['name'] . ' ' . $stateParameters->data['lname'],
-                    'user' => $stateParameters->data['mobile'],
-                    'pass' => 'رمز انتخابی',
-                ];
-
-                $tel =  $stateParameters -> data['mobile'];
-                $name = $stateParameters -> data['name'].' '.$stateParameters -> data['lname'];
-                $client = new \Pishran\IpPanel\Client('SA11ECEv6ZmVGJbalKfGGhGcLKjXNA00fxoN5DMoFPs=');
+                    $values = [
+                        'name' => $stateParameters->data['name'] . ' ' . $stateParameters->data['lname'],
+                        'user' => $stateParameters->data['mobile'],
+                        'pass' => 'رمز انتخابی',
+                    ];
     
-                $patternCode = 'i5ho4846mtx99sa'; // شناسه الگو
-                $originator  = '+983000505';      // شماره فرستنده
-                $recipient   = $tel;              // شماره گیرنده
+                    $tel =  $stateParameters -> data['mobile'];
+                    $name = $stateParameters -> data['name'].' '.$stateParameters -> data['lname'];
+                    $client = new \Pishran\IpPanel\Client('SA11ECEv6ZmVGJbalKfGGhGcLKjXNA00fxoN5DMoFPs=');
+        
+                    $patternCode = 'i5ho4846mtx99sa'; // شناسه الگو
+                    $originator  = '+983000505';      // شماره فرستنده
+                    $recipient   = $tel;              // شماره گیرنده
+        
+                    $values = ['name' => $name,'user' => $tel , 'pass' => 'پسسورد انتخابی'];
+        
+                    $bulkId = $client->sendPattern($patternCode, $originator, $recipient, $values);
+        
+                    return $stateParameters;
+                }
     
-                $values = ['name' => $name,'user' => $tel , 'pass' => 'پسسورد انتخابی'];
-    
-                $bulkId = $client->sendPattern($patternCode, $originator, $recipient, $values);
-    
-                return true;
             }
 
+            
            
         });
 
@@ -258,11 +247,17 @@ class Drivers extends BaseController
 
     private static function hashPasswordBeforeUpdate($stateParameters)
     {
-        if (! empty($stateParameters->data['password'])) {
-            $stateParameters->data['password'] = password_hash($stateParameters->data['password'], PASSWORD_DEFAULT);
-        } else {
-            unset($stateParameters->data['password']);
+        $pass = $stateParameters->data['password'];
+        $hashPass = password_hash($stateParameters->data['password'], PASSWORD_DEFAULT);
+
+        
+        if (password_verify($pass, $hashPass)) {
+
+            echo "hi";
+
+            $stateParameters->data['password'] = $hashPass;
         }
+
         return $stateParameters;
     }
 
