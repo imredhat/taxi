@@ -465,7 +465,6 @@ class ComposerStaticInitabdcb48b0f08db00821ac5600d8ebfa7
         'App\\Libraries\\GroceryCrud' => __DIR__ . '/../..' . '/app/Libraries/GroceryCrud.php',
         'App\\Libraries\\PersianDate' => __DIR__ . '/../..' . '/app/Libraries/PersianDate.php',
         'App\\Libraries\\SBPayment' => __DIR__ . '/../..' . '/app/Libraries/SBPayment.php',
-        'App\\Libraries\\resize' => __DIR__ . '/../..' . '/app/Libraries/resize.php',
         'App\\Models\\AdminModel' => __DIR__ . '/../..' . '/app/Models/AdminModel.php',
         'App\\Models\\BankModel' => __DIR__ . '/../..' . '/app/Models/BankModel.php',
         'App\\Models\\BrandModel' => __DIR__ . '/../..' . '/app/Models/BrandModel.php',

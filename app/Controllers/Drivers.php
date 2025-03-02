@@ -163,6 +163,26 @@ class Drivers extends BaseController
         $this->UploadCallback($crud, 'scan_melli');
         $this->UploadCallback($crud, 'scan_govahiname');
 
+        $crud->callbackAfterDelete(function ($primaryKey) {
+            // Your code here for after delete
+            // For example, you can log the deletion or perform other actions
+
+                // Remove driver cars
+                $carModel = new CarModel();
+                if ($carModel->where('driver_id', $primaryKey -> primaryKeyValue)->countAllResults() > 0) {
+                    $carModel->where('driver_id', $primaryKey -> primaryKeyValue)->delete();
+                }
+
+                // Remove all driver image folders
+                $driverImageFolder = './uploads/drivers/' . $primaryKey -> primaryKeyValue;
+                if (is_dir($driverImageFolder)) {
+                    array_map('unlink', glob("$driverImageFolder/*.*"));
+                    rmdir($driverImageFolder);
+                }
+
+            return true;
+        });
+
 
 
         // $crud->callbackColumn('date_created', function ($value) {

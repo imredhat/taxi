@@ -29,7 +29,6 @@ return array(
     'App\\Libraries\\GroceryCrud' => $baseDir . '/app/Libraries/GroceryCrud.php',
     'App\\Libraries\\PersianDate' => $baseDir . '/app/Libraries/PersianDate.php',
     'App\\Libraries\\SBPayment' => $baseDir . '/app/Libraries/SBPayment.php',
-    'App\\Libraries\\resize' => $baseDir . '/app/Libraries/resize.php',
     'App\\Models\\AdminModel' => $baseDir . '/app/Models/AdminModel.php',
     'App\\Models\\BankModel' => $baseDir . '/app/Models/BankModel.php',
     'App\\Models\\BrandModel' => $baseDir . '/app/Models/BrandModel.php',

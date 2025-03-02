@@ -198,9 +198,9 @@ class Auth extends ResourceController
                 'owner'                   => $this->request->getPost('owner'),                 ////////////////////////////////////
 
                 'iran'                    => $this->request->getPost('plate_part1'),
-                'pelak'                   => $this->request->getPost('plate_part2'),
+                'pelak'                   => $this->request->getPost('plate_part3'),
                 'harf'                    => $this->request->getPost('plate_letter'),
-                'pelak_last'              => $this->request->getPost('plate_part3'),
+                'pelak_last'              => $this->request->getPost('plate_part2'),
 
                 'fuel'                    => $this->request->getPost('fuel_type'),
                 'type'                    => $this->request->getPost('car_type'),
@@ -221,7 +221,7 @@ class Auth extends ResourceController
             $Car->insert($car);
 
             $hash = md5($DID . $data['password'] . date('Y-m-d H:i:s'));
-            return $this->respond(['status' => 'success', 'message' => 'راننده با موفقیت ثبت شد', 'DriverID' => $DID, 'Hash' => $hash]);
+            return $this->respond(['status' => 'success', 'message' => 'راننده با موفقیت ثبت شد', 'DriverID' => $uniqueId, 'Hash' => $hash]);
         }
     }
 
