@@ -88,7 +88,207 @@ class TripReport extends ResourceController
         
         $query->join('driver', 'driver.did = trips.driverID', 'left');
 
-        $data['Trip'] = $query->findAll();
+        $AllTrips = $data['Trip'] = $query->findAll();
+
+        $data['Package'] = (new PackagesModel())->findAll();
+
+        $FullTrip = [];
+
+        $totalIn    = 0;
+        $totalOut   = 0;
+        $bankTotals = [];
+
+        $inCount               = 0;
+        $outCount              = 0;
+        $totalUserCustomFare   = 0;
+        $totalDriverCustomFare = 0;
+        $userCustomFareCount   = 0;
+        $driverCustomFareCount = 0;
+
+        $maxUserCustomFare   = 0;
+        $minUserCustomFare   = PHP_INT_MAX;
+        $maxDriverCustomFare = 0;
+        $minDriverCustomFare = PHP_INT_MAX;
+
+        $maxUserCustomFareTrip   = 0;
+        $maxUserCustomFareUser   = 0;
+        $maxUserCustomFareDriver = 0;
+        $minUserCustomFareTrip   = 0;
+        $minUserCustomFareUser   = 0;
+        $minUserCustomFareDriver = 0;
+
+        $Called    = 0;
+        $Reserved  = 0;
+        $Notifed   = 0;
+        $Requested = 0;
+        $Done      = 0;
+        $Confirm   = 0;
+        $Cancled   = 0;
+        $Service    =0;
+        $AllType   = 0;
+
+        $TransactinModel = new TransactionModel();
+        foreach ($AllTrips as $T) {
+            $T['Transactions'] = $TransactinModel->TripTrans($T['id']);
+            array_push($FullTrip, $T);
+
+
+
+            if (isset($T['status'])) {
+                switch ($T['status']) {
+                    case 'Called':
+                        $Called++;
+                        break;
+                    case 'Reserved':
+                        $Reserved++;
+                        break;
+                    case 'Notifed':
+                        $Notifed++;
+                        break;
+                    case 'Requested':
+                        $Requested++;
+                        break;
+                    case 'Done':
+                        $Done++;
+                        break;
+                    case 'Confirm':
+                        $Confirm++;
+                        break;
+                    case 'Service':
+                        $Service++;
+                        break;
+                    case 'Cancled':
+                        $Cancled++;
+                        break;
+                }
+            }
+
+            
+
+            foreach ($FullTrip as $trip) {
+                if (isset($trip['userCustomFare'])) {
+                    $totalUserCustomFare += $trip['userCustomFare'];
+                    $userCustomFareCount++;
+                    if ($trip['userCustomFare'] > $maxUserCustomFare) {
+                        $maxUserCustomFare       = $trip['userCustomFare'];
+                        $maxUserCustomFareTrip   = $trip['id'];
+                        $maxUserCustomFareUser   = $trip['passenger_id'];
+                        $maxUserCustomFareDriver = $trip['driverID'];
+                    }
+                    if ($trip['userCustomFare'] < $minUserCustomFare) {
+                        $minUserCustomFare       = $trip['userCustomFare'];
+                        $minUserCustomFareTrip   = $trip['id'];
+                        $minUserCustomFareUser   = $trip['passenger_id'];
+                        $minUserCustomFareDriver = $trip['driverID'];
+                    }
+                }
+                if (isset($trip['driverCustomFare']) ) {
+                    $totalDriverCustomFare += $trip['driverCustomFare'];
+                    $driverCustomFareCount++;
+
+                    if ($trip['driverCustomFare'] > $maxDriverCustomFare) {
+                        $maxDriverCustomFare     = $trip['driverCustomFare'];
+                        $maxUserCustomFareTrip   = $trip['id'];
+                        $maxUserCustomFareUser   = $trip['passenger_id'];
+                        $maxUserCustomFareDriver = $trip['driverID'];
+                    }
+                    if ($trip['driverCustomFare'] < $minDriverCustomFare) {
+                        $minDriverCustomFare     = $trip['driverCustomFare'];
+                        $minUserCustomFareTrip   = $trip['id'];
+                        $minUserCustomFareUser   = $trip['passenger_id'];
+                        $minUserCustomFareDriver = $trip['driverID'];
+                    }
+                }
+
+                $AllType++;
+
+                
+            }
+
+            foreach ($T['Transactions'] as $transaction) {
+                if ($transaction['type'] == 'in') {
+                    $totalIn += $transaction['amount'];
+                } elseif ($transaction['type'] == 'out') {
+                    $totalOut += $transaction['amount'];
+                }
+
+                $bank_id = $transaction['bank_id'];
+                if (! isset($bankTotals[$bank_id])) {
+                    $bankTotals[$bank_id] = ['in' => 0, 'out' => 0, 'bank_name' => $transaction['bank_name']];
+                }
+
+                if ($transaction['type'] == 'in') {
+                    $bankTotals[$bank_id]['in'] += $transaction['amount'];
+                } elseif ($transaction['type'] == 'out') {
+                    $bankTotals[$bank_id]['out'] += $transaction['amount'];
+                }
+
+                if ($transaction['type'] == 'in') {
+                    $inCount++;
+                } elseif ($transaction['type'] == 'out') {
+                    $outCount++;
+                }
+
+            }
+
+        }
+
+        $data['totalIn']    = $totalIn;
+        $data['totalOut']   = $totalOut;
+        $data['bankTotals'] = $bankTotals;
+        $data['inCount']    = $inCount;
+        $data['outCount']   = $outCount;
+
+        $data['averageUserCustomFare']   = $userCustomFareCount ? $totalUserCustomFare / $userCustomFareCount : 0;
+        $data['averageDriverCustomFare'] = $driverCustomFareCount ? $totalDriverCustomFare / $driverCustomFareCount : 0;
+
+        $data['maxUserCustomFare']   = $maxUserCustomFare;
+        $data['minUserCustomFare']   = $minUserCustomFare == PHP_INT_MAX ? 0 : $minUserCustomFare;
+        $data['maxDriverCustomFare'] = $maxDriverCustomFare;
+        $data['minDriverCustomFare'] = $minDriverCustomFare == PHP_INT_MAX ? 0 : $minDriverCustomFare;
+
+        $data['maxUserCustomFareTrip']   = $maxUserCustomFareTrip;
+        $data['maxUserCustomFareUser']   = $maxUserCustomFareUser;
+        $data['maxUserCustomFareDriver'] = $maxUserCustomFareDriver;
+
+        $data['minUserCustomFareTrip']   = $minUserCustomFareTrip;
+        $data['minUserCustomFareUser']   = $minUserCustomFareUser;
+        $data['minUserCustomFareDriver'] = $minUserCustomFareDriver;
+
+        $data['t_status']['Called']    = $Called;
+        $data['t_status']['Reserved']  = $Reserved;
+        $data['t_status']['Notifed']   = $Notifed;
+        $data['t_status']['Requested'] = $Requested;
+        $data['t_status']['Done']      = $Done;
+        $data['t_status']['Confirm']   = $Confirm;
+        $data['t_status']['Cancled']   = $Cancled;
+        $data['t_status']['Service'] = $Service;
+        $data['AllType']   = count($AllTrips);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         $data['Package'] = (new PackagesModel())->findAll();
         $Banks           = new BankModel();
@@ -211,8 +411,39 @@ class TripReport extends ResourceController
             $T['Transactions'] = $TransactinModel->TripTrans($T['id']);
             array_push($FullTrip, $T);
 
+
+            if (isset($T['status'])) {
+                switch ($T['status']) {
+                    case 'Called':
+                        $Called++;
+                        break;
+                    case 'Reserved':
+                        $Reserved++;
+                        break;
+                    case 'Notifed':
+                        $Notifed++;
+                        break;
+                    case 'Requested':
+                        $Requested++;
+                        break;
+                    case 'Done':
+                        $Done++;
+                        break;
+                    case 'Confirm':
+                        $Confirm++;
+                        break;
+                    case 'Service':
+                        $Service++;
+                        break;
+                    case 'Cancled':
+                        $Cancled++;
+                        break;
+                }
+            }
+
+
             foreach ($FullTrip as $trip) {
-                if (isset($trip['userCustomFare'])) {
+                if (isset($trip['userCustomFare']) && $trip['status'] == 'Done') {
                     $totalUserCustomFare += $trip['userCustomFare'];
                     $userCustomFareCount++;
                     if ($trip['userCustomFare'] > $maxUserCustomFare) {
@@ -228,7 +459,7 @@ class TripReport extends ResourceController
                         $minUserCustomFareDriver = $trip['driverID'];
                     }
                 }
-                if (isset($trip['driverCustomFare'])) {
+                if (isset($trip['driverCustomFare']) && $trip['status'] == 'Done') {
                     $totalDriverCustomFare += $trip['driverCustomFare'];
                     $driverCustomFareCount++;
 
@@ -248,34 +479,7 @@ class TripReport extends ResourceController
 
                 $AllType++;
 
-                if (isset($trip['status'])) {
-                    switch ($trip['status']) {
-                        case 'Called':
-                            $Called++;
-                            break;
-                        case 'Reserved':
-                            $Reserved++;
-                            break;
-                        case 'Notifed':
-                            $Notifed++;
-                            break;
-                        case 'Requested':
-                            $Requested++;
-                            break;
-                        case 'Done':
-                            $Done++;
-                            break;
-                        case 'Confirm':
-                            $Confirm++;
-                            break;
-                        case 'Service':
-                            $Service++;
-                            break;
-                        case 'Cancled':
-                            $Cancled++;
-                            break;
-                    }
-                }
+             
             }
 
             foreach ($T['Transactions'] as $transaction) {

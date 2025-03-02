@@ -490,12 +490,142 @@ function getRandomColorPair()
     <?php endforeach;endif; ?>
 </tbody>
 </table>  </div>
+
+
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 
 
 
+
+
+
+
+<div class="row">
+    <div class="col-sm-8" style="margin: auto;">
+        
+
+    
+
+<div class="row data_footer">
+
+<div class="col-sm-6">
+    <h3 style="text-align: center;">اطلاعات مالی</h3>
+    <table class="tb table-bordered">
+
+        <tr>
+            <td>مبلغ کل</td>
+            <td><?= number_format($totalIn + $totalOut) ?> تومان</td>
+        </tr>
+        <tr>
+            <td>مجموع دریافتی</td>
+            <td><?= number_format($totalIn) ?> تومان</td>
+        </tr>
+        <tr>
+            <td>مجموع پرداختی</td>
+            <td><?= number_format($totalOut) ?> تومان</td>
+        </tr>
+
+        <tr>
+            <td style="background: #cdcdcd;">میزان سود</td>
+            <td style="background: #cdcdcd;"><?= number_format($totalIn - $totalOut) ?> تومان</td>
+        </tr>
+        <tr>
+            <td>میانگین کرایه دریافتی از مشتری</td>
+            <td><?= number_format($averageUserCustomFare) ?> تومان</td>
+        </tr>
+        <tr>
+            <td>میانگین پرداختی به راننده</td>
+            <td><?= number_format($averageDriverCustomFare) ?> تومان</td>
+        </tr>
+        <tr>
+            <td>بیشترین کرایه دریافتی</td>
+            <td><?= number_format($maxUserCustomFare) ?> تومان
+                | <a id="UserTab" href="<?= base_url() ?>UserCard/<?= $maxUserCustomFareUser ?>">مشاهده مشتری</a>
+            </td>
+        </tr>
+        <tr>
+            <td>کمترین کرایه دریافتی</td>
+            <td><?= number_format($minUserCustomFare) ?> تومان
+                | <a id="UserTab" href="<?= base_url() ?>UserCard/<?= $minUserCustomFareUser ?>">مشاهده مشتری</a>
+            </td>
+        </tr>
+        <tr>
+            <td>بیشترین کرایه پرداختی به راننده</td>
+            <td><?= number_format($maxDriverCustomFare) ?> تومان
+                | <a id="DriverTab" href="<?= base_url() ?>DriverCard/<?= $maxUserCustomFareDriver ?>">مشاهده راننده</a>
+
+            </td>
+        </tr>
+        <tr>
+            <td>کمترین کرایه پرداختی به راننده</td>
+            <td>
+                <?= number_format($minDriverCustomFare) ?> تومان
+                | <a id="DriverTab" href="<?= base_url() ?>DriverCard/<?= $minUserCustomFareDriver ?>">مشاهده راننده</a>
+
+            </td>
+        </tr>
+        </tr>
+
+    </table>
+</div>
+
+
+<div class="col-sm-6">
+    <table class="tb table-bordered">
+        <h3 style="text-align: center;">تعداد و نوع سفارشات</h3>
+
+        <thead>
+            <tr>
+                <th> وضعیت سفارشات</th>
+                <th>تعداد</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <?php foreach ($t_status as $key => $value): ?>
+                <tr>
+                    <td><?= getServiceStatus($key) ?></td>
+                    <td><?= $value ?></td>
+                </tr>
+            <?php endforeach; ?>
+
+            <tr>
+                <td style="background: #cdcdcd;">مجموع سفر</td>
+                <td style="background: #cdcdcd;"><?= $AllType ?></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+
+
+
+
+
+    </div>
+</div>
 
 
 
@@ -562,6 +692,92 @@ span.mosafer {
         float: right !important;
         margin-right: 20px !important;
     }
+
+    .tb {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  .tb-layout: fixed;
+}
+
+.tb caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+
+.tb tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+.tb th,
+.tb td {
+  padding: .625em;
+  text-align: center;
+}
+
+.tb th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+  .tb {
+    border: 0;
+  }
+
+  .tb caption {
+    font-size: 1.3em;
+  }
+  
+  .tb thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  .tb tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  .tb td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  .tb td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a .tb
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .tb td:last-child {
+    border-bottom: 0;
+  }
+}
+
+
+
+
+
 </style>
 
 

@@ -199,6 +199,35 @@ class Report extends ResourceController
             $T['Transactions'] = $TransactinModel->TripTrans($T['id']);
             array_push($FullTrip, $T);
 
+            if (isset($T['status'])) {
+                switch ($T['status']) {
+                    case 'Called':
+                        $Called++;
+                        break;
+                    case 'Reserved':
+                        $Reserved++;
+                        break;
+                    case 'Notifed':
+                        $Notifed++;
+                        break;
+                    case 'Requested':
+                        $Requested++;
+                        break;
+                    case 'Done':
+                        $Done++;
+                        break;
+                    case 'Confirm':
+                        $Confirm++;
+                        break;
+                    case 'Service':
+                        $Service++;
+                        break;
+                    case 'Cancled':
+                        $Cancled++;
+                        break;
+                }
+            }
+
             foreach ($FullTrip as $trip) {
                 if (isset($trip['userCustomFare'])) {
                     $totalUserCustomFare += $trip['userCustomFare'];
@@ -234,36 +263,9 @@ class Report extends ResourceController
                     }
                 }
 
-                $AllType++;
+                // $AllType++;
 
-                if (isset($trip['status'])) {
-                    switch ($trip['status']) {
-                        case 'Called':
-                            $Called++;
-                            break;
-                        case 'Reserved':
-                            $Reserved++;
-                            break;
-                        case 'Notifed':
-                            $Notifed++;
-                            break;
-                        case 'Requested':
-                            $Requested++;
-                            break;
-                        case 'Done':
-                            $Done++;
-                            break;
-                        case 'Confirm':
-                            $Confirm++;
-                            break;
-                        case 'Service':
-                            $Service++;
-                            break;
-                        case 'Cancled':
-                            $Cancled++;
-                            break;
-                    }
-                }
+               
             }
 
             foreach ($T['Transactions'] as $transaction) {
@@ -324,7 +326,7 @@ class Report extends ResourceController
         $data['status']['Confirm']   = $Confirm;
         $data['status']['Cancled']   = $Cancled;
         $data['status']['Service']   = $Service;
-        $data['AllType']             = $AllType;
+        $data['AllType']             = count($AllTrips);
 
         // echo json_encode($data);die();
 
