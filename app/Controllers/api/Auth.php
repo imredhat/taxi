@@ -135,6 +135,9 @@ class Auth extends ResourceController
             return $this->respond(['status' => 'success', 'message' => 'User  exists']);
         }
 
+        $name = $this->request->getPost('first_name') . ' ' . $this->request->getPost('last_name');
+        $tel = $this->request->getPost('mobile');
+
         $data = [
             'gender'                       => $this->request->getPost('gender'),
             'name'                         => $this->request->getPost('first_name'),
@@ -154,6 +157,7 @@ class Auth extends ResourceController
             'foreign_language_proficiency' => $this->request->getPost('foreign_language_proficiency'),
             'postal_code'                  => $this->request->getPost('postal_code'),
             'password'                     => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            'status'                       => 'غیرفعال',
 
         ];
 
@@ -203,7 +207,6 @@ class Auth extends ResourceController
                 'pelak_last'              => $this->request->getPost('plate_part2'),
 
                 'fuel'                    => $this->request->getPost('fuel_type'),
-                'type'                    => $this->request->getPost('car_type'),
                 'vin'                     => $this->request->getPost('vin'),
 
                 'pic_back'                => $this->upload_file('pic_back', "drivers", $DID),
@@ -220,8 +223,20 @@ class Auth extends ResourceController
             $Car = new CarModel();
             $Car->insert($car);
 
+            $client = new \Pishran\IpPanel\Client('SA11ECEv6ZmVGJbalKfGGhGcLKjXNA00fxoN5DMoFPs=');
+
+            $patternCode = '1zl24i03wr9vu3a'; // شناسه الگو
+            $originator  = '+983000505';      // شماره فرستنده
+            $recipient   = $tel;              // شماره گیرنده
+
+            $values = ['name' => $name ,'ref' => $uniqueId];
+
+            $bulkId = $client->sendPattern($patternCode, $originator, $recipient, $values);
+
             $hash = md5($DID . $data['password'] . date('Y-m-d H:i:s'));
             return $this->respond(['status' => 'success', 'message' => 'راننده با موفقیت ثبت شد', 'DriverID' => $uniqueId, 'Hash' => $hash]);
+
+
         }
     }
 
