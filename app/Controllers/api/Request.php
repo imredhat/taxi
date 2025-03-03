@@ -94,7 +94,7 @@ class Request extends ResourceController
         $requests = $Request->getNewRequest( $driverID , $carID);
 
         if (!$requests) {
-            return $this->respond(['status' => 'error', 'message' => 'هیچ سفری فعالی یافت نشد'], 404);
+            return $this->respond(['status' => 'success', 'message' => 'هیچ سفری فعالی یافت نشد','data' => []], 200);
         }
 
         return $this->respond(['status' => 'success', 'data' => $requests], 200);

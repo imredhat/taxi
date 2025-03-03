@@ -83,7 +83,7 @@ class Driver extends ResourceController
         // echo $carID;die();
 
         if (empty($hash)) {
-            return $this->respond(['status' => 'error', 'message' => 'راننده نامعتبر است'], 400);
+            return $this->respond(['status' => 'error', 'message' => 'راننده نامعتبر است'], 200);
         }
 
         $Driver = new DriverModel();
@@ -94,11 +94,11 @@ class Driver extends ResourceController
 
 
         if (!$cars) {
-            return $this->respond(['status' => 'error', 'message' => 'هیچ خودروی فعالی برای این راننده یافت نشد'], 404);
+            return $this->respond(['status' => 'success', 'message' => 'هیچ خودروی فعالی برای این راننده یافت نشد' , 'trips' => []], 200);
         }
 
         if (!$driver) {
-            return $this->respond(['status' => 'error', 'message' => ' راننده نامعتبر است'], 401);
+            return $this->respond(['status' => 'success', 'message' => ' راننده نامعتبر است'], 200);
         }
 
         $driverID = $driver['did'];
@@ -119,7 +119,7 @@ class Driver extends ResourceController
         $trips = $TripsModel->getNewRequest($type_class_name['name']);
 
         if (!$trips || empty($trips)) {
-            return $this->respond(['status' => 'error', 'message' => 'هیچ سفری یافت نشد'], 404);
+            return $this->respond(['status' => 'success', 'message' => 'هیچ سفری یافت نشد', 'trips' => []], 200);
         }
 
         return $this->respond(['status' => 'success', 'trips' => $trips]);
@@ -160,7 +160,7 @@ class Driver extends ResourceController
 
 
         if (!$trips || empty($trips)) {
-            return $this->respond(['status' => 'error', 'message' => 'هیچ سفری یافت نشد'], 404);
+            return $this->respond(['status' => 'error', 'message' => 'هیچ سفری یافت نشد','trips' => []], 200);
         }
 
         return $this->respond(['status' => 'success', 'trips' => $trips, 'total' => $total]);
