@@ -51,7 +51,8 @@ class Request extends ResourceController
             'tripID' => $tripID,
             'driverID' => $driverID,
             'carID' => $carID,
-            'isAccepted' => "W8"
+            'isAccepted' => "W8",
+            'created_at' => date('Y-m-d H:i:s')
         ];
 
         $Rq = new RequestModel();
