@@ -364,7 +364,7 @@ class User extends BaseController
 
         $crud->callbackBeforeUpdate(function ($stateParameters) {
 
-            $fields = ['scan_melli', 'scan_govahiname', 'ax'];
+            $fields = ['ax'];
             foreach ($fields as $field) {
                 $file = $this->request->getFile($field);
                 if (isset($file)) {
@@ -462,5 +462,39 @@ class User extends BaseController
 
         return $this->response->setJSON($data);
 
+    }
+
+    public function RD()
+    {
+        $uri      = service('uri');
+        $segment3 = $uri->getSegment(2);
+        $segment4 = $uri->getSegment(3);
+
+        if ($segment3 == 'ax') {
+
+            $db      = \Config\Database::connect();
+            $builder = $db->table('user');
+            $builder->where('id', $segment4);
+            $query = $builder->get();
+
+            if ($query->getNumRows() > 0) {
+
+                $file = 'uploads/user/' . $segment3 . '/' . $query->getResultArray()[0][$segment3];
+
+                if ($segment3 == 'ax') {
+                    $builder->set('ax', '');
+                    $builder->where('id', $segment4);
+                    $builder->update();
+                    if (is_file($file)) {
+                        unlink($file);
+                    }
+                } 
+                return redirect()->back()->with('success', 'Field updated successfully.');
+            } else {
+                return redirect()->back()->with('error', 'Driver not found.');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Invalid field type.');
+        }
     }
 }
