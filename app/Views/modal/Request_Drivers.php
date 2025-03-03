@@ -28,7 +28,18 @@ foreach ($request as $R) {
                             <div class="d-flex align-items-center">
                                 <div class="flex-shrink-0 lh-1"> <img src="<?= base_url() ?>uploads/drivers/<?= $R['driverID'] ?>/<?= $R['ax'] ?>" class="wh-44 rounded-circle" alt="user"> </div>
                                 <div class="flex-grow-1 ms-10">
-                                    <h4 class="fw-semibold fs-16 mb-0"><?= $R['driver_name'] ?>&zwnj;<?= $R['driver_lname'] ?></h4> <span class="text-gray-light"><?= $R['mobile'] ?></span>
+                                    <h4 class="fw-semibold fs-16 mb-0"><?= $R['driver_name'] ?>&zwnj;<?= $R['driver_lname'] ?></h4> <span class="text-gray-light"><?= $R['mobile'] ?></span><br/>
+                                    <span class="text-gray-light"><?php
+                                    
+                                        require_once APPPATH.'Libraries/jdf.php'; 
+                                        $date_created = new DateTime($R['created_at']);
+                                        $gregorian_date = explode('-', $date_created->format('Y-m-d'));
+                                        $persian_date_array = gregorian_to_jalali($gregorian_date[0], $gregorian_date[1], $gregorian_date[2]);
+                                        $persian_date = implode('/', $persian_date_array);
+                                        $time_created = $date_created->format('H:i:s');
+                                        echo $persian_date . '-' . $time_created;
+                                        
+                                    ?></span>
                                 </div>
                             </div>
                         </div>

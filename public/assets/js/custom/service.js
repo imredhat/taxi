@@ -553,20 +553,20 @@ $(document).ready(function () {
 
 
 
-var ws = new WebSocket("ws://localhost:2021");
+// var ws = new WebSocket("ws://localhost:2021");
 
-ws.onopen = function() {
-    console.log("Connected to WebSocket server");
-};
+// ws.onopen = function() {
+//     console.log("Connected to WebSocket server");
+// };
 
-ws.onmessage = function(event) {
-    console.log("Received: " + event.data);
-    var li = document.createElement("li");
-    li.textContent = event.data;
-    document.getElementById("messages").appendChild(li);
-};
+// ws.onmessage = function(event) {
+//     console.log("Received: " + event.data);
+//     var li = document.createElement("li");
+//     li.textContent = event.data;
+//     document.getElementById("messages").appendChild(li);
+// };
 
-function sendMessage() {
-    var message = document.getElementById("messageInput").value;
-    ws.send(message);
-}
+// function sendMessage() {
+//     var message = document.getElementById("messageInput").value;
+//     ws.send(message);
+// }

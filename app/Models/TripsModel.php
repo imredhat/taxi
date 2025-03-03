@@ -61,7 +61,9 @@ class TripsModel extends Model
         'call_date',
         'call_time',
         'payment_status',
-        'note'
+        'note',
+        'notified_time'
+
     ];
 
     protected $useAutoIncrement = true;

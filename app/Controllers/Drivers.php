@@ -143,6 +143,48 @@ class Drivers extends BaseController
             "پیشرفته" => "پیشرفته",
         ]);
 
+
+        
+
+        $crud->callbackBeforeUpdate(function ($stateParameters) {
+
+
+            $this -> hashPasswordBeforeUpdate($stateParameters);
+
+            $driverModel = new DriverModel();
+            $driver = $driverModel->find($stateParameters->primaryKeyValue);
+
+            if ($driver && $driver['status'] !== $stateParameters->data['status']) {
+
+                if ($stateParameters->data['status'] == 'فعال' && $driver['status'] == 'غیرفعال') {
+                
+                    $values = [
+                        'name' => $stateParameters->data['name'] . ' ' . $stateParameters->data['lname'],
+                        'user' => $stateParameters->data['mobile'],
+                        'pass' => 'رمز انتخابی',
+                    ];
+    
+                    $tel =  $stateParameters -> data['mobile'];
+                    $name = $stateParameters -> data['name'].' '.$stateParameters -> data['lname'];
+                    $client = new \Pishran\IpPanel\Client('SA11ECEv6ZmVGJbalKfGGhGcLKjXNA00fxoN5DMoFPs=');
+        
+                    $patternCode = 'i5ho4846mtx99sa'; // شناسه الگو
+                    $originator  = '+983000505';      // شماره فرستنده
+                    $recipient   = $tel;              // شماره گیرنده
+        
+                    $values = ['name' => $name,'user' => $tel , 'pass' => 'پسسورد انتخابی'];
+        
+                    $bulkId = $client->sendPattern($patternCode, $originator, $recipient, $values);
+        
+                }
+    
+            }
+
+            
+            return $stateParameters;
+           
+        });
+
         $this->UploadCallback($crud, 'ax');
         $this->UploadCallback($crud, 'scan_melli');
         $this->UploadCallback($crud, 'scan_govahiname');
@@ -168,45 +210,6 @@ class Drivers extends BaseController
         });
 
 
-        $crud->callbackBeforeUpdate(function ($stateParameters) {
-
-
-            $this -> hashPasswordBeforeUpdate($stateParameters);
-
-            $driverModel = new DriverModel();
-            $driver = $driverModel->find($stateParameters->primaryKeyValue);
-
-            if ($driver && $driver['status'] == $stateParameters->data['status']) {
-                return $stateParameters;
-            } else {
-                if ($stateParameters->data['status'] == 'فعال' && $driver['status'] == 'غیرفعال') {
-                
-                    $values = [
-                        'name' => $stateParameters->data['name'] . ' ' . $stateParameters->data['lname'],
-                        'user' => $stateParameters->data['mobile'],
-                        'pass' => 'رمز انتخابی',
-                    ];
-    
-                    $tel =  $stateParameters -> data['mobile'];
-                    $name = $stateParameters -> data['name'].' '.$stateParameters -> data['lname'];
-                    $client = new \Pishran\IpPanel\Client('SA11ECEv6ZmVGJbalKfGGhGcLKjXNA00fxoN5DMoFPs=');
-        
-                    $patternCode = 'i5ho4846mtx99sa'; // شناسه الگو
-                    $originator  = '+983000505';      // شماره فرستنده
-                    $recipient   = $tel;              // شماره گیرنده
-        
-                    $values = ['name' => $name,'user' => $tel , 'pass' => 'پسسورد انتخابی'];
-        
-                    $bulkId = $client->sendPattern($patternCode, $originator, $recipient, $values);
-        
-                    return $stateParameters;
-                }
-    
-            }
-
-            
-           
-        });
 
 
 

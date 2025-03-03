@@ -306,10 +306,24 @@ class Trips extends ResourceController
             $Notif->save($data);
         }
 
+        $now = new \DateTime('now', new \DateTimeZone('Asia/Tehran'));
+        $persianDate = \IntlDateFormatter::create('fa_IR@calendar=persian', \IntlDateFormatter::SHORT, \IntlDateFormatter::NONE, 'Asia/Tehran', \IntlDateFormatter::TRADITIONAL)->format($now);
+        $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        $date       = str_replace($persianNumbers, $englishNumbers, $persianDate);
+
+            
+            
         $tdata = [
             'status' => 'Notifed',
-            'package' => $DriverPackage
+            'package' => $DriverPackage,
+            'notified_time' => $date.'-'.$now->format('H:i:s')
         ];
+
+            
+        
+
+
 
         $Trip = new TripsModel();
         $Trip->update($ID, $tdata);
@@ -343,11 +357,22 @@ class Trips extends ResourceController
                 $data['passenger_tel'] = $this->request->getPost('passenger_tel');
                 $UserID = $this->createUser($data['passenger_tel'], $data['passenger_name']);
 
-                $data['passenger_id']=$UserID;
+                $tdata['passenger_id']=$UserID;
             } else {
-                $data['passenger_id'] = $existingUser['id'];
+                $tdata['passenger_id'] = $existingUser['id'];
             }
 
+        }
+
+        if($Status == 'Notifed'){
+
+            $now = new \DateTime('now', new \DateTimeZone('Asia/Tehran'));
+            $persianDate = \IntlDateFormatter::create('fa_IR@calendar=persian', \IntlDateFormatter::SHORT, \IntlDateFormatter::NONE, 'Asia/Tehran', \IntlDateFormatter::TRADITIONAL)->format($now);
+            $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+            $date       = str_replace($persianNumbers, $englishNumbers, $persianDate);
+
+            $tdata['notified_time'] = $date.'-'.$now->format('H:i:s');
         }
 
         // print_r($tdata);die();
@@ -529,6 +554,20 @@ class Trips extends ResourceController
 
         }
 
+
+        if ($data['status'] == 'Notifed') {
+            $now = new \DateTime('now', new \DateTimeZone('Asia/Tehran'));
+            $persianDate = \IntlDateFormatter::create('fa_IR@calendar=persian', \IntlDateFormatter::SHORT, \IntlDateFormatter::NONE, 'Asia/Tehran', \IntlDateFormatter::TRADITIONAL)->format($now);
+            $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+            $date       = str_replace($persianNumbers, $englishNumbers, $persianDate);
+
+            
+            $data['notified_time'] = $date.'-'.$now->format('H:i:s');
+        }
+
+
+        /**************************** END Check *************************************** */
 
         if (isset($data['driverID']) && $data['driverID'] > 0) {
             $RequestModel = new RequestModel();
