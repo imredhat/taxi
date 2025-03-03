@@ -726,6 +726,7 @@ $(document).ready(function () {
         tripData.note = document.querySelector("textarea[name='note']").value;
         tripData.dsc = document.querySelector("textarea[name='dsc']").value;
         tripData.call_date = document.querySelector("input[name='call_date']").value;
+        tripData.call_time = document.querySelector("input[name='call_time']").value;
         tripData.userCustomFare = parseFloat(document.querySelector("input[name='userCustomFare']").value.replace(/,/g, ''));
         tripData.driverCustomFare = parseFloat(document.querySelector("input[name='driverCustomFare']").value.replace(/,/g, ''));
         tripData.guest_name = document.querySelector("input[name='guest_name']").value;

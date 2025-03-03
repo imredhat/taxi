@@ -122,7 +122,7 @@ class RequestModel extends Model
                 request.updated_at AS request_updated_at,
     
                 
-                trips.id,startAdd,endAdd,startPoint,endPoint, weather,distance,TimeMin,travelTime,isWait,trip_date,trip_time,trips.dsc,status,trip_type,trips.created_at,driverCustomFare,package,total_passenger,isGuest,passenger_tel,guest_tel,passenger_name,guest_name
+                trips.id,startAdd,endAdd,startPoint,endPoint, weather,distance,TimeMin,travelTime,isWait,trip_date,trip_time,trips.dsc,status,trip_type,trips.created_at,driverCustomFare,package,total_passenger,isGuest,passenger_tel,guest_tel,passenger_name,guest_name,call_date,call_time,
 
 
                 

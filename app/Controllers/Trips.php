@@ -96,6 +96,9 @@ class Trips extends ResourceController
             $data['company_factor'] = "Yes";
         }
 
+
+        // print_r($data);die();
+
         /*******************************************
          * Check if the passenger is a guest
          ******************************************/
@@ -353,40 +356,40 @@ class Trips extends ResourceController
         $Trip->update($ID, $tdata);
 
 
-        if($Status == 'Notifed'){
-            Gateway::$registerAddress = '0.0.0.0:6321';
+        // if($Status == 'Notifed'){
+        //     Gateway::$registerAddress = '0.0.0.0:6321';
 
-            $DriverModel = new DriverModel();
-            $drivers = $DriverModel->where('ws_id IS NOT NULL and ws_id > 0')->findAll();
+        //     $DriverModel = new DriverModel();
+        //     $drivers = $DriverModel->where('ws_id IS NOT NULL and ws_id > 0')->findAll();
 
             
 
 
-            foreach ($drivers as $driver) {
+        //     foreach ($drivers as $driver) {
 
-                $CarModel = new \App\Models\CarModel();
-                $activeCar = $CarModel->where('driver_id', $driver['did'])->where('active', '1')->first();
-                $activeCarID = $activeCar['cid'];
+        //         $CarModel = new \App\Models\CarModel();
+        //         $activeCar = $CarModel->where('driver_id', $driver['did'])->where('active', '1')->first();
+        //         $activeCarID = $activeCar['cid'];
 
-                $requestModel = new RequestModel();
-                $newRequests = $requestModel->getNewRequest($driver['did'], $activeCarID);
+        //         $requestModel = new RequestModel();
+        //         $newRequests = $requestModel->getNewRequest($driver['did'], $activeCarID);
 
-                // print_r($newRequests);die();
+        //         // print_r($newRequests);die();
 
-                // echo $driver['ws_id'];
-                // die();
+        //         // echo $driver['ws_id'];
+        //         // die();
 
-                $message = [
-                    'type' => 'Push_Trip',
-                    'trips' => $newRequests,
-                    'status' => 'success',
-                ];
+        //         $message = [
+        //             'type' => 'Push_Trip',
+        //             'trips' => $newRequests,
+        //             'status' => 'success',
+        //         ];
 
 
-                Gateway::sendToClient($driver['ws_id'], json_encode($message));
-            }
+        //         Gateway::sendToClient($driver['ws_id'], json_encode($message));
+        //     }
 
-        }
+        // }
 
         if ($Trip) {
             return $this->respond([
@@ -487,6 +490,7 @@ class Trips extends ResourceController
             'note'              => $this->request->getPost('note'),
             'bank'             => $this->request->getPost('bank'),
             'call_date'             => $this->request->getPost('call_date'),
+            'call_time'             => $this->request->getPost('call_time'),
             'company_name'             => $this->request->getPost('company_name'),
             'payment_status'             => $this->request->getPost('payment_status'),            
         ];

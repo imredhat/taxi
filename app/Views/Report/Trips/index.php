@@ -15,7 +15,7 @@
                                 <select name="user" class="form-control bg-body-bg border-0 text-dark rounded-pill chosen">
                                     <option disabled selected value="">انتخاب مشتری...</option>
                                     <?php foreach ($User as $U): ?>
-                                        <option value="<?= $U['id']; ?>"><?= 1000 + $U['id'] . '-' . $U['name'] . ' ' . $U['lname']; ?></option>
+                                        <option value="<?= $U['id']; ?>"><?= 1000 + $U['id'] . ' - ' . $U['name'] . ' ' . $U['lname']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -27,7 +27,7 @@
                                 <select name="driver" class="form-control bg-body-bg border-0 text-dark rounded-pill chosen">
                                     <option disabled selected value="">انتخاب راننده...</option>
                                     <?php foreach ($Drivers as $Driver): ?>
-                                        <option value="<?= $Driver['did']; ?>"><?= 1000 + $Driver['did'] . '-' . $Driver['name'] . ' ' . $Driver['lname']; ?></option>
+                                        <option value="<?= $Driver['did']; ?>"><?= 1000 + $Driver['did'] . ' - ' . $Driver['name'] . ' ' . $Driver['lname']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>

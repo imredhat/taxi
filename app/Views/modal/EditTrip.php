@@ -42,13 +42,18 @@
                                 </div>
 
 
-                                <div class="col-md-6">
+                                <!-- <div class="col-md-6">
                                     <label for="weather"><strong>وضعیت هوا:</strong></label>
                                     <select id="weather" name="weather" class="form-control">
                                         <option value="sunny" <?= $Trip['weather'] == 'sunny' ? 'selected' : '' ?>>مساعد</option>
                                         <option value="rainy" <?= $Trip['weather'] == 'rainy' ? 'selected' : '' ?>>بارانی</option>
                                         <option value="snowy" <?= $Trip['weather'] == 'snowy' ? 'selected' : '' ?>>برفی</option>
                                     </select>
+                                </div> -->
+
+                                <div class="col-md-6">
+                                    <label for="trip_time"><strong>زمان سفر:</strong></label>
+                                    <input type="text" id="call_time" name="call_time" class="form-control" data-jdp="" data-jdp-only-time="" value="<?= $Trip['call_time'] ?>">
                                 </div>
 
 

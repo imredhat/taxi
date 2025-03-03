@@ -619,10 +619,18 @@
 
 
                     <!-- Trip Date -->
-                    <div class="form-group mb-4 col-lg-12">
+                    <div class="form-group mb-4 col-lg-6">
                         <label class="label">تاریخ تماس</label>
                         <div class="form-group position-relative"> <input name="call_date" type="text" class="form-control text-dark ps-5 h-58" placeholder="روز/ماه/سال" data-jdp=""> <i class="ri-calendar-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i> </div>
                     </div>
+
+                    <!-- Trip Time -->
+                    <div class="form-group mb-4 col-lg-6">
+                        <label class="label">زمان تماس</label>
+                        <div class="form-group position-relative"> <input type="text" name="call_time" class="form-control text-dark ps-5 h-58" placeholder="--:-- --" data-jdp="" data-jdp-only-time=""> <i class="ri-time-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i> </div>
+                    </div>
+
+
 
                     <div class="form-group mb-4 col-lg-12">
                         <label class="label">توضیحات آدرس شروع</label>

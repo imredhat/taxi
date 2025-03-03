@@ -148,6 +148,7 @@ $(document).ready(function () {
         tripData.bank = $("body select[name='bank']").val();
         tripData.package_edit = $("body select[name='package_edit']").val();
         tripData.call_date = $("body input[name='call_date']").val();
+        tripData.call_time = $("body input[name='call_time']").val();
         tripData.company_name = $("body input[name='company_name']").val();
         tripData.payment_status = $("body select[name='payment_status']").val();
 

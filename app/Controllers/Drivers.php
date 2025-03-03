@@ -250,14 +250,10 @@ class Drivers extends BaseController
         $pass = $stateParameters->data['password'];
         $hashPass = password_hash($stateParameters->data['password'], PASSWORD_DEFAULT);
 
-        
-        if (password_verify($pass, $hashPass)) {
-
-            echo "hi";
-
+        if (strlen($pass) < 60) {
             $stateParameters->data['password'] = $hashPass;
         }
-
+        
         return $stateParameters;
     }
 

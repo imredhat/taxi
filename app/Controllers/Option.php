@@ -58,7 +58,7 @@ class Option extends BaseController
         $crud->unsetDelete();
         // $crud->unsetRead();
         $crud->columns(['id', 'logo','name', 'base_fare', 'long_fare', 'distance_rate', 'wait_rate']);
-        $crud->fields(['name',  'logo','base_fare', 'long_fare', 'distance_rate', 'wait_rate']);
+        $crud->fields(['name',  'logo','base_fare', 'long_fare', 'distance_rate', 'wait_rate' , 'dsc']);
         $crud->displayAs('id', "شناسه");
         $crud->displayAs('name', "نام");
         $crud->displayAs('base_fare', "کرایه ورودی زیر 50 کیلومتر");
@@ -67,6 +67,7 @@ class Option extends BaseController
         $crud->displayAs('distance_rate', "مبلغ به ازای هر کیلومتر");
         $crud->displayAs('wait_rate', "هزینه هر ساعت توقف");
         $crud->displayAs('logo', "تصویر");
+        $crud->displayAs('dsc', "توضیحات");
         
         $this->UploadCallback($crud, 'logo');
 

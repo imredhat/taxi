@@ -73,7 +73,7 @@ class Auth extends ResourceController
                 'mobile'       => $user['mobile'],
                 'ax'           => $user['ax'],
                 'date_created' => $user['date_created'],
-                'hash'         => md5($user['did'] . $user['password'] . $user['date_created']),
+                'hash'         => $user['hash'],
             ];
 
             
@@ -92,7 +92,7 @@ class Auth extends ResourceController
                 'user_id'    => $user['did'],
                 'name'       => $user['name'] . ' ' . $user['lname'],
                 'isLoggedIn' => true,
-                'hash'       => md5($user['did'] . $user['password'] . $user['date_created']),
+                'hash'         => $user['hash'],
             ]);
 
             $Driver->update($user['did'], ['hash' => $data['hash']]);

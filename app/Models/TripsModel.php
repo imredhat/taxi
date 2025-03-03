@@ -59,6 +59,7 @@ class TripsModel extends Model
         'reqID',
         'bank',
         'call_date',
+        'call_time',
         'payment_status',
         'note'
     ];
@@ -90,7 +91,7 @@ class TripsModel extends Model
             'trips.*, 
             request.id as request_id, request.notifID, request.driverID, request.carID, request.isAccepted, 
             request.created_at as request_created_at, request.updated_at as request_updated_at, 
-            driver.ax as driver_ax, driver.name as driver_name, driver.lname as driver_lname,trips.*,
+            driver.ax as driver_ax, driver.name as driver_name, driver.lname as driver_lname,
             driver.mobile as driver_mobile, 
             cars.cid as cars_cid, cars.brand as cars_brand, cars.fuel as cars_fuel, cars.iran as cars_iran, 
             cars.pelak as cars_pelak, cars.harf as cars_harf, cars.pelak_last as cars_pelak_last, 
@@ -138,7 +139,7 @@ class TripsModel extends Model
         $builder = $this->db->table($this->table);
 
         $builder->select(
-            'trips.id,startAdd,endAdd,startPoint,endPoint, weather,distance,TimeMin,travelTime,isWait,trip_date,trip_time,trips.dsc,status,trip_type,trips.created_at,driverCustomFare,package,total_passenger,isGuest,passenger_tel,guest_tel,passenger_name,guest_name,call_date,
+            'trips.id,startAdd,endAdd,startPoint,endPoint, weather,distance,TimeMin,travelTime,isWait,trip_date,trip_time,trips.dsc,status,trip_type,trips.created_at,driverCustomFare,package,total_passenger,isGuest,passenger_tel,guest_tel,passenger_name,guest_name,call_date,call_time,
             request.isAccepted as isReserved, 
             packages.dsc as package_dsc'
         );
@@ -168,7 +169,7 @@ class TripsModel extends Model
         $builder = $this->db->table($this->table);
 
         $builder->select(
-            'trips.id,startAdd,endAdd,startPoint,endPoint, weather,distance,TimeMin,isWait,trip_date,trip_time,trips.dsc,status,trip_type,trips.created_at,driverCustomFare,package,isGuest,passenger_tel,guest_tel,passenger_name,guest_name,
+            'trips.id,startAdd,endAdd,startPoint,endPoint, weather,distance,TimeMin,travelTime,isWait,trip_date,trip_time,trips.dsc,status,trip_type,trips.created_at,driverCustomFare,package,total_passenger,isGuest,passenger_tel,guest_tel,passenger_name,guest_name,call_date,call_time,
             request.isAccepted as isReserved, 
             packages.dsc as package_dsc,
             '
