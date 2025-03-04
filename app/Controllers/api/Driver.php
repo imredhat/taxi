@@ -404,4 +404,16 @@ class Driver extends ResourceController
             return $this->respond(['status' => 'success', 'message' => 'NO User']);
         }
     }
+
+    public function downloadApp()
+    {
+        $appModel = new \App\Models\AppModel();
+        $lastApp = $appModel->orderBy('id', 'DESC')->first();
+
+        if ($lastApp) {
+            return redirect()->to($lastApp['Link']);
+        } else {
+            return redirect()->back()->with('error', 'No app found.');
+        }
+    }
 }

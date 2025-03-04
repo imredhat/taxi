@@ -250,6 +250,7 @@
                     <li class="menu-item"> <a href="<?php echo base_url()?>Option/Packages" class="menu-link">  پکیج ها </a> </li>
                     <li class="menu-item"> <a href="<?php echo base_url()?>Option/Other" class="menu-link">  ضرایب اضافه  </a> </li>
                     <li class="menu-item"> <a href="<?php echo base_url()?>Option/Banks" class="menu-link">  حساب بانکی  </a> </li>
+                    <li class="menu-item"> <a href="<?php echo base_url()?>Option/App" class="menu-link">  اپلیکیشن  </a> </li>
                 </ul>
             </li>
 
@@ -287,6 +288,10 @@
                     <span class="title">خودرو ها</span>
                 </a>
             </li>
+
+
+
+          
 
 
 

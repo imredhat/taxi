@@ -121,6 +121,9 @@ $routes->add('Option/Banks/(:any)', 'Option::banks/$1');
 
 $routes->post('Option/saveSettings', 'Option::saveSettings');
 
+$routes->add('Option/App', 'Option::app');
+$routes->add('Option/App/(:any)', 'Option::app/$1');
+
 
 $routes->get('Trips', 'Trips::index');
 $routes->get('Trips/New', 'Trips::NewTrip');
@@ -236,6 +239,11 @@ $routes->get('updateCode', 'Drivers::updateCode');
 
 // ______________________________________ API Routes _______________________________________
 
+$routes->get('api/app/download', 'api\Driver::downloadApp');
+
+
+
+$routes->post('api/auth/app', 'api\Auth::app');
 $routes->post('api/auth/login', 'api\Auth::login');
 
 $routes->post('api/auth/checIn', 'api\Auth::checIn');

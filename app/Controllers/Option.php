@@ -69,7 +69,7 @@ class Option extends BaseController
         $crud->displayAs('logo', "تصویر");
         $crud->displayAs('dsc', "توضیحات");
         
-        $this->UploadCallback($crud, 'logo');
+        $this->UploadCallback($crud, 'logo' , 'packages');
 
 
         $output = $crud->render();
@@ -136,16 +136,16 @@ class Option extends BaseController
 
 
 
-    public function UploadCallback($crud, $field)
+    public function UploadCallback($crud, $field ,$folder)
     {
-        $crud->callbackColumn($field, function ($row, $data) use ($field) {
-            return '<img src="' . base_url('assets/uploads/packages/' . $row) . '" width="100" height="200">';
+        $crud->callbackColumn($field, function ($row, $data) use ($field, $folder) {
+            return '<img src="' . base_url('assets/uploads/'.$folder.'/' . $row) . '" width="100" height="200">';
         });
 
-        $crud->callbackEditField($field, function ($row, $pid) use ($field) {
+        $crud->callbackEditField($field, function ($row, $pid) use ($field ,  $folder) {
 
             if (! empty($row)) {
-                return '<img src="' . base_url('assets/uploads/packages/' . $row) . '" width="500" height="500"> <a class="cls" href="' . base_url(relativePath: "RL/") . $field . '/' . $pid . '" ><img src="' . base_url('assets/images/close.png') . '" width="25" /> </a>';
+                return '<img src="' . base_url('assets/uploads/'.$folder.'/' . $row) . '" width="500" height="500"> <a class="cls" href="' . base_url(relativePath: "RL/") . $field . '/' . $pid . '" ><img src="' . base_url('assets/images/close.png') . '" width="25" /> </a>';
             } else {
                 return ' <input name="' . $field . '" id="file-upload" type="file"> ';
             }
@@ -155,20 +155,17 @@ class Option extends BaseController
             return '<input name="' . $field . '" id="file-upload" type="file">';
         });
 
-        $crud->callbackBeforeUpdate(function ($stateParameters) {
+        $crud->callbackBeforeUpdate(function ($stateParameters) use ($folder) {
 
-            $fields = ['logo'];
+            $fields = ['logo' , 'Link'];
             foreach ($fields as $field) {
                 $file = $this->request->getFile($field);
                 if (isset($file)) {
 
-                    if (! file_exists(base_url('assets/uploads/packages/' . $file->getName()))) {
+                    if (! file_exists(base_url('assets/uploads/'.$folder.'/' . $file->getName()))) {
                         if ($file->isValid()) {
-                            $file->move('assets/uploads/packages/', $file->getName());
+                            $file->move('assets/uploads/'.$folder.'/', $file->getName());
                             $stateParameters->data[$field] = $file->getName();
-
-                            // print_r($stateParameters);
-                            // die();
                         }
                     }
                 }
@@ -178,14 +175,14 @@ class Option extends BaseController
             return $stateParameters;
         });
 
-        $crud->callbackBeforeInsert(function ($stateParameters) use ($field) {
+        $crud->callbackBeforeInsert(function ($stateParameters) use ($field, $folder) {
             $fields = ['logo'];
             foreach ($fields as $field) {
                 $file = $this->request->getFile($field);
                 if (isset($file)) {
-                    if (! file_exists(base_url('assets/uploads/packages/'. $file->getName()))) {
+                    if (! file_exists(base_url('assets/uploads/'.$folder.'/'. $file->getName()))) {
                         if ($file->isValid()) {
-                            $file->move('assets/uploads/packages/', $file->getName());
+                            $file->move('assets/uploads/'.$folder.'/', $file->getName());
                             $stateParameters->data[$field] = $file->getName();
                         }
                     }
@@ -231,5 +228,66 @@ class Option extends BaseController
         } else {
             return redirect()->back()->with('error', 'Invalid field type.');
         }
+    }
+
+    public function app()
+    {
+        $crud = new GroceryCrud();
+
+        $crud->setLanguage("Persian");
+        $crud->setTheme('bootstrap');
+        $crud->setTable('app');
+        $crud->setSubject('اپلیکیشن', 'اپلیکیشن ها');
+        $crud->columns(['id', 'appName', 'version', 'Link', 'releaseDate']);
+        $crud->fields(['appName', 'version', 'Link', 'releaseDate']);
+        $crud->displayAs('id', "شناسه");
+        $crud->displayAs('appName', "نام اپلیکیشن");
+        $crud->displayAs('version', "نسخه");
+        $crud->displayAs('Link', "لینک");
+        $crud->displayAs('releaseDate', "تاریخ انتشار");
+
+        $crud->fieldType('appName', 'hidden', 'PoyeshTaxi');
+        $this -> AppUploadCallback($crud , 'Link', 'app');
+
+
+
+        $output = $crud->render();
+
+
+        echo view('parts/header');
+        echo view('parts/side');
+        echo view('crud', (array) $output);
+        echo view('parts/footer_crud');
+    }
+
+
+
+    
+    public function AppUploadCallback($crud, $field ,$folder)
+    {
+     
+      
+        $crud->callbackAddField($field, function () use ($field) {
+            return '<input name="' . $field . '" id="file-upload" type="file">';
+        });
+
+        $crud->callbackBeforeInsert(function ($stateParameters) use ($field, $folder) {
+            $fields = ['Link'];
+            foreach ($fields as $field) {
+                $file = $this->request->getFile($field);
+                if (isset($file)) {
+                    if (! file_exists(base_url('uploads/'.$folder.'/'. $file->getName()))) {
+                        if ($file->isValid()) {
+                            $file->move('uploads/'.$folder.'/', $file->getName());
+                            $stateParameters->data[$field] =base_url('uploads/'.$folder.'/').$file->getName();
+                        }
+                    }
+                }
+            }
+
+            return $stateParameters;
+        });
+
+        return $crud;
     }
 }
