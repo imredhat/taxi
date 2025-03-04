@@ -6,6 +6,7 @@ use App\Controllers\Request;
 use App\Models\BrandModel;
 use App\Models\CarModel;
 use App\Models\DriverModel;
+use App\Models\NotificationModel;
 use App\Models\RequestModel;
 use App\Models\TypeModel;
 use App\Models\TripsModel;
@@ -66,21 +67,8 @@ class Driver extends ResourceController
     public function TripsList()
     {
 
-        // echo "sads";die();
-        
-        if ($this->request->getHeaderLine('Content-Type') === 'application/json') {
-            $data = $this->request->getJSON(true);
-            $hash = $data['hash'];
-            $carID = $data['carID'];
-        } else {
-            $hash = $this->request->getPost('hash');
-            $carID = $this->request->getPost('carID');
-        }
-        // $hash = $this->request->getPost('hash');
-        // $carID = $this->request->getPost('carID');
-        
-
-        // echo $carID;die();
+        $hash = $this->request->getPost('hash');
+        $carID = $this->request->getPost('carID');
 
         if (empty($hash)) {
             return $this->respond(['status' => 'error', 'message' => 'راننده نامعتبر است'], 200);
@@ -94,35 +82,45 @@ class Driver extends ResourceController
 
 
         if (!$cars) {
-            return $this->respond(['status' => 'success', 'message' => 'هیچ خودروی فعالی برای این راننده یافت نشد' , 'trips' => []], 200);
+            return $this->respond(['status' => 'success', 'message' => 'هیچ خودروی فعالی برای این راننده یافت نشد', 'trips' => []], 200);
         }
 
         if (!$driver) {
             return $this->respond(['status' => 'success', 'message' => ' راننده نامعتبر است'], 200);
         }
 
-        $driverID = $driver['did'];
         $type_class = $cars['type_class'];
 
-
-        // print_r($type_class);
-        // die();
 
         $PackagesModel = new \App\Models\PackagesModel();
         $type_class_name = $PackagesModel->where('id', $type_class)->first();
 
-        // echo $type_class_name['name'];
-        // die();
 
 
         $TripsModel = new TripsModel();
         $trips = $TripsModel->getNewRequest($type_class_name['name']);
 
-        if (!$trips || empty($trips)) {
-            return $this->respond(['status' => 'success', 'message' => 'هیچ سفری یافت نشد', 'trips' => []], 200);
+        $alert = false;
+        foreach ($trips as $trip) {
+            if (isset($trip['notified_status']) && $trip['notified_status'] === '0') {
+                $alert = true;
+                break;
+            }
         }
 
-        return $this->respond(['status' => 'success', 'trips' => $trips]);
+        if (!$trips || empty($trips)) {
+            return $this->respond(['status' => 'success', 'alert' => $alert, 'message' => 'هیچ سفری یافت نشد', 'trips' => []], 200);
+        }
+
+
+        if ($alert) {
+            $Notification = new NotificationModel();
+            foreach ($trips as &$trip) {
+                $Notification->update($trip['notifID'], ['notified' => 1, 'updated_at' => date('Y-m-d H:i:s')]);
+            }
+        }
+
+        return $this->respond(['status' => 'success', 'alert' => $alert, 'trips' => $trips]);
     }
 
 
@@ -160,7 +158,7 @@ class Driver extends ResourceController
 
 
         if (!$trips || empty($trips)) {
-            return $this->respond(['status' => 'error', 'message' => 'هیچ سفری یافت نشد','trips' => []], 200);
+            return $this->respond(['status' => 'error', 'message' => 'هیچ سفری یافت نشد', 'trips' => []], 200);
         }
 
         return $this->respond(['status' => 'success', 'trips' => $trips, 'total' => $total]);
@@ -392,13 +390,13 @@ class Driver extends ResourceController
         $DID = $driver['did'];
 
 
-        
+
         $tdata = [
             'ws_id' => $client_id
         ];
 
 
-        if ( $Driver->update($DID, $tdata)) {
+        if ($Driver->update($DID, $tdata)) {
             return $this->respond(['status' => 'success', 'message' => 'Ws ID ussssssspdated']);
         } else {
             return $this->respond(['status' => 'success', 'message' => 'NO User']);

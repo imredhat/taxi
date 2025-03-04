@@ -14,6 +14,7 @@ class NotificationModel extends Model
         'userCustomFare',
         'driverCustomFare',
         'package',
+        'notified',
         'created_at',
     ];
 

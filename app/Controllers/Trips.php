@@ -292,9 +292,9 @@ class Trips extends ResourceController
 
         $data = [
             'tripID'           => $ID,
-            'userCustomFare'   => $UserFare,
-            'driverCustomFare' => $DriverFare,
-            'package'          => $DriverPackage,
+            // 'userCustomFare'   => $UserFare,
+            // 'driverCustomFare' => $DriverFare,
+            // 'package'          => $DriverPackage,
         ];
 
         $Notif         = new NotificationModel();
@@ -306,27 +306,29 @@ class Trips extends ResourceController
             $Notif->save($data);
         }
 
-        $now = new \DateTime('now', new \DateTimeZone('Asia/Tehran'));
-        $persianDate = \IntlDateFormatter::create('fa_IR@calendar=persian', \IntlDateFormatter::SHORT, \IntlDateFormatter::NONE, 'Asia/Tehran', \IntlDateFormatter::TRADITIONAL)->format($now);
-        $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-        $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-        $date       = str_replace($persianNumbers, $englishNumbers, $persianDate);
+        // $now = new \DateTime('now', new \DateTimeZone('Asia/Tehran'));
+        // $persianDate = \IntlDateFormatter::create('fa_IR@calendar=persian', \IntlDateFormatter::SHORT, \IntlDateFormatter::NONE, 'Asia/Tehran', \IntlDateFormatter::TRADITIONAL)->format($now);
+        // $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        // $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        // $date       = str_replace($persianNumbers, $englishNumbers, $persianDate);
+        
+
+        require_once APPPATH . 'Libraries/jdf.php';
+        $currentDate = jdate('Ymd');
+        $currentTime = jdate('H:i:s');
+        $date = $currentDate . '-' . $currentTime;
 
             
             
         $tdata = [
             'status' => 'Notifed',
             'package' => $DriverPackage,
-            'notified_time' => $date.'-'.$now->format('H:i:s')
+            'notified_time' => $date
         ];
-
-            
-        
-
-
 
         $Trip = new TripsModel();
         $Trip->update($ID, $tdata);
+
 
         return $this->respond([
             'status'  => "OK",
