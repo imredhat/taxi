@@ -248,6 +248,7 @@ $routes->post('api/auth/login', 'api\Auth::login');
 
 $routes->post('api/auth/checIn', 'api\Auth::checIn');
 $routes->post('api/auth/updatePasswd', 'api\Auth::updatePasswd');
+$routes->post('api/auth/forget', 'api\Auth::forget');
 
 $routes->post('api/auth/createUser', 'api\Auth::createUser');
 

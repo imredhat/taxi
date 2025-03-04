@@ -274,22 +274,80 @@ class Auth extends ResourceController
         }
     }
 
+    public function forget()
+    {
+        $tel = $this->request->getPost('mobile');
+
+        // Convert Persian numbers to English
+        $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        $tel            = str_replace($persianNumbers, $englishNumbers, $tel);
+
+        // Validate phone number format
+        if (! preg_match('/^09[0-9]{9}$/', $tel)) {
+            return $this->respond(['status' => 'error', 'message' => 'شماره تلفن نامعتبر است'], 400);
+        }
+
+
+        $Driver = new DriverModel();
+        $user = $Driver->where('mobile', $tel)->first();
+
+        // print_r($user);die();
+
+        if (!$user) {
+            return $this->respond(['status' => 'error', 'message' => 'کاربری با این شماره تلفن یافت نشد'], 404);
+        }
+        
+
+        $client = new \Pishran\IpPanel\Client('SA11ECEv6ZmVGJbalKfGGhGcLKjXNA00fxoN5DMoFPs=');
+
+        $patternCode = 's108sjij14ar631'; // شناسه الگو
+        $originator  = '+983000505';      // شماره فرستنده
+        $recipient   = $tel;              // شماره گیرنده
+
+        $code   = rand(1000, 9999);
+        $values = ['code' => $code];
+
+        // $bulkId = $client->sendPattern($patternCode, $originator, $recipient, $values);
+
+        try {
+            $result = $client->sendPattern($patternCode, $originator, $recipient, $values);
+            if ($result) {
+                return $this->respond(['status' => 'success', 'message' => 'کد تایید ارسال شد', 'code' => $code]);
+            } else {
+                return $this->respond(['status' => 'error', 'message' => 'ارسال پیامک با خطا مواجه شد'], 500);
+            }
+        } catch (Exception $e) {
+            return $this->respond(['status' => 'error', 'message' => 'ارسال پیامک با خطا مواجه شد: ' . $e->getMessage()], 500);
+        }
+    }
+
     public function updatePasswd()
     {
-    $phone = $this->request->getPost('mobile');
-    $newPassword = $this->request->getPost('password');
+        $phone = $this->request->getPost('mobile');
+        $newPassword = $this->request->getPost('new_password');
 
-    $Driver = new DriverModel();
-    $user = $Driver->where('mobile', $phone)->first();
+        $Driver = new DriverModel();
+        $user = $Driver->where('mobile', $phone)->first();
 
-    if ($user) {
-        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-        $Driver->update($user['did'], ['password' => $hashedPassword]);
-        return $this->respond(['status' => 'success', 'message' => 'رمز عبور با موفقیت به روز شد']);
-    } else {
-        return $this->respond(['status' => 'error', 'message' => 'کاربری با این شماره تلفن یافت نشد'], 404);
+        if ($user) {
+            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+            $Driver->update($user['did'], ['password' => $hashedPassword]);
+            return $this->respond(['status' => 'success', 'message' => 'رمز عبور با موفقیت به روز شد']);
+        } else {
+            return $this->respond(['status' => 'error', 'message' => 'کاربری با این شماره تلفن یافت نشد'], 404);
+        }
     }
+
+    public function app(){
+        $appModel = new \App\Models\AppModel();
+        $appData = $appModel->orderBy('id', 'DESC')->first();
+        unset($appData['id']);
+
+        return $this->respond(['status' => 'success', 'data' => $appData]);
     }
+
+
 
     public function logout()
     {
