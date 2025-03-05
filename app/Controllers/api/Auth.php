@@ -28,7 +28,7 @@ class Auth extends ResourceController
         $client = new \Pishran\IpPanel\Client('SA11ECEv6ZmVGJbalKfGGhGcLKjXNA00fxoN5DMoFPs=');
 
         $patternCode = 's108sjij14ar631'; // شناسه الگو
-        $originator  = '+983000505';      // شماره فرستنده
+        $originator  = '+953000505';      // شماره فرستنده
         $recipient   = $tel;              // شماره گیرنده
 
         $code   = rand(1000, 9999);
@@ -226,7 +226,7 @@ class Auth extends ResourceController
             $client = new \Pishran\IpPanel\Client('SA11ECEv6ZmVGJbalKfGGhGcLKjXNA00fxoN5DMoFPs=');
 
             $patternCode = '1zl24i03wr9vu3a'; // شناسه الگو
-            $originator  = '+983000505';      // شماره فرستنده
+            $originator  = '+953000505';      // شماره فرستنده
             $recipient   = $tel;              // شماره گیرنده
 
             $values = ['name' => $name ,'ref' => $uniqueId];
@@ -302,7 +302,7 @@ class Auth extends ResourceController
         $client = new \Pishran\IpPanel\Client('SA11ECEv6ZmVGJbalKfGGhGcLKjXNA00fxoN5DMoFPs=');
 
         $patternCode = 's108sjij14ar631'; // شناسه الگو
-        $originator  = '+983000505';      // شماره فرستنده
+        $originator  = '+953000505';      // شماره فرستنده
         $recipient   = $tel;              // شماره گیرنده
 
         $code   = rand(1000, 9999);

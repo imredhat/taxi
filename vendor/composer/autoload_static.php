@@ -24,6 +24,7 @@ class ComposerStaticInitabdcb48b0f08db00821ac5600d8ebfa7
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
         '3917c79c5052b270641b5a200963dbc2' => __DIR__ . '/..' . '/kint-php/kint/init.php',
+        '0f5c2e42cd57cee173a4e5751046ee6b' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/functions.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
     );
 
@@ -77,6 +78,7 @@ class ComposerStaticInitabdcb48b0f08db00821ac5600d8ebfa7
         array (
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
+            'Psr\\Http\\Server\\' => 16,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
             'Psr\\EventDispatcher\\' => 20,
@@ -87,6 +89,10 @@ class ComposerStaticInitabdcb48b0f08db00821ac5600d8ebfa7
             'PhpParser\\' => 10,
             'PhpCsFixer\\' => 11,
             'PHPSocketIO\\' => 12,
+        ),
+        'O' => 
+        array (
+            'OpenSwoole\\Core\\' => 16,
         ),
         'N' => 
         array (
@@ -287,6 +293,11 @@ class ComposerStaticInitabdcb48b0f08db00821ac5600d8ebfa7
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
         ),
+        'Psr\\Http\\Server\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-server-handler/src',
+            1 => __DIR__ . '/..' . '/psr/http-server-middleware/src',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-factory/src',
@@ -328,6 +339,10 @@ class ComposerStaticInitabdcb48b0f08db00821ac5600d8ebfa7
         array (
             0 => __DIR__ . '/..' . '/workerman/phpsocket.io/src',
             1 => __DIR__ . '/..' . '/workerman/phpsocket.io-for-win/src',
+        ),
+        'OpenSwoole\\Core\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/openswoole/core/src',
         ),
         'Nexus\\CsConfig\\' => 
         array (
@@ -466,6 +481,7 @@ class ComposerStaticInitabdcb48b0f08db00821ac5600d8ebfa7
         'App\\Libraries\\PersianDate' => __DIR__ . '/../..' . '/app/Libraries/PersianDate.php',
         'App\\Libraries\\SBPayment' => __DIR__ . '/../..' . '/app/Libraries/SBPayment.php',
         'App\\Models\\AdminModel' => __DIR__ . '/../..' . '/app/Models/AdminModel.php',
+        'App\\Models\\AppModel' => __DIR__ . '/../..' . '/app/Models/AppModel.php',
         'App\\Models\\BankModel' => __DIR__ . '/../..' . '/app/Models/BankModel.php',
         'App\\Models\\BrandModel' => __DIR__ . '/../..' . '/app/Models/BrandModel.php',
         'App\\Models\\CarModel' => __DIR__ . '/../..' . '/app/Models/CarModel.php',
@@ -1896,6 +1912,34 @@ class ComposerStaticInitabdcb48b0f08db00821ac5600d8ebfa7
         'Nexus\\CsConfig\\Test\\AbstractRulesetTestCase' => __DIR__ . '/..' . '/nexusphp/cs-config/src/Test/AbstractRulesetTestCase.php',
         'Nexus\\CsConfig\\Test\\FixerProvider' => __DIR__ . '/..' . '/nexusphp/cs-config/src/Test/FixerProvider.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
+        'OpenSwoole\\Core\\Coroutine\\Client\\ClientConfigInterface' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/Client/ClientConfigInterface.php',
+        'OpenSwoole\\Core\\Coroutine\\Client\\ClientFactoryInterface' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/Client/ClientFactoryInterface.php',
+        'OpenSwoole\\Core\\Coroutine\\Client\\ClientProxy' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/Client/ClientProxy.php',
+        'OpenSwoole\\Core\\Coroutine\\Client\\MysqliClient' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/Client/MysqliClient.php',
+        'OpenSwoole\\Core\\Coroutine\\Client\\MysqliClientFactory' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/Client/MysqliClientFactory.php',
+        'OpenSwoole\\Core\\Coroutine\\Client\\MysqliConfig' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/Client/MysqliConfig.php',
+        'OpenSwoole\\Core\\Coroutine\\Client\\MysqliException' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/Client/MysqliException.php',
+        'OpenSwoole\\Core\\Coroutine\\Client\\MysqliStatementProxy' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/Client/MysqliStatementProxy.php',
+        'OpenSwoole\\Core\\Coroutine\\Client\\PDOClient' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/Client/PDOClient.php',
+        'OpenSwoole\\Core\\Coroutine\\Client\\PDOClientFactory' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/Client/PDOClientFactory.php',
+        'OpenSwoole\\Core\\Coroutine\\Client\\PDOConfig' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/Client/PDOConfig.php',
+        'OpenSwoole\\Core\\Coroutine\\Client\\PDOStatementProxy' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/Client/PDOStatementProxy.php',
+        'OpenSwoole\\Core\\Coroutine\\Client\\PostgresClientFactory' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/Client/PostgresClientFactory.php',
+        'OpenSwoole\\Core\\Coroutine\\Client\\PostgresConfig' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/Client/PostgresConfig.php',
+        'OpenSwoole\\Core\\Coroutine\\Client\\RedisClientFactory' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/Client/RedisClientFactory.php',
+        'OpenSwoole\\Core\\Coroutine\\Client\\RedisConfig' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/Client/RedisConfig.php',
+        'OpenSwoole\\Core\\Coroutine\\Pool\\ClientPool' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/Pool/ClientPool.php',
+        'OpenSwoole\\Core\\Coroutine\\WaitGroup' => __DIR__ . '/..' . '/openswoole/core/src/Coroutine/WaitGroup.php',
+        'OpenSwoole\\Core\\Helper' => __DIR__ . '/..' . '/openswoole/core/src/Helper.php',
+        'OpenSwoole\\Core\\Process\\Manager' => __DIR__ . '/..' . '/openswoole/core/src/Process/Manager.php',
+        'OpenSwoole\\Core\\Psr\\Message' => __DIR__ . '/..' . '/openswoole/core/src/Psr/Message.php',
+        'OpenSwoole\\Core\\Psr\\Middleware\\StackHandler' => __DIR__ . '/..' . '/openswoole/core/src/Psr/Middleware/StackHandler.php',
+        'OpenSwoole\\Core\\Psr\\Request' => __DIR__ . '/..' . '/openswoole/core/src/Psr/Request.php',
+        'OpenSwoole\\Core\\Psr\\Response' => __DIR__ . '/..' . '/openswoole/core/src/Psr/Response.php',
+        'OpenSwoole\\Core\\Psr\\ServerRequest' => __DIR__ . '/..' . '/openswoole/core/src/Psr/ServerRequest.php',
+        'OpenSwoole\\Core\\Psr\\Stream' => __DIR__ . '/..' . '/openswoole/core/src/Psr/Stream.php',
+        'OpenSwoole\\Core\\Psr\\UploadedFile' => __DIR__ . '/..' . '/openswoole/core/src/Psr/UploadedFile.php',
+        'OpenSwoole\\Core\\Psr\\Uri' => __DIR__ . '/..' . '/openswoole/core/src/Psr/Uri.php',
         'Override' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/Override.php',
         'PHPUnit\\Event\\Application\\Finished' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Application/Finished.php',
         'PHPUnit\\Event\\Application\\FinishedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Event/Events/Application/FinishedSubscriber.php',
@@ -4270,6 +4314,8 @@ class ComposerStaticInitabdcb48b0f08db00821ac5600d8ebfa7
         'Psr\\Http\\Message\\UploadedFileInterface' => __DIR__ . '/..' . '/psr/http-message/src/UploadedFileInterface.php',
         'Psr\\Http\\Message\\UriFactoryInterface' => __DIR__ . '/..' . '/psr/http-factory/src/UriFactoryInterface.php',
         'Psr\\Http\\Message\\UriInterface' => __DIR__ . '/..' . '/psr/http-message/src/UriInterface.php',
+        'Psr\\Http\\Server\\MiddlewareInterface' => __DIR__ . '/..' . '/psr/http-server-middleware/src/MiddlewareInterface.php',
+        'Psr\\Http\\Server\\RequestHandlerInterface' => __DIR__ . '/..' . '/psr/http-server-handler/src/RequestHandlerInterface.php',
         'Psr\\Log\\AbstractLogger' => __DIR__ . '/..' . '/psr/log/src/AbstractLogger.php',
         'Psr\\Log\\InvalidArgumentException' => __DIR__ . '/..' . '/psr/log/src/InvalidArgumentException.php',
         'Psr\\Log\\LogLevel' => __DIR__ . '/..' . '/psr/log/src/LogLevel.php',

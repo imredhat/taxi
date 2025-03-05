@@ -20,6 +20,7 @@ class Request extends ResourceController
         $hash = $this->request->getPost('hash');
         $carID = $this->request->getPost('carID');       
         $tripID = $this->request->getPost('tripID');
+        $notifID = $this->request->getPost('notifID');
 
 
         if (empty($hash)) {
@@ -47,12 +48,23 @@ class Request extends ResourceController
     
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+        $Request = new RequestModel();
+        $existingRequest = $Request->where('tripID', $tripID)
+                                   ->where('driverID', $driverID)
+                                   ->where('carID', $carID)
+                                   ->first();
+
+        if ($existingRequest) {
+            return $this->respond(['status' => 'exist', 'message' => 'درخواست قبلاً ثبت شده است'], 200);
+        }
+
         $data = [
             'tripID' => $tripID,
             'driverID' => $driverID,
             'carID' => $carID,
             'isAccepted' => "W8",
-            'created_at' => date('Y-m-d H:i:s')
+            'notifID' => $notifID,
+            'created_at' => gmdate('Y-m-d H:i:s', time() + 12600)
         ];
 
         $Rq = new RequestModel();

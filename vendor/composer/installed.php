@@ -3,7 +3,7 @@
         'name' => 'codeigniter4/framework',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '35843ae24829e5720c9fcfe3fe20a0c649911bf1',
+        'reference' => '261fbd1598722f749fd5285a6a6545a37fa52a02',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -73,7 +73,7 @@
         'codeigniter4/framework' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '35843ae24829e5720c9fcfe3fe20a0c649911bf1',
+            'reference' => '261fbd1598722f749fd5285a6a6545a37fa52a02',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -261,6 +261,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'openswoole/core' => array(
+            'pretty_version' => '22.1.5',
+            'version' => '22.1.5.0',
+            'reference' => '06dae68fdac73341ccf565ecef388434bd893141',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../openswoole/core',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'phar-io/manifest' => array(
             'pretty_version' => '2.0.4',
             'version' => '2.0.4.0',
@@ -434,6 +443,24 @@
             'provided' => array(
                 0 => '1.0',
             ),
+        ),
+        'psr/http-server-handler' => array(
+            'pretty_version' => '1.0.2',
+            'version' => '1.0.2.0',
+            'reference' => '84c4fb66179be4caaf8e97bd239203245302e7d4',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psr/http-server-handler',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'psr/http-server-middleware' => array(
+            'pretty_version' => '1.0.2',
+            'version' => '1.0.2.0',
+            'reference' => 'c1481f747daaa6a0782775cd6a8c26a1bf4a3829',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psr/http-server-middleware',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'psr/log' => array(
             'pretty_version' => '3.0.2',
