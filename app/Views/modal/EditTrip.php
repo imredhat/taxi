@@ -34,9 +34,9 @@
                             </div>
                             <div class="row my-2">
 
-                            <!-- Trip Date -->
+                                <!-- Trip Date -->
 
-                            <div class="col-md-6">
+                                <div class="col-md-6">
                                     <label for="trip_date"><strong>تاریخ تماس:</strong></label>
                                     <input type="text" id="call_date" name="call_date" class="form-control" placeholder="روز/ماه/سال" data-jdp="" value="<?= $Trip['call_date'] ?>">
                                 </div>
@@ -57,12 +57,12 @@
                                 </div>
 
 
-                                
+
                             </div>
 
 
 
-                       <div class="row my-2">
+                            <div class="row my-2">
                                 <div class="col-md-6">
                                     <label for="passengerFare"><strong>کرایه اعلامی به مسافر:</strong></label>
                                     <input type="text" id="passengerFare" name="passengerFare" class="form-control" value="<?= number_format($Trip['userCustomFare']) ?>">
@@ -83,7 +83,7 @@
 
 
 
-                            <div class="col-lg-6">
+                                <div class="col-lg-6">
                                     <label class="label">وضعیت پرداخت</label>
                                     <select name="payment_status" class="form-control" required>
                                         <option value="" <?= empty($Trip['payment_status']) ? 'selected' : '' ?>>انتخاب وضعیت پرداخت</option>
@@ -114,11 +114,11 @@
                                 <div class="col-lg-12">
                                     <label class="label">راننده</label>
                                     <select data-placeholder="انتخاب راننده" id="driver" name="driverID" class="form-control" required>
-                                    <option value="0" >بدون راننده</option>
+                                        <option value="0">بدون راننده</option>
 
                                         <?php foreach ($driver as $driver): ?>
                                             <option value="<?= $driver['did'] ?>" <?= $Trip['driverID'] == $driver['did'] ? 'selected' : '' ?>>
-                                                <?= $driver['code'] . ' -  ' .$driver['name'] . ' ' . $driver['lname']  ?>
+                                                <?= $driver['code'] . ' -  ' . $driver['name'] . ' ' . $driver['lname']  ?>
                                             </option>
                                         <?php endforeach; ?>
 
@@ -133,10 +133,10 @@
                                 <div class="col-lg-12">
                                     <label class="label">خودرو</label>
                                     <select data-placeholder="انتخاب خودرو" id="car" name="carID" class="form-control" required>
-                                        
-                                       
 
-                                        
+
+
+
                                     </select>
                                 </div>
                             </div>
@@ -146,23 +146,23 @@
                             <div class="row my-2">
                                 <div class="col-lg-12">
                                     <label class="label">انتخاب بانک</label>
-                                    <select data-placeholder="انتخاب بانک"  name="bank" class="form-control" required>      
-                                        
-                                    <option value="" <?= empty($Trip['bank']) ? 'selected' : '' ?>>انتخاب بانک</option>
-                                    <?php foreach ($banks as $bank): ?>
-                                        <option value="<?= $bank['id'] ?>" <?= $Trip['bank'] == $bank['id'] ? 'selected' : '' ?>>
-                                        <?= $bank['title'] ?> <?= $bank['bank_name'] ?> <?= $bank['card_number'] ?>
-                                        </option>
-                                    <?php endforeach; ?>
+                                    <select data-placeholder="انتخاب بانک" name="bank" class="form-control" required>
 
-                                        
+                                        <option value="" <?= empty($Trip['bank']) ? 'selected' : '' ?>>انتخاب بانک</option>
+                                        <?php foreach ($banks as $bank): ?>
+                                            <option value="<?= $bank['id'] ?>" <?= $Trip['bank'] == $bank['id'] ? 'selected' : '' ?>>
+                                                <?= $bank['title'] ?> <?= $bank['bank_name'] ?> <?= $bank['card_number'] ?>
+                                            </option>
+                                        <?php endforeach; ?>
+
+
                                     </select>
                                 </div>
                             </div>
 
 
 
-                            
+
 
 
                             <hr style="margin: 40px;" />
@@ -206,7 +206,7 @@
                                 <div class="form-group col-lg-6">
                                     <label class="label">مسافر کسی دیگر است ؟؟</label>
                                     <select id="isGuest" name="isGuest" class="form-control" required>
-                                        
+
                                         <option value="0" <?= $Trip['isGuest'] == '0' ? 'selected' : '' ?>>خیر</option>
                                         <option value="1" <?= $Trip['isGuest'] == '1' ? 'selected' : '' ?>>بله</option>
                                     </select>
@@ -220,36 +220,36 @@
                                 <!-- Passenger Name -->
                                 <div class="form-group mb-4 col-lg-4">
                                     <label class="label">نام مشتری</label>
-                                    <input type="text" name="passenger_name" class="form-control" placeholder="نام مشتری" value="<?=$Trip['passenger_name']?>" required>
+                                    <input type="text" name="passenger_name" class="form-control" placeholder="نام مشتری" value="<?= $Trip['passenger_name'] ?>" required>
                                 </div>
 
                                 <!-- Passenger Phone -->
                                 <div class="form-group mb-4 col-lg-4">
                                     <label class="label">شماره تماس مشتری</label>
-                                    <input type="text" id="passenger_tel" name="passenger_tel" placeholder="شماره تماس مشتری" class="form-control" value="<?= $Trip['passenger_tel']?>">
+                                    <input type="text" id="passenger_tel" name="passenger_tel" placeholder="شماره تماس مشتری" class="form-control" value="<?= $Trip['passenger_tel'] ?>">
                                 </div>
 
                                 <div class="form-group mb-4 col-lg-4">
                                     <label class="label">نام شرکت</label>
-                                    <input type="text" id="company_name" name="company_name" placeholder="نام شرکت" class="form-control" value="<?= $Trip['company_name']?>">
+                                    <input type="text" id="company_name" name="company_name" placeholder="نام شرکت" class="form-control" value="<?= $Trip['company_name'] ?>">
                                 </div>
                             </div>
 
                             <!-- Is Guest -->
 
 
-                            
+
                             <div class="passengerBox row">
-                            <!-- Passenger Name -->
+                                <!-- Passenger Name -->
                                 <div class="form-group mb-4 col-lg-6" style="float:right">
                                     <label class="label">نام مسافر</label>
-                                    <input type="text" name="guest_name" class="form-control" placeholder="نام مسافر" value="<?=$Trip['guest_name']?>">
+                                    <input type="text" name="guest_name" class="form-control" placeholder="نام مسافر" value="<?= $Trip['guest_name'] ?>">
                                 </div>
 
                                 <!-- Passenger Phone -->
                                 <div class="form-group mb-4 col-lg-6" style="float:right">
                                     <label class="label">شماره تماس مسافر</label>
-                                    <input type="tel" name="guest_tel" class="form-control" placeholder="شماره تماس مسافر" value="<?=$Trip['guest_tel']?>">
+                                    <input type="tel" name="guest_tel" class="form-control" placeholder="شماره تماس مسافر" value="<?= $Trip['guest_tel'] ?>">
                                 </div>
 
                             </div>
@@ -259,29 +259,28 @@
                                 .passengerBox {
                                     display: <?= $Trip['isGuest'] == '1' ? 'block' : 'none' ?>;
                                 }
-                                
-                                </style>
+                            </style>
 
 
 
                             <div class="row my-2">
 
 
-                            <div class="col-lg-6"> <label class="label d-block">تعداد مسافر</label>
-                                <div class="product-quantity">
-                                    <div class="add-to-cart-counter gap-3 justify-content-between">
-                                        <button type="button" class="minusBtn bg-success text-white"></button>
-                                        <input type="text" id="total_passenger" name="total_passenger" size="25" class="count border-success" value="<?= $Trip['total_passenger'] ?>">
+                                <div class="col-lg-6"> <label class="label d-block">تعداد مسافر</label>
+                                    <div class="product-quantity">
+                                        <div class="add-to-cart-counter gap-3 justify-content-between">
+                                            <button type="button" class="minusBtn bg-success text-white"></button>
+                                            <input type="text" id="total_passenger" name="total_passenger" size="25" class="count border-success" value="<?= $Trip['total_passenger'] ?>">
 
-                                        <button type="button" class="plusBtn pss bg-success text-white"></button>
+                                            <button type="button" class="plusBtn pss bg-success text-white"></button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
 
 
 
-                                
+
                                 <div class="col-md-6">
                                     <label class="label d-block">تعداد ساعت تاخیر</label>
                                     <div class="product-quantity">
@@ -296,7 +295,7 @@
 
 
                             <div class="row my-2">
-                          
+
                                 <div class="col-md-6">
                                     <label for="status"><strong>وضعیت سفر:</strong></label>
                                     <select name="status_edit" class="form-select form-control ">
@@ -309,7 +308,7 @@
                                         <option value="Cancled" <?= $Trip['status'] == 'Cancled' ? 'selected' : '' ?>>کنسل شده</option>
                                         <option value="Done" <?= $Trip['status'] == 'Done' ? 'selected' : '' ?>>به پایان رسیده</option>
                                     </select>
-                                </div>                           
+                                </div>
 
 
                                 <div class="col-md-6">
@@ -326,24 +325,30 @@
 
 
                             <div class="row my-2">
-                          
-                          <div class="col-md-12">
-                              <label for="status"><strong>توضیحات:</strong></label>
-                              <textarea class="form-control " name="dsc"><?= $Trip['dsc'] ?></textarea>
-                          </div>                           
+
+                                <div class="col-md-12">
+                                    <label for="status"><strong>توضیحات:</strong></label>
+                                    <textarea class="form-control " name="dsc"><?= $Trip['dsc'] ?></textarea>
+                                </div>
 
 
-                        <div class="col-md-12">
-                            <label for="note"><strong>یادداشت:</strong></label>
-                            <textarea class="form-control" name="note"><?= $Trip['note'] ?></textarea>
-                        </div>
-
-                   
-                      </div>
+                                <div class="col-md-12">
+                                    <label for="note"><strong>یادداشت:</strong></label>
+                                    <textarea class="form-control" name="note"><?= $Trip['note'] ?></textarea>
+                                </div>
 
 
+                                <div class="col-md-12">
+                                <hr>
+                                <div style="height: 300px;" id="emap"></div>
+                                </div>
 
-                            <input name="id" value=" <?= $Trip['id']?>"  type="hidden" />
+
+                            </div>
+
+
+
+                            <input name="id" value=" <?= $Trip['id'] ?>" type="hidden" />
                             <input type="hidden" name="passenger_id" value="<?= $Trip['passenger_id'] ?>" />
                             <hr>
                         </div>
@@ -375,7 +380,100 @@
 <script src="<?= base_url() ?>assets/chosen/chosen.jquery.min.js"></script>
 <link rel="stylesheet" href="<?= base_url() ?>assets/chosen/chosen.min.css" />
 
-<script>  var base = "<?=base_url()?>";</script>
+<script>
+    var base = "<?php echo base_url()?>";
+
+
+    startPoint = [<?= explode(',', $Trip['startPoint'])[0] ?>, <?= explode(',', $Trip['startPoint'])[1] ?>];
+    endPoint = [<?= explode(',', $Trip['endPoint'])[0] ?>, <?= explode(',', $Trip['endPoint'])[1] ?>];
+
+    // ایجاد نقشه و تنظیمات اولیه
+    emap = new L.Map('emap', {
+        key: 'web.840318dd773d4122a1d07e932344af55', // اینجا API Key خود را قرار دهید
+        center: startPoint,
+        zoom: 8,
+        maptype: 'neshan'
+    });
+
+    startIcon = L.icon({
+        iconUrl: '../assets/images/start.png',
+        iconSize: [50, 50],
+        iconAnchor: [20, 40],
+        popupAnchor: [0, -60]
+    });
+
+
+    endIcon = L.icon({
+        iconUrl: '../assets/images/end.png',
+        iconSize: [50, 50],
+        iconAnchor: [20, 40],
+        popupAnchor: [0, -60]
+    });
+
+
+
+    // تابع برای رسم مسیر
+    async function drawRoute(startLat, startLng, endLat, endLng) {
+        // پاک کردن نشانگرهای قبلی
+        emap.eachLayer(function(layer) {
+            if (layer instanceof L.Marker || layer instanceof L.Polyline) {
+                emap.removeLayer(layer);
+            }
+        });
+
+
+        // افزودن نشان برای مبدا
+        startMarker = L.marker(startPoint, {
+            icon: startIcon
+        }).addTo(emap);
+
+        // افزودن نشان برای مقصد
+        endMarker = L.marker(endPoint, {
+            icon: endIcon
+        }).addTo(emap);
+
+        response = await fetch(`https://api.neshan.org/v4/direction?type=car&origin=${startLat},${startLng}&destination=${endLat},${endLng}`, {
+            headers: {
+                'Api-Key': 'service.89629a97053c4dd3bd06adb146db6886'
+            }
+        });
+
+        if (!response.ok) {
+            console.error('خطا در دریافت مسیر:', response.statusText);
+            return;
+        }
+
+        data = await response.json();
+
+        polylinePoints = data.routes[0].overview_polyline.points;
+        routeCoordinates = polyline.decode(polylinePoints).map(coord => [coord[0], coord[1]]);
+
+
+        L.polyline(routeCoordinates, {
+            color: 'blue',
+            weight: 5
+        }).addTo(emap);
+
+        emap.fitBounds(routeCoordinates);
+    }
+
+    drawRoute(startPoint[0], startPoint[1], endPoint[0], endPoint[1]);
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+<script>
+    var base = "<?= base_url() ?>";
+</script>
 <script src="<?= base_url() ?>assets/js/custom/edit.js"></script>
 <script>
     gregorianDate = "<?= $Trip['created_at'] ?>";
