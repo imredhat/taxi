@@ -339,34 +339,36 @@
 
 
                                 <div class="col-md-12">
-                                <hr>
-                                <div class="map map-container mt-4 bg-secondary text-white text-center" id="edit_map" style="width: 100%;height: 300px;">
+                                    <hr>
+                                    <div class="map map-container mt-4 bg-secondary text-white text-center" id="edit_map" style="width: 100%;height: 300px;">
+
+                                    </div>
+
 
                                 </div>
 
 
+
+                                <input name="id" value=" <?= $Trip['id'] ?>" type="hidden" />
+                                <input type="hidden" name="passenger_id" value="<?= $Trip['passenger_id'] ?>" />
+                                <input type="hidden" name="startPoint" value="<?= $Trip['startPoint'] ?>" />
+                                <input type="hidden" name="endPoint" value="<?= $Trip['endPoint'] ?>" />
+                                <hr>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary updateTrip">ذخیره تغییرات</button>
                             </div>
 
 
-
-                            <input name="id" value=" <?= $Trip['id'] ?>" type="hidden" />
-                            <input type="hidden" name="passenger_id" value="<?= $Trip['passenger_id'] ?>" />
-                            <hr>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary updateTrip">ذخیره تغییرات</button>
-                        </div>
-
-
-                        <div class="card-footer text-muted text-center">
-                            تاریخ ایجاد: <?= $Trip['created_at'] ?>
+                            <div class="card-footer text-muted text-center">
+                                تاریخ ایجاد: <?= $Trip['created_at'] ?>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
     </form>
 </div>
 
@@ -383,116 +385,130 @@
 
 
 <script>
-// const API_KEY = 'web.840318dd773d4122a1d07e932344af55';
-// const Service_KEY = 'service.89629a97053c4dd3bd06adb146db6886';
+    // const API_KEY = 'web.840318dd773d4122a1d07e932344af55';
+    // const Service_KEY = 'service.89629a97053c4dd3bd06adb146db6886';
 
-startPoint = [<?php echo isset($Trip['startPoint']) ? explode(',', $Trip['startPoint'])[0] : '0'?>, <?php echo isset($Trip['startPoint']) ? explode(',', $Trip['startPoint'])[1] : '0'?>];
-endPoint = [<?php echo isset($Trip['endPoint']) ? explode(',', $Trip['endPoint'])[0] : '0'?>, <?php echo isset($Trip['endPoint']) ? explode(',', $Trip['endPoint'])[1] : '0'?>];
+    startPoint = [<?php echo isset($Trip['startPoint']) ? explode(',', $Trip['startPoint'])[0] : '0' ?>, <?php echo isset($Trip['startPoint']) ? explode(',', $Trip['startPoint'])[1] : '0' ?>];
+    endPoint = [<?php echo isset($Trip['endPoint']) ? explode(',', $Trip['endPoint'])[0] : '0' ?>, <?php echo isset($Trip['endPoint']) ? explode(',', $Trip['endPoint'])[1] : '0' ?>];
 
-console.log(startPoint);
+    console.log(startPoint);
 
-initMap('EditItem', 'edit_map', startPoint, endPoint, 'service.89629a97053c4dd3bd06adb146db6886' , 'web.840318dd773d4122a1d07e932344af55');
+    initMap('EditItem', 'edit_map', startPoint, endPoint, 'service.89629a97053c4dd3bd06adb146db6886', 'web.840318dd773d4122a1d07e932344af55');
+
+    var startPointInput = $("input[name='startPoint']");
+    var endPointInput = $("input[name='endPoint']");
 
 
-
-function initMap(modalId, mapId, startCoords, endCoords, Service_KEY,API_KEY) {
+    function initMap(modalId, mapId, startCoords, endCoords, Service_KEY, API_KEY) {
         setTimeout(() => {
-            // let modalMap = L.map(mapId).setView(startCoords, 12);
+                // let modalMap = L.map(mapId).setView(startCoords, 12);
 
 
-            let modalMap = new L.Map(mapId, {
-                key: API_KEY,
-                maptype: 'neshan',
-                center: [35.6892, 51.3890], // مختصات تهران
-                zoom: 8
-            });
-
-            L.tileLayer('https://api.neshan.org/v4/BaseMap/{z}/{x}/{y}', {
-                attribution: '© Neshan',
-                maxZoom: 18
-            }).addTo(modalMap);
-
-
-            async function drawRoute(startLat, startLng, endLat, endLng) {
-                modalMap.eachLayer(function (layer) {
-                    if (layer instanceof L.Marker || layer instanceof L.Polyline) {
-                        modalMap.removeLayer(layer);
-                    }
+                let modalMap = new L.Map(mapId, {
+                    key: API_KEY,
+                    maptype: 'neshan',
+                    center: [35.6892, 51.3890], // مختصات تهران
+                    zoom: 8
                 });
 
-                startIcon = L.icon({
-                    iconUrl: '../assets/images/start.png',
-                    iconSize: [50, 50],
-                    iconAnchor: [20, 40],
-                    popupAnchor: [0, -60],
-                    draggable: true
-                });
-    
-                endIcon = L.icon({
-                    iconUrl: '../assets/images/end.png',
-                    iconSize: [50, 50],
-                    iconAnchor: [20, 40],
-                    popupAnchor: [0, -60],
-                    draggable: true
-                });
-    
-    
-                let startPoint = L.marker(startCoords, { icon: startIcon, draggable: true }).addTo(modalMap);
-                let endPoint = L.marker(endCoords, { icon: endIcon, draggable: true }).addTo(modalMap);
+                L.tileLayer('https://api.neshan.org/v4/BaseMap/{z}/{x}/{y}', {
+                    attribution: '© Neshan',
+                    maxZoom: 18
+                }).addTo(modalMap);
 
-                try {
-                    let response = await fetch(`https://api.neshan.org/v4/direction?type=car&origin=${startLat},${startLng}&destination=${endLat},${endLng}`, {
-                        headers: {
-                            'Api-Key': Service_KEY
+
+                async function drawRoute(startLat, startLng, endLat, endLng) {
+                    modalMap.eachLayer(function(layer) {
+                        if (layer instanceof L.Marker || layer instanceof L.Polyline) {
+                            modalMap.removeLayer(layer);
                         }
                     });
 
-                    if (!response.ok) {
-                        console.error('Error fetching route:', response.statusText);
-                        return;
-                    }
+                    startIcon = L.icon({
+                        iconUrl: '../assets/images/start.png',
+                        iconSize: [50, 50],
+                        iconAnchor: [20, 40],
+                        popupAnchor: [0, -60],
+                        draggable: true
+                    });
 
-                    let data = await response.json();
-                    let polylinePoints = data.routes[0].overview_polyline.points;
-                    let routeCoordinates = polyline.decode(polylinePoints).map(coord => [coord[0], coord[1]]);
+                    endIcon = L.icon({
+                        iconUrl: '../assets/images/end.png',
+                        iconSize: [50, 50],
+                        iconAnchor: [20, 40],
+                        popupAnchor: [0, -60],
+                        draggable: true
+                    });
 
-                    L.polyline(routeCoordinates, {
-                        color: 'blue',
-                        weight: 5
+
+                    let startPoint = L.marker(startCoords, {
+                        icon: startIcon,
+                        draggable: true
+                    }).addTo(modalMap);
+                    let endPoint = L.marker(endCoords, {
+                        icon: endIcon,
+                        draggable: true
                     }).addTo(modalMap);
 
-                    modalMap.fitBounds(routeCoordinates);
+                    try {
+                        let response = await fetch(`https://api.neshan.org/v4/direction?type=car&origin=${startLat},${startLng}&destination=${endLat},${endLng}`, {
+                            headers: {
+                                'Api-Key': Service_KEY
+                            }
+                        });
 
-                    startPoint.on('dragend', function (event) {
-                        let newCoords = event.target.getLatLng();
-                        startCoords = [newCoords.lat, newCoords.lng]; // Update startCoords
-                        drawRoute(newCoords.lat, newCoords.lng, endCoords[0], endCoords[1]);
-                    });
+                        if (!response.ok) {
+                            console.error('Error fetching route:', response.statusText);
+                            return;
+                        }
 
-                    endPoint.on('dragend', function (event) {
-                        let newCoords = event.target.getLatLng();
-                        endCoords = [newCoords.lat, newCoords.lng]; // Update endCoords
-                        drawRoute(startCoords[0], startCoords[1], newCoords.lat, newCoords.lng);
-                    });
+                        let data = await response.json();
+                        let polylinePoints = data.routes[0].overview_polyline.points;
+                        let routeCoordinates = polyline.decode(polylinePoints).map(coord => [coord[0], coord[1]]);
 
-                    
+                        L.polyline(routeCoordinates, {
+                            color: 'blue',
+                            weight: 5
+                        }).addTo(modalMap);
 
-                } catch (error) {
-                    console.error('Error fetching route:', error);
-                }
-            }
+                        modalMap.fitBounds(routeCoordinates);
 
-            drawRoute(startCoords[0], startCoords[1], endCoords[0], endCoords[1]);
+                        startPoint.on('dragend', function(event) {
+                            let newCoords = event.target.getLatLng();
+                            startCoords = [newCoords.lat, newCoords.lng]; // Update startCoords
+                            drawRoute(newCoords.lat, newCoords.lng, endCoords[0], endCoords[1]);
+                            startPointInput.val("" + newCoords.lat + "," + newCoords.lng + "");
 
-            
+                        });
+
+                        endPoint.on('dragend', function(event) {
+                            let newCoords = event.target.getLatLng();
+                            endCoords = [newCoords.lat, newCoords.lng]; // Update endCoords
+                            drawRoute(startCoords[0], startCoords[1], newCoords.lat, newCoords.lng);
+                            endPointInput.val("" + newCoords.lat + "," + newCoords.lng + "");
+                        });
+
+
+                        
 
 
 
-        }, 500);
+                        }
+                        catch (error) {
+                            console.error('Error fetching route:', error);
+                        }
+                    }
 
-        
-    }
+                    drawRoute(startCoords[0], startCoords[1], endCoords[0], endCoords[1]);
 
+
+
+
+
+                }, 500);
+
+
+        }
 </script>
 
 <style>
