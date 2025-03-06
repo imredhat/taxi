@@ -500,14 +500,16 @@ span.mosafer {
 
 
 <script src="<?=base_url()?>assets/js/jquery-3.6.0.min.js"></script>
+
 <script src="<?=base_url()?>assets/js/dataTables.min.js"></script>
 <script src="<?= base_url() ?>assets/chosen/chosen.jquery.min.js"></script>
 
 <link rel="stylesheet" href="<?= base_url() ?>assets/chosen/chosen.min.css" />
-<link href="<?=base_url()?>assets/css/leaflet.css" rel="stylesheet" type="text/css">
 
 
 <script src="<?= base_url() ?>assets/js/custom/service.js"></script>
 <script src="<?=base_url()?>assets/js/jalaali.min.js"></script>
+
 <script src="<?=base_url()?>assets/js/polyline.min.js"></script>
+<link href="<?=base_url()?>assets/css/leaflet.css" rel="stylesheet" type="text/css">
 <script src="<?=base_url()?>assets/js/leaflet.js" type="text/javascript"></script>

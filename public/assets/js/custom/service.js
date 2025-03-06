@@ -48,7 +48,7 @@ $(document).ready(function () {
 
         $('.base_fare').html($(this).data("fare") + '<input name="tripID" type="hidden" value="' + $(this).data("id") + '" />');
         // var package = $(this).data('package');
-        
+
 
         // $("input[name='tripID']").val(tripID);
 
@@ -61,7 +61,7 @@ $(document).ready(function () {
     $("body").on("click", 'a[data-bs-target="#updateStatus"]', function () {
 
         // alert("dsf");
-        
+
         var clickedID = $(this).data("id");
         var status = $(this).data("status");
 
@@ -108,9 +108,12 @@ $(document).ready(function () {
 
                 $("#EditItem").modal('show');
                 $("#EditItem").html(data);
+
             }
         });
     });
+
+
 
 
 
@@ -160,7 +163,7 @@ $(document).ready(function () {
 
 
 
-    
+
     $("body").on("click", 'a.PishfactorBTN', function () {
         var tripID = $(this).data("id");
         // let cururl = $(this).attr("href");

@@ -340,7 +340,8 @@
 
                                 <div class="col-md-12">
                                 <hr>
-                                <div style="height: 300px;" id="emap"></div>
+                                <div class="map map-container mt-4 bg-secondary text-white text-center" id="edit_map" style="width: 100%;height: 300px;">
+
                                 </div>
 
 
@@ -377,111 +378,122 @@
 
 
 
-<script src="<?= base_url() ?>assets/chosen/chosen.jquery.min.js"></script>
 <link rel="stylesheet" href="<?= base_url() ?>assets/chosen/chosen.min.css" />
+<script src="<?= base_url() ?>assets/js/custom/edit.js"></script>
+
 
 <script>
-    var base = "<?php echo base_url()?>";
+// const API_KEY = 'web.840318dd773d4122a1d07e932344af55';
+// const Service_KEY = 'service.89629a97053c4dd3bd06adb146db6886';
 
+startPoint = [<?php echo isset($Trip['startPoint']) ? explode(',', $Trip['startPoint'])[0] : '0'?>, <?php echo isset($Trip['startPoint']) ? explode(',', $Trip['startPoint'])[1] : '0'?>];
+endPoint = [<?php echo isset($Trip['endPoint']) ? explode(',', $Trip['endPoint'])[0] : '0'?>, <?php echo isset($Trip['endPoint']) ? explode(',', $Trip['endPoint'])[1] : '0'?>];
 
-    startPoint = [<?= explode(',', $Trip['startPoint'])[0] ?>, <?= explode(',', $Trip['startPoint'])[1] ?>];
-    endPoint = [<?= explode(',', $Trip['endPoint'])[0] ?>, <?= explode(',', $Trip['endPoint'])[1] ?>];
+console.log(startPoint);
 
-    // ایجاد نقشه و تنظیمات اولیه
-    emap = new L.Map('emap', {
-        key: 'web.840318dd773d4122a1d07e932344af55', // اینجا API Key خود را قرار دهید
-        center: startPoint,
-        zoom: 8,
-        maptype: 'neshan'
-    });
-
-    startIcon = L.icon({
-        iconUrl: '../assets/images/start.png',
-        iconSize: [50, 50],
-        iconAnchor: [20, 40],
-        popupAnchor: [0, -60]
-    });
-
-
-    endIcon = L.icon({
-        iconUrl: '../assets/images/end.png',
-        iconSize: [50, 50],
-        iconAnchor: [20, 40],
-        popupAnchor: [0, -60]
-    });
+initMap('EditItem', 'edit_map', startPoint, endPoint, 'service.89629a97053c4dd3bd06adb146db6886' , 'web.840318dd773d4122a1d07e932344af55');
 
 
 
-    // تابع برای رسم مسیر
-    async function drawRoute(startLat, startLng, endLat, endLng) {
-        // پاک کردن نشانگرهای قبلی
-        emap.eachLayer(function(layer) {
-            if (layer instanceof L.Marker || layer instanceof L.Polyline) {
-                emap.removeLayer(layer);
+function initMap(modalId, mapId, startCoords, endCoords, Service_KEY,API_KEY) {
+        setTimeout(() => {
+            // let modalMap = L.map(mapId).setView(startCoords, 12);
+
+
+            let modalMap = new L.Map(mapId, {
+                key: API_KEY,
+                maptype: 'neshan',
+                center: [35.6892, 51.3890], // مختصات تهران
+                zoom: 8
+            });
+
+            L.tileLayer('https://api.neshan.org/v4/BaseMap/{z}/{x}/{y}', {
+                attribution: '© Neshan',
+                maxZoom: 18
+            }).addTo(modalMap);
+
+
+            async function drawRoute(startLat, startLng, endLat, endLng) {
+                modalMap.eachLayer(function (layer) {
+                    if (layer instanceof L.Marker || layer instanceof L.Polyline) {
+                        modalMap.removeLayer(layer);
+                    }
+                });
+
+                startIcon = L.icon({
+                    iconUrl: '../assets/images/start.png',
+                    iconSize: [50, 50],
+                    iconAnchor: [20, 40],
+                    popupAnchor: [0, -60],
+                    draggable: true
+                });
+    
+                endIcon = L.icon({
+                    iconUrl: '../assets/images/end.png',
+                    iconSize: [50, 50],
+                    iconAnchor: [20, 40],
+                    popupAnchor: [0, -60],
+                    draggable: true
+                });
+    
+    
+                let startPoint = L.marker(startCoords, { icon: startIcon, draggable: true }).addTo(modalMap);
+                let endPoint = L.marker(endCoords, { icon: endIcon, draggable: true }).addTo(modalMap);
+
+                try {
+                    let response = await fetch(`https://api.neshan.org/v4/direction?type=car&origin=${startLat},${startLng}&destination=${endLat},${endLng}`, {
+                        headers: {
+                            'Api-Key': Service_KEY
+                        }
+                    });
+
+                    if (!response.ok) {
+                        console.error('Error fetching route:', response.statusText);
+                        return;
+                    }
+
+                    let data = await response.json();
+                    let polylinePoints = data.routes[0].overview_polyline.points;
+                    let routeCoordinates = polyline.decode(polylinePoints).map(coord => [coord[0], coord[1]]);
+
+                    L.polyline(routeCoordinates, {
+                        color: 'blue',
+                        weight: 5
+                    }).addTo(modalMap);
+
+                    modalMap.fitBounds(routeCoordinates);
+
+                    startPoint.on('dragend', function (event) {
+                        let newCoords = event.target.getLatLng();
+                        startCoords = [newCoords.lat, newCoords.lng]; // Update startCoords
+                        drawRoute(newCoords.lat, newCoords.lng, endCoords[0], endCoords[1]);
+                    });
+
+                    endPoint.on('dragend', function (event) {
+                        let newCoords = event.target.getLatLng();
+                        endCoords = [newCoords.lat, newCoords.lng]; // Update endCoords
+                        drawRoute(startCoords[0], startCoords[1], newCoords.lat, newCoords.lng);
+                    });
+
+                    
+
+                } catch (error) {
+                    console.error('Error fetching route:', error);
+                }
             }
-        });
+
+            drawRoute(startCoords[0], startCoords[1], endCoords[0], endCoords[1]);
+
+            
 
 
-        // افزودن نشان برای مبدا
-        startMarker = L.marker(startPoint, {
-            icon: startIcon
-        }).addTo(emap);
 
-        // افزودن نشان برای مقصد
-        endMarker = L.marker(endPoint, {
-            icon: endIcon
-        }).addTo(emap);
+        }, 500);
 
-        response = await fetch(`https://api.neshan.org/v4/direction?type=car&origin=${startLat},${startLng}&destination=${endLat},${endLng}`, {
-            headers: {
-                'Api-Key': 'service.89629a97053c4dd3bd06adb146db6886'
-            }
-        });
-
-        if (!response.ok) {
-            console.error('خطا در دریافت مسیر:', response.statusText);
-            return;
-        }
-
-        data = await response.json();
-
-        polylinePoints = data.routes[0].overview_polyline.points;
-        routeCoordinates = polyline.decode(polylinePoints).map(coord => [coord[0], coord[1]]);
-
-
-        L.polyline(routeCoordinates, {
-            color: 'blue',
-            weight: 5
-        }).addTo(emap);
-
-        emap.fitBounds(routeCoordinates);
+        
     }
 
-    drawRoute(startPoint[0], startPoint[1], endPoint[0], endPoint[1]);
-
-
-
-
-
-
 </script>
-
-
-
-
-
-
-<script>
-    var base = "<?= base_url() ?>";
-</script>
-<script src="<?= base_url() ?>assets/js/custom/edit.js"></script>
-<script>
-    gregorianDate = "<?= $Trip['created_at'] ?>";
-    jalaliDateTime = convertToJalali(gregorianDate);
-
-    $(".card-footer").html('تاریخ ایجاد:' + jalaliDateTime);
-</script>
-
 
 <style>
     .form-control[type=file]:not(:disabled):not([readonly]) {
