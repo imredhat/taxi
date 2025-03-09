@@ -352,7 +352,7 @@ class Driver extends ResourceController
 
                     $image = \Config\Services::image()
                         ->withFile($config['uploadPath'] . '/' . $file->getName())
-                        ->resize(800, 600, true, 'auto') // تغییر اندازه به 800x600 با حفظ نسبت
+                        // ->resize(800, 600, true, 'auto') // تغییر اندازه به 800x600 با حفظ نسبت
                         ->save($config['uploadPath'] . '/' . $file->getName());
 
                     return $file->getName();
