@@ -151,6 +151,9 @@ $(document).ready(function () {
         tripData.call_time = $("body input[name='call_time']").val();
         tripData.company_name = $("body input[name='company_name']").val();
         tripData.payment_status = $("body select[name='payment_status']").val();
+        
+        tripData.startPoint = $("body input[name='startPoint']").val();
+        tripData.endPoint = $("body input[name='endPoint']").val();
 
         var ID = tripData.id.replace(/\D/g, '');
         var NewStatus = tripData.status_text;

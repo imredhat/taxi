@@ -520,6 +520,8 @@ class Trips extends ResourceController
             'call_time'             => $this->request->getPost('call_time'),
             'company_name'             => $this->request->getPost('company_name'),
             'payment_status'             => $this->request->getPost('payment_status'),            
+            'startPoint'             => $this->request->getPost('startPoint'),            
+            'endPoint'             => $this->request->getPost('endPoint'),            
         ];
 
 
