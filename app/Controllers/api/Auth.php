@@ -25,6 +25,15 @@ class Auth extends ResourceController
             return $this->respond(['status' => 'error', 'message' => 'شماره تلفن نامعتبر است'], 400);
         }
 
+
+        $Driver = new DriverModel();
+        $user = $Driver->where('mobile', $tel)->first();
+
+        if ($user) {
+            return $this->respond(['status' => 'exist', 'message' => 'این شماره تلفن قبلا ثبت شده است'], 200);
+        }
+
+
         $client = new \Pishran\IpPanel\Client('SA11ECEv6ZmVGJbalKfGGhGcLKjXNA00fxoN5DMoFPs=');
 
         $patternCode = 's108sjij14ar631'; // شناسه الگو
@@ -202,9 +211,9 @@ class Auth extends ResourceController
                 'owner'                   => $this->request->getPost('owner'),                 ////////////////////////////////////
 
                 'iran'                    => $this->request->getPost('plate_part1'),
-                'pelak'                   => $this->request->getPost('plate_part3'),
+                'pelak'                   => $this->request->getPost('plate_part2'),
                 'harf'                    => $this->request->getPost('plate_letter'),
-                'pelak_last'              => $this->request->getPost('plate_part2'),
+                'pelak_last'              => $this->request->getPost('plate_part3'),
 
                 'fuel'                    => $this->request->getPost('fuel_type'),
                 'vin'                     => $this->request->getPost('vin'),
@@ -258,7 +267,7 @@ class Auth extends ResourceController
 
                     $image = \Config\Services::image()
                         ->withFile($config['uploadPath'].'/'.$file->getName())
-                        ->resize(800, 600, true, 'auto') // تغییر اندازه به 800x600 با حفظ نسبت
+                        // ->resize(800, 600, true, 'auto') // تغییر اندازه به 800x600 با حفظ نسبت
                         ->save($config['uploadPath'].'/'.$file->getName());
 
                     return $file->getName();
