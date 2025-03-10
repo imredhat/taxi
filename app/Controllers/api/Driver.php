@@ -101,12 +101,11 @@ class Driver extends ResourceController
         $trips = $TripsModel->getNewRequest($type_class_name['name']);
 
         $alert = false;
-        foreach ($trips as $trip) {
-            if (isset($trip['notified_status']) && $trip['notified_status'] === '0') {
-                $alert = true;
-                break;
-            }
-        }
+        // foreach ($trips as $trip) {
+        //     if (isset($trip['notified_status']) && $trip['notified_status'] === '0') {
+        //         $alert = true;
+        //     }
+        // }
 
         if (!$trips || empty($trips)) {
             return $this->respond(['status' => 'success', 'alert' => $alert, 'message' => 'هیچ سفری یافت نشد', 'trips' => []], 200);
