@@ -308,7 +308,17 @@ function getRandomColorPair()
             </span> </td>
 
                 <td>
-                    <span class="<?= getServiceDIV($S['status']) ?> bg-opacity-5 text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block"><?= getServiceStatus($S['status']) ?></span>
+                    <?php if($S['driver_count'] > 0  && $S['status'] == 'Notifed'): ?>
+
+                        <button type="button" class="btn <?= getServiceDIV($S['status']) ?> bg-opacity-5 text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block"> <?= getServiceStatus($S['status']) ?> <span class="badge text-bg-danger text-white"><?= ($S['driver_count']) ?></span> </button>
+
+                        <?php else: ?>
+
+                            <span class="<?= getServiceDIV($S['status']) ?> bg-opacity-5 text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block"><?= getServiceStatus($S['status']) ?></span>
+
+
+
+                    <?php endif;?>
                 </td>
 
                     <td class="text-start">

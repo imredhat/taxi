@@ -30,6 +30,8 @@ class Trips extends ResourceController
 
         $data['Title']   = 'استعلام ها';
 
+        // echo "<pre>";
+        // print_r($data);die();
         // echo json_encode ($data);die();
 
         echo view('parts/header');

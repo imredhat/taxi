@@ -1,12 +1,11 @@
 <?php
-
 namespace App\Models;
 
 use CodeIgniter\Model;
 
 class TripsModel extends Model
 {
-    protected $table      = 'trips';  
+    protected $table      = 'trips';
     protected $primaryKey = 'id';
 
     protected $allowedFields = [
@@ -62,25 +61,23 @@ class TripsModel extends Model
         'call_time',
         'payment_status',
         'note',
-        'notified_time'
+        'notified_time',
 
     ];
 
-    protected $useAutoIncrement = true;
-    protected $returnType = 'array';
-    protected $validationRules = [];
+    protected $useAutoIncrement   = true;
+    protected $returnType         = 'array';
+    protected $validationRules    = [];
     protected $validationMessages = [];
-    protected $skipValidation = false;
-
-
+    protected $skipValidation     = false;
 
     public function isAcceptedExists($tripID, $notifID)
     {
         $result = $this->where('tripID', $tripID)
-                       ->where('notifID', $notifID)
-                       ->where('isAccepted', true)
-                       ->countAllResults();
-        
+            ->where('notifID', $notifID)
+            ->where('isAccepted', true)
+            ->countAllResults();
+
         return $result > 0;
     }
 
@@ -88,15 +85,14 @@ class TripsModel extends Model
     {
         $builder = $this->db->table($this->table);
 
-
         $builder->select(
-            'trips.*, 
-            request.id as request_id, request.notifID, request.driverID, request.carID, request.isAccepted, 
-            request.created_at as request_created_at, request.updated_at as request_updated_at, 
+            'trips.*,
+            request.id as request_id, request.notifID, request.driverID, request.carID, request.isAccepted,
+            request.created_at as request_created_at, request.updated_at as request_updated_at,
             driver.ax as driver_ax, driver.name as driver_name, driver.lname as driver_lname,
-            driver.mobile as driver_mobile, 
-            cars.cid as cars_cid, cars.brand as cars_brand, cars.fuel as cars_fuel, cars.iran as cars_iran, 
-            cars.pelak as cars_pelak, cars.harf as cars_harf, cars.pelak_last as cars_pelak_last, 
+            driver.mobile as driver_mobile,
+            cars.cid as cars_cid, cars.brand as cars_brand, cars.fuel as cars_fuel, cars.iran as cars_iran,
+            cars.pelak as cars_pelak, cars.harf as cars_harf, cars.pelak_last as cars_pelak_last,
             cars.pic_front as cars_pic_front, cars.type as cars_type,
             packages.*,
             brand.brand as brand_name,brand_type.type_name as type_name
@@ -116,13 +112,13 @@ class TripsModel extends Model
         return $query->getRowArray();
 
         // $builder->select(
-        //     'trips.*, 
-        //     request.id as request_id, request.notifID, request.driverID, request.carID, request.isAccepted, 
-        //     request.created_at as request_created_at, request.updated_at as request_updated_at, 
-        //     driver.ax as driver_ax, driver.name as driver_name, driver.lname as driver_lname, 
-        //     driver.mobile as driver_mobile, 
-        //     cars.cid as cars_cid, cars.brand as cars_brand, cars.fuel as cars_fuel, cars.iran as cars_iran, 
-        //     cars.pelak as cars_pelak, cars.harf as cars_harf, cars.pelak_last as cars_pelak_last, 
+        //     'trips.*,
+        //     request.id as request_id, request.notifID, request.driverID, request.carID, request.isAccepted,
+        //     request.created_at as request_created_at, request.updated_at as request_updated_at,
+        //     driver.ax as driver_ax, driver.name as driver_name, driver.lname as driver_lname,
+        //     driver.mobile as driver_mobile,
+        //     cars.cid as cars_cid, cars.brand as cars_brand, cars.fuel as cars_fuel, cars.iran as cars_iran,
+        //     cars.pelak as cars_pelak, cars.harf as cars_harf, cars.pelak_last as cars_pelak_last,
         //     cars.pic_front as cars_pic_front, cars.type as cars_type'
         // );
 
@@ -135,14 +131,13 @@ class TripsModel extends Model
         // return $query->getRowArray();
     }
 
-
     public function getNewRequest($type_class)
     {
         $builder = $this->db->table($this->table);
 
         $builder->select(
             'trips.id,startAdd,endAdd,startPoint,endPoint, weather,distance,TimeMin,travelTime,isWait,trip_date,trip_time,trips.dsc,trips.status,trip_type,trips.created_at,trips.driverCustomFare,package,total_passenger,isGuest,passenger_tel,guest_tel,passenger_name,guest_name,notified_time,
-            request.isAccepted as isReserved, 
+            request.isAccepted as isReserved,
             packages.dsc as package_dsc,
             notification.id as notifID,notification.notified as notified_status,
         ');
@@ -152,30 +147,26 @@ class TripsModel extends Model
         $builder->join('notification', 'notification.tripID = trips.id', 'left');
 
         // $type_class = preg_replace('/[^a-zA-Z]/', '', $type_class);
-        
-        $builder->where('trips.package' , $type_class);
-        $builder->where('trips.status' ,  "Notifed");
+
+        $builder->where('trips.package', $type_class);
+        $builder->where('trips.status', "Notifed");
         // $builder->where('notification.notified' , 0);
-        $builder->orderBy('trips.id' , "ASC");
+        $builder->orderBy('trips.id', "ASC");
 
-
-        if($query = $builder->get()){
+        if ($query = $builder->get()) {
             return $query->getResultArray();
         } else {
             return [];
         }
     }
 
-
-
-
-    public function getMyRequest($driverID,$from_date=null,$to_date=null,$status=null)
+    public function getMyRequest($driverID, $from_date = null, $to_date = null, $status = null)
     {
         $builder = $this->db->table($this->table);
 
         $builder->select(
             'trips.id,startAdd,endAdd,startPoint,endPoint, weather,distance,TimeMin,travelTime,isWait,trip_date,trip_time,trips.dsc,status,trip_type,trips.created_at,driverCustomFare,package,total_passenger,isGuest,passenger_tel,guest_tel,passenger_name,guest_name,notified_time,
-            request.isAccepted as isReserved, 
+            request.isAccepted as isReserved,
             packages.dsc as package_dsc,
             '
         );
@@ -183,56 +174,58 @@ class TripsModel extends Model
         $builder->join('request', 'request.id = trips.reqID', 'left');
         $builder->join('packages', 'packages.name = trips.package', 'left');
 
+        $builder->where('trips.driverID', $driverID);
 
-        $builder->where('trips.driverID' , $driverID);
-        
-
-        if(!empty($from_date)){
-            $builder->where('trips.trip_date >=' , $from_date);
-            $builder->where('trips.trip_date <' , $to_date);
+        if (! empty($from_date)) {
+            $builder->where('trips.trip_date >=', $from_date);
+            $builder->where('trips.trip_date <', $to_date);
         }
 
-
-        if(!empty($status)){
-            $builder->where('trips.status' , $status);
+        if (! empty($status)) {
+            $builder->where('trips.status', $status);
         }
 
-
-        if($query = $builder->get()){
+        if ($query = $builder->get()) {
             return $query->getResultArray();
         } else {
             return [];
         }
     }
 
-
-
-
-    public function getAllTripsWithDriverName($from_date=null,$status=null){
+    public function getAllTripsWithDriverName($from_date = null, $status = null)
+    {
         $builder = $this->db->table($this->table);
 
         $builder->select(
-            'trips.*, 
-            driver.name as driver_name, driver.lname as driver_lname, 
+            'trips.*,
+            driver.name as driver_name, driver.lname as driver_lname,
             driver.mobile as driver_mobile'
         );
 
         $builder->join('driver', 'driver.did = trips.driverID', 'left');
 
-
-        if(!empty($from_date)){
-            $builder->where('trips.trip_date >=' , $from_date);
+        if (! empty($from_date)) {
+            $builder->where('trips.trip_date >=', $from_date);
         }
 
-
-        if(!empty($status)){
-            $builder->where('trips.status' , $status);
+        if (! empty($status)) {
+            $builder->where('trips.status', $status);
         }
-
 
         $query = $builder->get();
-        return $query->getResultArray();
-    }
 
+        $tripData = $query->getResultArray();
+
+        foreach ($tripData as &$trip) {
+            
+            $tripID               = $trip['id'];
+            $builder              = $this->db->table('request');
+            $driverCount          = $builder->where('tripID', $tripID)->countAllResults();
+            $trip['driver_count'] = $driverCount;
+
+        }
+
+        return $tripData;
+    }
 
 }
