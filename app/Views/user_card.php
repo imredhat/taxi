@@ -53,7 +53,7 @@ body *{
 
 
       
-        <div style="padding: 10px; width: 70%;  margin: auto;  border-radius: 10px;">
+        <div style="padding: 10px; width: 70%;  margin: auto;  border-radius: 10px;margin-bottom: 30px;">
             <table style="width: 100%; font-size: 10px;">
                 <tr>
                     <td >شناسه اشتراک</td>
@@ -95,6 +95,11 @@ body *{
             <!---------------------------- End of button box ------------------------------>
         </div>
         <!---------------------------- Animated circles ------------------------------>
+
+        <div class="bottom">
+                <div class="col-sm-12">پویش تاکسی </div>
+                <div class="col-sm-12" style="font-size: 8px;">www.PooyeshTak30.ir | 09229247081</div>
+            </div>
 
         <div class="circle-1"></div>
         <div class="circle-2"></div>
