@@ -223,6 +223,56 @@
                     </div>
                 </div>
 
+                <div style="text-align: center; margin-top: 20px;">
+                  <button id="savePdfButton" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    ذخیره به صورت PDF
+                  </button>
+                </div>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+                <script>
+                  document.getElementById('savePdfButton').addEventListener('click', function () {
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF('p', 'pt', 'a4', true); // Set UTF-8 encoding and A4 size for higher quality
+
+                    // Load a custom font for Persian text
+                    const fontUrl = '<?php echo base_url() ?>assets/fonts/IRANSansWeb.ttf';
+                    fetch(fontUrl)
+                      .then(response => response.arrayBuffer())
+                      .then(font => {
+                        pdf.addFileToVFS('IRANSansWeb.ttf', font);
+                        pdf.addFont('IRANSansWeb.ttf', 'IRANSans', 'normal');
+                        pdf.setFont('IRANSans');
+
+                        // Select the invoiceholder element
+                        const invoiceHolderElement = document.getElementById('invoiceholder');
+
+                        // Use html2canvas to render the invoiceholder into the PDF
+                        html2canvas(invoiceHolderElement, { useCORS: true, scale: 3 }).then(canvas => {
+                          const imgData = canvas.toDataURL('image/png');
+                          const imgWidth = 595.28; // A4 width in points
+                          const pageHeight = 841.89; // A4 height in points
+                          const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                          let heightLeft = imgHeight;
+
+                          let position = 0;
+
+                          // Add the image to the PDF
+                          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
+                          heightLeft -= pageHeight;
+
+                          while (heightLeft >= 0) {
+                            position = heightLeft - imgHeight;
+                            pdf.addPage();
+                            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
+                            heightLeft -= pageHeight;
+                          }
+
+                          pdf.save('invoice.pdf');
+                        });
+                      });
+                  });
+                </script>
 
 
 
