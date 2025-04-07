@@ -1,3 +1,16 @@
+
+<?php 
+    $driver = $driver[0];
+    $dc = $car[0];
+
+    if(isset($_GET['car'])){
+        $selectedCar = $_GET['car'];
+        $cars = array_filter($car, function($c) use ($selectedCar) {
+            return $c['cid'] == $selectedCar;
+        });
+        $dc = reset($cars);
+    }
+?>
 <div class="container" id="print">
     <!------------------------------ First card container --------------------------------------->
     <div class="card-container" id="bg"  style="border:1px solid #ccc">
@@ -23,17 +36,17 @@
 
             <div class="row">
                 <div class="col-sm-12 pelak">
-                    <div class="col-sm-3"><?= $car[0]['iran'] ?></div>
-                    <div class="col-sm-3"><?= $car[0]['pelak'] ?></div>
-                    <div class="col-sm-3"><?= $car[0]['harf'] ?></div>
-                    <div class="col-sm-3"><?= $car[0]['pelak_last'] ?></div>
+                    <div class="col-sm-3"><?= $dc['iran'] ?></div>
+                    <div class="col-sm-3"><?= $dc['pelak'] ?></div>
+                    <div class="col-sm-3"><?= $dc['harf'] ?></div>
+                    <div class="col-sm-3"><?= $dc['pelak_last'] ?></div>
                 </div>
             </div>
             <div class="user-info">
                 <span class="name"> &ensp;</span>
             </div>
 
-            <div class="car" style="background: url('<?= base_url("uploads/drivers/") ?><?=$driver['did']?>/<?= $car[0]['pic_front'] ?>' )  no-repeat center center;"></div>
+            <div class="car" style="background: url('<?= base_url("uploads/drivers/") ?><?=$driver['did']?>/<?= $dc['pic_front'] ?>' )  no-repeat center center;"></div>
 
             <div class="stats-box style-four card bg-white border-0 rounded-10 mb-4 mt-1 my-5">
                 <div class="card-body p-4">
@@ -67,7 +80,7 @@
 
                             </span>
                                 <div class="">
-                                    <h3 class="text-truncate" style="font-size: calc(1vw + 1vh + 0vmin);"><?= $car[0]['car_brand'] .' '. $car[0]['type_name'].' '. $car[0]['color']?></h3>
+                                    <h3 class="text-truncate" style="font-size: calc(1vw + 1vh + 0vmin);"><?= $dc['car_brand'] .' '. $dc['type_name'].' '. $dc['color']?></h3>
                                 </div>
                             </div>
                         </div>
@@ -110,6 +123,38 @@
 
 <button id="download" onclick="return downloadJPG()" class="btn btn-primary">دانلود کارت</button>
 
+<?php if (count($car) > 1): ?>
+    <div class="form-group">
+        <select id="carSelect" name="carSelect" class="form-control">
+            <?php foreach ($car as $i => $car): ?>
+                <option value="<?= $car['cid'] ?>">خودرو #<?= $i + 1 ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+<?php endif; ?>
+
+
+<script>
+
+    if (window.location.search.includes('car=')) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedCarId = urlParams.get('car');
+        const carSelect = document.getElementById('carSelect');
+        if (carSelect) {
+            carSelect.value = selectedCarId;
+        }
+    }
+
+    document.getElementById('carSelect').addEventListener('change', function() {
+        var selectedCarId = this.value;
+        var driverId = <?= $driver['did'] ?>;
+
+        // Redirect to the new URL with the selected car ID
+        window.location.href = "<?= base_url('DriverCard/') ?>" + driverId + "?car=" + selectedCarId;
+    });
+
+</script>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
@@ -117,6 +162,8 @@
   // گرفتن کل محتوای صفحه
   const element = document.body;
   document.getElementById('download').style.display = 'none';
+  document.getElementById('carSelect').style.display = 'none';
+
 
   // استفاده از html2canvas برای گرفتن اسکرین‌شات
   html2canvas(element, {

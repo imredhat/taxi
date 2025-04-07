@@ -153,7 +153,7 @@
 	                                    <tr class="service">
 	                                        <td class="tableitem"><p class="itemtext">
 
-	                                            پرداخت توسط	 <?php echo $T['name'] ?> در تاریخ<?php echo $T['date_p'] ?> با شناسه پرداخت<?php echo $T['trans_id'] ?><br/>
+	                                            پرداخت توسط	 <?php echo $T['name'] ?> در تاریخ<?php echo $T['date_p'] ?> با شناسه پرداخت <?php echo $T['trans_id'] ?><br/>
 	                                            <?php echo $T['desc'] ?>
 
 

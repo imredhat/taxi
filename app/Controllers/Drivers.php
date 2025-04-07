@@ -271,7 +271,7 @@ class Drivers extends BaseController
         $ID  = $uri->getSegment(2);
 
         $Driver         = new DriverModel();
-        $Driver         = $Driver->where('did', $ID)->find()[0];
+        $Driver         = $Driver->where('did', $ID)->find();
         $data['driver'] = $Driver;
 
         $Cars        = new CarModel();
