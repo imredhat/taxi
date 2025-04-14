@@ -386,7 +386,7 @@ class Drivers extends BaseController
         $segment3 = $uri->getSegment(2);
         $segment4 = $uri->getSegment(3);
 
-        if ($segment3 == 'ax' || $segment3 == 'scan_melli') {
+        if ($segment3 == 'ax' || $segment3 == 'scan_melli'|| $segment3 == 'scan_govahiname') {
 
             $db      = \Config\Database::connect();
             $builder = $db->table('driver');
@@ -406,6 +406,13 @@ class Drivers extends BaseController
                     }
                 } elseif ($segment3 == 'scan_melli') {
                     $builder->set('scan_melli', '');
+                    $builder->where('did', $segment4);
+                    $builder->update();
+                    if (is_file($file)) {
+                        unlink($file);
+                    }
+                } elseif ($segment3 == 'scan_govahiname') {
+                    $builder->set('scan_govahiname', '');
                     $builder->where('did', $segment4);
                     $builder->update();
                     if (is_file($file)) {
