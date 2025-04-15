@@ -91,7 +91,7 @@
                                         <option value="Notifed">اعلام به راننده</option>
                                         <option value="Requested">اعلام آمادگی راننده</option>
                                         <option value="Confirm">پذیرش توسط راننده</option>
-                                        <option value="Service">سرویس</option>
+                                        <option value="Service">سرویس درحال انجام</option>
                                         <option value="Cancled">کنسل شده</option>
                                         <option value="Done">به پایان رسیده</option>
                                     </select>

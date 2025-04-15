@@ -304,7 +304,7 @@
                                         <option value="Notifed" <?= $Trip['status'] == 'Notifed' ? 'selected' : '' ?>>اعلام به راننده</option>
                                         <option value="Requested" <?= $Trip['status'] == 'Requested' ? 'selected' : '' ?>>اعلام آمادگی راننده</option>
                                         <option value="Confirm" <?= $Trip['status'] == 'Confirm' ? 'selected' : '' ?>>پذیرش توسط راننده</option>
-                                        <option value="Service" <?= $Trip['status'] == 'Service' ? 'selected' : '' ?>>سرویس</option>
+                                        <option value="Service" <?= $Trip['status'] == 'Service' ? 'selected' : '' ?>>سرویس درحال انجام</option>
                                         <option value="Cancled" <?= $Trip['status'] == 'Cancled' ? 'selected' : '' ?>>کنسل شده</option>
                                         <option value="Done" <?= $Trip['status'] == 'Done' ? 'selected' : '' ?>>به پایان رسیده</option>
                                     </select>

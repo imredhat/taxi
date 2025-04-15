@@ -30,7 +30,7 @@ function getServiceStatus($status)
         case 'Done':
             return 'به پایان رسیده';
         case 'Service':
-            return 'سرویس';
+            return 'سرویس درحال انجام';
         default:
             return 'نامشخص';
     }

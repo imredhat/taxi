@@ -66,7 +66,7 @@ function getServiceStatus($status)
         case 'Done':
             return 'به پایان رسیده';
         case 'Service':
-            return 'سرویس';
+            return 'سرویس درحال انجام';
     }
 }
 
@@ -290,7 +290,7 @@ function getRandomColorPair()
                         <option value="Reserved">رزرو</option>
                         <option value="Notifed">اطلاع رسانی شده</option>
                         <option value="Requested">درخواست شده</option>
-                        <option value="Service">سرویس</option>
+                        <option value="Service">سرویس درحال انجام</option>
                         <option value="Confirm">تایید شده</option>
                         <option value="Cancled">کنسل شده</option>
                         <option value="Done">به پایان رسیده</option>
