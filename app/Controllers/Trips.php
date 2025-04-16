@@ -527,39 +527,51 @@ class Trips extends ResourceController
 
 
         // Check if driverID and carID match with the trip table
-        $TripModel = new TripsModel();
-        $existingTrip = $TripModel->find($ID);
+        $status = $this->request->getPost('status');
 
-        if ($existingTrip['driverID'] != $data['driverID'] || $existingTrip['carID'] != $data['carID']) {
-            $RequestModel = new RequestModel();
-            $requests = $RequestModel->where('tripID', $ID)->findAll();
+        if ( !empty($status) && $status = 'Notifed') {
+            $TripModel = new TripsModel();
+            $existingTrip = $TripModel->find($ID);
 
-            // Set isAccepted to NO for all existing requests
-            foreach ($requests as $request) {
-                $RequestModel->update($request['id'], ['isAccepted' => 'NO']);
-            }
+            if ($existingTrip['driverID'] != $data['driverID'] || $existingTrip['carID'] != $data['carID']) {
+                $RequestModel = new RequestModel();
+                $requests = $RequestModel->where('tripID', $ID)->findAll();
 
-            // Check if a request exists with the given carID and driverID
-            $existingRequest = $RequestModel->where('tripID', $ID)
-                                             ->where('driverID', $data['driverID'])
-                                             ->where('carID', $data['carID'])
-                                             ->first();
+                // Set isAccepted to NO for all existing requests
+                foreach ($requests as $request) {
+                    $RequestModel->update($request['id'], ['isAccepted' => 'NO']);
+                }
 
-            if ($existingRequest) {
-                // Update the existing request to set isAccepted to YES
-                $RequestModel->update($existingRequest['id'], ['isAccepted' => 'YES']);
-            } else {
-                // Insert a new request with isAccepted set to YES
-                $requestData = [
-                    'tripID'     => $ID,
-                    'driverID'   => $data['driverID'],
-                    'carID'      => $data['carID'],
-                    'isAccepted' => 'YES',
-                    'notified'   => 0,
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s'),
-                ];
-                $RequestModel->insert($requestData);
+                // Check if a request exists with the given carID and driverID
+                $existingRequest = $RequestModel->where('tripID', $ID)
+                    ->where('driverID', $data['driverID'])
+                    ->where('carID', $data['carID'])
+                    ->first();
+
+                if ($existingRequest) {
+                    // Update the existing request to set isAccepted to YES
+                    $RequestModel->update($existingRequest['id'], ['isAccepted' => 'YES']);
+                }
+                
+                else {
+                    // Insert a new request with isAccepted set to YES
+
+                    if($data['driverID'] > 0 && $data['carID']){
+                        $requestData = [
+                            'tripID'     => $ID,
+                            'driverID'   => $data['driverID'],
+                            'carID'      => $data['carID'],
+                            'isAccepted' => 'YES',
+                            'notified'   => 0,
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s'),
+                        ];
+    
+                        $RequestModel->insert($requestData);
+                    }
+                    
+                    
+                }
             }
         }
 
