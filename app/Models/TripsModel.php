@@ -228,4 +228,41 @@ class TripsModel extends Model
         return $tripData;
     }
 
+
+    public function getAllServices($from_date = null)
+    {
+        $builder = $this->db->table($this->table);
+
+        $builder->select(
+            'trips.*,
+            driver.name as driver_name, driver.lname as driver_lname,
+            driver.mobile as driver_mobile'
+        );
+
+        $builder->join('driver', 'driver.did = trips.driverID', 'left');
+
+        // if (! empty($from_date)) {
+        //     $builder->where('trips.trip_date >=', $from_date);
+        // }
+
+            $builder->Where('trips.status', "Confirm");
+            $builder->orWhere('trips.status', "Service");
+        
+
+        $query = $builder->get();
+
+        $tripData = $query->getResultArray();
+
+        foreach ($tripData as &$trip) {
+            
+            $tripID               = $trip['id'];
+            $builder              = $this->db->table('request');
+            $driverCount          = $builder->where('tripID', $tripID)->countAllResults();
+            $trip['driver_count'] = $driverCount;
+
+        }
+
+        return $tripData;
+    }
+
 }

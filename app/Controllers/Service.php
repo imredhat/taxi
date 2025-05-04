@@ -73,12 +73,18 @@ class Service extends BaseController
             \IntlDateFormatter::TRADITIONAL
         )->format($now);
 
+        // Convert Persian numbers to English
+        $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        $persianDate            = str_replace($persianNumbers, $englishNumbers, $persianDate);
+        
+
         $Banks     = new BankModel();
         $data['bnks'] = $Banks ->where('active','1') -> findAll();
 
 
 
-        $data['Trip']    = (new TripsModel())->getAllTripsWithDriverName($persianDate , 'Confirm' );
+        $data['Trip']    = (new TripsModel())->getAllServices($persianDate );
 
         $data['Package'] = (new PackagesModel())->findAll();
         $data['Title'] = 'سرویس های جاری';

@@ -140,9 +140,10 @@
                                     </select>
                                 </div>
                             </div>
+                            
 
 
-
+                            
                             <div class="row my-2">
                                 <div class="col-lg-12">
                                     <label class="label">انتخاب بانک</label>
@@ -353,6 +354,7 @@
                                 <input type="hidden" name="passenger_id" value="<?= $Trip['passenger_id'] ?>" />
                                 <input type="hidden" name="startPoint" value="<?= $Trip['startPoint'] ?>" />
                                 <input type="hidden" name="endPoint" value="<?= $Trip['endPoint'] ?>" />
+                                <input type="hidden" name="car" value="<?= $Trip['carID'] ?>" />
                                 <hr>
                             </div>
 
@@ -391,7 +393,10 @@
     startPoint = [<?php echo isset($Trip['startPoint']) ? explode(',', $Trip['startPoint'])[0] : '0' ?>, <?php echo isset($Trip['startPoint']) ? explode(',', $Trip['startPoint'])[1] : '0' ?>];
     endPoint = [<?php echo isset($Trip['endPoint']) ? explode(',', $Trip['endPoint'])[0] : '0' ?>, <?php echo isset($Trip['endPoint']) ? explode(',', $Trip['endPoint'])[1] : '0' ?>];
 
-    console.log(startPoint);
+    // console.log(startPoint);
+
+ 
+
 
     initMap('EditItem', 'edit_map', startPoint, endPoint, 'service.89629a97053c4dd3bd06adb146db6886', 'web.840318dd773d4122a1d07e932344af55');
 

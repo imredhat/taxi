@@ -321,6 +321,17 @@ class Cars extends BaseController
         ]);
 
 
+        // $crud->fieldType('pic_back', 'upload', 'uploads/drivers/');
+        // $crud->fieldType('pic_front', 'upload', 'uploads/drivers/');
+        // $crud->fieldType('pic_in_back', 'upload', 'uploads/drivers/');
+        // $crud->fieldType('pic_in_front', 'upload', 'uploads/drivers/');
+        // $crud->fieldType('scan_govahiname', 'upload', 'uploads/drivers/');
+        // $crud->fieldType('scan_car_card', 'upload', 'uploads/drivers/');
+        // $crud->fieldType('scan_car_card_back', 'upload', 'uploads/drivers/');
+        // $crud->fieldType('scan_insurance', 'upload', 'uploads/drivers/');
+        // $crud->fieldType('scan_insurance_addendum', 'upload', 'uploads/drivers/');
+
+
         $this->UploadCallback($crud, 'pic_back');
         $this->UploadCallback($crud, 'pic_front');
         $this->UploadCallback($crud, 'pic_in_back');
@@ -330,6 +341,9 @@ class Cars extends BaseController
         $this->UploadCallback($crud, 'scan_car_card_back');
         $this->UploadCallback($crud, 'scan_insurance');
         $this->UploadCallback($crud, 'scan_insurance_addendum');
+
+
+
 
         $output = $crud->render();
 
@@ -349,6 +363,12 @@ class Cars extends BaseController
 
     function UploadCallback($crud, $field)
     {
+
+
+        $crud->callbackAddField($field, function () use ($field) {
+            return '<input name="' . $field . '" id="file-upload" type="file">';
+        });
+
 
         $crud->callbackColumn($field, function ($row , $data) use ($field) {
             return '<img src="' . base_url(relativePath: 'uploads/drivers/' . $data -> driver_id . '/' . $row) . '" width="100" height="200">';
@@ -390,6 +410,17 @@ class Cars extends BaseController
 
         $crud->callbackBeforeInsert(function ($stateParameters) {
             $fields = ['pic_back', 'pic_front', 'pic_in_back', 'pic_in_front', 'scan_govahiname'];
+
+            $stateParameters->data['driver_id'] = $this->request->getPost('driver_id');
+
+            $db = \Config\Database::connect();
+            $builder = $db->table('cars');
+            $builder->where('driver_id', $stateParameters->data['driver_id']);
+            $builder->update(['active' => 0]);
+
+            // After inserting the new car, set its active status to 1
+            $stateParameters->data['active'] = 1;
+
             foreach ($fields as $field) {
             $file = $this->request->getFile($field);
             if (isset($file)) {

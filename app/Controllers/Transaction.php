@@ -124,7 +124,7 @@ class Transaction extends BaseController
         // $crud->unsetView();
         $crud->unsetAdd();
         $crud->unsetDelete();
-        $crud->columns(['id', 'name','type','amount', 'desc', 'date_p', 'scan', 'tripID','trans_id',]);
+        $crud->columns(['id', 'name','type','amount', 'desc', 'date_p', 'scan', 'tripID','trans_id','bank_id']);
         $crud->fields(['name', 'tel', 'amount', 'desc', 'trans_id', 'refid', 'date_p', 'response', 'status', 'scan', '_from', '_to', '_for', 'tripID', 'row_status', 'userID', 'driverID', 'type']);
         $crud->displayAs('id', "شناسه");
         $crud->displayAs('name', "پرداخت کننده / دریافت کننده");
@@ -147,9 +147,13 @@ class Transaction extends BaseController
         $crud->displayAs('type', "نوع");
         $crud->displayAs('deleted_at', "تاریخ حذف");
         $crud->displayAs('trans_type', "نوع تراکنش");
+        $crud->displayAs("bank_id","نام حساب");
+
+        $crud->setRelation('bank_id', 'bnks', 'title');
 
         $crud->fieldType('status', 'dropdown', ['1' => 'فعال', '0' => 'غیرفعال']);
         $crud->fieldType('type', 'dropdown', ['in' => 'دریافتی از مسافر', 'out' => 'پرداختی به راننده ']);
+
 
         $this->UploadCallback($crud, 'scan');
 

@@ -22,11 +22,8 @@
     <script src="https://behzadi.github.io/persianDatepicker/js/persianDatepicker.js"></script>
     <script>
         $('input[name="date_start"]').persianDatepicker();
+        $('#field-insurance_expiry_date').persianDatepicker();
     </script>
 
-<script>
 
-
-
-</script>
 </html>

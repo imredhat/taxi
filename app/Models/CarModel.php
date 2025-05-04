@@ -75,6 +75,27 @@ class CarModel extends Model
         return $query->getResultArray();
     }
 
+
+    public function getCarWithLinkedData($carID)
+    {
+        
+        $builder = $this->db->table($this->table);
+        $builder->select('
+            cars.*,
+            brand.TiD , brand.brand,
+            brand_type.type_name as type_name,
+            packages.name as package_name
+        ');
+        $builder->where('cid', $carID);
+        
+        $builder->join('brand', 'cars.brand = brand.TiD', 'left');
+        $builder->join('brand_type', 'cars.type = brand_type.bid', 'left');
+        $builder->join('packages', 'cars.type_class = packages.id', 'left');
+
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
+
     public function __construct()
     {
         parent::__construct();
