@@ -66,7 +66,7 @@ function getServiceStatus($status)
         case 'Done':
             return 'به پایان رسیده';
         case 'Service':
-            return 'سرویس';
+            return 'سرویس درحال انجام';
         default:
             return '';
     }
@@ -506,6 +506,9 @@ span.mosafer {
         float: right !important;
         margin-right: 20px !important;
     }
+    .bg-light {
+    color: black !important;
+}
 </style>
 
 

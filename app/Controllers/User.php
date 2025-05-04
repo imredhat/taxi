@@ -1,13 +1,12 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Libraries\GroceryCrud;
 use App\Models\TripsModel;
 use App\Models\UserModel;
+use App\Models\TransactionModel;
 
-// require 'vendor/autoload.php'; // اطمینان حاصل کن که مسیر درست است
-        
-use GuzzleHttp\Client;
 
 class User extends BaseController
 {
@@ -27,7 +26,7 @@ class User extends BaseController
             'hash' => 'your_driver_hash',
             'carID' => 'your_car_id'
         ];
-        
+
         $options = [
             'http' => [
                 'header'  => "Content-Type: application/x-www-form-urlencoded\r\n",
@@ -35,61 +34,38 @@ class User extends BaseController
                 'content' => http_build_query($data),
             ]
         ];
-        
+
         $context  = stream_context_create($options);
         $response = file_get_contents("https://example.com/api/TripsList", false, $context);
-        
+
         $result = json_decode($response, true);
         print_r($result);
     }
 
     public function index()
     {
+        /*********************** Report Data  **************************/
+        
+        $data['Report'] = $this->PrintAll();
+        $data['lastMonth'] = $this->lastMonth();
 
-        // $host     = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost:8080';
-        // $protocol = "http://";
-        // if (isset($_SERVER['HTTPS']) && ! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
-        //     $protocol = "https://";
-        // }
-
-        // $port = isset($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : '80';
-
-        // $url      = $protocol . $host . '/api/driver/TripsList';
-        // $data     = ['hash' => '7311bf4fbfaee7350486028f33301cd2', 'carID' => 1];
-        // // $response = $this->curlLink($url, $data);
-
-
-        
-        
-        // $client = new Client();
-        
-        // $response = $client->post('https://portal.pooyeshtak30.ir/api/driver/TripsList', [
-        //     'form_params' => [
-        //         'hash' => '7311bf4fbfaee7350486028f33301cd2',
-        //         'carID' => '1'
-        //     ],
-        //     'headers' => [
-        //         'Accept' => 'application/json',
-        //     ]
-        // ]);
-        
-        // // دریافت پاسخ API
-        // $body = $response->getBody();
-        // $data = json_decode($body, true);
-        
-        // print_r($data); // نمایش نتیجه
-        
-     
-        
-
-        // // echo json_encode($response);
+        // echo "last month";
+        // echo "<pre>";
+        // print_r($data['lastMonth']['averageUserCustomFare']);
+        // echo "</pre>";
+        // echo "Report";
+        // echo "<pre>";
+        // print_r($data['Report']['averageUserCustomFare']);
+        // echo "</pre>";
+        // echo "<hr>";
+        // echo "<br>";
         // die();
 
 
         $data["BestDriver"] = "";
 
         $db     = \Config\Database::connect();
-        $query  = $db->query("SELECT driverID,package, COUNT(driverID) as count FROM trips WHERE driverID != 0 GROUP BY driverID ORDER BY count DESC LIMIT 1");
+        $query  = $db->query("SELECT driverID,package, COUNT(driverID) as count FROM trips WHERE driverID != 0 AND trip_date >= '{$data['Report']['start']}' AND trip_date <= '{$data['Report']['end']}' GROUP BY driverID ORDER BY count DESC LIMIT 1 ");
         $result = $query->getRow();
 
         if ($result) {
@@ -107,30 +83,15 @@ class User extends BaseController
 
             $data["TotalPackageTrip"] = $trip;
             $data["Package"]          = $result->package;
-
         }
 
-        /*********************** Transaction Data  **************************/
-
-        $queryIn  = $db->query("SELECT SUM(amount) as total_in FROM user_transaction WHERE type = 'in'  and row_status= 'insert'");
-        $resultIn = $queryIn->getRow();
-
-        $queryOut  = $db->query("SELECT SUM(amount) as total_out FROM user_transaction WHERE type = 'out' and row_status= 'insert'");
-        $resultOut = $queryOut->getRow();
-
-        $totalIn  = $resultIn ? $resultIn->total_in : 0;
-        $totalOut = $resultOut ? $resultOut->total_out : 0;
-
-        $data["All"] = $totalIn - $totalOut;
-        $data["IN"]  = $totalIn;
-        $data["OUT"] = $totalOut;
-
+        
         /*********************** Trips Data  **************************/
 
         $Trip               = new TripsModel();
         $data["TotalTrips"] = $Trip->countAllResults();
 
-        $queryFare  = $db->query("SELECT AVG(UserCustomFare) as avg_fare FROM trips WHERE UserCustomFare IS NOT NULL AND UserCustomFare != 0 and status='Confirm'");
+        $queryFare  = $db->query("SELECT AVG(UserCustomFare) as avg_fare FROM trips WHERE UserCustomFare IS NOT NULL AND UserCustomFare != 0 and status='Confirm' AND trip_date >= '{$data['Report']['start']}' AND trip_date <= '{$data['Report']['end']}'");
         $resultFare = $queryFare->getRow();
 
         $data["UserCustomFare"] = $resultFare ? $resultFare->avg_fare : 0;
@@ -140,10 +101,483 @@ class User extends BaseController
         $userModel          = new UserModel();
         $data["TotalUsers"] = $userModel->countAllResults();
 
-        // $data["NetAmount"] = $totalIn - $totalOut;
+
+
+        
+
         echo view('parts/header');
         echo view('parts/side');
         echo view('Home', $data);
+    }
+
+    public function lastMonth()
+    {
+
+        $now = new \DateTime('now', new \DateTimeZone('Asia/Tehran'));
+        $persianDateFormatter = \IntlDateFormatter::create(
+            'fa_IR@calendar=persian',
+            \IntlDateFormatter::SHORT,
+            \IntlDateFormatter::NONE,
+            'Asia/Tehran',
+            \IntlDateFormatter::TRADITIONAL
+        );
+        $persianDateFormatter->setPattern('YYYY/MM/dd'); // Set pattern to show month and date with leading zeros
+        $data['today'] = $persianDateFormatter->format($now);
+        $date = explode('/', $data['today']);
+        $year = $date[0];
+        $month = $date[1];
+
+        // Convert Persian numbers to English
+        $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        
+        $month              = str_replace($persianNumbers, $englishNumbers, $month);
+        $year              = str_replace($persianNumbers, $englishNumbers, $year);
+
+        
+
+
+        
+
+
+
+        if(floatval($month) == 1){
+            $month = 12;
+            $year = floatval($year) - 1;
+            
+        }else{
+            $month = floatval($month) - 1;
+            $month = $month < 10 ? '0' . $month : $month;
+        }
+
+    
+
+
+        $trip_start_date = $year . '/' . $month . '/01';
+        $trip_end_date   = $year . '/' . $month . '/31';
+
+        $trip_start_date            = str_replace($persianNumbers, $englishNumbers, $trip_start_date);
+        $trip_end_date              = str_replace($persianNumbers, $englishNumbers, $trip_end_date);
+        
+        $data['start'] = $trip_start_date;
+        $data['end']   = $trip_end_date;
+        
+
+
+
+
+        $status         = "Done";
+        $payment_status = "Paid";
+
+        $tripsModel = new TripsModel();
+        $query = $tripsModel->select('*');
+
+
+        $query->where('payment_status', $payment_status);
+        $query->where('trip_date >=', $trip_start_date);
+        $query->where('trip_date <=', $trip_end_date);
+        $query->where('status', $status);
+
+
+        $AllTrips = $query->findAll();
+
+
+        $FullTrip = [];
+        $totalIn    = 0;
+        $totalOut   = 0;
+        $bankTotals = [];
+
+        $inCount               = 0;
+        $outCount              = 0;
+        $totalUserCustomFare   = 0;
+        $totalDriverCustomFare = 0;
+        $userCustomFareCount   = 0;
+        $driverCustomFareCount = 0;
+
+        $maxUserCustomFare   = 0;
+        $minUserCustomFare   = PHP_INT_MAX;
+        $maxDriverCustomFare = 0;
+        $minDriverCustomFare = PHP_INT_MAX;
+
+        $maxUserCustomFareTrip   = 0;
+        $maxUserCustomFareUser   = 0;
+        $maxUserCustomFareDriver = 0;
+        $minUserCustomFareTrip   = 0;
+        $minUserCustomFareUser   = 0;
+        $minUserCustomFareDriver = 0;
+
+        $Called    = 0;
+        $Reserved  = 0;
+        $Notifed   = 0;
+        $Requested = 0;
+        $Done      = 0;
+        $Confirm   = 0;
+        $Cancled   = 0;
+        $Service   = 0;
+        $AllType   = 0;
+
+        $TransactinModel = new TransactionModel();
+        foreach ($AllTrips as $T) {
+            $T['Transactions'] = $TransactinModel->TripTrans($T['id']);
+            array_push($FullTrip, $T);
+
+            if (isset($T['status'])) {
+                switch ($T['status']) {
+                    case 'Called':
+                        $Called++;
+                        break;
+                    case 'Reserved':
+                        $Reserved++;
+                        break;
+                    case 'Notifed':
+                        $Notifed++;
+                        break;
+                    case 'Requested':
+                        $Requested++;
+                        break;
+                    case 'Done':
+                        $Done++;
+                        break;
+                    case 'Confirm':
+                        $Confirm++;
+                        break;
+                    case 'Service':
+                        $Service++;
+                        break;
+                    case 'Cancled':
+                        $Cancled++;
+                        break;
+                }
+            }
+
+            foreach ($FullTrip as $trip) {
+                if (isset($trip['userCustomFare'])) {
+                    $totalUserCustomFare += $trip['userCustomFare'];
+                    $userCustomFareCount++;
+                    if ($trip['userCustomFare'] > $maxUserCustomFare) {
+                        $maxUserCustomFare       = $trip['userCustomFare'];
+                        $maxUserCustomFareTrip   = $trip['id'];
+                        $maxUserCustomFareUser   = $trip['passenger_id'];
+                        $maxUserCustomFareDriver = $trip['driverID'];
+                    }
+                    if ($trip['userCustomFare'] < $minUserCustomFare) {
+                        $minUserCustomFare       = $trip['userCustomFare'];
+                        $minUserCustomFareTrip   = $trip['id'];
+                        $minUserCustomFareUser   = $trip['passenger_id'];
+                        $minUserCustomFareDriver = $trip['driverID'];
+                    }
+                }
+                if (isset($trip['driverCustomFare'])) {
+                    $totalDriverCustomFare += $trip['driverCustomFare'];
+                    $driverCustomFareCount++;
+
+                    if ($trip['driverCustomFare'] > $maxDriverCustomFare) {
+                        $maxDriverCustomFare     = $trip['driverCustomFare'];
+                        $maxUserCustomFareTrip   = $trip['id'];
+                        $maxUserCustomFareUser   = $trip['passenger_id'];
+                        $maxUserCustomFareDriver = $trip['driverID'];
+                    }
+                    if ($trip['driverCustomFare'] < $minDriverCustomFare) {
+                        $minDriverCustomFare     = $trip['driverCustomFare'];
+                        $minUserCustomFareTrip   = $trip['id'];
+                        $minUserCustomFareUser   = $trip['passenger_id'];
+                        $minUserCustomFareDriver = $trip['driverID'];
+                    }
+                }
+
+                // $AllType++;
+
+
+            }
+
+            foreach ($T['Transactions'] as $transaction) {
+                if ($transaction['type'] == 'in') {
+                    $totalIn += $transaction['amount'];
+                } elseif ($transaction['type'] == 'out') {
+                    $totalOut += $transaction['amount'];
+                }
+
+                $bank_id = $transaction['bank_id'];
+                if (! isset($bankTotals[$bank_id])) {
+                    $bankTotals[$bank_id] = ['in' => 0, 'out' => 0, 'bank_name' => $transaction['bank_name']];
+                }
+
+                if ($transaction['type'] == 'in') {
+                    $bankTotals[$bank_id]['in'] += $transaction['amount'];
+                } elseif ($transaction['type'] == 'out') {
+                    $bankTotals[$bank_id]['out'] += $transaction['amount'];
+                }
+
+                if ($transaction['type'] == 'in') {
+                    $inCount++;
+                } elseif ($transaction['type'] == 'out') {
+                    $outCount++;
+                }
+            }
+        }
+
+        $data['totalIn']    = $totalIn;
+        $data['totalOut']   = $totalOut;
+        $data['bankTotals'] = $bankTotals;
+        $data['inCount']    = $inCount;
+        $data['outCount']   = $outCount;
+
+        $data['averageUserCustomFare']   = $userCustomFareCount ? $totalUserCustomFare / $userCustomFareCount : 0;
+        $data['averageDriverCustomFare'] = $driverCustomFareCount ? $totalDriverCustomFare / $driverCustomFareCount : 0;
+
+        $data['maxUserCustomFare']   = $maxUserCustomFare;
+        $data['minUserCustomFare']   = $minUserCustomFare == PHP_INT_MAX ? 0 : $minUserCustomFare;
+        $data['maxDriverCustomFare'] = $maxDriverCustomFare;
+        $data['minDriverCustomFare'] = $minDriverCustomFare == PHP_INT_MAX ? 0 : $minDriverCustomFare;
+
+        $data['maxUserCustomFareTrip']   = $maxUserCustomFareTrip;
+        $data['maxUserCustomFareUser']   = $maxUserCustomFareUser;
+        $data['maxUserCustomFareDriver'] = $maxUserCustomFareDriver;
+
+        $data['minUserCustomFareTrip']   = $minUserCustomFareTrip;
+        $data['minUserCustomFareUser']   = $minUserCustomFareUser;
+        $data['minUserCustomFareDriver'] = $minUserCustomFareDriver;
+
+        $data['status']['Called']    = $Called;
+        $data['status']['Reserved']  = $Reserved;
+        $data['status']['Notifed']   = $Notifed;
+        $data['status']['Requested'] = $Requested;
+        $data['status']['Done']      = $Done;
+        $data['status']['Confirm']   = $Confirm;
+        $data['status']['Cancled']   = $Cancled;
+        $data['status']['Service']   = $Service;
+        $data['AllType']             = count($AllTrips);
+
+        // echo json_encode($data);die();
+
+        $data['Trip'] = $FullTrip;
+
+   
+        return $data;
+    }
+
+
+
+
+    public function PrintAll()
+    {
+
+        $now = new \DateTime('now', new \DateTimeZone('Asia/Tehran'));
+        $persianDateFormatter = \IntlDateFormatter::create(
+            'fa_IR@calendar=persian',
+            \IntlDateFormatter::SHORT,
+            \IntlDateFormatter::NONE,
+            'Asia/Tehran',
+            \IntlDateFormatter::TRADITIONAL
+        );
+        $persianDateFormatter->setPattern('YYYY/MM/dd'); // Set pattern to show month and date with leading zeros
+        $data['today'] = $persianDateFormatter->format($now);
+        $date = explode('/', $data['today']);
+        $year = $date[0];
+        $month = $date[1];
+        $trip_start_date = $year . '/' . $month . '/01';
+        $trip_end_date   = $year . '/' . $month . '/31';
+
+
+
+        // Convert Persian numbers to English
+        $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        $trip_start_date            = str_replace($persianNumbers, $englishNumbers, $trip_start_date);
+        $trip_end_date              = str_replace($persianNumbers, $englishNumbers, $trip_end_date);
+
+        $data['start'] = $trip_start_date;
+        $data['end']   = $trip_end_date;
+
+
+        $status         = "Done";
+        $payment_status = "Paid";
+
+        $tripsModel = new TripsModel();
+        $query = $tripsModel->select('*');
+
+
+        $query->where('payment_status', $payment_status);
+        $query->where('trip_date >=', $trip_start_date);
+        $query->where('trip_date <=', $trip_end_date);
+        $query->where('status', $status);
+
+
+        $AllTrips = $query->findAll();
+
+
+        $FullTrip = [];
+        $totalIn    = 0;
+        $totalOut   = 0;
+        $bankTotals = [];
+
+        $inCount               = 0;
+        $outCount              = 0;
+        $totalUserCustomFare   = 0;
+        $totalDriverCustomFare = 0;
+        $userCustomFareCount   = 0;
+        $driverCustomFareCount = 0;
+
+        $maxUserCustomFare   = 0;
+        $minUserCustomFare   = PHP_INT_MAX;
+        $maxDriverCustomFare = 0;
+        $minDriverCustomFare = PHP_INT_MAX;
+
+        $maxUserCustomFareTrip   = 0;
+        $maxUserCustomFareUser   = 0;
+        $maxUserCustomFareDriver = 0;
+        $minUserCustomFareTrip   = 0;
+        $minUserCustomFareUser   = 0;
+        $minUserCustomFareDriver = 0;
+
+        $Called    = 0;
+        $Reserved  = 0;
+        $Notifed   = 0;
+        $Requested = 0;
+        $Done      = 0;
+        $Confirm   = 0;
+        $Cancled   = 0;
+        $Service   = 0;
+        $AllType   = 0;
+
+        $TransactinModel = new TransactionModel();
+        foreach ($AllTrips as $T) {
+            $T['Transactions'] = $TransactinModel->TripTrans($T['id']);
+            array_push($FullTrip, $T);
+
+            if (isset($T['status'])) {
+                switch ($T['status']) {
+                    case 'Called':
+                        $Called++;
+                        break;
+                    case 'Reserved':
+                        $Reserved++;
+                        break;
+                    case 'Notifed':
+                        $Notifed++;
+                        break;
+                    case 'Requested':
+                        $Requested++;
+                        break;
+                    case 'Done':
+                        $Done++;
+                        break;
+                    case 'Confirm':
+                        $Confirm++;
+                        break;
+                    case 'Service':
+                        $Service++;
+                        break;
+                    case 'Cancled':
+                        $Cancled++;
+                        break;
+                }
+            }
+
+            foreach ($FullTrip as $trip) {
+                if (isset($trip['userCustomFare'])) {
+                    $totalUserCustomFare += $trip['userCustomFare'];
+                    $userCustomFareCount++;
+                    if ($trip['userCustomFare'] > $maxUserCustomFare) {
+                        $maxUserCustomFare       = $trip['userCustomFare'];
+                        $maxUserCustomFareTrip   = $trip['id'];
+                        $maxUserCustomFareUser   = $trip['passenger_id'];
+                        $maxUserCustomFareDriver = $trip['driverID'];
+                    }
+                    if ($trip['userCustomFare'] < $minUserCustomFare) {
+                        $minUserCustomFare       = $trip['userCustomFare'];
+                        $minUserCustomFareTrip   = $trip['id'];
+                        $minUserCustomFareUser   = $trip['passenger_id'];
+                        $minUserCustomFareDriver = $trip['driverID'];
+                    }
+                }
+                if (isset($trip['driverCustomFare'])) {
+                    $totalDriverCustomFare += $trip['driverCustomFare'];
+                    $driverCustomFareCount++;
+
+                    if ($trip['driverCustomFare'] > $maxDriverCustomFare) {
+                        $maxDriverCustomFare     = $trip['driverCustomFare'];
+                        $maxUserCustomFareTrip   = $trip['id'];
+                        $maxUserCustomFareUser   = $trip['passenger_id'];
+                        $maxUserCustomFareDriver = $trip['driverID'];
+                    }
+                    if ($trip['driverCustomFare'] < $minDriverCustomFare) {
+                        $minDriverCustomFare     = $trip['driverCustomFare'];
+                        $minUserCustomFareTrip   = $trip['id'];
+                        $minUserCustomFareUser   = $trip['passenger_id'];
+                        $minUserCustomFareDriver = $trip['driverID'];
+                    }
+                }
+
+                // $AllType++;
+
+
+            }
+
+            foreach ($T['Transactions'] as $transaction) {
+                if ($transaction['type'] == 'in') {
+                    $totalIn += $transaction['amount'];
+                } elseif ($transaction['type'] == 'out') {
+                    $totalOut += $transaction['amount'];
+                }
+
+                $bank_id = $transaction['bank_id'];
+                if (! isset($bankTotals[$bank_id])) {
+                    $bankTotals[$bank_id] = ['in' => 0, 'out' => 0, 'bank_name' => $transaction['bank_name']];
+                }
+
+                if ($transaction['type'] == 'in') {
+                    $bankTotals[$bank_id]['in'] += $transaction['amount'];
+                } elseif ($transaction['type'] == 'out') {
+                    $bankTotals[$bank_id]['out'] += $transaction['amount'];
+                }
+
+                if ($transaction['type'] == 'in') {
+                    $inCount++;
+                } elseif ($transaction['type'] == 'out') {
+                    $outCount++;
+                }
+            }
+        }
+
+        $data['totalIn']    = $totalIn;
+        $data['totalOut']   = $totalOut;
+        $data['bankTotals'] = $bankTotals;
+        $data['inCount']    = $inCount;
+        $data['outCount']   = $outCount;
+
+        $data['averageUserCustomFare']   = $userCustomFareCount ? $totalUserCustomFare / $userCustomFareCount : 0;
+        $data['averageDriverCustomFare'] = $driverCustomFareCount ? $totalDriverCustomFare / $driverCustomFareCount : 0;
+
+        $data['maxUserCustomFare']   = $maxUserCustomFare;
+        $data['minUserCustomFare']   = $minUserCustomFare == PHP_INT_MAX ? 0 : $minUserCustomFare;
+        $data['maxDriverCustomFare'] = $maxDriverCustomFare;
+        $data['minDriverCustomFare'] = $minDriverCustomFare == PHP_INT_MAX ? 0 : $minDriverCustomFare;
+
+        $data['maxUserCustomFareTrip']   = $maxUserCustomFareTrip;
+        $data['maxUserCustomFareUser']   = $maxUserCustomFareUser;
+        $data['maxUserCustomFareDriver'] = $maxUserCustomFareDriver;
+
+        $data['minUserCustomFareTrip']   = $minUserCustomFareTrip;
+        $data['minUserCustomFareUser']   = $minUserCustomFareUser;
+        $data['minUserCustomFareDriver'] = $minUserCustomFareDriver;
+
+        $data['status']['Called']    = $Called;
+        $data['status']['Reserved']  = $Reserved;
+        $data['status']['Notifed']   = $Notifed;
+        $data['status']['Requested'] = $Requested;
+        $data['status']['Done']      = $Done;
+        $data['status']['Confirm']   = $Confirm;
+        $data['status']['Cancled']   = $Cancled;
+        $data['status']['Service']   = $Service;
+        $data['AllType']             = count($AllTrips);
+
+        // echo json_encode($data);die();
+
+        $data['Trip'] = $FullTrip;
+
+   
+        return $data;
     }
 
     public function Company()
@@ -283,7 +717,6 @@ class User extends BaseController
         echo view('parts/side');
         echo view('crud', (array) $output);
         echo view('parts/footer_crud');
-
     }
 
     public function CompanyUploadCallback($crud, $field)
@@ -461,7 +894,6 @@ class User extends BaseController
         $data = $User->select('id, name, lname')->findAll();
 
         return $this->response->setJSON($data);
-
     }
 
     public function RD()
@@ -488,7 +920,7 @@ class User extends BaseController
                     if (is_file($file)) {
                         unlink($file);
                     }
-                } 
+                }
                 return redirect()->back()->with('success', 'Field updated successfully.');
             } else {
                 return redirect()->back()->with('error', 'Driver not found.');

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Models\BankModel;
@@ -26,7 +27,7 @@ class Trips extends ResourceController
         $data['Trip']    = (new TripsModel())->getAllTripsWithDriverName();
         $data['Package'] = (new PackagesModel())->findAll();
         $Banks     = new BankModel();
-        $data['bnks'] = $Banks ->where('active','1') -> findAll();
+        $data['bnks'] = $Banks->where('active', '1')->findAll();
 
         $data['Title']   = 'استعلام ها';
 
@@ -149,7 +150,6 @@ class Trips extends ResourceController
         } else {
             return $User['id'];
         }
-
     }
 
     public function FindID()
@@ -191,7 +191,7 @@ class Trips extends ResourceController
 
         $Trip = new TripsModel();
         if ($data['Trip'] = $Trip->find($ID)) {
-            
+
 
             $tr                   = new TransactionModel();
             $data['transactions'] = $tr->where('tripID', $ID)->where('row_status', 'insert')->where('type', 'in')->withDeleted()->findAll();
@@ -199,21 +199,20 @@ class Trips extends ResourceController
             $BankModel    = new \App\Models\BankModel();
             $data['Bank'] = $BankModel->find($data['Trip']['bank']);
 
-
  
             if(isset($data['Trip']['driverID'])  && $data['Trip']['driverID']>0 and !empty($data['Trip']['driverID'])){
                 $DriverModel = new DriverModel();
                 $data['Driver'] = $DriverModel->find($data['Trip']['driverID']);
-    
+
                 $CarModel = new \App\Models\CarModel();
                 // $data['Car'] = $CarModel->getAllCarsWithLinkedData($data['Trip']['driverID']);
                 $data['Car'] = $CarModel->getCarWithLinkedData($data['Trip']['carID']);
             }
-            
+
 
 
  
-            // echo json_encode($data['CarData']);
+            // echo json_encode($data);
             // die();
 
             // print_r($data);die();
@@ -232,7 +231,7 @@ class Trips extends ResourceController
 
         $Trip = new TripsModel();
         if ($data['Trip'] = $Trip->find($ID)) {
-            
+
 
             $tr                   = new TransactionModel();
             $data['transactions'] = $tr->where('tripID', $ID)->where('row_status', 'insert')->where('type', 'in')->withDeleted()->findAll();
@@ -240,18 +239,18 @@ class Trips extends ResourceController
             $BankModel    = new \App\Models\BankModel();
             $data['Bank'] = $BankModel->find($data['Trip']['bank']);
 
- 
-            if(isset($data['Trip']['driverID'])  && $data['Trip']['driverID']>0 and !empty($data['Trip']['driverID'])){
+
+            if (isset($data['Trip']['driverID'])  && $data['Trip']['driverID'] > 0 and !empty($data['Trip']['driverID'])) {
                 $DriverModel = new DriverModel();
                 $data['Driver'] = $DriverModel->find($data['Trip']['driverID']);
-    
+
                 $CarModel = new \App\Models\CarModel();
                 $data['Car'] = $CarModel->getAllCarsWithLinkedData($data['Trip']['driverID']);
             }
-            
 
 
- 
+
+
             // echo json_encode($data);
             // die();
 
@@ -315,15 +314,15 @@ class Trips extends ResourceController
         // $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
         // $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
         // $date       = str_replace($persianNumbers, $englishNumbers, $persianDate);
-        
+
 
         require_once APPPATH . 'Libraries/jdf.php';
         $currentDate = jdate('Ymd');
         $currentTime = jdate('H:i:s');
         $date = $currentDate . '-' . $currentTime;
 
-            
-            
+
+
         $tdata = [
             'status' => 'Notifed',
             'package' => $DriverPackage,
@@ -348,12 +347,12 @@ class Trips extends ResourceController
         $tdata['status'] = $Status;
 
         $Trip = new TripsModel();
-        
 
 
-        if($Status == 'Confirm'){
 
-            $T = $Trip -> find($ID);
+        if ($Status == 'Confirm') {
+
+            $T = $Trip->find($ID);
 
             $UserModel = new UserModel();
             $existingUser = $UserModel->where('mobile', $T['passenger_tel'])->first();
@@ -363,14 +362,13 @@ class Trips extends ResourceController
                 $data['passenger_tel'] = $this->request->getPost('passenger_tel');
                 $UserID = $this->createUser($data['passenger_tel'], $data['passenger_name']);
 
-                $tdata['passenger_id']=$UserID;
+                $tdata['passenger_id'] = $UserID;
             } else {
                 $tdata['passenger_id'] = $existingUser['id'];
             }
-
         }
 
-        if($Status == 'Notifed'){
+        if ($Status == 'Notifed') {
 
             $now = new \DateTime('now', new \DateTimeZone('Asia/Tehran'));
             $persianDate = \IntlDateFormatter::create('fa_IR@calendar=persian', \IntlDateFormatter::SHORT, \IntlDateFormatter::NONE, 'Asia/Tehran', \IntlDateFormatter::TRADITIONAL)->format($now);
@@ -378,7 +376,7 @@ class Trips extends ResourceController
             $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
             $date       = str_replace($persianNumbers, $englishNumbers, $persianDate);
 
-            $tdata['notified_time'] = $date.'-'.$now->format('H:i:s');
+            $tdata['notified_time'] = $date . '-' . $now->format('H:i:s');
         }
 
         // print_r($tdata);die();
@@ -393,7 +391,7 @@ class Trips extends ResourceController
         //     $DriverModel = new DriverModel();
         //     $drivers = $DriverModel->where('ws_id IS NOT NULL and ws_id > 0')->findAll();
 
-            
+
 
 
         //     foreach ($drivers as $driver) {
@@ -523,15 +521,64 @@ class Trips extends ResourceController
             'call_date'             => $this->request->getPost('call_date'),
             'call_time'             => $this->request->getPost('call_time'),
             'company_name'             => $this->request->getPost('company_name'),
-            'payment_status'             => $this->request->getPost('payment_status'),            
-            'startPoint'             => $this->request->getPost('startPoint'),            
-            'endPoint'             => $this->request->getPost('endPoint'),            
+            'payment_status'             => $this->request->getPost('payment_status'),
+            'startPoint'             => $this->request->getPost('startPoint'),
+            'endPoint'             => $this->request->getPost('endPoint'),
         ];
 
 
+        // Check if driverID and carID match with the trip table
+        $status = $this->request->getPost('status');
 
-    // print_r($data);die();
-        
+        if ( !empty($status) && $status = 'Notifed') {
+            $TripModel = new TripsModel();
+            $existingTrip = $TripModel->find($ID);
+
+            if ($existingTrip['driverID'] != $data['driverID'] || $existingTrip['carID'] != $data['carID']) {
+                $RequestModel = new RequestModel();
+                $requests = $RequestModel->where('tripID', $ID)->findAll();
+
+                // Set isAccepted to NO for all existing requests
+                foreach ($requests as $request) {
+                    $RequestModel->update($request['id'], ['isAccepted' => 'NO']);
+                }
+
+                // Check if a request exists with the given carID and driverID
+                $existingRequest = $RequestModel->where('tripID', $ID)
+                    ->where('driverID', $data['driverID'])
+                    ->where('carID', $data['carID'])
+                    ->first();
+
+                if ($existingRequest) {
+                    // Update the existing request to set isAccepted to YES
+                    $RequestModel->update($existingRequest['id'], ['isAccepted' => 'YES']);
+                }
+                
+                else {
+                    // Insert a new request with isAccepted set to YES
+
+                    if($data['driverID'] > 0 && $data['carID']){
+                        $requestData = [
+                            'tripID'     => $ID,
+                            'driverID'   => $data['driverID'],
+                            'carID'      => $data['carID'],
+                            'isAccepted' => 'YES',
+                            'notified'   => 0,
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s'),
+                        ];
+    
+                        $RequestModel->insert($requestData);
+                    }
+                    
+                    
+                }
+            }
+        }
+
+
+        // print_r($data);die();
+
 
         $data['userCustomFare']   = preg_replace('/\D/', '', $data['userCustomFare']);
         $data['driverCustomFare'] = preg_replace('/\D/', '', $data['driverCustomFare']);
@@ -542,7 +589,7 @@ class Trips extends ResourceController
          ******************************************/
 
 
-        if($data['status'] == 'Confirm'){
+        if ($data['status'] == 'Confirm') {
 
 
             $UserModel = new UserModel();
@@ -554,12 +601,10 @@ class Trips extends ResourceController
 
                 $UserID = $this->createUser($data['passenger_tel'], $data['passenger_name']);
 
-                $data['passenger_id']=$UserID;
-            }else {
+                $data['passenger_id'] = $UserID;
+            } else {
                 $data['passenger_id'] = $existingUser['id'];
             }
-
-
         }
 
 
@@ -570,8 +615,8 @@ class Trips extends ResourceController
             $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
             $date       = str_replace($persianNumbers, $englishNumbers, $persianDate);
 
-            
-            $data['notified_time'] = $date.'-'.$now->format('H:i:s');
+
+            $data['notified_time'] = $date . '-' . $now->format('H:i:s');
         }
 
 
