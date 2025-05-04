@@ -240,10 +240,10 @@ function getRandomColorPair()
 
 
 
-                <td> <span><?= $S['trip_date'] ?>-<?php 
+                <td> <span><?= $S['trip_date'] ?><?php 
                 if(!empty($S['trip_time'])){
                         $tripDateTime = explode(':',  $S['trip_time']);
-                        echo '<span>' . $tripDateTime[0] . '</span>:<span>' . $tripDateTime[1] . '</span>'; 
+                        echo '-<span>' . $tripDateTime[0] . '</span>:<span>' . $tripDateTime[1] . '</span>'; 
                 }
                     ?></span> 
             

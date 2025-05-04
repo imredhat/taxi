@@ -245,7 +245,7 @@ class Trips extends ResourceController
                 $data['Driver'] = $DriverModel->find($data['Trip']['driverID']);
 
                 $CarModel = new \App\Models\CarModel();
-                $data['Car'] = $CarModel->getAllCarsWithLinkedData($data['Trip']['driverID']);
+                $data['Car'] = $CarModel->getCarWithLinkedData($data['Trip']['carID']);
             }
 
 

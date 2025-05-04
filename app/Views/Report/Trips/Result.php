@@ -308,7 +308,12 @@ function getRandomColorPair()
 
 
 
-                <td> <span><?= $S['trip_date'] ?></span> 
+                <td> <span><?= $S['trip_date'] ?><?php 
+                if(!empty($S['trip_time'])){
+                        $tripDateTime = explode(':',  $S['trip_time']);
+                        echo '-<span>' . $tripDateTime[0] . '</span>:<span>' . $tripDateTime[1] . '</span>'; 
+                }
+                    ?></span> 
             
             <?php if(!empty($S['driverID'] && $S['driverID'] > 0)): ?> <br/>
                 <span  class="badge bg-opacity-10 bg-dark py-1 px-2 text-dark rounded-1 fw-semibold fs-12">

@@ -51,6 +51,9 @@ foreach ($request as $R) {
                         </div>
                         <div class="bg-dark   bg-opacity-5 text-white py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block" style="font-size:10px">
                             ایران <?= $R['iran'] ?> - <?= $R['pelak'] ?> <?= $R['harf'] ?> <?= $R['pelak_last'] ?></div>
+
+                            <div class="bg-warning   bg-opacity-5 text-black py-1 px-2 rounded-1 fs-13 fw-semibold w-100 d-block" style="font-size:10px">
+                            سال ساخت <?= $R['year'] ?> </div>
                     </td>
                     <td>
                         <div class="d-flex gap-2 justify-content-center">

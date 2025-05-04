@@ -57,6 +57,7 @@ class DriverModel extends Model
                 c.harf,
                 c.pelak_last,
                 c.type,
+                c.year,
 
                 b.brand AS brand_name,
                 ct.type_name
