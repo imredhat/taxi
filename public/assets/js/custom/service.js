@@ -186,8 +186,14 @@ $(document).ready(function () {
 
     $("body").on("click", 'a[data-bs-target="#TrancactionAddModal"]', function () {
         var tripID = $(this).data("id");
+        var dfare = $(this).data("dfare");
+        var cfare = $(this).data("cfare");
         $("#TrancactionAddModal").modal('show');
         $("#TrancactionAddModal input[name='trip_id']").val(tripID);
+
+        $(".dfare").html(dfare.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' تومان');
+        $(".cfare").html(cfare.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' تومان');
+
 
     });
 

@@ -16,6 +16,22 @@
                                         </div>
                                         <div class="card-body">
 
+
+                                        <div class="row my-2">
+                                            <div class="col-md-6">
+                                                <label for="amount"><strong>کرایه راننده</strong></label>
+                                                <div class="alert alert-primary text-primary dfare" role="alert">    </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="trans_type"><strong>مبلغ سرویس:</strong></label>
+                                                <div class="alert alert-success text-success cfare" role="alert"> </div>
+
+                                            </div>
+                                           
+                                        </div>
+
+
+
                                         <div class="row my-2">
                                             <div class="col-md-6">
                                                 <label for="amount"><strong>مبلغ (تومان):</strong></label>
