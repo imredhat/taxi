@@ -247,6 +247,7 @@ class TripsModel extends Model
 
             $builder->Where('trips.status', "Confirm");
             $builder->orWhere('trips.status', "Service");
+            $builder->orWhere('trips.status', "Reserved");
         
 
         $query = $builder->get();
