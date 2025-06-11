@@ -193,10 +193,13 @@ class Report extends ResourceController
         $Cancled   = 0;
         $Service   = 0;
         $AllType   = 0;
+        $TotalServicePrice = 0;
 
         $TransactinModel = new TransactionModel();
         foreach ($AllTrips as $T) {
             $T['Transactions'] = $TransactinModel->TripTrans($T['id']);
+            $TotalServicePrice = $TotalServicePrice + $T['userCustomFare'];
+
             array_push($FullTrip, $T);
 
             if (isset($T['status'])) {
@@ -301,6 +304,7 @@ class Report extends ResourceController
         $data['bankTotals'] = $bankTotals;
         $data['inCount']    = $inCount;
         $data['outCount']   = $outCount;
+        $data['TotalServicePrice']   = $TotalServicePrice;
 
         $data['averageUserCustomFare']   = $userCustomFareCount ? $totalUserCustomFare / $userCustomFareCount : 0;
         $data['averageDriverCustomFare'] = $driverCustomFareCount ? $totalDriverCustomFare / $driverCustomFareCount : 0;

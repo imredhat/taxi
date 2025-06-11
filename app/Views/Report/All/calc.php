@@ -296,8 +296,8 @@ $Tstatus = isset($_GET['status']) ? $_GET['status'] : null;
         <table class="table table-bordered">
 
             <tr>
-                <td>مبلغ کل</td>
-                <td><?= number_format($totalIn + $totalOut) ?> تومان</td>
+                <td>مجموع فاکتورها</td>
+                <td><?= number_format($TotalServicePrice) ?> تومان</td>
             </tr>
             <tr>
                 <td>مجموع دریافتی</td>

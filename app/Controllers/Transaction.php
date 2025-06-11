@@ -112,20 +112,21 @@ class Transaction extends BaseController
 
     public function All()
     {
-
-        $crud = new GroceryCrud();
+       
+        $crud = new GroceryCrud();    
 
         $crud->setLanguage("Persian");
         $crud->setTheme('bootstrap');
         $crud->setTable('user_transaction');
         $crud->setSubject('تراکنش', 'تراکنش‌ها');
         $crud->unsetEdit();
-        $crud->where('row_status', 'insert');
-        // $crud->unsetView();
         $crud->unsetAdd();
         $crud->unsetDelete();
         $crud->columns(['id', 'name','type','amount', 'desc', 'date_p', 'scan', 'tripID','trans_id','bank_id']);
         $crud->fields(['name', 'tel', 'amount', 'desc', 'trans_id', 'refid', 'date_p', 'response', 'status', 'scan', '_from', '_to', '_for', 'tripID', 'row_status', 'userID', 'driverID', 'type']);
+        
+        $crud->where('row_status', 'insert');
+        
         $crud->displayAs('id', "شناسه");
         $crud->displayAs('name', "پرداخت کننده / دریافت کننده");
         $crud->displayAs('tel', "تلفن");
@@ -154,6 +155,7 @@ class Transaction extends BaseController
         $crud->fieldType('status', 'dropdown', ['1' => 'فعال', '0' => 'غیرفعال']);
         $crud->fieldType('type', 'dropdown', ['in' => 'دریافتی از مسافر', 'out' => 'پرداختی به راننده ']);
 
+        
 
         $this->UploadCallback($crud, 'scan');
 
@@ -172,7 +174,90 @@ class Transaction extends BaseController
 
         echo view('parts/header');
         echo view('parts/side');
-        echo view('crud', (array) $output);
+        echo view('trans', (array) $output);
+        echo view('parts/footer_crud');
+
+    }
+
+
+
+     public function AllDated()
+    {
+       
+        $crud = new GroceryCrud();    
+
+        $crud->setLanguage("Persian");
+        $crud->setTheme('bootstrap');
+        $crud->setTable('user_transaction');
+        $crud->setSubject('تراکنش', 'تراکنش‌ها');
+        $crud->unsetEdit();
+        $crud->unsetAdd();
+        $crud->unsetDelete();
+        $crud->columns(['id', 'name','type','amount', 'desc', 'date_p', 'scan', 'tripID','trans_id','bank_id']);
+        $crud->fields(['name', 'tel', 'amount', 'desc', 'trans_id', 'refid', 'date_p', 'response', 'status', 'scan', '_from', '_to', '_for', 'tripID', 'row_status', 'userID', 'driverID', 'type']);
+        
+        $from_date = $this->request->getGet('from_date');
+        $to_date = $this->request->getGet('to_date');
+
+        // $from_date = $this->request->getGet('from_date') ?? "1400/01/01";
+        // $to_date = $this->request->getGet('to_date') ?? "9999/01/01";
+        
+        
+        // echo $to_date;
+        //     die();
+
+        $crud->where('row_status', 'insert');
+        $crud->where('date_p >=',  $from_date);
+        $crud->where('date_p <=',  $to_date);
+        
+        $crud->displayAs('id', "شناسه");
+        $crud->displayAs('name', "پرداخت کننده / دریافت کننده");
+        $crud->displayAs('tel', "تلفن");
+        $crud->displayAs('amount', "مقدار");
+        $crud->displayAs('desc', "توضیحات");
+        $crud->displayAs('trans_id', "شناسه تراکنش");
+        $crud->displayAs('refid', "شناسه مرجع");
+        $crud->displayAs('date_p', "تاریخ");
+        $crud->displayAs('response', "پاسخ");
+        $crud->displayAs('status', "وضعیت");
+        $crud->displayAs('scan', "رسید پرداخت");
+        $crud->displayAs('_from', "از");
+        $crud->displayAs('_to', "به");
+        $crud->displayAs('_for', "برای");
+        $crud->displayAs('tripID', "شناسه سفر");
+        $crud->displayAs('row_status', "وضعیت ردیف");
+        $crud->displayAs('userID', "شناسه کاربر");
+        $crud->displayAs('driverID', "شناسه راننده");
+        $crud->displayAs('type', "نوع");
+        $crud->displayAs('deleted_at', "تاریخ حذف");
+        $crud->displayAs('trans_type', "نوع تراکنش");
+        $crud->displayAs("bank_id","نام حساب");
+
+        $crud->setRelation('bank_id', 'bnks', 'title');
+
+        $crud->fieldType('status', 'dropdown', ['1' => 'فعال', '0' => 'غیرفعال']);
+        $crud->fieldType('type', 'dropdown', ['in' => 'دریافتی از مسافر', 'out' => 'پرداختی به راننده ']);
+
+        
+
+        $this->UploadCallback($crud, 'scan');
+
+        $crud->callbackColumn('tripID', function ($value, $row) {
+            return $value + 1000;
+        });
+
+        $crud->callbackColumn('amount', function ($value, $row) {
+            return number_format($value, 0, '', ',') . ' تومان';
+        });
+
+
+
+
+        $output = $crud->render();
+
+        echo view('parts/header');
+        echo view('parts/side');
+        echo view('trans', (array) $output);
         echo view('parts/footer_crud');
 
     }
