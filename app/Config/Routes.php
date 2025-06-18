@@ -220,6 +220,8 @@ $routes->get('driver/getAllDriver', 'Drivers::getAllDrivers');
 $routes->add('Transactions/', 'Transaction::All');
 $routes->add('Transaction', 'Transaction::AllDated');
 $routes->add('Transactions/(:any)', 'Transaction::All/$1');
+$routes->add('Transaction/(:any)', 'Transaction::All/$1');
+
 
 
 

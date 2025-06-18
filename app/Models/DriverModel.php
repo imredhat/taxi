@@ -33,7 +33,9 @@ class DriverModel extends Model
         'hash',
         'scan_govahiname',
         'ws_id',
-        'status'
+        'status',
+        'scan_salamat',
+        'scan_so_pishineh'
     ];
 
     protected $returnType = 'array';
@@ -84,7 +86,7 @@ class DriverModel extends Model
     public function getAllDriverWithCars()
     {
         $builder = $this->db->table(tableName: $this->table);
-        $builder->select('did,ax,name,lname,cid,cars.brand as brand_id,type,brand.brand,brand_type.type_name,cars.color ,driver.code');
+        $builder->select('did,ax,name,lname,cid,cars.brand as brand_id,type,brand.brand,brand_type.type_name,cars.color,driver.code,driver.scan_so_pishineh,driver.scan_salamat');
         $builder->join('cars', 'driver.did = cars.driver_id', 'left');
         $builder->join('brand', 'cars.brand = brand.TiD', 'left');
         $builder->join('brand_type', 'cars.type = brand_type.bid', 'left');

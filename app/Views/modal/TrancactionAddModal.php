@@ -43,6 +43,7 @@
                                                     <option value="" disabled selected>انتخاب کنید</option>
                                                     <option value="in">دریافتی از مشتری</option>
                                                     <option value="out">پرداختی به راننده</option>
+                                                    <option value="refund">استرداد به مشتری</option>
                                                 </select>
                                             </div>
                                            
