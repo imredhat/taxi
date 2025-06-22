@@ -192,6 +192,35 @@
             </li>
 
 
+            <li class="d-flex justify-content-between align-items-center border-bottom border-color-gray pb-10 mb-10">
+                <span>گواهی سوء پیشینه</span>
+                <div class="d-flex align-content-center">
+                    <a href="<?=base_url()?>uploads/drivers/<?=$Driver['did']?>/<?=$Driver['scan_so_pishineh']?>"
+                    data-bs-toggle="modal" data-bs-target="#scanModal">
+                        <img style="width: 50px;"
+                            src="<?=base_url()?>uploads/drivers/<?=$Driver['did']?>/<?=$Driver['scan_so_pishineh']?>"
+                            alt="گواهی سوء پیشینه" class="img-fluid" style="max-width: 100px;">
+                    </a>
+                </div>
+            </li>
+
+
+
+        
+
+            <li class="d-flex justify-content-between align-items-center border-bottom border-color-gray pb-10 mb-10">
+                <span>گواهی سلامت</span>
+                <div class="d-flex align-content-center">
+                    <a href="<?=base_url()?>uploads/drivers/<?=$Driver['did']?>/<?=$Driver['scan_salamat']?>"
+                    data-bs-toggle="modal" data-bs-target="#scanModal">
+                        <img style="width: 50px;"
+                            src="<?=base_url()?>uploads/drivers/<?=$Driver['did']?>/<?=$Driver['scan_salamat']?>"
+                            alt="گواهی سلامت" class="img-fluid" style="max-width: 100px;">
+                    </a>
+                </div>
+            </li>
+
+
       
 
         </div>
@@ -453,6 +482,16 @@
 
         <?php endforeach;?>
 
+
+
+
+
+
+
+
+
+
+        
 
 
 

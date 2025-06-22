@@ -153,7 +153,7 @@ class Transaction extends BaseController
         $crud->setRelation('bank_id', 'bnks', 'title');
 
         $crud->fieldType('status', 'dropdown', ['1' => 'فعال', '0' => 'غیرفعال']);
-        $crud->fieldType('type', 'dropdown', ['in' => 'دریافتی از مسافر', 'out' => 'پرداختی به راننده ']);
+        $crud->fieldType('type', 'dropdown', ['in' => 'دریافتی از مسافر', 'out' => 'پرداختی به راننده ', 'refund' => 'استرداد به مشتری ']);
 
         
 

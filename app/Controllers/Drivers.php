@@ -94,7 +94,7 @@ class Drivers extends BaseController
         }, true);
 
         $crud->columns(['code', 'ax', 'name', 'lname', 'gender', 'mobile', 'melli', 'date_created','status']);
-        $crud->fields(['code', 'ax', 'name', 'lname', 'gender', 'mobile', 'mobile2', 'password', 'birthday', 'phone', 'address', 'melli', 'scan_melli', 'scan_govahiname', 'bank', 'shaba', 'education_level', 'foreign_language', 'foreign_language_proficiency', 'postal_code', 'note', 'status']);
+        $crud->fields(['code', 'ax', 'name', 'lname', 'gender', 'mobile', 'mobile2', 'password', 'birthday', 'phone', 'address', 'melli', 'scan_melli', 'scan_govahiname','scan_so_pishineh','scan_salamat', 'bank', 'shaba', 'education_level', 'foreign_language', 'foreign_language_proficiency', 'postal_code', 'note', 'status']);
 
         $crud->displayAs('ax', 'عکس')
             ->displayAs('name', 'نام')
@@ -119,6 +119,8 @@ class Drivers extends BaseController
             ->displayAs('note', 'یادداشت')
             ->displayAs('code', 'شناسه')
             ->displayAs('date_created', 'تاریخ ثبت')
+            ->displayAs('scan_so_pishineh', 'گواهی سوء پیشینه')
+            ->displayAs('scan_salamat', 'گواهی سلامت')
             ->displayAs('status', 'وضعیت');
 
         $crud->fieldType("gender", "dropdown", ["مرد" => "مرد", "زن" => "زن"]);
@@ -188,6 +190,8 @@ class Drivers extends BaseController
         $this->UploadCallback($crud, 'ax');
         $this->UploadCallback($crud, 'scan_melli');
         $this->UploadCallback($crud, 'scan_govahiname');
+        $this->UploadCallback($crud, 'scan_so_pishineh');
+        $this->UploadCallback($crud, 'scan_salamat');
 
         $crud->callbackAfterDelete(function ($primaryKey) {
             // Your code here for after delete
@@ -331,7 +335,7 @@ class Drivers extends BaseController
 
         $crud->callbackBeforeUpdate(function ($stateParameters) {
 
-            $fields = ['scan_melli', 'scan_govahiname', 'ax'];
+            $fields = ['scan_melli', 'scan_govahiname', 'ax','scan_salamat','scan_so_pishineh'];
             foreach ($fields as $field) {
                 $file = $this->request->getFile($field);
                 if (isset($file)) {
@@ -361,7 +365,7 @@ class Drivers extends BaseController
         });
 
         $crud->callbackBeforeInsert(function ($stateParameters) use ($field) {
-            $fields = ['scan_melli', 'scan_govahiname', 'ax'];
+            $fields = ['scan_melli', 'scan_govahiname', 'ax','scan_so_pishineh','scan_salamat'];
             foreach ($fields as $field) {
                 $file = $this->request->getFile($field);
                 if (isset($file)) {
@@ -386,7 +390,7 @@ class Drivers extends BaseController
         $segment3 = $uri->getSegment(2);
         $segment4 = $uri->getSegment(3);
 
-        if ($segment3 == 'ax' || $segment3 == 'scan_melli'|| $segment3 == 'scan_govahiname') {
+        if ($segment3 == 'ax' || $segment3 == 'scan_melli'|| $segment3 == 'scan_govahiname'|| $segment3 == 'scan_salamat'|| $segment3 == 'scan_so_pishineh') {
 
             $db      = \Config\Database::connect();
             $builder = $db->table('driver');
@@ -413,6 +417,20 @@ class Drivers extends BaseController
                     }
                 } elseif ($segment3 == 'scan_govahiname') {
                     $builder->set('scan_govahiname', '');
+                    $builder->where('did', $segment4);
+                    $builder->update();
+                    if (is_file($file)) {
+                        unlink($file);
+                    }
+                }elseif ($segment3 == 'scan_salamat') {
+                    $builder->set('scan_salamat', '');
+                    $builder->where('did', $segment4);
+                    $builder->update();
+                    if (is_file($file)) {
+                        unlink($file);
+                    }
+                }elseif ($segment3 == 'scan_so_pishineh') {
+                    $builder->set('scan_so_pishineh', '');
                     $builder->where('did', $segment4);
                     $builder->update();
                     if (is_file($file)) {
@@ -480,6 +498,8 @@ class Drivers extends BaseController
                 'ax'              => $this->upload_file('ax', "drivers", $DID),
                 'scan_melli'      => $this->upload_file('scan_melli', "drivers", $DID),
                 'scan_govahiname' => $this->upload_file('scan_govahiname', "drivers", $DID),
+                'scan_salamat'    => $this->upload_file('scan_salamat', "drivers", $DID),
+                'scan_so_pishineh'=> $this->upload_file('scan_so_pishineh', "drivers", $DID),
                 'hash'            => md5($DID . $this->request->getPost('password') . date('Y-m-d H:i:s')),
                 'code'            => $uniqueId,
             ];

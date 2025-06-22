@@ -419,6 +419,26 @@
 
 
                                 <div class="col-lg-12">
+                                    <div class="form-group mb-4">
+                                        <label class="label"> تصویر گواهی عدم سوء پیشینه</label>
+                                        <div class="form-group position-relative">
+                                            <input type="file" class="form-control text-dark ps-5 h-58" name="scan_so_pishineh">
+                                            <i class="ri-user-3-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group mb-4">
+                                        <label class="label"> تصویر گواهی سلامت</label>
+                                        <div class="form-group position-relative">
+                                            <input type="file" class="form-control text-dark ps-5 h-58" name="scan_salamat">
+                                            <i class="ri-user-3-fill position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-12">
                                     <div class="form-group d-flex gap-3">
                                         <button class="btn btn-primary bg-primary bg-opacity-10 text-primary py-3 px-5 fw-semibold border-0 prev-tab" data-bs-target="#step3-tab-pane" type="button"> قبلی</button>
                                         <button class="btn btn-primary py-3 px-5 fw-semibold text-white next-tab" data-bs-target="#step4-tab-pane" type="button"> بعدی</button>
