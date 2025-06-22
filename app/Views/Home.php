@@ -4,6 +4,8 @@ $LastMonthAll = $lastMonth['totalIn'] - $lastMonth['totalOut'];
 
 ?>
 <div class="row justify-content-center">
+
+<?php if ($BestDriver !="") : ?>
     <div class="col-xxl-4 col-sm-12">
         <div class="stats-box style-six style-five bg-white card border-0 rounded-10 mb-4 overflow-hidden">
             <div class="card-body p-4">
@@ -24,6 +26,7 @@ $LastMonthAll = $lastMonth['totalIn'] - $lastMonth['totalOut'];
             </div>
         </div>
     </div>
+    <?php endif; ?>
     <div class="col-xxl-4 col-sm-6">
         <div class="stats-box style-five style-five bg-white card border-0 rounded-10 mb-4">
             <div class="card-body p-4">
@@ -213,8 +216,8 @@ $LastMonthAll = $lastMonth['totalIn'] - $lastMonth['totalOut'];
 <script>
     // Impression Share
 
-    var count = "<?= $count ?>";
-    var total = "<?= $TotalPackageTrip ?>";
+    var count = "<?php $count ?? 0 ?>";
+    var total = "<?= $TotalPackageTrip ?? 0 ?>";
     var percent = Math.round((count / total) * 100);
 
     var options = {
@@ -256,7 +259,7 @@ $LastMonthAll = $lastMonth['totalIn'] - $lastMonth['totalOut'];
                 },
             }
         },
-        labels: ['<?= $Package ?>'],
+        labels: ['<?= $Package ?? "" ?>'],
         responsive: [{
             breakpoint: 475,
             options: {
