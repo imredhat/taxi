@@ -17,6 +17,7 @@
         "guzzlehttp/guzzle": "^7.9",
         "harvesthq/chosen": "^1.8",
         "laminas/laminas-escaper": "^2.13",
+        "phpoffice/phpspreadsheet": "^4.4",
         "pishran/ippanel-client": "^1.0",
         "psr/log": "^3.0",
         "shetabit/multipay": "^1.58",

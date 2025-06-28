@@ -246,10 +246,18 @@ function getRandomColorPair()
             </div>
                         
 
-            <a href="<?= base_url() ?>Trips/New"
+            <a style="left: 30px;    position: absolute;" href="<?= base_url() ?>Trips/New"
                 class="border-0 btn btn-primary py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
-               
-                <span class="py-sm-1 d-block"> <i class="ri-add-line text-white"></i> <span>افزودن استعلام</span> </span> </a>
+                <span class="py-sm-1 d-block">
+                    <i class="ri-add-line text-white"></i>
+                    <span>افزودن استعلام</span>
+                </span>
+            </a>
+            <a style="    left: 160px;position: relative;" href="<?= htmlspecialchars($_SERVER['REQUEST_URI']) ?>&exl=1" class="border-0 btn btn-success py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3 ms-2">
+                <span class="py-sm-1 d-block">
+                    <i class="ri-file-excel-2-line text-white"></i>
+                </span>
+            </a>
 
 
                 

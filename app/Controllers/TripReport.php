@@ -8,6 +8,8 @@ use App\Models\TransactionModel;
 use App\Models\TripsModel;
 use App\Models\UserModel;
 use CodeIgniter\RESTful\ResourceController;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class TripReport extends ResourceController
 {
@@ -28,6 +30,7 @@ class TripReport extends ResourceController
 
     public function Search()
     {
+        $exl                = $this->request->getGet('exl');
         $user               = $this->request->getGet('user');
         $driver             = $this->request->getGet('driver');
         $loc_start          = $this->request->getGet('loc_start');
@@ -282,6 +285,120 @@ class TripReport extends ResourceController
 
 
 
+
+        if($exl && $exl == '1') {
+            $data['Trip'] = $FullTrip;
+            $data['Package'] = (new PackagesModel())->findAll();
+            
+
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
+
+            // Set headers
+            $headers = [
+                'کد سرویس', 'نام مسافر','نام مهمان', 'مبدا', 'مقصد', 'تاریخ سرویس', 'تاریخ تماس',
+                'کرایه مسافر', 'وضعیت سرویس', 'شماره تماس', 'شماره تماس مسافر','وضعیت پرداخت'
+            ];
+            $sheet->fromArray($headers, null, 'A1');
+
+            // Fill data
+            $row = 2;
+            foreach ($FullTrip as $S) {
+                $serviceCode = 1000 + $S['id'];
+                if (isset($S['isGuest']) && $S['isGuest'] > 0) {
+                    $passengerName = $S['passenger_name'];
+                    $guestName = $S['guest_name'];
+                    $passengerTel = $S['passenger_tel'] ;
+                    $guestTel = $S['guest_tel'];
+                } else {
+                    $passengerName = $S['passenger_name'];
+                    $passengerTel = $S['passenger_tel'];
+                }
+                $startAdd = $S['startAdd'];
+                $endAdd = $S['endAdd'];
+                $tripDate = $S['trip_date'];
+                if (!empty($S['trip_time'])) {
+                    $tripTime = explode(':', $S['trip_time']);
+                    $tripDate .= '-' . $tripTime[0] . ':' . $tripTime[1];
+                }
+                $callDate = $S['call_date'];
+                $userCustomFare = isset($S['userCustomFare']) ? number_format($S['userCustomFare']) . '' : '0';
+                // Translate status to Persian
+                switch ($S['status']) {
+                    case 'Called':
+                        $status = 'استعلام';
+                        break;
+                    case 'Reserved':
+                        $status = 'رزرو';
+                        break;
+                    case 'Notifed':
+                        $status = 'اعلام به راننده';
+                        break;
+                    case 'Requested':
+                        $status = 'اعلام آمادگی راننده';
+                        break;
+                    case 'Confirm':
+                        $status = 'پذیرش توسط راننده';
+                        break;
+                    case 'Cancled':
+                        $status = 'کنسل شده';
+                        break;
+                    case 'Done':
+                        $status = 'به پایان رسیده';
+                        break;
+                    case 'Service':
+                        $status = 'سرویس درحال انجام';
+                        break;
+                    default:
+                        $status = 'نامشخص';
+                        break;
+                }
+
+                
+
+
+                $paymentStatus = isset($S['payment_status']) ? $S['payment_status'] : '';
+                switch ($paymentStatus) {
+                    case 'Paid':
+                        $paymentStatus = 'تسویه شده';
+                        break;
+                    case 'halfPaid':
+                        $paymentStatus = 'نیمه پرداخت شده';
+                        break;
+                    case 'notPaid':
+                        $paymentStatus = 'اصلا پرداخت نشده';
+                        break;
+                    default:
+                        $paymentStatus = '';
+                        break;
+                }
+
+                
+
+                $sheet->setCellValue('A' . $row, $serviceCode);
+                $sheet->setCellValue('B' . $row, $passengerName);
+                $sheet->setCellValue('C' . $row, $guestName);
+                $sheet->setCellValue('D' . $row, $startAdd);
+                $sheet->setCellValue('E' . $row, $endAdd);
+                $sheet->setCellValue('F' . $row, $tripDate);
+                $sheet->setCellValue('G' . $row, $callDate);
+                $sheet->setCellValue('H' . $row, $userCustomFare);
+                $sheet->setCellValue('I' . $row, $status);
+                $sheet->setCellValue('J' . $row, $passengerTel);
+                $sheet->setCellValue('K' . $row, $guestTel);
+                $sheet->setCellValue('L' . $row, $paymentStatus);
+                $row++;
+            }
+
+            // Output to browser
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="trips_report.xlsx"');
+            header('Cache-Control: max-age=0');
+
+            $writer = new Xlsx($spreadsheet);
+            $writer->save('php://output');
+            exit;
+        }
 
 
 
