@@ -163,10 +163,12 @@ class Report extends ResourceController
 
         $totalIn    = 0;
         $totalOut   = 0;
+        $totalRef   = 0; 
         $bankTotals = [];
 
         $inCount               = 0;
         $outCount              = 0;
+        $RefCount              = 0;
         $totalUserCustomFare   = 0;
         $totalDriverCustomFare = 0;
         $userCustomFareCount   = 0;
@@ -274,9 +276,14 @@ class Report extends ResourceController
             foreach ($T['Transactions'] as $transaction) {
                 if ($transaction['type'] == 'in') {
                     $totalIn += $transaction['amount'];
-                } elseif ($transaction['type'] == 'out') {
+                }
+                if ($transaction['type'] == 'out') {
                     $totalOut += $transaction['amount'];
                 }
+                if ($transaction['type'] == 'ref') {
+                    $totalRef += $transaction['amount'];
+                }
+      
 
                 $bank_id = $transaction['bank_id'];
                 if (! isset($bankTotals[$bank_id])) {
@@ -285,14 +292,22 @@ class Report extends ResourceController
 
                 if ($transaction['type'] == 'in') {
                     $bankTotals[$bank_id]['in'] += $transaction['amount'];
-                } elseif ($transaction['type'] == 'out') {
+                } 
+                elseif ($transaction['type'] == 'ref') {
+                    $bankTotals[$bank_id]['ref'] += $transaction['amount'];
+                }
+                if ($transaction['type'] == 'out') {
                     $bankTotals[$bank_id]['out'] += $transaction['amount'];
                 }
 
                 if ($transaction['type'] == 'in') {
                     $inCount++;
-                } elseif ($transaction['type'] == 'out') {
+                } 
+                if ($transaction['type'] == 'out') {
                     $outCount++;
+                }
+                if ($transaction['type'] == 'ref') {
+                    $RefCount++;
                 }
 
             }
@@ -301,9 +316,11 @@ class Report extends ResourceController
 
         $data['totalIn']    = $totalIn;
         $data['totalOut']   = $totalOut;
+        $data['totalRef']   = $totalRef;
         $data['bankTotals'] = $bankTotals;
         $data['inCount']    = $inCount;
         $data['outCount']   = $outCount;
+        $data['RefCount']   = $RefCount;
         $data['TotalServicePrice']   = $TotalServicePrice;
 
         $data['averageUserCustomFare']   = $userCustomFareCount ? $totalUserCustomFare / $userCustomFareCount : 0;

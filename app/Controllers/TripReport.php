@@ -492,10 +492,12 @@ class TripReport extends ResourceController
 
         $totalIn    = 0;
         $totalOut   = 0;
+        $totalRef   = 0;
         $bankTotals = [];
 
         $inCount               = 0;
         $outCount              = 0;
+        $RefCount              = 0;
         $totalUserCustomFare   = 0;
         $totalDriverCustomFare = 0;
         $userCustomFareCount   = 0;
@@ -602,8 +604,12 @@ class TripReport extends ResourceController
             foreach ($T['Transactions'] as $transaction) {
                 if ($transaction['type'] == 'in') {
                     $totalIn += $transaction['amount'];
-                } elseif ($transaction['type'] == 'out') {
+                } 
+                if ($transaction['type'] == 'out') {
                     $totalOut += $transaction['amount'];
+                }
+                if ($transaction['type'] == 'refund') {
+                    $totalRef += $transaction['amount'];
                 }
 
                 $bank_id = $transaction['bank_id'];
@@ -613,14 +619,23 @@ class TripReport extends ResourceController
 
                 if ($transaction['type'] == 'in') {
                     $bankTotals[$bank_id]['in'] += $transaction['amount'];
-                } elseif ($transaction['type'] == 'out') {
+                } 
+                if ($transaction['type'] == 'out') {
                     $bankTotals[$bank_id]['out'] += $transaction['amount'];
+                }
+                if ($transaction['type'] == 'refund') {
+                    $bankTotals[$bank_id]['refund'] += $transaction['amount'];
                 }
 
                 if ($transaction['type'] == 'in') {
                     $inCount++;
-                } elseif ($transaction['type'] == 'out') {
+                } 
+                
+                if ($transaction['type'] == 'out') {
                     $outCount++;
+                }
+                if ($transaction['type'] == 'refund') {
+                    $RefCount++;
                 }
 
             }
@@ -629,9 +644,11 @@ class TripReport extends ResourceController
 
         $data['totalIn']    = $totalIn;
         $data['totalOut']   = $totalOut;
+        $data['totalRef']   = $totalRef;
         $data['bankTotals'] = $bankTotals;
         $data['inCount']    = $inCount;
         $data['outCount']   = $outCount;
+        $data['RefCount']   = $RefCount;
 
         $data['averageUserCustomFare']   = $userCustomFareCount ? $totalUserCustomFare / $userCustomFareCount : 0;
         $data['averageDriverCustomFare'] = $driverCustomFareCount ? $totalDriverCustomFare / $driverCustomFareCount : 0;

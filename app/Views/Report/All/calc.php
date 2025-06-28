@@ -307,10 +307,13 @@ $Tstatus = isset($_GET['status']) ? $_GET['status'] : null;
                 <td>مجموع پرداختی</td>
                 <td><?= number_format($totalOut) ?> تومان</td>
             </tr>
+            <tr>
+                <td>مجموع استرداد</td>
+                <td><?= number_format($totalRef) ?> تومان</td>
 
             <tr>
                 <td style="background: #cdcdcd;">میزان سود</td>
-                <td style="background: #cdcdcd;"><?= number_format($totalIn - $totalOut) ?> تومان</td>
+                <td style="background: #cdcdcd;"><?= number_format($totalIn - $totalOut - $totalRef) ?> تومان</td>
             </tr>
             <tr>
                 <td>میانگین کرایه دریافتی از مشتری</td>
