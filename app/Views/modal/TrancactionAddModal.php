@@ -190,7 +190,8 @@
                                 });
 
 
-                            } else if (transType === 'out') {
+                            }  
+                            if (transType === 'out') {
                                 url = base + 'driver/getAllDriver';
 
                                 $.ajax({
@@ -216,9 +217,37 @@
                                     }
                                 });
                             }
+                             if (transType === 'refund') {
+                               url = base + 'user/getAllUser';
+
+                                $.ajax({
+                                    url: url,
+                                    type: 'GET',
+                                    success: function(data) {
+                                        // Handle the response data
+                                        $('#userID').empty(); 
+                                        $.each(data, function(key, value) {
+                                            $('#userID').append($('<option>', {
+                                                value: value.id,
+                                                text: 1000 + value.id + ' - ' + value.name+' '+value.lname
+                                            }));
+                                        });
+
+                                        $('#userID').chosen('destroy').chosen({
+                                            no_results_text: "موردی پیدا نشد",
+                                            width: "100%"
+                                        });
+                                    },
+                                    error: function(xhr, status, error) {
+                                        console.error('AJAX Error: ' + status + error);
+                                    }
+                                });
+
 
                         
-                        });
+                        }
+                    }
+                    );
                     });
 
                     $('#amount').on('input', function() {

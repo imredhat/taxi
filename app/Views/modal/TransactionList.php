@@ -38,8 +38,12 @@
                                                 <td>
                                                     <?php if ($transaction['type'] == 'in'): ?>
                                                         دریافتی از مشتری
-                                                    <?php else: ?>
+                                                    <?php endif; if ($transaction['type'] == 'out'): ?>
                                                         پرداختی به راننده
+
+                                                   <?php endif; if ($transaction['type'] == 'refund'): ?>
+                                                    استرداد به مشتری
+
                                                     <?php endif; ?>
                                                 </td>
                                                 <td><?php echo $transaction['name'] ?></td>
